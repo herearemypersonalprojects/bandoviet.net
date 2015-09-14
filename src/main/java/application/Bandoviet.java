@@ -27,16 +27,24 @@ public class Bandoviet extends WebMvcConfigurerAdapter {
     SpringApplication.run(Bandoviet.class, args);
   }
   /**
-   * 
-   * @return
+   * Implementation of LocaleResolver that uses a locale attribute in the user’s session 
+   * in case of a custom setting, with a fallback to the specified default locale or the 
+   * request’s accept-header locale.
+   * @return the Vietnamese locale is set by default.
    */
   @Bean
   public LocaleResolver localeResolver() {
     SessionLocaleResolver slr = new SessionLocaleResolver();
-    slr.setDefaultLocale(Locale.US);
+    slr.setDefaultLocale(Locale.forLanguageTag("VN"));
     return slr;
   }
 
+  /**
+   * this interceptor will look for a request parameter named ‘lang’ 
+   * and will use its value to determine which locale to switch to.
+   * For exameple: http://localhost:8080/?lang=vn
+   * @return the selected locale.
+   */
   @Bean
   public LocaleChangeInterceptor localeChangeInterceptor() {
     LocaleChangeInterceptor lci = new LocaleChangeInterceptor();

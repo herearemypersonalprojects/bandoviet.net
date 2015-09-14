@@ -1,9 +1,4 @@
-Install user defined checkstyle (Google checkstyle) and make it convenable to eclipse java formatter
-In Eclipse (3.6):
+To wrap lines, I have used the tool Eclipse Word-Wrap:
+http://www.ahtik.com/blog/projects/eclipse-word-wrap/
 
-    Install Checkstyle plug-in
-    Import stylesheet using Windows --> Preferences, General --> Checkstyle --> New. Since you have an external file, choose "external file" as the type.
-
-Right-click on your project in the Package view and select Checkstyle --> Create Formatter-Profile.
-
-Then enable the formatter for your workspace: Windows --> Preferences --> Java --> Code Style --> Formatter. Select formatter: "eclipse-cs [project name]". 
+Link to install: http://ahtik.com/eclipse-update/
