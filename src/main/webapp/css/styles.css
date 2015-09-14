@@ -54,11 +54,20 @@ body{
 }
 
 #map-canvas {
-	width:33.3333%;
+	width:50%;
     height:calc(100% - 0);
     position:absolute;
     right:16px;
     top:50px;
     bottom:0;
     overflow:hidden;
+}
+
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url('fonts/glyphicons-halflings-regular.eot');
+  src: url('fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), 
+  url('fonts/glyphicons-halflings-regular.woff') format('woff'), 
+  url('fonts/glyphicons-halflings-regular.ttf') format('truetype'), 
+  url('fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
 }
