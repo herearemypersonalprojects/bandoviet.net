@@ -26,6 +26,10 @@ body{
     color:#fff;
 }
 
+.navbar-form {
+	width: 50%;
+}
+
 .navbar-custom li>a:hover,.navbar-custom li>a:focus {
 	background-color:#49bfff;
 }
@@ -70,4 +74,28 @@ body{
   url('fonts/glyphicons-halflings-regular.woff') format('woff'), 
   url('fonts/glyphicons-halflings-regular.ttf') format('truetype'), 
   url('fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
+}
+
+.addbutton{
+	padding: 4px 0;
+  	font-size: 30px;
+    color: white;
+    background-color: #007bb3;
+    border-radius: 50%;
+    border: medium none;
+    bottom: 24px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3), 0px 0px 1px rgba(0, 0, 0, 0.1), 0px 1px 0px rgba(255, 255, 255, 0.25) inset, 0px -1px 0px rgba(0, 0, 0, 0.15) inset;
+    cursor: pointer;
+    height: 56px;
+    position: fixed;
+    transition-duration: 0.25s;
+    transition-property: background-color, box-shadow;
+    right: 24px;
+    width: 56px;
+    z-index: 2;
+    text-align: center;
+}
+
+.addbutton:hover{   
+    background-color: #009ee6;  
 }

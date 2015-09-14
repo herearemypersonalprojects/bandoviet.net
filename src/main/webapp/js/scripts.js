@@ -10,7 +10,16 @@ $(document).ready(
 				var mapOptions = {
 					center : latlng,
 					scrollWheel : false,
-					zoom : 13
+					zoom : 13,
+					streetViewControl: false,
+					zoomControlOptions: {
+			            style: google.maps.ZoomControlStyle.SMALL,
+			            position: google.maps.ControlPosition.LEFT_TOP
+			        },
+			        panControl: false,
+			        mapTypeControl: false,
+			        scaleControl: false,
+			        mapTypeId: google.maps.MapTypeId.ROADMAP
 				};
 
 				var marker = new google.maps.Marker({

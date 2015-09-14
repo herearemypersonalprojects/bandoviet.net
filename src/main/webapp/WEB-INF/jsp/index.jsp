@@ -23,7 +23,6 @@
 		<div class="navbar-header">
 			<a class="navbar-brand" href="#">
 				<img  height="42" width="42" alt="Brand" src="img/map.png">
-				<!--<spring:message	code="home.navbar.title" />-->
 			</a> 
 			<a class="navbar-toggle"
 				data-toggle="collapse" data-target=".navbar-collapse"> <span
@@ -33,9 +32,8 @@
 		</div>
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="#">Home</a></li>
-				<li><a href="#">Link</a></li>
-				<li><a href="#">Link</a></li>
+				<li class="active"><a href="#"><spring:message code="home.navbar.event" /></a></li>
+				<li><a href="#"><spring:message code="home.navbar.news" /></a></li>
 				<li>&nbsp;</li>
 			</ul>
 			<form class="navbar-form navbar-left" role="search">
@@ -47,37 +45,40 @@
 								<span class="glyphicon glyphicon-chevron-down"></span>
 							</button>
 							<ul class="dropdown-menu">
-								<li><a href="#">Category 1</a></li>
-								<li><a href="#">Category 2</a></li>
-								<li><a href="#">Category 3</a></li>
-								<li><a href="#">Category 4</a></li>
-								<li><a href="#">Category 5</a></li>
+								<li><a href="#"><spring:message code="home.navbar.restaurant" /> </a></li>
+								<li><a href="#"><spring:message code="home.navbar.administration" /></a></li>
+								<li><a href="#"><spring:message code="home.navbar.company" /></a></li>
+								<li><a href="#"><spring:message code="home.navbar.association" /></a></li>
+								<li><a href="#"><spring:message code="home.navbar.tourism" /></a></li>
+								<li><a href="#"><spring:message code="home.navbar.sport" /></a></li>
+								<li><a href="#"><spring:message code="home.navbar.market" /></a></li>
+								<li><a href="#"><spring:message code="home.navbar.service" /></a></li>
+								<li><a href="#"><spring:message code="home.navbar.individual" /></a></li>
 							</ul>
 						</div>
 						<input type="text" class="form-control"
-							placeholder="What are searching for?"> <span
-							class="input-group-addon"><span
-							class="glyphicon glyphicon-search"></span> </span>
+							placeholder=<spring:message code="home.navbar.search.placeholder" />> 
+							<span class="input-group-addon">
+							<span class="glyphicon glyphicon-search"></span> 
+							</span>
 					</div>
 				</div>
 			</form>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#">Link</a></li>
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-haspopup="true"
-					aria-expanded="false">Dropdown <span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a href="#">Action</a></li>
-						<li><a href="#">Another action</a></li>
-						<li><a href="#">Something else here</a></li>
-						<li role="separator" class="divider"></li>
-						<li><a href="#">Separated link</a></li>
-					</ul></li>
+				<li><a href="/?lang=vn">Ti&#7871;ng Vi&#7879;t</a></li>
+				<li><a href="/?lang=en">English</a></li>
+				<li><a href="/?lang=fr">Fran&#231;ais</a></li>
+				<li><a href="#"><img  height="20" width="20" alt="Brand" src="img/user.png"></a></li>
+				<li><a href="#"></a></li>
 			</ul>
 		</div>
 	</div>
 
 	<div id="map-canvas"></div>
+	
+	<div class="addbutton">+</div>
+	
+	
 	<div class="container-fluid" id="main">
 		<div class="row">
 			<div class="col-xs-6" id="left">
