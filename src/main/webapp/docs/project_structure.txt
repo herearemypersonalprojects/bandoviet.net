@@ -8,3 +8,16 @@ to the world, except for this directory. So, for example, the file webapp/test.j
 accessed from the browser on http://localhost:8080/test.jsp in a textual form and it may cause a 
 security problem or laughter. For other static resources like JavaScript files or images, that's 
 of course a very desired behaviour.
+
+2. Grouped by domain
++ Blog
+	- BlogService
+	- BlogController
+	- BlogModel
+	- BlogRepository
++ User
+	- UserService
+	- UserController
+	- UserModel
+	- UserRepository
+....
