@@ -88,7 +88,7 @@ body{
     cursor: pointer;
     height: 56px;
     position: fixed;
-    transition-duration: 0.25s;
+    transition-duration: 0.15s;
     transition-property: background-color, box-shadow;
     right: 24px;
     width: 56px;
@@ -97,5 +97,5 @@ body{
 }
 
 .addbutton:hover{   
-    background-color: #009ee6;  
+    background-color: #4cbbed;  
 }
