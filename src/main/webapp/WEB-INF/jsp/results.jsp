@@ -36,13 +36,13 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<a href="">Pho 14</a>
-						<div style="float: right;  color:#007bb3;   margin: auto;">
-							<img  class="img-circle" height="15" width="15" alt="facebook" src="img/love.jpg">
-							<span style="font-size:10px;">Thich (23)</span>
-							<img  class="img-circle" height="15" width="15" alt="facebook" src="img/comment.png">
-							<span style="font-size:10px;">Binh luan (123)</span>
-							<img  class="img-circle" height="15" width="15" alt="facebook" src="img/facebook.jpg">
-							<span style="font-size:10px;">Chia se (3)</span>
+						<div style="float: right;  margin: auto;">
+							<img  class="img-circle button_item" alt="facebook" src="img/love.jpg">
+							<span class="comment_item">Thich (23)</span>
+							<img  class="img-circle button_item"  alt="facebook" src="img/comment.png">
+							<span class="comment_item">Binh luan (123)</span>
+							<img  class="img-circle button_item" alt="facebook" src="img/facebook.jpg">
+							<span class="comment_item">Chia se (3)</span>
 						</div>
 						
 					</div>
@@ -67,16 +67,12 @@
 				        </table>
             		</fieldset>
 				</p>
-				<img  class="img-circle" height="15" width="15" alt="facebook" src="img/user.png">
-				<span style="font-size:10px;">
-					Dang boi 12.183.13.4.	
-				</span>
-				<img  class="img-circle" height="15" width="15" alt="facebook" src="img/like.jpg">
-				<span style="font-size:10px;">Cam on (23)</span>
-				<img  class="img-circle" height="15" width="15" alt="facebook" src="img/edit.png">
-				<span style="font-size:10px;">
-					Sua thong tin
-				</span>
+				<img  class="img-circle button_item" alt="facebook" src="img/user.png">
+				<span class="comment_item">	Dang boi 12.183.13.4</span>
+				<img  class="img-circle button_item" alt="facebook" src="img/like.jpg">
+				<span class="comment_item">Cam on (23)</span>
+				<img  class="img-circle button_item" alt="facebook" src="img/edit.png">
+				<span class="comment_item">Sua thong tin</span>
 				<hr>
 
 				<div class="panel panel-default">
@@ -113,16 +109,12 @@
 				        </table>
             		</fieldset>
 				</p>
-				<img  class="img-circle" height="15" width="15" alt="facebook" src="img/user.png">
-				<span style="font-size:10px;">
-					Dang boi 12.183.13.4.	
-				</span>
-				<img  class="img-circle" height="15" width="15" alt="facebook" src="img/like.jpg">
-				<span style="font-size:10px;">Cam on (23)</span>
-				<img  class="img-circle" height="15" width="15" alt="facebook" src="img/edit.png">
-				<span style="font-size:10px;">
-					Sua thong tin
-				</span>
+				<img  class="img-circle button_item" alt="facebook" src="img/user.png">
+				<span class="comment_item">	Dang boi 12.183.13.4</span>
+				<img  class="img-circle button_item" alt="facebook" src="img/like.jpg">
+				<span class="comment_item">Cam on (23)</span>
+				<img  class="img-circle button_item" alt="facebook" src="img/edit.png">
+				<span class="comment_item">Sua thong tin</span>
 				<hr>
 
 				<div class="panel panel-default">

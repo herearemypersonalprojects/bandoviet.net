@@ -123,3 +123,22 @@ body{
 	color: white;
     background-color: #4cbbed;  
 }
+
+.comment_item {
+	color:#007bb3;
+	font-size:10px;
+	cursor: pointer;
+}
+.comment_item:hover {
+	text-decoration: underline;
+}
+
+.button_item {
+	height: 15px;
+	width: 15px;
+	cursor: pointer;
+}
+
+.button_item:hover {
+	-moz-box-shadow: 0 0 10px #ccc; -webkit-box-shadow: 0 0 10px #ccc; box-shadow: 0 0 10px #ccc;
+}
