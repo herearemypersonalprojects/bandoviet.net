@@ -6,29 +6,68 @@
 			<div class="col-xs-6" id="left">
 		
 				<h5 style="color:#007bb3"><spring:message code="home.result.title" />
-					<img style="float: right;" height="30" width="30" alt="facebook" src="img/facebook.jpg">
+					<!-- <img style="float: right;" height="30" width="30" alt="facebook" src="img/facebook.jpg"> -->
 				</h5>
 				<br>
 
 				<!-- item list -->
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<a href="">Item heading</a>
+						<a href="">Pho 14</a>
+						<div style="float: right;  color:#007bb3;   margin: auto;">
+							<img  class="img-circle" height="15" width="15" alt="facebook" src="img/like.jpg">
+							<span style="font-size:10px;">Thich (23)</span>
+							<img  class="img-circle" height="15" width="15" alt="facebook" src="img/comment.png">
+							<span style="font-size:10px;">Binh luan (123)</span>
+							<img  class="img-circle" height="15" width="15" alt="facebook" src="img/facebook.jpg">
+							<span style="font-size:10px;">Chia se (3)</span>
+						</div>
+						
 					</div>
 				</div>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
-					pharetra varius quam sit amet vulputate. Quisque mauris augue,
-					molestie tincidunt condimentum vitae, gravida a libero. Aenean sit
-					amet felis dolor, in sagittis nisi. Sed ac orci quis tortor
-					imperdiet venenatis. Duis elementum auctor accumsan. Aliquam in
-					felis sit amet augue.</p>
-
+				<p>    
+					Thong tin chung: La quan pho duoc nhieu nguoi biet den o Paris. Khong chi khach la nguoi Viet
+					ma nguoi Phap cung rat chuong mon Pho dac trung cua Viet Nam.
+				    <fieldset>
+				        <table>
+				            <tr>
+				                <td><span style="color: ">Dia chi: </span></td>
+				                <td><span>9361 Bolsa Ave. Ste 108 Westminster, CA 92683</span></td>
+				            </tr>
+				            <tr>
+				                <td><span>Dien thoai: </span></td>
+				                <td><span>(714) 775-3724</span></td>
+				            </tr>	
+				            <tr>
+				                <td><span>Gio mo cua: </span></td>
+				                <td><span>Tu thu hai den thu bay</span></td>
+				            </tr>					            			            
+				        </table>
+            		</fieldset>
+				</p>
+				<img  class="img-circle" height="15" width="15" alt="facebook" src="img/user.png">
+				<span style="font-size:10px;">
+					Dang boi 12.183.13.4 luc 12h30 ngay 12.09.2015 tu Paris	
+				</span>
+				<img  class="img-circle" height="15" width="15" alt="facebook" src="img/edit.png">
+				<span style="font-size:10px;">
+					Duoc sua ngay 23.20.15 boi Admin
+				</span>
 				<hr>
 
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<a href="">Item heading</a>
-					</div>
+						<a href="">Banh cuon mon an ngon thuye</a>
+					
+						<div style="float: right;  color:#007bb3;   margin: auto;">
+							<img  class="img-circle" height="15" width="15" alt="facebook" src="img/like.jpg">
+							<span style="font-size:10px;">Thich (23)</span>
+							<img  class="img-circle" height="15" width="15" alt="facebook" src="img/comment.png">
+							<span style="font-size:10px;">Binh luan (123)</span>
+							<img  class="img-circle" height="15" width="15" alt="facebook" src="img/facebook.jpg">
+							<span style="font-size:10px;">Chia se (3)</span>
+						</div>		
+					</div>			
 				</div>
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
 					pharetra varius quam sit amet vulputate. Quisque mauris augue,
@@ -36,12 +75,27 @@
 					amet felis dolor, in sagittis nisi. Sed ac orci quis tortor
 					imperdiet venenatis. Duis elementum auctor accumsan. Aliquam in
 					felis sit amet augue.</p>
-
+				<img  class="img-circle" height="15" width="15" alt="facebook" src="img/user.png">
+				<span style="font-size:10px;">
+					Dang boi 12.183.13.4 luc 12h30 ngay 12.09.2015 tu Paris	
+				</span>
+				<img  class="img-circle" height="15" width="15" alt="facebook" src="img/edit.png">
+				<span style="font-size:10px;">
+					Duoc sua ngay 23.20.15 boi 32.83.87.6
+				</span>
 				<hr>
 
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<a href="">Item heading</a>
+						<a href="">Cha ca La Vong</a>
+						<div style="float: right;  color:#007bb3;   margin: auto;">
+							<img  class="img-circle" height="15" width="15" alt="facebook" src="img/like.jpg">
+							<span style="font-size:10px;">Thich (23)</span>
+							<img  class="img-circle" height="15" width="15" alt="facebook" src="img/comment.png">
+							<span style="font-size:10px;">Binh luan (123)</span>
+							<img  class="img-circle" height="15" width="15" alt="facebook" src="img/facebook.jpg">
+							<span style="font-size:10px;">Chia se (3)</span>
+						</div>						
 					</div>
 				</div>
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
@@ -50,7 +104,14 @@
 					amet felis dolor, in sagittis nisi. Sed ac orci quis tortor
 					imperdiet venenatis. Duis elementum auctor accumsan. Aliquam in
 					felis sit amet augue.</p>
-
+				<img  class="img-circle" height="15" width="15" alt="facebook" src="img/user.png">
+				<span style="font-size:10px;">
+					Dang boi 12.183.13.4 luc 12h30 ngay 12.09.2015 tu Paris	
+				</span>
+				<img  class="img-circle" height="15" width="15" alt="facebook" src="img/edit.png">
+				<span style="font-size:10px;">
+					Duoc sua ngay 23.20.15 boi 32.83.87.6
+				</span>
 				<hr>
 
 				<div class="panel panel-default">
@@ -69,13 +130,6 @@
 				<!-- /item list -->
 
 				<p>
-					<a href="http://www.bootply.com/render/129229">Demo</a> | <a
-						href="http://bootply.com/129229">Source Code</a>
-				</p>
-
-				<hr>
-
-				<p>
 					<a href="http://bootply.com" target="_ext"
 						class="center-block btn btn-primary"><spring:message code="home.result.more" /></a>
 				</p>
@@ -88,4 +142,4 @@
 			</div>
 
 		</div>
-	</div>>
+	</div>

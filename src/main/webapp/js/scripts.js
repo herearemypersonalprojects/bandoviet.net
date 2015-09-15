@@ -37,8 +37,7 @@ $(document).ready(
 					map.setOptions({
 						styles : styles
 					});
-				});
-				
+				});				
 			}
 			;
 			/* end google maps -----------------------------------------------------*/

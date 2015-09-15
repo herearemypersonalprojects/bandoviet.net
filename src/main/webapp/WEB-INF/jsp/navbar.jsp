@@ -37,11 +37,21 @@
 								<li><a href="#"><spring:message code="home.navbar.individual" /></a></li>
 							</ul>
 						</div>
-						<input type="text" class="form-control"
-							placeholder=<spring:message code="home.navbar.search.placeholder" />> 
-							<span class="input-group-addon">
-							<span class="glyphicon glyphicon-search"></span> 
-							</span>
+						
+						<input id = "searchText" style="width:50%;" type="text" class="form-control"	placeholder=<spring:message code="home.navbar.search.placeholder" />> 
+								
+						<input id = "searchCity" style="width:50%;" type="text" class="form-control" value="Paris, France"	placeholder=<spring:message code="home.navbar.search.placeholder" />> 
+						<div class="input-group-btn">							
+							<button type="button" class="btn btn-default">
+								<span class="glyphicon glyphicon-map-marker"></span> 
+							</button>							
+						</div>
+						
+						<div class="input-group-btn">							
+							<button type="button" class="btn btn-default">
+								<span class="glyphicon glyphicon-search"></span> 
+							</button>							
+						</div>
 					</div>
 				</div>
 			</form>
