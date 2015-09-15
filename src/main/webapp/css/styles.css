@@ -141,4 +141,5 @@ body{
 
 .button_item:hover {
 	-moz-box-shadow: 0 0 10px #ccc; -webkit-box-shadow: 0 0 10px #ccc; box-shadow: 0 0 10px #ccc;
+	opacity: 0.5; filter: alpha(opacity=50);
 }

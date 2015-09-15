@@ -31,7 +31,9 @@
     </label>
   </div>
   <button type="submit" class="btn btn-default">Submit</button>
+  <hr>
 </form>
+
 				<!-- item list -->
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -48,7 +50,7 @@
 					</div>
 				</div>
 				<p>    
-					Thong tin chung: La quan pho duoc nhieu nguoi biet den o Paris. Khong chi khach la nguoi Viet
+					La quan pho duoc nhieu nguoi biet den o Paris. Khong chi khach la nguoi Viet
 					ma nguoi Phap cung rat chuong mon Pho dac trung cua Viet Nam.
 				    <fieldset>
 				        <table>
