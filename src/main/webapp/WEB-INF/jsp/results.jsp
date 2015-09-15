@@ -4,10 +4,12 @@
 	<div class="container-fluid" id="main">
 		<div class="row">
 			<div class="col-xs-6" id="left">
-		
-				<h5 style="color:#007bb3"><spring:message code="home.result.title" />
-					<!-- <img style="float: right;" height="30" width="30" alt="facebook" src="img/facebook.jpg"> -->
-				</h5>
+			<br>
+				<div id="textbox">
+					  <p style="font-size: 20px;color:#007bb3;float: left;"><spring:message code="home.result.title" /></p>
+					  <p class="addbutton2" >+</p>
+				</div>
+				<br>	
 				<br>
 
 				<!-- item list -->
@@ -16,7 +18,7 @@
 						<a href="">Pho 14</a>
 						<div style="float: right;  color:#007bb3;   margin: auto;">
 							<img  class="img-circle" height="15" width="15" alt="facebook" src="img/like.jpg">
-							<span style="font-size:10px;">Thich (23)</span>
+							<span style="font-size:10px;">Cam on (23)</span>
 							<img  class="img-circle" height="15" width="15" alt="facebook" src="img/comment.png">
 							<span style="font-size:10px;">Binh luan (123)</span>
 							<img  class="img-circle" height="15" width="15" alt="facebook" src="img/facebook.jpg">
