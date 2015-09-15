@@ -79,7 +79,7 @@ body{
 .addbutton{
 	padding: 4px 0;
   	font-size: 30px;
-    color: #007bb3;
+    color: #4cbbed;
     background-color: white;
     border-radius: 50%;
     border: medium none;
@@ -97,6 +97,7 @@ body{
 }
 
 .addbutton:hover{   
+	color: white;
     background-color: #4cbbed;  
 }
 

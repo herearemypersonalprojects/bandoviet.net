@@ -31,5 +31,6 @@
 	<script src="js/bootstrap.min.js"></script>
 	<script	src="http://maps.googleapis.com/maps/api/js?sensor=false&extension=.js&output=embed"></script>
 	<script src="js/scripts.js"></script>
+	<script src="js/newplace.js"></script>
 </body>
 </html>
