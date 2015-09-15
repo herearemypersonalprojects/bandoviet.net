@@ -40,11 +40,11 @@
 						<a href="">Pho 14</a>
 						<div style="float: right;  margin: auto;">
 							<img  class="img-circle button_item" alt="facebook" src="img/love.jpg">
-							<span class="comment_item">Thich (23)</span>
+							<span class="comment_item"><spring:message code="home.result.item.like"/> (23)</span>
 							<img  class="img-circle button_item"  alt="facebook" src="img/comment.png">
-							<span class="comment_item">Binh luan (123)</span>
+							<span class="comment_item"><spring:message code="home.result.item.comment"/> (123)</span>
 							<img  class="img-circle button_item" alt="facebook" src="img/facebook.jpg">
-							<span class="comment_item">Chia se (3)</span>
+							<span class="comment_item"><spring:message code="home.result.item.share"/> (3)</span>
 						</div>
 						
 					</div>
@@ -55,26 +55,26 @@
 				    <fieldset>
 				        <table>
 				            <tr>
-				                <td><span style="color: ">Dia chi: </span></td>
+				                <td><span style="color: "><spring:message code="home.result.item.address"/>: </span></td>
 				                <td><span>9361 Bolsa Ave. Ste 108 Westminster, CA 92683</span></td>
 				            </tr>
 				            <tr>
-				                <td><span>Dien thoai: </span></td>
+				                <td><span><spring:message code="home.result.item.telephone"/>: </span></td>
 				                <td><span>(714) 775-3724</span></td>
 				            </tr>	
 				            <tr>
-				                <td><span>Gio mo cua: </span></td>
+				                <td><span><spring:message code="home.result.item.time"/>: </span></td>
 				                <td><span>Tu thu hai den thu bay</span></td>
 				            </tr>					            			            
 				        </table>
             		</fieldset>
 				</p>
 				<img  class="img-circle button_item" alt="facebook" src="img/user.png">
-				<span class="comment_item">	Dang boi 12.183.13.4</span>
+				<span class="comment_item"><spring:message code="home.result.item.postedby"/> 12.183.13.4</span>
 				<img  class="img-circle button_item" alt="facebook" src="img/like.jpg">
-				<span class="comment_item">Cam on (23)</span>
+				<span class="comment_item"><spring:message code="home.result.item.thank"/> (23)</span>
 				<img  class="img-circle button_item" alt="facebook" src="img/edit.png">
-				<span class="comment_item">Sua thong tin</span>
+				<span class="comment_item"><spring:message code="home.result.item.edit"/></span>
 				<hr>
 
 				<div class="panel panel-default">

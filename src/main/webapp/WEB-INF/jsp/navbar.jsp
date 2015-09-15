@@ -14,7 +14,7 @@
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="#123"><spring:message code="home.navbar.event" /></a></li>
-				<li><a href="#"><spring:message code="home.navbar.news" /></a></li>
+				<li><a href="#"><spring:message code="home.navbar.news"/></a></li>
 				<li>&nbsp;</li>
 			</ul>
 			<form class="navbar-form navbar-left" role="search">
@@ -35,6 +35,8 @@
 								<li><a href="#"><spring:message code="home.navbar.market" /></a></li>
 								<li><a href="#"><spring:message code="home.navbar.service" /></a></li>
 								<li><a href="#"><spring:message code="home.navbar.individual" /></a></li>
+								<li><a href="#"><spring:message code="home.navbar.usefulinfo" /></a></li>
+								
 							</ul>
 						</div>
 						
