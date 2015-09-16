@@ -64,13 +64,21 @@
 				                <td><span>9361 Bolsa Ave. Ste 108 Westminster, CA 92683</span></td>
 				            </tr>
 				            <tr>
-				                <td><span><spring:message code="home.result.item.telephone"/>: </span></td>
-				                <td><span>(714) 775-3724</span></td>
-				            </tr>	
-				            <tr>
 				                <td><span><spring:message code="home.result.item.time"/>: </span></td>
 				                <td><span>Tu thu hai den thu bay</span></td>
-				            </tr>					            			            
+				            </tr>
+				            <tr>
+				                <td><span><spring:message code="home.result.item.telephone"/>: </span></td>
+				                <td><span>(714) 775-3724</span></td>
+				            </tr>			
+				            <tr>
+				                <td><span><spring:message code="home.result.item.email"/>: </span></td>
+				                <td><span>contact@abc.com</span></td>
+				            </tr>			
+				            <tr>
+				                <td><span><spring:message code="home.result.item.homepage"/>: </span></td>
+				                <td><span>http://www.abc.com</span></td>
+				            </tr>				            	            			            
 				        </table>
             		</fieldset>
 				</p>

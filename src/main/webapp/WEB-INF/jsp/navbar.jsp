@@ -43,11 +43,6 @@
 						<input id = "searchText" style="width:50%;" type="text" class="form-control"	placeholder=<spring:message code="home.navbar.search.placeholder" />> 
 								
 						<input id = "searchCity" style="width:50%;" type="text" class="form-control" value="Paris, France"	placeholder=<spring:message code="home.navbar.search.placeholder" />> 
-						<div class="input-group-btn">							
-							<button type="button" class="btn btn-default">
-								<span class="glyphicon glyphicon-map-marker"></span> 
-							</button>							
-						</div>
 						
 						<div class="input-group-btn">							
 							<button type="button" class="btn btn-default">

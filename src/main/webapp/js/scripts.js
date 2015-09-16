@@ -14,7 +14,7 @@ $(document).ready(
 					streetViewControl: false,
 					zoomControlOptions: {
 			            style: google.maps.ZoomControlStyle.SMALL,
-			            position: google.maps.ControlPosition.LEFT_TOP
+			            position: google.maps.ControlPosition.RIGHT_TOP
 			        },
 			        panControl: false,
 			        mapTypeControl: false,

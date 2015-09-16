@@ -162,3 +162,33 @@ body{
     padding: 0;
     width: 128px;
 }
+
+/*
+* MAP
+*/
+.my_location {
+	padding: 5px;
+    position: absolute;
+    right: 60px;
+    top: 60px;
+    z-index: 0;
+    color: #000;
+    cursor: pointer;
+    text-align: center;
+    border: 1px solid #717b87;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 18px;
+    padding: 1px 6px;
+    
+    -moz-user-select: none; 
+    box-shadow: 0px 1px 4px -1px rgba(0, 0, 0, 0.3); 
+    border-radius: 2px; 
+    background-color: rgb(255, 255, 255); 
+} 
+
+.my_location:hover {
+	color: white;
+    background-color: #4cbbed;  
+}

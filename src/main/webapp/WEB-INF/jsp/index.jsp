@@ -22,6 +22,8 @@
 	
 	<div class="addbutton">+</div>
 	
+	<div class="my_location"><spring:message code="home.map.mylocation" /></div>
+	
 	<jsp:include page="results.jsp" />
 
 	<!-- end view -->
@@ -29,7 +31,8 @@
 	<!-- script references -->
 	<script	src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<script	src="http://maps.googleapis.com/maps/api/js?sensor=false&extension=.js&output=embed"></script>
+	<script src="http://maps.googleapis.com/maps/api/js?sensor=false&extension=.js&output=embed&amp;language=en&amp;v=3.exp&libraries=places"></script>
+  
 	<script src="js/scripts.js"></script>
 	<script src="js/app.js" type="text/javascript"></script>
 	<script src="js/newplace.js"></script>
