@@ -33,7 +33,7 @@ $(document).ready(
 				marker.setMap(map);
 
 				// STYLE
-				$.getScript( 'js/map_style.js', function() {
+				$.getScript( 'js/mapstyle.js', function() {
 					map.setOptions({
 						styles : styles
 					});

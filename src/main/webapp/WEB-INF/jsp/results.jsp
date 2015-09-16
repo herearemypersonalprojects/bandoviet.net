@@ -35,9 +35,13 @@
 </form>
 
 				<!-- item list -->
+				<%
+				      for (int i = 0; i < 20; ++i) {
+				  %>
+				<div class="item_content <% if (i == 1) { %> item_active <% } %>">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<a href="">Pho 14</a>
+						<a href="<%= request.getQueryString()%>/placeid=10" target="_blank">Pho <%=i+13%></a>
 						<div style="float: right;  margin: auto;">
 							<img  class="img-circle button_item" alt="facebook" src="img/love.jpg">
 							<span class="comment_item"><spring:message code="home.result.item.like"/> (23)</span>
@@ -52,10 +56,11 @@
 				<p>    
 					La quan pho duoc nhieu nguoi biet den o Paris. Khong chi khach la nguoi Viet
 					ma nguoi Phap cung rat chuong mon Pho dac trung cua Viet Nam.
+					<img class="photo_item" src="img/test.jpg" alt="Item test">
 				    <fieldset>
 				        <table>
 				            <tr>
-				                <td><span style="color: "><spring:message code="home.result.item.address"/>: </span></td>
+				                <td><span><spring:message code="home.result.item.address"/>: </span></td>
 				                <td><span>9361 Bolsa Ave. Ste 108 Westminster, CA 92683</span></td>
 				            </tr>
 				            <tr>
@@ -76,7 +81,10 @@
 				<img  class="img-circle button_item" alt="facebook" src="img/edit.png">
 				<span class="comment_item"><spring:message code="home.result.item.edit"/></span>
 				<hr>
-
+				</div>
+				  <%
+				      }
+				  %>
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<a href="">Banh cuon mon an ngon thuye</a>

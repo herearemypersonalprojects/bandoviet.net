@@ -58,9 +58,9 @@
 				</div>
 			</form>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="/?lang=vn">Ti&#7871;ng Vi&#7879;t</a></li>
-				<li><a href="/?lang=en">English</a></li>
-				<li><a href="/?lang=fr">Fran&#231;ais</a></li>
+				<li class="language vn"><a href="/?lang=vn">Ti&#7871;ng Vi&#7879;t</a></li>
+				<li class="language en"><a href="/?lang=en">English</a></li>
+				<li class="language fr"><a href="/?lang=fr">Fran&#231;ais</a></li>
 				<li><a href="#"><img  height="20" width="20" alt="Brand" src="img/user.png"></a></li>
 				<li><a href="#"></a></li>
 			</ul>
