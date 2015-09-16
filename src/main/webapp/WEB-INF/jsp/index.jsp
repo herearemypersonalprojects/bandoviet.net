@@ -24,6 +24,8 @@
 	
 	<div class="my_location"><spring:message code="home.map.mylocation" /></div>
 	
+	<jsp:include page="mylocationalert.jsp" />
+	
 	<jsp:include page="results.jsp" />
 
 	<!-- end view -->
