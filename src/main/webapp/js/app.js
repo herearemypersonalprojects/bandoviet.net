@@ -6,12 +6,21 @@
 $(document).ready(function() {
 	var lang = getUrlParameter('lang');
 	if (!lang) lang = "vn";
-	$( ".language" ).each(function() {
+	$( '.language' ).each(function() {
 		var that = $( this );
 	    if (that.hasClass( lang )) {
 	    	that.hide();
 	    };
 	  });
+	
+	$('#eventCategory').on('click', function() {
+
+		  console.log($('#scroll').offset().top);
+
+		  
+		  $("html, body").animate({ scrollTop: $('#scroll').offset().top }, 1000);
+	    return true;
+	});
 });
 
 var getUrlParameter = function getUrlParameter(sParam) {

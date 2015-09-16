@@ -3,7 +3,7 @@
 
 	<div class="container-fluid" id="main">
 		<div class="row">
-			<div class="col-xs-6" id="left">
+			<div id="results" class="col-xs-6" id="left">
 			<br>
 				<div id="textbox">
 					  <p style="font-size: 20px;color:#007bb3;float: left;"><spring:message code="home.result.title" /></p>
@@ -38,7 +38,7 @@
 				<%
 				      for (int i = 0; i < 20; ++i) {
 				  %>
-				<div class="item_content <% if (i == 1) { %> item_active <% } %>">
+				<div id="<%=i %>" class="item_content <% if (i == 1) { %> item_active <% } %>">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<a href="<%= request.getQueryString()%>/placeid=10" target="_blank">Pho <%=i+13%></a>
@@ -53,6 +53,7 @@
 						
 					</div>
 				</div>
+				
 				<p>    
 					La quan pho duoc nhieu nguoi biet den o Paris. Khong chi khach la nguoi Viet
 					ma nguoi Phap cung rat chuong mon Pho dac trung cua Viet Nam.
@@ -218,7 +219,7 @@
 				<hr>
 				<!-- /item list -->
 
-				<p>
+				<p id="scroll">
 					<a href="http://bootply.com" target="_ext"
 						class="center-block btn btn-primary"><spring:message code="home.result.more" /></a>
 				</p>

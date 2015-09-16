@@ -13,7 +13,7 @@
 		</div>
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="#123"><spring:message code="home.navbar.event" /></a></li>
+				<li id="eventCategory" class="active"><a href="#"><spring:message code="home.navbar.event" /></a></li>
 				<li><a href="#"><spring:message code="home.navbar.news"/></a></li>
 				<li>&nbsp;</li>
 			</ul>

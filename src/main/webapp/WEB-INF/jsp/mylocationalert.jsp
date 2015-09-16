@@ -14,7 +14,10 @@
           <h4 class="modal-title"><spring:message code="application.alert" /></h4>
         </div>
         <div class="modal-body">
-          <p><spring:message code="home.map.mylocationalert" />.</p>
+          <p><spring:message code="home.map.mylocationalert" /></p>
+          <p id = "myLocationAlertcity"></p>
+          <p id = "myLocationAlertregion"></p> 
+          <p id = "myLocationAlertcountry"></p> 
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="application.close" /></button>
