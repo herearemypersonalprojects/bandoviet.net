@@ -192,3 +192,8 @@ body{
 	color: white;
     background-color: #4cbbed;  
 }
+
+.modal-header {
+	background-color: #168ccc;
+    color:#fff;
+}

@@ -15,12 +15,15 @@
 <link rel="icon" type="image/png" href="img/map.png"> <!-- http://www.favicon.cc -->
 </head>
 <body>
+
 	<!-- begin view -->
+	<jsp:include page="about.jsp" />
+	
 	<jsp:include page="navbar.jsp" />
 
 	<div id="map-canvas"></div>
 	
-	<div class="addbutton">+</div>
+	<div class="newplace addbutton">+</div>
 	
 	<div class="my_location"><spring:message code="home.map.mylocation" /></div>
 	

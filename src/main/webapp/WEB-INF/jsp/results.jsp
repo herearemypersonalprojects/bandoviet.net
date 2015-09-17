@@ -3,11 +3,11 @@
 
 	<div class="container-fluid" id="main">
 		<div class="row">
-			<div id="results" class="col-xs-6" id="left">
-			<br>
+			<div id="results" class="col-xs-6 responsive" id="left">
+				<br>
 				<div id="textbox">
 					  <p style="font-size: 20px;color:#007bb3;float: left;"><spring:message code="home.result.title" /></p>
-					  <p class="newplace addbutton2" >+</p>
+					  <p id="newplace" class="newplace addbutton2" >+</p>
 				</div>
 				<br>	
 				<br>

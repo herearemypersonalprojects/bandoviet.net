@@ -13,6 +13,10 @@ $(document).ready(function() {
 	    };
 	  });
 	
+	$('.navbar-brand').on('click', function() {
+		$('#about').modal('show');
+	});
+	
 	$('#eventCategory').on('click', function() {
 
 		  console.log($('#scroll').offset().top);
@@ -21,7 +25,25 @@ $(document).ready(function() {
 		  $("html, body").animate({ scrollTop: $('#scroll').offset().top }, 1000);
 	    return true;
 	});
+	
+	/* RESPONSIVE */
+	responsive();
+	$( window ).resize(function() {
+		responsive();
+	});
+	
+	
 });
+
+function responsive() {
+	  if ($( window ).width() < 1000) {
+		  $('.responsive').hide();
+		  $('#map-canvas').width( '100%'); 
+	  } else {
+		  $('.responsive').show();
+		  $('#map-canvas').width( '50%'); 
+	  }	
+}
 
 var getUrlParameter = function getUrlParameter(sParam) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),

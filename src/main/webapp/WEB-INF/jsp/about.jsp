@@ -4,20 +4,17 @@
   <button style="display:none" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myLocationAlert">Open Modal</button>
 	
   <!-- Modal -->
-  <div class="modal fade" id="myLocationAlert" role="dialog">
+  <div class="modal fade" id="about" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4  class="modal-title"><spring:message code="application.alert" /></h4>
+          <h4  class="modal-title"><spring:message code="application.about" /></h4>
         </div>
         <div class="modal-body">
-          <p><spring:message code="home.map.mylocationalert" /></p>
-          <p id = "myLocationAlertcity"></p>
-          <p id = "myLocationAlertregion"></p> 
-          <p id = "myLocationAlertcountry"></p> 
+          <p><spring:message code="application.about.content" /></p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="application.close" /></button>

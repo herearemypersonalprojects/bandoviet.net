@@ -2,13 +2,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	<div class="navbar navbar-custom navbar-fixed-top">
 		<div class="navbar-header">
+		
 			<a class="navbar-brand" href="#">
 				<img  height="42" width="42" alt="Brand" src="img/map.png">
 			</a> 
-			<a class="navbar-toggle"
-				data-toggle="collapse" data-target=".navbar-collapse"> <span
-				class="icon-bar"></span> <span class="icon-bar"></span> <span
-				class="icon-bar"></span>
+			<a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> 
+				<span class="icon-bar"></span> 
+				<span class="icon-bar"></span> 
+				<span class="icon-bar"></span>
 			</a>
 		</div>
 		<div class="navbar-collapse collapse">
@@ -52,7 +53,7 @@
 					</div>
 				</div>
 			</form>
-			<ul class="nav navbar-nav navbar-right">
+			<ul class="nav navbar-nav navbar-right responsive">
 				<li class="language vn"><a href="/?lang=vn">Ti&#7871;ng Vi&#7879;t</a></li>
 				<li class="language en"><a href="/?lang=en">English</a></li>
 				<li class="language fr"><a href="/?lang=fr">Fran&#231;ais</a></li>
