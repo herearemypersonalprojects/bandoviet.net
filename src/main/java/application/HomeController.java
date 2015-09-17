@@ -17,7 +17,7 @@ import java.util.Map;
  *
  */
 @Controller
-public class WelcomeController {
+public class HomeController {
 
   @Value("${application.message:Hello World}")
   private String message = "Hello World";
@@ -32,6 +32,11 @@ public class WelcomeController {
     model.put("time", new Date());
     model.put("message", this.message + "ok");
     return "index";
+  }
+  
+  @RequestMapping("/unsupported")
+  public String unsupported(Map<String, Object> model) {
+    return "unsupported";
   }
 
   @RequestMapping("/foo")
