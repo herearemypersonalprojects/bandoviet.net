@@ -4,7 +4,7 @@
 		<div class="navbar-header">
 		
 			<a class="navbar-brand" href="#">
-				<img  height="42" width="42" alt="Brand" src="img/map.png">
+				 <img  height="30" alt="Logo" src="img/map.png"> 
 			</a> 
 			<a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> 
 				<span class="icon-bar"></span> 
@@ -54,11 +54,24 @@
 				</div>
 			</form>
 			<ul class="nav navbar-nav navbar-right responsive">
-				<li class="language vn"><a href="/?lang=vn">Ti&#7871;ng Vi&#7879;t</a></li>
-				<li class="language en"><a href="/?lang=en">English</a></li>
-				<li class="language fr"><a href="/?lang=fr">Fran&#231;ais</a></li>
-				<li><a href="#"><img  height="20" width="20" alt="Brand" src="img/user.png"></a></li>
-				<li><a href="#"></a></li>
+				<li class="language vn"><a href="/?lang=vn">
+				<img  height="20"  alt="Ti&#7871;ng Vi&#7879;t" src="img/vietnamese.png">
+				</a></li>
+				
+				<li class="language en"><a href="/?lang=en">
+				<img  height="20"  alt="English" src="img/english.png">
+				</a></li>
+				
+				<li class="language fr"><a href="/?lang=fr">
+				<img  height="20"  alt="Fran&#231;ais" src="img/french.jpg">
+				
+				</a></li>
+				<li id="abouticon"><a class="img-circle" href="#"><img  height="20" width="20" alt="About" src="img/about.ico"></a></li>
+				<!--  If user have logined 
+				<li><a href="#"><img  height="22" width="22" alt="Brand" src="img/user.png"></a></li>
+				-->
+				
+				<li><a></a></li>
 			</ul>
 		</div>
 	</div>

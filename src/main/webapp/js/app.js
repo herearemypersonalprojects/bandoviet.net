@@ -13,7 +13,7 @@ $(document).ready(function() {
 	    };
 	  });
 	
-	$('.navbar-brand').on('click', function() {
+	$('#abouticon').on('click', function() {
 		$('#about').modal('show');
 	});
 	
@@ -39,7 +39,7 @@ function responsive() {
 	  if (window.mobileAndTabletcheck() || detectmob()) {
 		  window.location.href = "/unsupported";
 	  }
-	
+	  /*
 	  if ($( window ).width() < 1000) {
 		  $('.responsive').hide();
 		  $('#map-canvas').width( '100%'); 
@@ -47,6 +47,7 @@ function responsive() {
 		  $('.responsive').show();
 		  $('#map-canvas').width( '50%'); 
 	  }	
+	  */
 }
 
 /* get a parameter from the current url */

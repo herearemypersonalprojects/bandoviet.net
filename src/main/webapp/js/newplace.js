@@ -7,9 +7,9 @@ $(document).ready(function() {
 		var button = $('.newplace');
 		var form = $('#newplaceform');
 		if (!form.is(":visible") ) {
-			$('#newplaceform').show();
+			form.show();
 			button.html('-');
-			window.location.href ="#newplace";
+			$('#title').focus();
 		} else {
 			form.hide();
 			button.html('+');			

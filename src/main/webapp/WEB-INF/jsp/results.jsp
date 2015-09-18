@@ -5,36 +5,74 @@
 		<div class="row">
 			<div id="results" class="col-xs-6 responsive" id="left">
 				<br>
+				<jsp:include page="newplaceform.jsp" />
+				
 				<div id="textbox">
 					  <p style="font-size: 20px;color:#007bb3;float: left;"><spring:message code="home.result.title" /></p>
 					  <p id="newplace" class="newplace addbutton2" >+</p>
 				</div>
 				<br>	
 				<br>
-<form id = "newplaceform" style="display:none">
-  <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-  </div>
-  <div class="form-group">
-    <label for="exampleInputFile">File input</label>
-    <input type="file" id="exampleInputFile">
-    <p class="help-block">Example block-level help text here.</p>
-  </div>
-  <div class="checkbox">
-    <label>
-      <input type="checkbox"> Check me out
-    </label>
-  </div>
-  <button type="submit" class="btn btn-default">Submit</button>
-  <hr>
-</form>
+
+				
+
 
 				<!-- item list -->
+				<!--  Danh sach nguoi Viet o cac nuoc -->
+				<div class="item_content">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<a href="#" target="_blank">Vietnamese people in France</a>
+						<div style="float: right;  margin: auto;">
+							<img  class="img-circle button_item" alt="facebook" src="img/love.jpg">
+							<span class="comment_item"><spring:message code="home.result.item.like"/> (23)</span>
+							<img  class="img-circle button_item"  alt="facebook" src="img/comment.png">
+							<span class="comment_item"><spring:message code="home.result.item.comment"/> (123)</span>
+							<img  class="img-circle button_item" alt="facebook" src="img/facebook.jpg">
+							<span class="comment_item"><spring:message code="home.result.item.share"/> (3)</span>
+						</div>
+						
+					</div>
+				</div>
+				
+				<p>    
+					The Vietnamese people in France consists of people of Vietnamese ancestry who were born in or immigrated to France. Their population was about 300,000 in 2012.
+
+Unlike other overseas Vietnamese communities in the West, the Vietnamese population in France had already been well-established before the Fall of Saigon and diaspora that resulted from it..
+					<img class="photo_item" src="img/test.jpg" alt="Item test">
+				    <fieldset>
+				        <table>
+				            <tr>
+				                <td><span>Total population: </span></td>
+				                <td><span>~300,000 (2012)</span></td>
+				            </tr>
+				            <tr>
+				                <td><span>Regions with significant populations: </span></td>
+				                <td><span>Paris and Île-de-France region, Marseille, Lyon, Toulouse, Lille, Bordeaux</span></td>
+				            </tr>
+				            <tr>
+				                <td><span>Some famous individuals: </span></td>
+				                <td><span>
+				                	Thich Nhat Hanh<br>
+				                	Ngo Bao Chau<br>
+				                	Bao Dai<br>
+				                	Hoang Ngoc Liem <br>
+				                	</span>
+				                </td>
+				               
+				            </tr>			
+				  	            	            			            
+				        </table>
+            		</fieldset>
+				</p>
+				<img  class="img-circle button_item" alt="facebook" src="img/user.png">
+				<span class="comment_item"><spring:message code="home.result.item.postedby"/> 12.183.13.4</span>
+				<img  class="img-circle button_item" alt="facebook" src="img/like.jpg">
+				<span class="comment_item"><spring:message code="home.result.item.thank"/> (23)</span>
+				<img  class="img-circle button_item" alt="facebook" src="img/edit.png">
+				<span class="comment_item"><spring:message code="home.result.item.edit"/></span>
+				<hr>
+				</div>
 				<%
 				      for (int i = 0; i < 20; ++i) {
 				  %>
