@@ -30,9 +30,23 @@
   </div>
  
   <div class="form-group">
-  	<label for="title" class="col-sm-3 control-label">Phân loại</label>
+  	<label for="title" class="col-sm-3 control-label">Phân loại (*)</label>
   	<div class="col-sm-9">
-  		<select name="placeType" class="form-control" id="placeType"></select>
+  		<select name="placeType" class="form-control" id="placeType">
+  			<option value="event" selected><spring:message code="home.navbar.event" /></option>
+  			<option value="news"><spring:message code="home.navbar.news" /></option>
+  			<option value="annoucement"><spring:message code="home.navbar.annoucement" /></option>
+			<option value="restaurant"><spring:message code="home.navbar.restaurant" /></option>
+			<option value="administration"><spring:message code="home.navbar.administration" /></option>
+			<option value="company"><spring:message code="home.navbar.company" /></option>
+			<option value="association"><spring:message code="home.navbar.association" /></option>
+			<option value="tourism"><spring:message code="home.navbar.tourism" /></option>
+			<option value="sport"><spring:message code="home.navbar.sport" /></option>
+			<option value="market"><spring:message code="home.navbar.market" /></option>
+			<option value="service"><spring:message code="home.navbar.service" /></option>
+			<option value="individual"><spring:message code="home.navbar.individual" /></option>
+			<option value="usefulinfo"><spring:message code="home.navbar.usefulinfo" /></option>
+  		</select>
   	</div>	  	
   </div>
    
@@ -48,14 +62,14 @@
   	<input class="form-control" id="communityCode" name="communityCode" id="vn"></input>  	
   </div>
   
-  <div id="openTimeGroup" class="form-group">
-    <label for="openTime" class="col-sm-3 control-label">Thời gian </label>
+  <div id="openTimeInput" class="form-group hide">
+    <label for="openTime" class="col-sm-3 control-label">Thời gian mở cửa </label>
     <div class="col-sm-9">
     	<input type="text" class="form-control" id="openTime" name="openTime" placeholder="Từ thời gian nào đến thời gian nào?">
     </div>	
   </div>
   
-	<div class="form-group">
+	<div id="eventTime" class="form-group">
 		 <label for="startDate" class="col-sm-3 control-label">Từ thời gian</label>
 		<!-- 
 		<div class="span9 col-md-9" id="sandbox-container">
@@ -67,17 +81,17 @@
 		</div>	
 		 -->
 		
-				<div class="span9 col-md-9" id="sandbox-container">
-			<div class="input-daterange input-group" id="eventTime">		
-				<div class="input-group date time" id="startTime">
-                    <input type="text" class="form-control">
+		<div class="span9 col-md-9">
+			<div class="input-daterange input-group" >		
+				<div class="input-group date" id="startTime">
+                    <input type="text" class="form-control" placeholder="ngày giờ bắt đầu">
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
                 </div>
 			    <span class="input-group-addon">tới</span>
-				<div class="input-group date time" id="endTime">
-                    <input type="text" class="form-control">
+				<div class="input-group date" id="endTime">
+                    <input type="text" class="form-control" placeholder="ngày giờ kết thúc">
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>

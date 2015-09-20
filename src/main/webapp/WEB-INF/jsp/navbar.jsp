@@ -27,6 +27,7 @@
 								<span class="glyphicon glyphicon-chevron-down"></span>
 							</button>
 							<ul class="dropdown-menu">
+								<li><a href="#type=annoucement"><spring:message code="home.navbar.annoucement" /> </a></li>
 								<li><a href="#"><spring:message code="home.navbar.restaurant" /> </a></li>
 								<li><a href="#"><spring:message code="home.navbar.administration" /></a></li>
 								<li><a href="#"><spring:message code="home.navbar.company" /></a></li>

@@ -17,6 +17,10 @@ body{
   	padding-top:50px; /*padding for navbar*/
 }
 
+.hide {
+	display:none;
+}
+
 .navbar-custom .icon-bar {
 	background-color:#fff;
 }
