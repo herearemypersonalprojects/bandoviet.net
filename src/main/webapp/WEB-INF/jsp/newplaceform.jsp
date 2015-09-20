@@ -51,7 +51,7 @@
   </div>
    
   <div class="form-group">
-  	<label for="information" class="col-sm-3 control-label">Thông tin chung</label>
+  	<label for="information" class="col-sm-3 control-label">Nội dung</label>
   	<div class="col-sm-9">
   		<textarea rows="3" name="information" class="form-control" id="information" placeholder="Nhập thông tin chi tiết"></textarea>
   	</div>	                                
