@@ -2,7 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<form class="form-horizontal" id = "newplaceform" style="display:block" method="POST" enctype="multipart/form-data">
+
+<form class="form-horizontal" id = "newplaceform" style="display:none" method="POST" enctype="multipart/form-data">
   <div class="form-group">
     <label for="title" class="col-sm-3 control-label">Tên (*)</label>
      <div class="col-sm-9">
@@ -47,6 +48,45 @@
   	<input class="form-control" id="communityCode" name="communityCode" id="vn"></input>  	
   </div>
   
+  <div id="openTimeGroup" class="form-group">
+    <label for="openTime" class="col-sm-3 control-label">Thời gian </label>
+    <div class="col-sm-9">
+    	<input type="text" class="form-control" id="openTime" name="openTime" placeholder="Từ thời gian nào đến thời gian nào?">
+    </div>	
+  </div>
+  
+	<div class="form-group">
+		 <label for="startDate" class="col-sm-3 control-label">Từ thời gian</label>
+		<!-- 
+		<div class="span9 col-md-9" id="sandbox-container">
+			<div class="input-daterange input-group" id="datepicker">		
+			    <input type="text" class="input-sm form-control" name="start" />
+			    <span class="input-group-addon">tới</span>
+			    <input type="text" class="input-sm form-control" name="end" />
+			</div>
+		</div>	
+		 -->
+		
+				<div class="span9 col-md-9" id="sandbox-container">
+			<div class="input-daterange input-group" id="eventTime">		
+				<div class="input-group date time" id="startTime">
+                    <input type="text" class="form-control">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+			    <span class="input-group-addon">tới</span>
+				<div class="input-group date time" id="endTime">
+                    <input type="text" class="form-control">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+			</div>
+		</div>	
+
+  </div>
+	
   <div class="form-group">
     <label for="telephone" class="col-sm-3 control-label">Điện thoại</label>
     <div class="col-sm-9">
@@ -54,17 +94,10 @@
     </div>
   </div>
   
-    <div class="form-group">
+  <div class="form-group">
     <label for="email" class="col-sm-3 control-label">Địa chỉ email</label>
     <div class="col-sm-9">
     	<input type="text" class="form-control" id="email" name="email" placeholder="Địa chỉ email">
-    </div>	
-  </div>
-  
-    <div class="form-group">
-    <label for="title" class="col-sm-3 control-label">Thời gian </label>
-    <div class="col-sm-9">
-    	<input type="text" class="form-control" id="openTime" name="openTime" placeholder="Từ thời gian nào đến thời gian nào?">
     </div>	
   </div>
     

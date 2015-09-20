@@ -39,7 +39,7 @@
 					The Vietnamese people in France consists of people of Vietnamese ancestry who were born in or immigrated to France. Their population was about 300,000 in 2012.
 
 Unlike other overseas Vietnamese communities in the West, the Vietnamese population in France had already been well-established before the Fall of Saigon and diaspora that resulted from it..
-					<img class="photo_item" src="img/test.jpg" alt="Item test">
+					<img class="photo_item img-circle" src="img/france.jpg" alt="Item test">
 				    <fieldset>
 				        <table>
 				            <tr>

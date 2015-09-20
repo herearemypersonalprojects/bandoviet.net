@@ -7,8 +7,8 @@
 <meta charset="utf-8">
 <title><spring:message code="application.title" /></title>
 <meta name="generator" content="Bootply" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link href="css/datepicker.min.css" rel="stylesheet">	
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <!--[if lt IE 9]>	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>	<![endif]-->
 <link href="css/styles.css" rel="stylesheet">
@@ -40,6 +40,11 @@
   
 	<script src="js/scripts.js"></script>
 	<script src="js/app.js" type="text/javascript"></script>
-	<script src="js/newplace.js"></script>
+
+	<script type="text/javascript" src="js/moment.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap-datepicker.min.js"></script>
+	<script type="text/javascript" src="js/en-gb.js"></script>
+	<script type="text/javascript" src="js/newplace.js"></script>
 </body>
 </html>
