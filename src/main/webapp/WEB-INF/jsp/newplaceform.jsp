@@ -5,15 +5,15 @@
 
 <form class="form-horizontal" id = "newplaceform" style="display:none" method="POST" enctype="multipart/form-data">
   <div class="form-group">
-    <label for="title" class="col-sm-3 control-label">Tên (*)</label>
+    <label for="title" class="col-sm-3 control-label"><spring:message code="home.new.name"/></label>
      <div class="col-sm-9">
-  	   <input type="text" class="form-control" id="title" name="title" placeholder="Xin vui lòng nhập tên thông tin">
+  	   <input type="text" class="form-control" id="title" name="title" placeholder="<spring:message code="home.new.name.suggest"/>">
  	 </div>
   </div>
   <div class="form-group">
-    <label for="address" class="col-sm-3 control-label" >Địa chỉ (*)</label>
+    <label for="address" class="col-sm-3 control-label" ><spring:message code="home.new.address"/></label>
     <div class="col-sm-9">
-    	<input type="text" class="form-control" id="address" name="address" placeholder="Number, route, city, country">
+    	<input type="text" class="form-control" id="address" name="address" placeholder="<spring:message code="home.new.address.suggest"/>">
     </div>              
     <input type="hidden" id="street_number" name="streetNumber"/>
     <input type="hidden" id="route" name="route">
@@ -30,7 +30,7 @@
   </div>
  
   <div class="form-group">
-  	<label for="title" class="col-sm-3 control-label">Phân loại (*)</label>
+  	<label for="title" class="col-sm-3 control-label"><spring:message code="home.new.type"/></label>
   	<div class="col-sm-9">
   		<select name="placeType" class="form-control" id="placeType">
   			<option value="event" selected><spring:message code="home.navbar.event" /></option>
@@ -45,15 +45,16 @@
 			<option value="market"><spring:message code="home.navbar.market" /></option>
 			<option value="service"><spring:message code="home.navbar.service" /></option>
 			<option value="individual"><spring:message code="home.navbar.individual" /></option>
+			<option value="countries"><spring:message code="home.navbar.countries" /></option>
 			<option value="usefulinfo"><spring:message code="home.navbar.usefulinfo" /></option>
   		</select>
   	</div>	  	
   </div>
    
   <div class="form-group">
-  	<label for="information" class="col-sm-3 control-label">Nội dung</label>
+  	<label for="information" class="col-sm-3 control-label"><spring:message code="home.new.content"/></label>
   	<div class="col-sm-9">
-  		<textarea rows="3" name="information" class="form-control" id="information" placeholder="Nhập thông tin chi tiết"></textarea>
+  		<textarea rows="3" name="information" class="form-control" id="information" placeholder="<spring:message code="home.new.content.suggest"/>"></textarea>
   	</div>	                                
   </div>
  	
@@ -63,14 +64,14 @@
   </div>
   
   <div id="openTimeInput" class="form-group hide">
-    <label for="openTime" class="col-sm-3 control-label">Thời gian mở cửa </label>
+    <label for="openTime" class="col-sm-3 control-label"><spring:message code="home.new.time"/></label>
     <div class="col-sm-9">
-    	<input type="text" class="form-control" id="openTime" name="openTime" placeholder="Từ thời gian nào đến thời gian nào?">
+    	<input type="text" class="form-control" id="openTime" name="openTime" placeholder="<spring:message code="home.new.time.suggest"/>">
     </div>	
   </div>
   
 	<div id="eventTime" class="form-group">
-		 <label for="startDate" class="col-sm-3 control-label">Từ thời gian</label>
+		 <label for="startDate" class="col-sm-3 control-label"><spring:message code="home.new.time"/></label>
 		<!-- 
 		<div class="span9 col-md-9" id="sandbox-container">
 			<div class="input-daterange input-group" id="datepicker">		
@@ -84,14 +85,14 @@
 		<div class="span9 col-md-9">
 			<div class="input-daterange input-group" >		
 				<div class="input-group date" id="startTime">
-                    <input type="text" class="form-control" placeholder="ngày giờ bắt đầu">
+                    <input type="text" class="form-control" placeholder="<spring:message code="home.new.from.suggest"/>">
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
                 </div>
-			    <span class="input-group-addon">tới</span>
+			    <span class="input-group-addon"><spring:message code="home.new.to"/></span>
 				<div class="input-group date" id="endTime">
-                    <input type="text" class="form-control" placeholder="ngày giờ kết thúc">
+                    <input type="text" class="form-control" placeholder="<spring:message code="home.new.to.suggest"/>">
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -102,28 +103,28 @@
   </div>
 	
   <div class="form-group">
-    <label for="telephone" class="col-sm-3 control-label">Điện thoại</label>
+    <label for="telephone" class="col-sm-3 control-label"><spring:message code="home.new.telephone"/></label>
     <div class="col-sm-9">
-    	<input type="text" class="form-control" id="telephone" name="telephone" placeholder="Số điện thoại">
+    	<input type="text" class="form-control" id="telephone" name="telephone" placeholder="<spring:message code="home.new.telephone.suggest"/>">
     </div>
   </div>
   
   <div class="form-group">
-    <label for="email" class="col-sm-3 control-label">Địa chỉ email</label>
+    <label for="email" class="col-sm-3 control-label"><spring:message code="home.new.email"/></label>
     <div class="col-sm-9">
-    	<input type="text" class="form-control" id="email" name="email" placeholder="Địa chỉ email">
+    	<input type="text" class="form-control" id="email" name="email" placeholder="<spring:message code="home.new.email.suggest"/>">
     </div>	
   </div>
     
   <div class="form-group">
-    <label for="title" class="col-sm-3 control-label">Trang chủ</label>
+    <label for="title" class="col-sm-3 control-label"><spring:message code="home.new.homepage"/></label>
     <div class="col-sm-9">
-    	<input type="text" class="form-control" id="referenceUrl" name="referenceUrl" placeholder="Đường dẫn đến trang web">
+    	<input type="text" class="form-control" id="referenceUrl" name="referenceUrl" placeholder="<spring:message code="home.new.homepage.suggest"/>">
     </div>	
   </div>
   
   <div class="form-group">
-    <label for="file" class="col-sm-3 control-label">Hình ảnh</label>
+    <label for="file" class="col-sm-3 control-label"><spring:message code="home.new.photo"/></label>
     <div class="col-sm-9">
     	<input type="file" id="file">
     </div>	
@@ -142,7 +143,7 @@
 
   <div class="form-group">
 	  <div class="col-sm-offset-3 col-sm-9">
-	  	<button id="newPlaceFormSubmit" type="submit" class="btn btn-default col-sm-9">Gửi đi</button>
+	  	<button id="newPlaceFormSubmit" type="submit" class="btn btn-default col-sm-9"><spring:message code="home.new.send"/></button>
 	  </div>
   </div>	
   

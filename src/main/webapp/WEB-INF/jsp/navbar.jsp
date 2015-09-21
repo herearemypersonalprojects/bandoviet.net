@@ -38,6 +38,7 @@
 								<li><a href="#"><spring:message code="home.navbar.service" /></a></li>
 								<li><a href="#"><spring:message code="home.navbar.individual" /></a></li>
 								<li><a href="#"><spring:message code="home.navbar.usefulinfo" /></a></li>
+								<li><a href="#"><spring:message code="home.navbar.countries" /></a></li>
 								
 							</ul>
 						</div>

@@ -52,6 +52,15 @@ function responsive() {
 	  if (window.mobileAndTabletcheck() || detectmob()) {
 		  window.location.href = "/unsupported";
 	  }
+	  
+	  /*
+	    var w2m="http://m.theworldmap.org";
+		var devices = /Android|webOS|iPhone|iPod|BlackBerry|RIM|Touch|KFTIEMobile|Opera Mini/i;
+		if( devices.test(navigator.userAgent)){ 
+		window.location.href=w2m+window.location.pathname
+		}
+	   */
+	  
 	  /*
 	  if ($( window ).width() < 1000) {
 		  $('.responsive').hide();
