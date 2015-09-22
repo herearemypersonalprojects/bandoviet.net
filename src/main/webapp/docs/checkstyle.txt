@@ -1,4 +1,228 @@
-To wrap lines, I have used the tool Eclipse Word-Wrap:
-http://www.ahtik.com/blog/projects/eclipse-word-wrap/
+http://xdsoft.net/jqplugins/datetimepicker/
 
-Link to install: http://ahtik.com/eclipse-update/
+lazyInit 	false 	Initializing plugin occurs only when the user interacts. Greatly accelerates plugin work with a large number of fields 	
+value 	null 	Current value datetimepicker. If it is set, ignored input.value 	
+
+{value:'12.03.2013',
+ format:'d.m.Y'}
+
+lang 	en 	Language i18n
+ar - Arabic
+az - Azerbaijanian (Azeri)
+bg - Bulgarian
+bs - Bosanski
+ca - Català
+ch - Simplified Chinese
+cs - Čeština
+da - Dansk
+de - German
+el - Ελληνικά
+en - English
+en-GB - English (British)
+es - Spanish
+et - "Eesti"
+eu - Euskara
+fa - Persian
+fi - Finnish (Suomi)
+fr - French
+gl - Galego
+he - Hebrew (עברית)
+hr - Hrvatski
+hu - Hungarian
+id - Indonesian
+it - Italian
+ja - Japanese
+ko - Korean (한국어)
+kr - Korean
+lt - Lithuanian (lietuvių)
+lv - Latvian (Latviešu)
+mk - Macedonian (Македонски)
+mn - Mongolian (Монгол)
+nl - Dutch
+no - Norwegian
+pl - Polish
+pt - Portuguese
+pt-BR - Português(Brasil)
+ro - Romanian
+ru - Russian
+se - Swedish
+sk - Slovenčina
+sl - Slovenščina
+sq - Albanian (Shqip)
+sr - Serbian Cyrillic (Српски)
+sr-YU - Serbian (Srpski)
+sv - Svenska
+th - Thai
+tr - Turkish
+uk - Ukrainian
+vi - Vietnamese
+zh - Simplified Chinese (简体中文)
+zh-TW - Traditional Chinese (繁體中文)
+	
+
+{lang:'ru'}
+
+format 	Y/m/d H:i 	Format datetime. More Also there is a special type of «unixtime» 	
+
+{format:'H'}
+{format:'Y'}{format:'unixtime'}
+
+formatDate 	Y/m/d 	Format date for minDate and maxDate 	
+
+{formatDate:'d.m.Y'}
+
+formatTime 	H:i 	Similarly, formatDate . But for minTime and maxTime 	
+
+{formatTime:'H'}
+
+step 	60 	Step time 	
+
+{step:5}
+
+closeOnDateSelect 	0 		
+
+{closeOnDateSelect:true}
+
+closeOnWithoutClick 	true 		
+
+{ closeOnWithoutClick :false}
+
+validateOnBlur 	true 	Verify datetime value from input, when losing focus. If value is not valid datetime, then to value inserts the current datetime 	
+
+{ validateOnBlur:false}
+
+timepicker 	true 		
+
+{timepicker:false}
+
+datepicker 	true 		
+
+{datepicker:false}
+
+weeks 	false 	Show week number 	
+
+{weeks:true}
+
+theme 	'default' 	Setting a color scheme. Now only supported default and dark theme 	
+
+{theme:'dark'}
+
+minDate 	false 		
+
+{minDate:0} // today
+{minDate:'2013/12/03'}
+{minDate:'-1970/01/02'} // yesterday
+{minDate:'05.12.2013',formatDate:'d.m.Y'}
+
+maxDate 	false 		
+
+{maxDate:0}
+{maxDate:'2013/12/03'}
+{maxDate:'+1970/01/02'} // tommorrow
+{maxDate:'05.12.2013',formatDate:'d.m.Y'}
+
+startDate 	false 	calendar set date use starDate 	
+
+{startDate:'1987/12/03'}
+{startDate:new Date()}
+{startDate:'+1970/01/02'} // tommorrow
+{startDate:'08.12.1986',formatDate:'d.m.Y'}
+
+defaultDate 	false 	if input value is empty, calendar set date use defaultDate 	
+
+{defaultDate:'1987/12/03'}
+{defaultDate:new Date()}
+{defaultDate:'+1970/01/02'} // tommorrow
+{defaultDate:'08.12.1986',formatDate:'d.m.Y'}
+
+defaultTime 	false 	if input value is empty, timepicker set time use defaultTime 	
+
+{defaultTime:'05:00'}
+{defaultTime:'33-12',formatTime:'i-H'}
+
+minTime 	false 		
+
+{minTime:0,}// now
+{minTime:new Date()}
+{minTime:'12:00'}
+{minTime:'13:45:34',formatTime:'H:i:s'}
+
+maxTime 	false 		
+
+{maxTime:0,}
+{maxTime:'12:00'}
+{maxTime:'13:45:34',formatTime:'H:i:s'}
+
+allowTimes 	[] 		
+
+{allowTimes:[
+  '09:00',
+  '11:00',
+  '12:00',
+  '21:00'
+]}
+
+mask 	false 	Use mask for input. true - automatically generates a mask on the field 'format', Digit from 0 to 9, set the highest possible digit for the value. For example: the first digit of hours can not be greater than 2, and the first digit of the minutes can not be greater than 5 	
+
+{mask:'9999/19/39',format:'Y/m/d'}
+{mask:true,format:'Y/m/d'} // automatically generate a mask 9999/99/99
+{mask:'29:59',format:'H:i'} //
+{mask:true,format:'H:i'} //automatically generate a mask 99:99
+
+opened 	false 		
+yearOffset 	0 	Year offset for Buddhist era 	
+inline 	false 		
+todayButton 	true 	Show button "Go To Today" 	
+defaultSelect 	true 	Highlight the current date even if the input is empty 	
+allowBlank 	false 	Allow field to be empty even with the option validateOnBlur in true 	
+timepickerScrollbar 	true 		
+onSelectDate 	function(){} 		
+
+onSelectDate:function(ct,$i){
+  alert(ct.dateFormat('d/m/Y'))
+}
+
+onSelectTime 	function(current_time,$input){} 		
+onChangeMonth 	function(current_time,$input){} 		
+onChangeYear 	function(current_time,$input){} 		
+onChangeDateTime 	function(current_time,$input){} 		
+onShow 	function(current_time,$input){} 		
+onClose 	function(current_time,$input){} 		
+
+onSelectDate:function(ct,$i){
+  $i.datetimepicker('destroy');
+}
+
+onGenerate 	function(current_time,$input){} 	trigger after construct calendar and timepicker 	
+withoutCopyright 	true 		
+inverseButton 	false 		
+scrollMonth 	true 		
+scrollTime 	true 		
+scrollInput 	true 		
+hours12 	false 		
+yearStart 	1950 	Start value for fast Year selector 	
+yearEnd 	2050 	End value for fast Year selector 	
+roundTime 	round 	Round time in timepicker, possible values: round, ceil, floor 	
+
+{roundTime:'floor'}
+
+dayOfWeekStart 	0 	
+
+Star week DatePicker. Default Sunday - 0.
+
+Monday - 1 ...
+	
+className 			
+weekends 	[] 		
+
+['01.01.2014','02.01.2014','03.01.2014','04.01.2014','05.01.2014','06.01.2014']
+
+disabledDates 	[] 	
+
+Disbale all dates in list
+	
+
+{disabledDates: ['01.01.2014','02.01.2014','03.01.2014','04.01.2014','05.01.2014','06.01.2014'], formatDate:'d.m.Y'}
+
+id 			
+style 	

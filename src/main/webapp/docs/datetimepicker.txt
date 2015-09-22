@@ -1,0 +1,4 @@
+To wrap lines, I have used the tool Eclipse Word-Wrap:
+http://www.ahtik.com/blog/projects/eclipse-word-wrap/
+
+Link to install: http://ahtik.com/eclipse-update/

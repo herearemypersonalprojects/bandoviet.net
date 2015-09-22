@@ -65,11 +65,12 @@
 		 <label for="startDate" class="col-sm-3 control-label"><spring:message code="home.new.time"/></label>
 		
 		<div class="span9 col-md-9" id="sandbox-container">
-			<div class="input-daterange input-group"">		
-			    <input type="text" class="form-control eventTime" placeholder="<spring:message code="home.new.from.suggest"/>">
-
+			<div class="input-daterange input-group">		
+			    <input type="text" class="form-control eventTime startTime" placeholder="<spring:message code="home.new.from.suggest"/>">
+				<input id = "startTime" type="hidden">
 			    <span class="input-group-addon"><spring:message code="home.new.to"/></span>
-			    <input type="text" class="form-control eventTime" placeholder="<spring:message code="home.new.to.suggest"/>">
+			    <input type="text" class="form-control eventTime endTime" placeholder="<spring:message code="home.new.to.suggest"/>">
+				<input id = "endTime" type="hidden">
 			</div>
 		</div>
   </div>

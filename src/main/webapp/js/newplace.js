@@ -10,7 +10,11 @@ $(document).ready(function() {
 		//disabledDates:['1986/01/08','1986/01/09','1986/01/10'],
 		startDate:	'05/09/2015',
 		format:'l, d/m/Y H:i',
-		step:30
+		step:30,
+		onChangeDateTime:function(ct,$input){
+			  //$('#information').val(Date.parse(ct) + ':' + new Date(Date.parse(ct)));			
+			$input.next().val(Date.parse(ct));
+	      }
 		});
 });
 
@@ -54,7 +58,7 @@ function changeType(type) {
     	$('#telephoneGroup').removeClass('hide');
     	$('#emailGroup').removeClass('hide');
     	$('#referenceUrlGroup').removeClass('hide');
-    	$('#sizeGroup').removeClass('hide');
+    	$('#sizeGroup').addClass('hide');
         break;
    
     case "friendsmap":
