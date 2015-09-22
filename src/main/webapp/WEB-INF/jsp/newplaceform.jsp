@@ -30,10 +30,20 @@
   </div>
  
   <div class="form-group">
+    <label for="file" class="col-sm-3 control-label"><spring:message code="home.new.photo"/></label>
+    <div class="col-sm-9">
+    	<input type="file" id="file">
+    </div>	
+    <!-- <p class="help-block">Các thông tin có dấu (*) là bắt buộc phải điền.</p> -->
+  </div>
+  
+  <div class="form-group">
   	<label for="title" class="col-sm-3 control-label"><spring:message code="home.new.type"/></label>
   	<div class="col-sm-9">
-  		<select name="placeType" class="form-control" id="placeType">
-  			<option value="event" selected><spring:message code="home.navbar.event" /></option>
+  		<select onChange="changeType(this.value);" name="placeType" class="form-control" id="placeType">
+  			<option value="" selected><spring:message code="home.new.type.suggest" /></option>
+  			<option value="friendsmap"><spring:message code="home.navbar.friendsmap" /></option>
+  			<option value="event"><spring:message code="home.navbar.event" /></option>
   			<option value="news"><spring:message code="home.navbar.news" /></option>
   			<option value="annoucement"><spring:message code="home.navbar.annoucement" /></option>
 			<option value="restaurant"><spring:message code="home.navbar.restaurant" /></option>
@@ -51,13 +61,33 @@
   	</div>	  	
   </div>
    
-  <div class="form-group">
+  <div id="eventTimeGroup" class="form-group hide">
+		 <label for="startDate" class="col-sm-3 control-label"><spring:message code="home.new.time"/></label>
+		
+		<div class="span9 col-md-9" id="sandbox-container">
+			<div class="input-daterange input-group"">		
+			    <input type="text" class="form-control eventTime" placeholder="<spring:message code="home.new.from.suggest"/>">
+
+			    <span class="input-group-addon"><spring:message code="home.new.to"/></span>
+			    <input type="text" class="form-control eventTime" placeholder="<spring:message code="home.new.to.suggest"/>">
+			</div>
+		</div>
+  </div>
+     
+  <div id = "contentGroup" class="form-group hide">
   	<label for="information" class="col-sm-3 control-label"><spring:message code="home.new.content"/></label>
   	<div class="col-sm-9">
   		<textarea rows="3" name="information" class="form-control" id="information" placeholder="<spring:message code="home.new.content.suggest"/>"></textarea>
   	</div>	                                
   </div>
  	
+  <div id = "sizeGroup" class="form-group hide">
+  	<label for="size" class="col-sm-3 control-label"><spring:message code="home.new.size"/></label>
+  	<div class="col-sm-9">
+  		<input type="text" name="size" class="form-control" id="size" placeholder="<spring:message code="home.new.size.suggest"/>"/>
+  	</div>	                                
+  </div>
+   	
   <div class="form-group" style="display:none">
   	<label for="title">Thuộc cộng đồng</label>
   	<input class="form-control" id="communityCode" name="communityCode" id="vn"></input>  	
@@ -69,67 +99,28 @@
     	<input type="text" class="form-control" id="openTime" name="openTime" placeholder="<spring:message code="home.new.time.suggest"/>">
     </div>	
   </div>
-  
-	<div id="eventTime" class="form-group">
-		 <label for="startDate" class="col-sm-3 control-label"><spring:message code="home.new.time"/></label>
-		<!-- 
-		<div class="span9 col-md-9" id="sandbox-container">
-			<div class="input-daterange input-group" id="datepicker">		
-			    <input type="text" class="input-sm form-control" name="start" />
-			    <span class="input-group-addon">tới</span>
-			    <input type="text" class="input-sm form-control" name="end" />
-			</div>
-		</div>	
-		 -->
-		
-		<div class="span9 col-md-9">
-			<div class="input-daterange input-group" >		
-				<div class="input-group date" id="startTime">
-                    <input type="text" class="form-control" placeholder="<spring:message code="home.new.from.suggest"/>">
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-			    <span class="input-group-addon"><spring:message code="home.new.to"/></span>
-				<div class="input-group date" id="endTime">
-                    <input type="text" class="form-control" placeholder="<spring:message code="home.new.to.suggest"/>">
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-			</div>
-		</div>	
-
-  </div>
 	
-  <div class="form-group">
+  <div id="telephoneGroup" class="form-group hide">
     <label for="telephone" class="col-sm-3 control-label"><spring:message code="home.new.telephone"/></label>
     <div class="col-sm-9">
     	<input type="text" class="form-control" id="telephone" name="telephone" placeholder="<spring:message code="home.new.telephone.suggest"/>">
     </div>
   </div>
   
-  <div class="form-group">
+  <div id="emailGroup" class="form-group hide">
     <label for="email" class="col-sm-3 control-label"><spring:message code="home.new.email"/></label>
     <div class="col-sm-9">
     	<input type="text" class="form-control" id="email" name="email" placeholder="<spring:message code="home.new.email.suggest"/>">
     </div>	
   </div>
     
-  <div class="form-group">
+  <div id="referenceUrlGroup" class="form-group hide">
     <label for="title" class="col-sm-3 control-label"><spring:message code="home.new.homepage"/></label>
     <div class="col-sm-9">
     	<input type="text" class="form-control" id="referenceUrl" name="referenceUrl" placeholder="<spring:message code="home.new.homepage.suggest"/>">
     </div>	
   </div>
-  
-  <div class="form-group">
-    <label for="file" class="col-sm-3 control-label"><spring:message code="home.new.photo"/></label>
-    <div class="col-sm-9">
-    	<input type="file" id="file">
-    </div>	
-    <!-- <p class="help-block">Các thông tin có dấu (*) là bắt buộc phải điền.</p> -->
-  </div>
+ 
   <!-- 
   <div class="checkbox">
     <label>

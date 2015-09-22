@@ -121,7 +121,7 @@ $(document).ready(
 			function createMarkerButton(m, idx) {
 				var item = document.getElementById(idx);
 				  //Trigger a click event to marker when the button is clicked.
-				  google.maps.event.addDomListener(item, "mouseover", function(){
+				  google.maps.event.addDomListener(item, "click", function(){ //mouseover
 				    google.maps.event.trigger(m, "click");		
 				  });
 			}
@@ -135,17 +135,20 @@ $(document).ready(
 				  });
 				  
 				  //The infoWindow is opened when the sidebar button is clicked
-				  google.maps.event.addListener(m, "click", function(){
-				    infoWnd.setContent("<strong>" + title + "</title>");
+				  google.maps.event.addListener(m, 'click', function(){
+				    infoWnd.setContent(
+				    		'<strong>' + title + '</title>' + 
+				    		'<br>'+
+				    		'<img class="photo_item" src="img/test.jpg" alt="Item test">');
 				    infoWnd.open(map, m);
 				    
 				    var item = document.getElementById(idx);
 		            if (!$(item).hasClass("item_active")) {
 		                var lastActive = $(item).closest("#results").children(".item_active");
 		                lastActive.removeClass("item_active");
-		                $(item).addClass("item_active");
-		                window.location.href ="#" + idx;
+		                $(item).addClass("item_active");		                
 		            }
+		            window.location.href ="#" + idx;
 				  });
 				  return m;
 			}

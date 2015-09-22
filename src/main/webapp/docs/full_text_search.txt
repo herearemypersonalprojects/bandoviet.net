@@ -1,0 +1,20 @@
+1. New table: 
+CREATE TABLE articles (
+    id INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    title VARCHAR(200),
+    body TEXT,
+    FULLTEXT (title,body)
+);
+2. Modify an existing table: ALTER TABLE place ADD FULLTEXT(title, information);
+3. Use cases:
+ SELECT title, information FROM place WHERE MATCH(title, information) AGAINST('hoc bong');
+ 
+ SELECT title, information FROM place WHERE MATCH(title, information) AGAINST('+hoc bong -Israel' IN BOOLEAN MODE)
+ 
+4. A couple points about Full-Text searching in MySQL:
+- Searches are not case sensitive
+- Short words are ignored, the default minimum length is 4 characters. You can change the min and max word length with the variables ft_min_word_len and ft_max_word_len
+- Words called stopwords are ignored, you can specify your own stopwords, but default words include the, have, some - see default stopwords list. 
+- You can disable stopwords by setting the variable ft_stopword_file to an empty string.
+- Full Text searching is only supported by the MyISAM storage engine.
+- If a word is present in more than 50% of the rows it will have a weight of zero. This has advantages on large datasets, but can make testing difficult on small ones.

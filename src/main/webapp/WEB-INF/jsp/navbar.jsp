@@ -27,7 +27,8 @@
 								<span class="glyphicon glyphicon-chevron-down"></span>
 							</button>
 							<ul class="dropdown-menu">
-								<li><a href="#type=annoucement"><spring:message code="home.navbar.annoucement" /> </a></li>
+								<li onClick="searchByType(this.value);" id="searchByfriendsmap"><a href="#"><spring:message code="home.navbar.friendsmap" /> </a></li>
+								<li><a href="#type=annoucement"><spring:message code="home.navbar.annoucement" /> </a></li>				
 								<li><a href="#"><spring:message code="home.navbar.restaurant" /> </a></li>
 								<li><a href="#"><spring:message code="home.navbar.administration" /></a></li>
 								<li><a href="#"><spring:message code="home.navbar.company" /></a></li>
@@ -66,12 +67,11 @@
 				
 				<li class="language fr"><a href="/?lang=fr">
 				<img  height="20"  alt="Fran&#231;ais" src="img/french.png">
-				
 				</a></li>
 				<li id="abouticon"><a class="img-circle" href="#"><img  height="20" width="20" alt="About" src="img/about.ico"></a></li>
-				<!--  If user have logined 
+				<!--  If user have logined -->
 				<li><a href="#"><img  height="22" width="22" alt="Brand" src="img/user.png"></a></li>
-				-->
+				
 				
 				<li><a></a></li>
 			</ul>

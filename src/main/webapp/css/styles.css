@@ -129,6 +129,7 @@ body{
 }
 
 .item_content:hover {
+	cursor: pointer;
 	background-color: #f4fafd;
 }
 
@@ -200,4 +201,23 @@ body{
 .modal-header {
 	background-color: #168ccc;
     color:#fff;
+}
+
+.alerte-form.alerte-form-fixed {
+    margin: 0;
+    right: 27.5%;
+    padding: 10px 0;
+    position: fixed;
+    width: 300px;
+}
+.alerte-form {
+    background: #4cbbed;
+    opacity: 0.9;
+    bottom: 0;
+    color: #FFFFFF;
+    margin-bottom: 30px;
+    padding: 25px 0;
+    text-align: center;
+    width: 100%;
+    z-index: 11;
 }
