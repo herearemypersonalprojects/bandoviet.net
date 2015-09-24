@@ -221,3 +221,8 @@ body{
     width: 100%;
     z-index: 11;
 }
+
+.flag_item {
+	padding: 0 0 1em;
+    margin: 0;
+}

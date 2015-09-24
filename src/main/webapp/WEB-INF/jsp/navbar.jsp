@@ -2,14 +2,26 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	<div class="navbar navbar-custom navbar-fixed-top">
 		<div class="navbar-header">
-		
+			 <div class="navbar-brand dropdown">
+			    <button class="btn btn-primary dropdown-toggle " style="padding: 0px 0px;border-color:none;box-shadow: none;background: none;border:none;color:none;"  data-toggle="dropdown">
+				    	
+			    	<img class="img-circle"  height="20" alt="Logo" src="img/flags/vietnam.png">
+			    	<span style="top: 19px; left: -25px;" class="glyphicon glyphicon-chevron-down"></span>
+			    			    	
+			    </button>
+			    <ul class="dropdown-menu">
+			    	<jsp:include page="countries.jsp"/>
+			    </ul>
+			  </div>	
+		  <!-- 	
 			<a class="navbar-brand" href="#">
 				 <img  height="30" alt="Logo" src="img/map.png"> 
 			</a> 
+			 -->
 			<a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> 
-				<span class="icon-bar"></span> 
-				<span class="icon-bar"></span> 
-				<span class="icon-bar"></span>
+				<span class="icon-bar">sdf</span> 
+				<span class="icon-bar">sd</span> 
+				<span class="icon-bar">sdf</span>
 			</a>
 		</div>
 		<div class="navbar-collapse collapse">

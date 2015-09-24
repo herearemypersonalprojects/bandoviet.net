@@ -74,7 +74,10 @@ Unlike other overseas Vietnamese communities in the West, the Vietnamese populat
 				
 				<img  class="img-circle button_item" alt="facebook" src="img/edit.png">
 				<span class="comment_item"><spring:message code="home.result.item.edit"/></span>
+				
+				<div class="fb-comments" data-href="http://www.theworldmap.org" data-numposts="5"></div>
 				<hr>
+				
 				</div>
 				<%
 				      for (int i = 0; i < 20; ++i) {

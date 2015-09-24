@@ -20,7 +20,7 @@ import java.util.Map;
 public class HomeController {
 
   @Value("${application.message:Hello World}")
-  private String message = "Hello World";
+  private String message;
 
   /**
    * The first request when user open the homepage.
@@ -29,9 +29,8 @@ public class HomeController {
    */
   @RequestMapping("/")
   public String welcome(Map<String, Object> model) {
-    model.put("time", new Date());
     model.put("message", this.message + "ok");
-    return "index";
+    return "welcome";
   }
   
   @RequestMapping("/unsupported")

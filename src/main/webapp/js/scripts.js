@@ -131,7 +131,8 @@ $(document).ready(
 				  var m = new google.maps.Marker({
 				    position : latlng,
 				    map : map,
-				    title : title
+				    title : title,
+				    icon: "img/flags/vietnammarker.png",
 				  });
 				  
 				  //The infoWindow is opened when the sidebar button is clicked
