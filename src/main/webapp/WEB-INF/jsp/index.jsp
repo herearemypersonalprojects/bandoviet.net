@@ -28,6 +28,8 @@
 	<!-- begin view -->
 	<jsp:include page="about.jsp" />
 	
+	<jsp:include page="selectCountry.jsp" />
+	
 	<jsp:include page="navbar.jsp" />
 
 	<div id="map-canvas"></div>

@@ -4,6 +4,11 @@
 
 
 $(document).ready(function() {
+	
+	$('.navbar-brand').click(function() {
+		$('#selectCountry').modal('show');
+	});
+	
 	$('.newplace').click(function() {
 		var button = $('.newplace');
 		var form = $('#newplaceform');

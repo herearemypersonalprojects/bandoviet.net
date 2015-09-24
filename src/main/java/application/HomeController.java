@@ -33,6 +33,12 @@ public class HomeController {
     return "welcome";
   }
   
+  @RequestMapping("/vietnam")
+  public String index(Map<String, Object> model) {
+    model.put("message", this.message + "ok");
+    return "index";
+  }
+  
   @RequestMapping("/unsupported")
   public String unsupported(Map<String, Object> model) {
     return "unsupported";
