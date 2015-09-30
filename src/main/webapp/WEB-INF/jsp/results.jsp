@@ -3,7 +3,7 @@
 
 	<div class="container-fluid" id="main">
 		<div class="row">
-			<div id="results" class="col-xs-6 responsive" id="left">
+			<div id="results" class="col-xs-4" id="left">
 				<br>
 				<jsp:include page="newplaceform.jsp" />
 				
@@ -24,9 +24,9 @@
 					<div class="panel-heading">
 						<a href="#" target="_blank">Vietnamese people in France</a>
 						<div style="float: right;  margin: auto;">
-							<img  class="img-circle button_item" alt="facebook" src="img/like.jpg">
+							<img  class="/img-circle button_item" alt="facebook" src="/img/like.jpg">
 							<span class="comment_item"><spring:message code="home.result.item.like"/> (23)</span>
-							<img  class="img-circle button_item" alt="facebook" src="img/facebook.jpg">
+							<img  class="/img-circle button_item" alt="facebook" src="/img/facebook.jpg">
 							<span class="comment_item"><spring:message code="home.result.item.share"/> (3)</span>
 						</div>
 						
@@ -37,7 +37,7 @@
 					The Vietnamese people in France consists of people of Vietnamese ancestry who were born in or immigrated to France. Their population was about 300,000 in 2012.
 
 Unlike other overseas Vietnamese communities in the West, the Vietnamese population in France had already been (300 words)... <a href="map/10" target="_blank">See more</a>
-					<img class="photo_item" src="img/test.jpg" alt="Item test">
+					<img class="photo_item" src="/img/test.jpg" alt="Item test">
 				    <fieldset>
 				        <table>
 				            <tr>
@@ -62,23 +62,22 @@ Unlike other overseas Vietnamese communities in the West, the Vietnamese populat
 				  	            	            			            
 				        </table>
             		</fieldset>
-				</p>
-				<img  class="img-circle button_item" alt="facebook" src="img/user.png">
+				</p>				<img  class="/img-circle button_item" alt="facebook" src="/img/user.png">
 				<span class="comment_item"><spring:message code="home.result.item.postedby"/> 12.183.13.4</span>
 				
-				<img  class="img-circle button_item" alt="facebook" src="img/thank.jpg">
+				<img  class="/img-circle button_item" alt="facebook" src="/img/thank.jpg">
 				<span class="comment_item"><spring:message code="home.result.item.thank"/> (23)</span>
 				
-				<img  class="img-circle button_item"  alt="facebook" src="img/comment.png">
+				<img  class="/img-circle button_item"  alt="facebook" src="/img/comment.png">
 				<span class="comment_item"><spring:message code="home.result.item.comment"/> (123)</span>
 				
-				<img  class="img-circle button_item" alt="facebook" src="img/edit.png">
+				<img  class="/img-circle button_item" alt="facebook" src="/img/edit.png">
 				<span class="comment_item"><spring:message code="home.result.item.edit"/></span>
 				
-				<div class="fb-comments" data-href="http://www.theworldmap.org" data-numposts="5"></div>
 				<hr>
 				
 				</div>
+
 				<%
 				      for (int i = 0; i < 20; ++i) {
 				  %>
@@ -87,11 +86,11 @@ Unlike other overseas Vietnamese communities in the West, the Vietnamese populat
 					<div class="panel-heading">
 						<a href="<%= request.getQueryString()%>/placeid=10" target="_blank">Pho <%=i+13%></a>
 						<div style="float: right;  margin: auto;">
-							<img  class="img-circle button_item" alt="facebook" src="img/like.jpg">
+							<img  class="/img-circle button_item" alt="facebook" src="/img/like.jpg">
 							<span class="comment_item"><spring:message code="home.result.item.like"/> (23)</span>
-							<img  class="img-circle button_item"  alt="facebook" src="img/comment.png">
+							<img  class="/img-circle button_item"  alt="facebook" src="/img/comment.png">
 							<span class="comment_item"><spring:message code="home.result.item.comment"/> (123)</span>
-							<img  class="img-circle button_item" alt="facebook" src="img/facebook.jpg">
+							<img  class="/img-circle button_item" alt="facebook" src="/img/facebook.jpg">
 							<span class="comment_item"><spring:message code="home.result.item.share"/> (3)</span>
 						</div>
 						
@@ -101,7 +100,7 @@ Unlike other overseas Vietnamese communities in the West, the Vietnamese populat
 				<p>    
 					La quan pho duoc nhieu nguoi biet den o Paris. Khong chi khach la nguoi Viet
 					ma nguoi Phap cung rat chuong mon Pho dac trung cua Viet Nam.
-					<img class="photo_item" src="img/test.jpg" alt="Item test">
+					<img class="photo_item" src="/img/test.jpg" alt="Item test">
 				    <fieldset>
 				        <table>
 				            <tr>
@@ -127,11 +126,11 @@ Unlike other overseas Vietnamese communities in the West, the Vietnamese populat
 				        </table>
             		</fieldset>
 				</p>
-				<img  class="img-circle button_item" alt="facebook" src="img/user.png">
+				<img  class="/img-circle button_item" alt="facebook" src="/img/user.png">
 				<span class="comment_item"><spring:message code="home.result.item.postedby"/> 12.183.13.4</span>
-				<img  class="img-circle button_item" alt="facebook" src="img/thank.jpg">
+				<img  class="/img-circle button_item" alt="facebook" src="/img/thank.jpg">
 				<span class="comment_item"><spring:message code="home.result.item.thank"/> (23)</span>
-				<img  class="img-circle button_item" alt="facebook" src="img/edit.png">
+				<img  class="/img-circle button_item" alt="facebook" src="/img/edit.png">
 				<span class="comment_item"><spring:message code="home.result.item.edit"/></span>
 				<hr>
 				</div>
@@ -143,11 +142,11 @@ Unlike other overseas Vietnamese communities in the West, the Vietnamese populat
 						<a href="">Banh cuon mon an ngon thuye</a>
 					
 						<div style="float: right;  color:#007bb3;   margin: auto;">
-							<img  class="img-circle" height="15" width="15" alt="facebook" src="img/thank.jpg">
+							<img  class="/img-circle" height="15" width="15" alt="facebook" src="/img/thank.jpg">
 							<span style="font-size:10px;">Thich (23)</span>
-							<img  class="img-circle" height="15" width="15" alt="facebook" src="img/comment.png">
+							<img  class="/img-circle" height="15" width="15" alt="facebook" src="/img/comment.png">
 							<span style="font-size:10px;">Binh luan (123)</span>
-							<img  class="img-circle" height="15" width="15" alt="facebook" src="img/facebook.jpg">
+							<img  class="/img-circle" height="15" width="15" alt="facebook" src="/img/facebook.jpg">
 							<span style="font-size:10px;">Chia se (3)</span>
 						</div>		
 					</div>			
@@ -172,11 +171,11 @@ Unlike other overseas Vietnamese communities in the West, the Vietnamese populat
 				        </table>
             		</fieldset>
 				</p>
-				<img  class="img-circle button_item" alt="facebook" src="img/user.png">
+				<img  class="/img-circle button_item" alt="facebook" src="/img/user.png">
 				<span class="comment_item">	Dang boi 12.183.13.4</span>
-				<img  class="img-circle button_item" alt="facebook" src="img/like.jpg">
+				<img  class="/img-circle button_item" alt="facebook" src="/img/like.jpg">
 				<span class="comment_item">Cam on (23)</span>
-				<img  class="img-circle button_item" alt="facebook" src="img/edit.png">
+				<img  class="/img-circle button_item" alt="facebook" src="/img/edit.png">
 				<span class="comment_item">Sua thong tin</span>
 				<hr>
 
@@ -184,11 +183,11 @@ Unlike other overseas Vietnamese communities in the West, the Vietnamese populat
 					<div class="panel-heading">
 						<a href="">Cha ca La Vong</a>
 						<div style="float: right;  color:#007bb3;   margin: auto;">
-							<img  class="img-circle" height="15" width="15" alt="facebook" src="img/thank.jpg">
+							<img  class="/img-circle" height="15" width="15" alt="facebook" src="/img/thank.jpg">
 							<span style="font-size:10px;">Thich (23)</span>
-							<img  class="img-circle" height="15" width="15" alt="facebook" src="img/comment.png">
+							<img  class="/img-circle" height="15" width="15" alt="facebook" src="/img/comment.png">
 							<span style="font-size:10px;">Binh luan (123)</span>
-							<img  class="img-circle" height="15" width="15" alt="facebook" src="img/facebook.jpg">
+							<img  class="/img-circle" height="15" width="15" alt="facebook" src="/img/facebook.jpg">
 							<span style="font-size:10px;">Chia se (3)</span>
 						</div>						
 					</div>
@@ -213,13 +212,13 @@ Unlike other overseas Vietnamese communities in the West, the Vietnamese populat
 				        </table>
             		</fieldset>
 				</p>
-				<img  class="img-circle" height="15" width="15" alt="facebook" src="img/user.png">
+				<img  class="/img-circle" height="15" width="15" alt="facebook" src="/img/user.png">
 				<span style="font-size:10px;">
 					Dang boi 12.183.13.4.	
 				</span>
-				<img  class="img-circle" height="15" width="15" alt="facebook" src="img/like.jpg">
+				<img  class="/img-circle" height="15" width="15" alt="facebook" src="/img/like.jpg">
 				<span style="font-size:10px;">Cam on (23)</span>
-				<img  class="img-circle" height="15" width="15" alt="facebook" src="img/edit.png">
+				<img  class="/img-circle" height="15" width="15" alt="facebook" src="/img/edit.png">
 				<span style="font-size:10px;">
 					Sua thong tin
 				</span>
@@ -250,13 +249,13 @@ Unlike other overseas Vietnamese communities in the West, the Vietnamese populat
 				        </table>
             		</fieldset>
 				</p>
-				<img  class="img-circle" height="15" width="15" alt="facebook" src="img/user.png">
+				<img  class="/img-circle" height="15" width="15" alt="facebook" src="/img/user.png">
 				<span style="font-size:10px;">
 					Dang boi 12.183.13.4.	
 				</span>
-				<img  class="img-circle" height="15" width="15" alt="facebook" src="img/like.jpg">
+				<img  class="/img-circle" height="15" width="15" alt="facebook" src="/img/like.jpg">
 				<span style="font-size:10px;">Cam on (23)</span>
-				<img  class="img-circle" height="15" width="15" alt="facebook" src="img/edit.png">
+				<img  class="/img-circle" height="15" width="15" alt="facebook" src="/img/edit.png">
 				<span style="font-size:10px;">
 					Sua thong tin
 				</span>
