@@ -17,10 +17,6 @@ body{
   	padding-top:50px; /*padding for navbar*/
 }
 
-.hide {
-	display:none;
-}
-
 .navbar-custom .icon-bar {
 	background-color:#fff;
 }
@@ -28,10 +24,6 @@ body{
 .navbar-custom {
 	background-color: #168ccc;
     color:#fff;
-}
-
-.navbar-form {
-	width: 50%;
 }
 
 .navbar-custom li>a:hover,.navbar-custom li>a:focus {
@@ -62,7 +54,7 @@ body{
 }
 
 #map-canvas {
-	width:50%;
+	width:57.6666%;
     height:calc(100% - 0);
     position:absolute;
     right:16px;
@@ -167,7 +159,6 @@ body{
     padding: 0;
     width: 128px;
 }
-
 /*
 * MAP
 */

@@ -1,4 +1,4 @@
-package blog;
+package net.bandoviet.blog;
 
 /**
  * blog model.

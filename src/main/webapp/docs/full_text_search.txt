@@ -18,3 +18,17 @@ CREATE TABLE articles (
 - You can disable stopwords by setting the variable ft_stopword_file to an empty string.
 - Full Text searching is only supported by the MyISAM storage engine.
 - If a word is present in more than 50% of the rows it will have a weight of zero. This has advantages on large datasets, but can make testing difficult on small ones.
+
+5. Set minimum number of keywords
+- locate mysql directory: 
+mysql> select @@basedir;
++------------------+
+| @@basedir        |
++------------------+
+| /usr/local/mysql |
++------------------+
+1 row in set (0,00 sec)
+
+- Edit file /usr/local/mysql/my.cnf
+  > show variables like 'ft_min%';
+ add line: 	[mysqld] ft_min_word_len=3

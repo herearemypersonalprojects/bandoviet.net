@@ -1,4 +1,4 @@
-package user;
+package net.bandoviet.user;
 
 import java.util.Date;
 

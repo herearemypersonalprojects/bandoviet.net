@@ -14,7 +14,6 @@
           <h4  class="modal-title"><spring:message code="application.about" /></h4>
         </div>
         <div class="modal-body">
-        <jsp:include page="welcome.jsp" />
           <p><spring:message code="application.about.content" /></p>
         </div>
         <div class="modal-footer">

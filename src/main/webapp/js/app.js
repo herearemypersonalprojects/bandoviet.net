@@ -4,6 +4,24 @@
 
 
 $(document).ready(function() {
+
+	//alert(navigator.language.substr (0, 2));
+	// restore from cookie
+	var params = readCookie(name);
+	if (params) {
+		window.location.href = params;
+	}
+	// locate the user to search
+	$.get("http://ipinfo.io", function(response) {
+		if (response.city) currentAddress = response.city;
+		if (response.region) currentAddress = currentAddress + " " + response.region;
+		if (response.country) currentAddress = currentAddress + " " + response.country;
+		currentAddress = $.trim(currentAddress);
+		$('#searchCity').val(currentAddress); 
+		//SetMapAddress(currentAddress, map); 
+	}, "jsonp");
+	
+	$('.navbar').removeClass('hide');
 	
 	$('.navbar-brand').click(function() {
 		$('#selectCountry').modal('show');
@@ -22,7 +40,7 @@ $(document).ready(function() {
 		}
 	});
 	
-	var lang = getUrlParameter('lang');
+	var lang = getUrlParameter('lang'); 
 	if (!lang) lang = "vn";
 	$( '.language' ).each(function() {
 		var that = $( this );
@@ -30,6 +48,20 @@ $(document).ready(function() {
 	    	that.hide();
 	    };
 	  });
+	$('.language').on('click', function() { 
+		var lang = $(this).attr('lang')
+		var currentUrl = window.location.href;
+		if (currentUrl.indexOf('?lang=') >= 0) { 
+			window.location.href = '?lang=' + lang;
+		} else
+		if (currentUrl.indexOf('?') >= 0) { 
+			window.location.href = currentUrl.split('#')[0].split('&lang=')[0] + '&lang=' + lang; 
+		} else {
+			window.location.href = '?lang=' + lang;
+		}
+		
+	});
+	
 	
 	$('#abouticon').on('click', function() {
 		$('#about').modal('show');
@@ -50,12 +82,17 @@ $(document).ready(function() {
 		responsive();
 	});
 	
-	
+	$('#keywords').focus();
 });
 
 function responsive() {
 	  if (window.mobileAndTabletcheck() || detectmob()) {
-		  window.location.href = "/unsupported";
+		  //window.location.href = "/unsupported";
+		  $('#results').addClass('hide');
+		  $('#map-canvas').width('100%');
+	  } else {
+		  $('#results').removeClass('hide');
+		  $('#map-canvas').width('57.6666%');
 	  }
 	  
 	  /*

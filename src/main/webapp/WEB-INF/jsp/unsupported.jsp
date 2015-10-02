@@ -8,15 +8,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><spring:message code="application.title" /></title>
-<link rel="icon" type="image/png" href="img/map.png"> <!-- http://www.favicon.cc -->
-</head>
-<body>
+<link rel="icon" type="image/png" href="/img/map.png"> <!-- http://www.favicon.cc -->
+
 	<style>
 		.lang {
 			text-decoration: underline;
 			cursor: pointer;
 		}
 	</style>
+</head>
+<body>
+
 
 	<spring:message code="application.mobile.unsupported" /> (<a href="/unsupported/?lang=en">English</a>, <a href="/unsupported/?lang=fr">Français</a>, <a href="/unsupported/?lang=vn">Tiếng Việt</a>)
 </body>

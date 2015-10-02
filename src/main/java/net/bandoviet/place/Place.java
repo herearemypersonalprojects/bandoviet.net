@@ -1,4 +1,10 @@
-package map;
+package net.bandoviet.place;
+
+import org.hibernate.search.annotations.Analyze;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
 
 import java.util.Date;
 
@@ -10,15 +16,22 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
  * Point of interest model.
+ * The annotation Indexed marks Place as an entity which needs to be indexed by
+ * Hibernate Search.
+ * The annotation @Field and its parameters basically making the table columns "title", 
+ * "description", and "author" indexable and during the indexing operation, the content 
+ * of the column will be analyzed
  * @author quocanh
  *
  */
 @Entity
+@Indexed
 @Table(name = "place")
 public class Place {
   @Id
@@ -28,11 +41,26 @@ public class Place {
 
   @NotNull
   @Column(name = "title", nullable = false)
+  @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
   private String title;
 
   @Column(name = "information", nullable = true)
+  @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
   private String information;
 
+  @Column(name = "email")
+  @Field(index = Index.YES, analyze = Analyze.NO, store = Store.NO)
+  String email;
+
+  @Column(name = "telephone")
+  @Field(index = Index.YES, analyze = Analyze.NO, store = Store.NO)
+  String telephone;
+  
+  @Size(max = 100)
+  @Column(name = "address", nullable = true)
+  @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
+  private String address;
+  
   @Column(name = "icon_path", nullable = true)
   private String iconPath;
 
@@ -45,10 +73,6 @@ public class Place {
 
   @Column(name = "city", nullable = true)
   private String city;
-
-  @Size(max = 100)
-  @Column(name = "address", nullable = true)
-  private String address;
 
   @Column(name = "street_number")
   private String streetNumber;
@@ -92,12 +116,6 @@ public class Place {
 
   @Column(name = "created_from_ip")
   String createdFromIp;
-
-  @Column(name = "email")
-  String email;
-
-  @Column(name = "telephone")
-  String telephone;
 
   @Column(name = "openTime")
   String openTime;
@@ -323,5 +341,4 @@ public class Place {
   public void setPostalCode(String postalCode) {
     this.postalCode = postalCode;
   }
-
 }

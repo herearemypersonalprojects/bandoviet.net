@@ -25,7 +25,7 @@
 		<p>London is the capital city of England.</p>
 		<p>It is the most populous city in the United Kingdom, with a
 			metropolitan area of over 13 million inhabitants.</p>
-			<img width="188" height="128" src="img/flags/uk.png" alt="Item test">
+			</img width="188" height="128" src="/img/flags/uk.png" alt="Item test">
 	</div>
 
 	<div class="city">

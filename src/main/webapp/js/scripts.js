@@ -1,36 +1,28 @@
 /* Global variables */
+var currentAddress = "Paris, France";
 var marker;
 var map;
 var infoWnd = new google.maps.InfoWindow();
-var markerBounds = new google.maps.LatLngBounds();
-var markerArray = [];
+var stationList = [];
 
-var stationList = [
-                   {"latlng":[35.681382,139.766084],name:"Tokyo Station"},
-                   {"latlng":[35.630152,139.74044],name:"Shinagawa Station"},
-                   {"latlng":[35.507456,139.617585],name:"Shin-Yokohama Station"},
-                   {"latlng":[35.25642,139.154904],name:"Odawara Station"},
-                   {"latlng":[35.103217,139.07776],name:"Atami Station"},
-                   {"latlng":[35.127152,138.910627],name:"Mishima Station"},
-                   {"latlng":[35.142015,138.663382],name:"Shin-Fuji Station"},
-                   {"latlng":[34.97171,138.38884],name:"Shizuoka Station"},
-                   {"latlng":[34.769758,138.014928],name:"Kakegawa Station"},
-                   {"latlng":[34.703741,137.734442],name:"Hamamatsu Station"},
-                   {"latlng":[34.762811,137.381651],name:"Toyohashi Station"},
-                   {"latlng":[34.96897,137.060662],name:"Mikawa-Anjyo Station"},
-                   {"latlng":[35.170694,136.881637],name:"Nagoya Station"},
-                   {"latlng":[35.315705,136.685593],name:"Gifu-Hashima Station"},
-                   {"latlng":[35.314188,136.290488],name:"Yonehara Station"},
-                   {"latlng":[34.985458,135.757755],name:"Kyoto Station"},
-                   {"latlng":[34.73348,135.500109],name:"Shin-Osaka Station"}
-                 ];
 $(document).ready(
 		function() {
 			/* google maps -----------------------------------------------------*/
 			google.maps.event.addDomListener(window, 'load', initialize);
 
 			function initialize() {
-
+				// Hien thi cac ket qua tren ban do
+				stationList = [];
+				$('.item_content').each(function( index, element ) {
+					var item = {
+						"lat": 	element.getAttribute("data-lat"),
+						"lng": element.getAttribute("data-lng"),
+						"name": element.getAttribute("data-title")
+					};
+					stationList.push(item);
+					
+				});
+				
 				/* position Paris */
 				var latlng = new google.maps.LatLng(48.856614, 2.3522219000000177);
 
@@ -61,7 +53,7 @@ $(document).ready(
 				marker.setMap(map);
 
 				// STYLE
-				$.getScript( 'js/mapstyle.js', function() {
+				$.getScript( '/js/mapstyle.js', function() {
 					map.setOptions({
 						styles : styles
 					});
@@ -74,7 +66,7 @@ $(document).ready(
 				  for (i in stationList) {
 				    //Creates a marker
 				    station = stationList[i];
-				    latlng = new google.maps.LatLng(station.latlng[0], station.latlng[1]);
+				    latlng = new google.maps.LatLng(station.lat, station.lng);
 				    bounds.extend(latlng);
 				    var m = createMarker(map, latlng, station.name, idx);
 				    
@@ -83,8 +75,21 @@ $(document).ready(
 				    idx = idx + 1;
 				  }
 				  //Fits the map bounds
-				  map.fitBounds(bounds);
-				
+				  if (stationList.length >= 1) {
+					    // Don't zoom in too far on only one marker
+					    if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
+					       var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.01, bounds.getNorthEast().lng() + 0.01);
+					       var extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.01, bounds.getNorthEast().lng() - 0.01);
+					       bounds.extend(extendPoint1);
+					       bounds.extend(extendPoint2);
+					    }
+					  map.fitBounds(bounds); 
+					  marker.setVisible(false);
+				  } else {
+					  // TODO: Extend the keywords to have results.
+				  }			 
+				  
+				  
 			}
 			;
 			/* end google maps -----------------------------------------------------*/
@@ -107,7 +112,7 @@ $(document).ready(
 						$('#myLocationAlertcity').html(response.city);
 						$('#myLocationAlertregion').html(response.region);
 						$('#myLocationAlertcountry').html(response.country);
-						alert.modal('show');
+						//alert.modal('show');
 						
 					}, "jsonp");
 					
@@ -115,7 +120,6 @@ $(document).ready(
 				});			
 			});					
 			/* end map controller */
-			
 			/* map service */
 			
 			function createMarkerButton(m, idx) {
@@ -132,17 +136,23 @@ $(document).ready(
 				    position : latlng,
 				    map : map,
 				    title : title,
-				    icon: "img/flags/vietnammarker.png",
+				    icon: "/img/flags/vietnammarker.png",
 				  });
 				  
 				  //The infoWindow is opened when the sidebar button is clicked
 				  google.maps.event.addListener(m, 'click', function(){
+					  google.maps.event.trigger(m, "mouseover");	
+					  //map.setZoom(15);
+					  map.setCenter(latlng);
+				  });
+				  
+				  google.maps.event.addListener(m, 'mouseover', function(){
 				    infoWnd.setContent(
 				    		'<strong>' + title + '</title>' + 
 				    		'<br>'+
-				    		'<img class="photo_item" src="img/test.jpg" alt="Item test">');
+				    		'<img class="photo_item" src="/img/test.jpg" alt="Item test">');
 				    infoWnd.open(map, m);
-				    
+    
 				    var item = document.getElementById(idx);
 		            if (!$(item).hasClass("item_active")) {
 		                var lastActive = $(item).closest("#results").children(".item_active");
@@ -162,7 +172,20 @@ $(document).ready(
 			function showLocation(location) {
 			    //marker.setAnimation(google.maps.Animation.BOUNCE);
 			    marker.setPosition(location);
-			    map.setCenter(location);				
+			    map.setCenter(location);			
+			    marker.setVisible(true);
 			}
-			/* end map service */
+			
+			function SetMapAddress(address) {  // "London, UK" for example 
+				   var geocoder = new google.maps.Geocoder();
+				   if (geocoder) {
+				      geocoder.geocode({ 'address': address }, function (results, status) {
+				        if (status == google.maps.GeocoderStatus.OK) {
+				          map.fitBounds(results[0].geometry.viewport);				          
+				        }
+				      });
+				   }
+				 }
+			/* end map service */		
 		});
+
