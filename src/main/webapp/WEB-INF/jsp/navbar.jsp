@@ -11,8 +11,9 @@
 		</a>
 	</div>
 	<div class="navbar-collapse collapse">
-		<ul class="nav navbar-nav">
-			<li class="language" lang="en"><a href="#">English</a></li>
+	
+		<ul class="nav navbar-nav">		
+			<li class="language" lang="en"> <a href="#">English</a></li>
 			<li class="language" lang="fr"><a href="#">Français</a></li>
 			<li class="language" lang="vn"><a href="#">Tiếng Việt</a></li>
 			<li>&nbsp;</li>
@@ -26,40 +27,62 @@
 							<span class="glyphicon glyphicon-chevron-down"></span>
 						</button>
 						<ul class="dropdown-menu">
-							<li id="eventCategory" class="active"><a href="#"><spring:message
-										code="home.navbar.event" /></a></li>
-							<li><a href="#"><spring:message code="home.navbar.news" /></a></li>
-							<li onClick="searchByType(this.value);" id="searchByfriendsmap"><a
-								href="#"><spring:message code="home.navbar.friendsmap" /> </a></li>
-							<li><a href="#type=annoucement"><spring:message
-										code="home.navbar.annoucement" /> </a></li>
-							<li><a href="#"><spring:message
-										code="home.navbar.restaurant" /> </a></li>
-							<li><a href="#"><spring:message
-										code="home.navbar.administration" /></a></li>
-							<li><a href="#"><spring:message
-										code="home.navbar.company" /></a></li>
-							<li><a href="#"><spring:message
-										code="home.navbar.association" /></a></li>
-							<li><a href="#"><spring:message
-										code="home.navbar.tourism" /></a></li>
-							<li><a href="#"><spring:message code="home.navbar.sport" /></a></li>
-							<li><a href="#"><spring:message
-										code="home.navbar.market" /></a></li>
-							<li><a href="#"><spring:message
-										code="home.navbar.service" /></a></li>
-							<li><a href="#"><spring:message
-										code="home.navbar.individual" /></a></li>
-							<li><a href="#"><spring:message
-										code="home.navbar.usefulinfo" /></a></li>
-							<li><a href="#"><spring:message
-										code="home.navbar.countries" /></a></li>
+							<li id="eventCategory" class="active">
+								<a href="#"><spring:message	code="home.navbar.event" /></a>
+							</li>
+							<li>
+								<a href="#"><spring:message code="home.navbar.news" /></a>
+							</li>
+							<li onClick="searchByType(this.value);" id="searchByfriendsmap">
+								<a href="#"><spring:message code="home.navbar.friendsmap" /> </a>
+							</li>
+							<li>
+								<a href="#type=annoucement"><spring:message	code="home.navbar.annoucement" /> </a>
+							</li>
+							<li>
+								<a href="#"><spring:message	code="home.navbar.restaurant" /> </a>
+							</li>
+							<li>
+								<a href="#"><spring:message	code="home.navbar.administration" /></a>
+							</li>
+							<li>
+								<a href="#"><spring:message	code="home.navbar.company" /></a>
+							</li>
+							<li>
+								<a href="#"><spring:message	code="home.navbar.association" /></a>
+							</li>
+							<li>
+								<a href="#"><spring:message	code="home.navbar.tourism" /></a>
+							</li>
+							<li>
+								<a href="#"><spring:message code="home.navbar.sport" /></a>
+							</li>
+							<li>
+								<a href="#"><spring:message	code="home.navbar.market" /></a>
+							</li>
+							<li>
+								<a href="#"><spring:message	code="home.navbar.service" /></a>
+							</li>
+							<li>
+								<a href="#"><spring:message	code="home.navbar.individual" /></a>
+							</li>
+							<li>
+								<a href="#"><spring:message	code="home.navbar.usefulinfo" /></a>
+							</li>
+							<li>
+								<a href="#"><spring:message	code="home.navbar.countries" /></a>
+							</li>
 						</ul>
 					</div>
 					<input id="keywords" type="text" data-provide="typeahead" class="form-control"
-						placeholder="<spring:message code="home.navbar.search.placeholder" />"> 
-						<span class="input-group-addon"><span
-						class="glyphicon glyphicon-search"></span> </span>
+						placeholder=<spring:message	code="home.navbar.search.placeholder" />> 
+						<div class="input-group-btn">							
+							<button type="submit" class="btn btn-default">
+								<span class="glyphicon glyphicon-search"></span> 
+							</button>							
+						</div>
+						
+						
 				</div>
 			</div>
 		</form>

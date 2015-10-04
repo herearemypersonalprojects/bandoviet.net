@@ -34,6 +34,15 @@ body{
     color:#fefefe;
 }
 
+.glyphicon {
+	color: #168ccc;
+}
+
+.glyphicon:hover {
+	cursor: pointer;
+ color: #0000ff!important;
+ }
+
 .navbar-custom .form-control:focus {
 	border-color: #49bfff;
 	outline: 0;
@@ -118,6 +127,10 @@ body{
 .addbutton2:hover{   
 	color: white;
     background-color: #4cbbed;  
+}
+
+.item:hover {
+	background-color: #f4fafd;
 }
 
 .item_content:hover {

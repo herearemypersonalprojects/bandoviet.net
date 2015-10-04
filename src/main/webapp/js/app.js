@@ -82,7 +82,7 @@ $(document).ready(function() {
 		responsive();
 	});
 	
-	$('#keywords').focus();
+	window.setTimeout("$('#keywords').focus();", 1000);
 });
 
 function responsive() {

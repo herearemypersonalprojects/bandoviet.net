@@ -55,15 +55,13 @@
     
     <script src="js/mapService.js"></script>
 	<script src="js/scripts.js"></script>
-
 	
-	<script src="js/app.js" type="text/javascript"></script>
 	<script type="text/javascript" src="js/search.js"></script>
 	<script type="text/javascript" src="js/newplace.js"></script>
+	<script src="js/item.js" type="text/javascript"></script>
+	<script src="js/app.js" type="text/javascript"></script>
 	
 	<script type="text/javascript" src="js/avim.js"></script>
-	
-	
 	<script type="text/javascript" src="libs/jquery-ui.min.js"></script>
 </body>
 </html>

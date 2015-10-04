@@ -3,6 +3,16 @@
  */
 
 $(document).ready(function() {
+	
+	/** EDIT ITEM */
+	$('.edit').on('click', function() {
+		// add new event   
+		$('#newplaceform').show();
+		$('#title').focus();
+	});
+	
+	/*
+	
 	$('.item').on('click', function() {
 		var item = $(this);
         if (!item.hasClass("item_active")) {
@@ -12,9 +22,6 @@ $(document).ready(function() {
             item.find('.panel').$(this).css('background-color', 'white');
         }
 	});
-	
-	/** EDIT ITEM */
-	$('.edit').on('click', function() {
-		alert('ok');
-	});
+	*/
+
 });

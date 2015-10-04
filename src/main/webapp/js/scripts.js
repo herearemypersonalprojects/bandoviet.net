@@ -85,7 +85,11 @@ $(document).ready(
 					    }
 					  map.fitBounds(bounds); 
 					  marker.setVisible(false);
-					  $('#0').trigger('click');
+					  
+					  if (!window.location.href.indexOf('?')) {
+						  $('#0').trigger('click');
+					  }
+					  
 				  } else {
 					  // TODO: Extend the keywords to have results.
 				  }			 
@@ -127,7 +131,12 @@ $(document).ready(
 				var item = document.getElementById(idx);
 				  //Trigger a click event to marker when the button is clicked.
 				  google.maps.event.addDomListener(item, "click", function(){ //mouseover
-				    google.maps.event.trigger(m, "click");		
+					  google.maps.event.trigger(m, "mouseover");	
+					  if (map.getZoom() < 10) {
+						  map.setZoom(10);
+					  }
+					  var latlng = new google.maps.LatLng(stationList[idx].lat, stationList[idx].lng);
+					  map.setCenter(latlng);	
 				  });
 			}
 			
@@ -146,8 +155,7 @@ $(document).ready(
 					  if (map.getZoom() < 10) {
 						  map.setZoom(10);
 					  }
-					 
-					  map.setCenter(latlng);
+					  map.setCenter(m.position);
 				  });
 				  
 				  google.maps.event.addListener(m, 'mouseover', function(){
@@ -156,17 +164,20 @@ $(document).ready(
 				    		'<br>'+
 				    		'<img class="photo_item" src="/img/test.jpg" alt="Item test">');
 				    infoWnd.open(map, m);
-    
+				    	
+				    
 				    var item = document.getElementById(idx);
 		            if (!$(item).hasClass("item_active")) {
 		                var lastActive = $(item).closest("#results").children(".item_active");
 		                lastActive.removeClass("item_active");
 		                $(item).addClass("item_active");		                
 		            }
-		            window.location.href ="#" + idx;
+		            window.location.href ="#item" + idx;
+		            
 				  });
 				  return m;
 			}
+			
 			
 			function showLocationLatLng(lat, lng) {
 			    var me = new google.maps.LatLng(lat, lng);

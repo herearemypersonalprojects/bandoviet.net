@@ -49,8 +49,11 @@ $(document).ready(function() {
 		  // prevent default browser behaviour
 		  event.preventDefault();
 		  //do stuff with your form here
-		  window.location.href = '/search?keywords=' + $('#keywords').val();
-
+		  if ($('#keywords').val()) {
+			  window.location.href = '/search?keywords=' + $('#keywords').val();
+		  } else {
+			  $('#keywords').focus();
+		  }
 		});
 });
 
