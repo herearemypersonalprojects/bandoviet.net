@@ -73,13 +73,13 @@
 			        </table>
 				
 					<img  class="/img-circle button_item" alt="facebook" src="/img/user.png">
-					<span class="comment_item"><spring:message code="home.result.item.postedby"/> ${item.updatedDate}</span>
+					<span class="comment_item"><spring:message code="home.result.item.postedby"/> ${item.createdFromIp} - ${item.updatedDate}</span>
 					<!-- 
 					<img  class="/img-circle button_item" alt="facebook" src="/img/thank.jpg">
 					<span class="comment_item"><spring:message code="home.result.item.thank"/> (23)</span>
 					 -->
 					<img  class="/img-circle button_item" alt="facebook" src="/img/edit.png">
-					<span class="comment_item"><spring:message code="home.result.item.edit"/></span>
+					<span class="comment_item edit"><spring:message code="home.result.item.edit"/></span>
 					<hr>
 				</div>				
 				</c:forEach>

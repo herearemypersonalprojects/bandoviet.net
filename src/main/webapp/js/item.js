@@ -12,4 +12,9 @@ $(document).ready(function() {
             item.find('.panel').$(this).css('background-color', 'white');
         }
 	});
+	
+	/** EDIT ITEM */
+	$('.edit').on('click', function() {
+		alert('ok');
+	});
 });

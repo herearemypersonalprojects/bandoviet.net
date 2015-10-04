@@ -30,7 +30,7 @@ $(document).ready(
 					center : latlng,
 					scrollWheel : false,
 					zoom : 13,
-					streetViewControl: false,
+					streetViewControl: true,
 					zoomControlOptions: {
 			            style: google.maps.ZoomControlStyle.SMALL,
 			            position: google.maps.ControlPosition.RIGHT_TOP
@@ -85,6 +85,7 @@ $(document).ready(
 					    }
 					  map.fitBounds(bounds); 
 					  marker.setVisible(false);
+					  $('#0').trigger('click');
 				  } else {
 					  // TODO: Extend the keywords to have results.
 				  }			 
@@ -142,7 +143,10 @@ $(document).ready(
 				  //The infoWindow is opened when the sidebar button is clicked
 				  google.maps.event.addListener(m, 'click', function(){
 					  google.maps.event.trigger(m, "mouseover");	
-					  //map.setZoom(15);
+					  if (map.getZoom() < 10) {
+						  map.setZoom(10);
+					  }
+					 
 					  map.setCenter(latlng);
 				  });
 				  

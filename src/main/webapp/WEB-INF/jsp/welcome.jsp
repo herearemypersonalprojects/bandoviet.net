@@ -37,7 +37,7 @@ h1 {
   <p>Dans la mesure où l'inscription au registre mondial n’est pas obligatoire, un certain nombre de ressortissants français ne se font pas connaître des services consulaires. Bien qu’incomplètes, certaines projections permettent d’estimer que 2,5 millions de Français sont établis hors de France</p>
 </div>
 
-<div id="vietnam" onClick="window.location.href = '/vietnam';" class="country">
+<div id="vietnam" onClick="window.location.href = '/';" class="country">
   <h2><img style="height: 20px;" alt="Logo" src="/img/flags/vietnam.png"> Người Việt ở nước ngoài</h2>
   <p>Theo số liệu của Học Viện Ngoại Giao năm 2012, cộng đồng người Việt Nam ở nước ngoài có trên 4 triệu người và phân bố không đồng đều tại 103 nước và vùng lãnh thổ trên khắp thế giới, 98% trong số đó tập trung ở 21 nước tại Bắc Mỹ, Châu Âu, Đông Nam Á, Đông Bắc Á và châu Đại Dương.</p>
   <p>Việt kiều ở nước ngoài là một nguồn vốn về kinh tế và nhân lực cho Việt Nam và có sức tiêu thụ cao. Kiều hối cũng là một nguồn doanh thu quan trọng cho Việt Nam.</p>

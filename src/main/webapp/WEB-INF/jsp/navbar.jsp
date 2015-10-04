@@ -57,8 +57,8 @@
 						</ul>
 					</div>
 					<input id="keywords" type="text" data-provide="typeahead" class="form-control"
-						placeholder="What are searching for?"> <span
-						class="input-group-addon"><span
+						placeholder="<spring:message code="home.navbar.search.placeholder" />"> 
+						<span class="input-group-addon"><span
 						class="glyphicon glyphicon-search"></span> </span>
 				</div>
 			</div>
