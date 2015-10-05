@@ -37,7 +37,7 @@
                         </div>
                     </div></div>
 	
-	<div class="newplace addbutton">+</div>
+	<%--<div class="newplace addbutton">+</div> --%>
 	
 	<div class="my_location"><spring:message code="home.map.mylocation" /></div>
 	

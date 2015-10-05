@@ -47,6 +47,7 @@
 					<div class="col-sm-9">
 						<input name="image" type="file" id="file" class="form-control">						
 					</div>
+					<form:input path="imagePath" type="hidden" name="imagePath" id="imagePath"/>
 					<c:if test="${ not empty imagePath }">	<img class="photo_item" src="${imagePath}" alt="Photo"> </c:if>
 					<!-- <p class="help-block">Các thông tin có dấu (*) là bắt buộc phải điền.</p> -->
 				</div>
@@ -99,28 +100,27 @@
 						 --%>
 					</div>
 				</div>
+				
+				<div id="eventTimeGroup" class="form-group">
+					<label for="startDate" class="col-sm-3 control-label"><spring:message
+							code="home.new.time" /></label>
 
-				<c:if test="${ item.placeType == 'EVENT' }">
-					<div id="eventTimeGroup" class="form-group">
-						<label for="startDate" class="col-sm-3 control-label"><spring:message
-								code="home.new.time" /></label>
-	
-						<div class="span9 col-md-9" id="sandbox-container">
-							<div class="input-daterange input-group">
-								<input type="text" class="form-control eventTime startTime"
-									placeholder="<spring:message code="home.new.from.suggest"/>"/>
-								<form:input path="openTime" id="startTime" type="hidden"/> 
-									<span class="input-group-addon">
-										<spring:message	code="home.new.to" />
-									</span> 
-								<input type="text"
-									class="form-control eventTime endTime"
-									placeholder="<spring:message code="home.new.to.suggest"/>">
-								<form:input path="closeTime" id="endTime" type="hidden"/>
-							</div>
+					<div class="span9 col-md-9" id="sandbox-container">
+						<div class="input-daterange input-group">
+							<input type="text" class="form-control eventTime startTime"
+								placeholder="<spring:message code="home.new.from.suggest"/>"/>
+							<form:input path="startTime" name="startTime" id="startTime" type="hidden"/> 
+								<span class="input-group-addon">
+									<spring:message	code="home.new.to" />
+								</span> 
+							<input type="text"
+								class="form-control eventTime endTime"
+								placeholder="<spring:message code="home.new.to.suggest"/>">
+							<form:input path="endTime" name="endTime" id="endTime" type="hidden"/>
 						</div>
 					</div>
-				</c:if>
+				</div>
+
 				<div id="contentGroup" class="form-group hide">
 					<label for="information" class="col-sm-3 control-label"><spring:message
 							code="home.new.content" /></label>
@@ -132,16 +132,16 @@
 					</div>
 				</div>
 
-				<%--
 				<div id="sizeGroup" class="form-group hide">
 					<label for="size" class="col-sm-3 control-label"><spring:message
 							code="home.new.size" /></label>
 					<div class="col-sm-9">
-						<input type="text" name="size" class="form-control" id="size"
-							placeholder="<spring:message code="home.new.size.suggest"/>" />
+						<spring:message code="home.new.size.suggest" var="suggest"/>
+						<form:input path="size" name="size" class="form-control" id="size"
+							placeholder="${suggest }" />
 					</div>
 				</div>
-				 --%>
+				
 				<div class="form-group" style="display: none">
 					<label for="title">Thuộc cộng đồng</label> <input
 						class="form-control" id="communityCode" name="communityCode"
@@ -152,9 +152,9 @@
 					<label for="openTime" class="col-sm-3 control-label"><spring:message
 							code="home.new.time" /></label>
 					<div class="col-sm-9">
-						<input type="text" class="form-control" id="openTime"
-							name="openTime"
-							placeholder="<spring:message code="home.new.time.suggest"/>">
+						<spring:message code="home.new.time.suggest" var="suggest"/>
+						<form:input path="openTime" class="form-control" id="openTime"	name="openTime"
+							placeholder="${suggest }"/>
 					</div>
 				</div>
 
@@ -162,9 +162,9 @@
 					<label for="telephone" class="col-sm-3 control-label"><spring:message
 							code="home.new.telephone" /></label>
 					<div class="col-sm-9">
-						<input type="text" class="form-control" id="telephone"
-							name="telephone"
-							placeholder="<spring:message code="home.new.telephone.suggest"/>">
+						<spring:message code="home.new.telephone.suggest" var="suggest"/>
+						<form:input path="telephone" class="form-control" id="telephone" name="telephone"
+							placeholder="${suggest }"/>
 					</div>
 				</div>
 
@@ -172,8 +172,9 @@
 					<label for="email" class="col-sm-3 control-label"><spring:message
 							code="home.new.email" /></label>
 					<div class="col-sm-9">
-						<input type="text" class="form-control" id="email" name="email"
-							placeholder="<spring:message code="home.new.email.suggest"/>">
+						<spring:message code="home.new.email.suggest" var="suggest"/>
+						<form:input path="email" class="form-control" id="email" name="email"
+							placeholder="${suggest }"/>
 					</div>
 				</div>
 
@@ -195,8 +196,8 @@
   </div>
     -->
 				<!-- User's information -->
-				<input type="hidden" id="userId" name="userId" value="34"> <input
-					type="hidden" id="id" name="id">
+				<form:input path="createdByUserId" type="hidden" id="createdByUserId" name="createdByUserId" value="34"/> 
+				<form:input	path="id" type="hidden" id="id" name="id"/>
 
 				<div class="form-group">
 					<div class="col-sm-offset-3 col-sm-9">
