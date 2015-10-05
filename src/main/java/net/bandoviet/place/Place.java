@@ -120,8 +120,14 @@ public class Place {
   @Column(name = "openTime")
   String openTime;
 
-  @Column(name = "closeTime")
-  String closeTime;
+  @Column(name = "startTime")
+  String startTime;
+  
+  @Column(name = "endTime")
+  String endTime;  
+  
+  @Column(name = "size")
+  Long size;  
 
   @Column(name = "organised_by")
   String organisedBy;
@@ -302,12 +308,28 @@ public class Place {
     this.openTime = openTime;
   }
 
-  public String getCloseTime() {
-    return closeTime;
+  public String getStartTime() {
+    return startTime;
   }
 
-  public void setCloseTime(String closeTime) {
-    this.closeTime = closeTime;
+  public void setStartTime(String startTime) {
+    this.startTime = startTime;
+  }
+
+  public String getEndTime() {
+    return endTime;
+  }
+
+  public void setEndTime(String endTime) {
+    this.endTime = endTime;
+  }
+
+  public Long getSize() {
+    return size;
+  }
+
+  public void setSize(Long size) {
+    this.size = size;
   }
 
   public String getOrganisedBy() {

@@ -100,8 +100,8 @@
 					</div>
 				</div>
 
-				<c:if test="${ placeType == 'RESTAURANT' }">
-					<div id="eventTimeGroup" class="form-group hide">
+				<c:if test="${ item.placeType == 'EVENT' }">
+					<div id="eventTimeGroup" class="form-group">
 						<label for="startDate" class="col-sm-3 control-label"><spring:message
 								code="home.new.time" /></label>
 	
