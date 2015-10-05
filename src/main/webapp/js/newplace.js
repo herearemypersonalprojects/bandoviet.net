@@ -16,6 +16,12 @@ $(document).ready(function() {
 			$input.next().val(Date.parse(ct));
 	      }
 		});
+	
+	$('#placeType').change(function() {
+		changeType($(this).val()); 
+	});
+	// UPDATE CASE -> auto show
+	if ($('#placeType').val())	changeType($('#placeType').val());
 });
 
 /**
@@ -26,7 +32,7 @@ function changeType(type) {
 	$('#contentGroup').removeClass('hide');
 	switch (type) {
 
-    case "event":
+    case "EVENT":
     	$('#eventTimeGroup').removeClass('hide');
     	$('#openTimeInput').addClass('hide');
     	$('#emailGroup').removeClass('hide');
@@ -34,7 +40,7 @@ function changeType(type) {
     	$('#sizeGroup').addClass('hide');
         break;
 
-    case "news":
+    case "NEWS":
     	$('#eventTimeGroup').addClass('hide');
     	$('#openTimeInput').addClass('hide');
     	$('#telephoneGroup').addClass('hide');
@@ -43,7 +49,7 @@ function changeType(type) {
     	$('#sizeGroup').addClass('hide');
         break;
 
-    case "annoucement":
+    case "ANNOUCEMENT":
     	$('#eventTimeGroup').addClass('hide');
     	$('#openTimeInput').addClass('hide');
     	$('#telephoneGroup').removeClass('hide');
@@ -52,7 +58,7 @@ function changeType(type) {
     	$('#sizeGroup').addClass('hide');
         break;
 
-    case "restaurant":
+    case "RESTAURANT":
     	$('#eventTimeGroup').addClass('hide');
     	$('#openTimeInput').removeClass('hide');
     	$('#telephoneGroup').removeClass('hide');
@@ -61,7 +67,7 @@ function changeType(type) {
     	$('#sizeGroup').addClass('hide');
         break;
    
-    case "friendsmap":
+    case "FRIENDSMAP":
     	$('#eventTimeGroup').addClass('hide');
     	$('#openTimeInput').addClass('hide');
     	$('#telephoneGroup').removeClass('hide');
@@ -70,7 +76,7 @@ function changeType(type) {
     	$('#sizeGroup').addClass('hide');
         break;    	
 
-    case "administration":
+    case "ADMINISTRATION":
     	$('#eventTimeGroup').addClass('hide');
     	$('#openTimeInput').removeClass('hide');
     	$('#telephoneGroup').removeClass('hide');
@@ -79,7 +85,7 @@ function changeType(type) {
     	$('#sizeGroup').addClass('hide');
         break;
         
-    case "company":
+    case "COMPANY":
     	$('#eventTimeGroup').addClass('hide');
     	$('#openTimeInput').removeClass('hide');
     	$('#telephoneGroup').removeClass('hide');
@@ -88,7 +94,7 @@ function changeType(type) {
     	$('#sizeGroup').removeClass('hide');
         break;
         
-    case "association":
+    case "ASSOCIATION":
     	$('#eventTimeGroup').addClass('hide');
     	$('#openTimeInput').removeClass('hide');
     	$('#telephoneGroup').removeClass('hide');
@@ -97,7 +103,7 @@ function changeType(type) {
     	$('#sizeGroup').removeClass('hide');
         break;
 
-    case "tourism":
+    case "TOURISM":
     	$('#eventTimeGroup').addClass('hide');
     	$('#openTimeInput').removeClass('hide');
     	$('#telephoneGroup').removeClass('hide');
@@ -106,7 +112,7 @@ function changeType(type) {
     	$('#sizeGroup').addClass('hide');
         break;
         
-    case "sport":
+    case "SPORT":
     	$('#eventTimeGroup').addClass('hide');
     	$('#openTimeInput').removeClass('hide');
     	$('#telephoneGroup').removeClass('hide');
@@ -115,7 +121,7 @@ function changeType(type) {
     	$('#sizeGroup').addClass('hide');
         break;
         
-    case "market":
+    case "MARKET":
     	$('#eventTimeGroup').addClass('hide');
     	$('#openTimeInput').removeClass('hide');
     	$('#telephoneGroup').removeClass('hide');
@@ -124,7 +130,7 @@ function changeType(type) {
     	$('#sizeGroup').addClass('hide');
         break;
         
-    case "service":
+    case "SERVICE":
     	$('#eventTimeGroup').addClass('hide');
     	$('#openTimeInput').removeClass('hide');
     	$('#telephoneGroup').removeClass('hide');
@@ -133,7 +139,7 @@ function changeType(type) {
     	$('#sizeGroup').addClass('hide');
         break;
         
-    case "individual":
+    case "INDIVIDUAL":
     	$('#eventTimeGroup').addClass('hide');
     	$('#openTimeInput').removeClass('hide');
     	$('#telephoneGroup').removeClass('hide');
@@ -142,7 +148,7 @@ function changeType(type) {
     	$('#sizeGroup').addClass('hide');
         break;
         
-    case "countries":
+    case "COUNTRY":
     	$('#eventTimeGroup').addClass('hide');
     	$('#openTimeInput').addClass('hide');
     	$('#telephoneGroup').addClass('hide');
@@ -151,7 +157,7 @@ function changeType(type) {
     	$('#sizeGroup').removeClass('hide');
         break;        
         
-    case "usefulinfo":
+    case "USEFULINFO":
     	$('#eventTimeGroup').addClass('hide');
     	$('#openTimeInput').addClass('hide');
     	$('#telephoneGroup').removeClass('hide');

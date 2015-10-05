@@ -100,34 +100,39 @@
 					</div>
 				</div>
 
-				<div id="eventTimeGroup" class="form-group hide">
-					<label for="startDate" class="col-sm-3 control-label"><spring:message
-							code="home.new.time" /></label>
-
-					<div class="span9 col-md-9" id="sandbox-container">
-						<div class="input-daterange input-group">
-							<input type="text" class="form-control eventTime startTime"
-								placeholder="<spring:message code="home.new.from.suggest"/>">
-							<input id="startTime" type="hidden"> <span
-								class="input-group-addon"><spring:message
-									code="home.new.to" /></span> <input type="text"
-								class="form-control eventTime endTime"
-								placeholder="<spring:message code="home.new.to.suggest"/>">
-							<input id="endTime" type="hidden">
+				<c:if test="${ placeType == 'RESTAURANT' }">
+					<div id="eventTimeGroup" class="form-group hide">
+						<label for="startDate" class="col-sm-3 control-label"><spring:message
+								code="home.new.time" /></label>
+	
+						<div class="span9 col-md-9" id="sandbox-container">
+							<div class="input-daterange input-group">
+								<input type="text" class="form-control eventTime startTime"
+									placeholder="<spring:message code="home.new.from.suggest"/>"/>
+								<form:input path="openTime" id="startTime" type="hidden"/> 
+									<span class="input-group-addon">
+										<spring:message	code="home.new.to" />
+									</span> 
+								<input type="text"
+									class="form-control eventTime endTime"
+									placeholder="<spring:message code="home.new.to.suggest"/>">
+								<form:input path="closeTime" id="endTime" type="hidden"/>
+							</div>
 						</div>
 					</div>
-				</div>
-
+				</c:if>
 				<div id="contentGroup" class="form-group hide">
 					<label for="information" class="col-sm-3 control-label"><spring:message
 							code="home.new.content" /></label>
 					<div class="col-sm-9">
-						<textarea rows="3" name="information" class="form-control"
+						<spring:message code="home.new.content.suggest" var="sgguest"/>
+						<form:textarea path="information" rows="3" name="information" class="form-control"
 							id="information"
-							placeholder="<spring:message code="home.new.content.suggest"/>"></textarea>
+							placeholder="${suggest }"></form:textarea>
 					</div>
 				</div>
 
+				<%--
 				<div id="sizeGroup" class="form-group hide">
 					<label for="size" class="col-sm-3 control-label"><spring:message
 							code="home.new.size" /></label>
@@ -136,7 +141,7 @@
 							placeholder="<spring:message code="home.new.size.suggest"/>" />
 					</div>
 				</div>
-
+				 --%>
 				<div class="form-group" style="display: none">
 					<label for="title">Thuộc cộng đồng</label> <input
 						class="form-control" id="communityCode" name="communityCode"
@@ -176,9 +181,9 @@
 					<label for="title" class="col-sm-3 control-label"><spring:message
 							code="home.new.homepage" /></label>
 					<div class="col-sm-9">
-						<input type="text" class="form-control" id="referenceUrl"
-							name="referenceUrl"
-							placeholder="<spring:message code="home.new.homepage.suggest"/>">
+						<spring:message code="home.new.homepage.suggest" var="suggest"/>
+						<form:input path="referenceUrl" class="form-control" id="referenceUrl"
+							name="referenceUrl"	placeholder="${suggest }"/>
 					</div>
 				</div>
 
