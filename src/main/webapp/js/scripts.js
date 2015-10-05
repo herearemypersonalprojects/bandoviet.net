@@ -3,7 +3,8 @@ var currentAddress = "Paris, France";
 var marker;
 var map;
 var infoWnd = new google.maps.InfoWindow();
-var stationList = [];
+var poiList = [];
+var detailZoom = 15;
 
 $(document).ready(
 		function() {
@@ -12,14 +13,16 @@ $(document).ready(
 
 			function initialize() {
 				// Hien thi cac ket qua tren ban do
-				stationList = [];
+				poiList = [];
+								
 				$('.item_content').each(function( index, element ) {
 					var item = {
+						"id": 	element.getAttribute("data-id"),
 						"lat": 	element.getAttribute("data-lat"),
 						"lng": element.getAttribute("data-lng"),
-						"name": element.getAttribute("data-title")
+						"title": element.getAttribute("data-title")
 					};
-					stationList.push(item);
+					poiList.push(item);
 					
 				});
 				
@@ -63,19 +66,19 @@ $(document).ready(
 				  var bounds = new google.maps.LatLngBounds();
 				  var station, i, latlng;
 				  var idx = 0;
-				  for (i in stationList) {
+				  for (i in poiList) {
 				    //Creates a marker
-				    station = stationList[i];
+				    station = poiList[i];
 				    latlng = new google.maps.LatLng(station.lat, station.lng);
 				    bounds.extend(latlng);
-				    var m = createMarker(map, latlng, station.name, idx);
+				    var m = createMarker(map, latlng, station.title, idx);
 				    
 				    //Creates a sidebar button for the marker
 				    createMarkerButton(m, idx);
 				    idx = idx + 1;
 				  }
 				  //Fits the map bounds
-				  if (stationList.length >= 1) {
+				  if (poiList.length >= 1) {
 					    // Don't zoom in too far on only one marker
 					    if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
 					       var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.01, bounds.getNorthEast().lng() + 0.01);
@@ -85,9 +88,11 @@ $(document).ready(
 					    }
 					  map.fitBounds(bounds); 
 					  marker.setVisible(false);
-					  
-					  if (!window.location.href.indexOf('?')) {
-						  $('#0').trigger('click');
+					
+					  if (window.location.href.indexOf('#item') < 0) { 
+						  //$('#0').trigger('hover');
+					  } else {
+						  //$('#0').trigger('click');
 					  }
 					  
 				  } else {
@@ -131,12 +136,24 @@ $(document).ready(
 				var item = document.getElementById(idx);
 				  //Trigger a click event to marker when the button is clicked.
 				  google.maps.event.addDomListener(item, "click", function(){ //mouseover
-					  google.maps.event.trigger(m, "mouseover");	
-					  if (map.getZoom() < 10) {
-						  map.setZoom(10);
+					    infoWnd.setContent(
+					    		'<strong>' + $(item).data('title') + '</title>' + 
+					    		'<br>'+
+					    		'<img class="photo_item" src="/img/test.jpg" alt="Item test">');
+					    infoWnd.open(map, m);					 
+					  if (map.getZoom() < detailZoom) {
+						  map.setZoom(detailZoom);
 					  }
-					  var latlng = new google.maps.LatLng(stationList[idx].lat, stationList[idx].lng);
+					  var latlng = new google.maps.LatLng(poiList[idx].lat, poiList[idx].lng);
 					  map.setCenter(latlng);	
+				  });
+				  
+				  google.maps.event.addDomListener(item, "mouseover", function(){ //
+					    infoWnd.setContent(
+					    		'<strong>' + $(item).data('title') + '</title>' + 
+					    		'<br>'+
+					    		'<img class="photo_item" src="/img/test.jpg" alt="Item test">');
+					    infoWnd.open(map, m);	
 				  });
 			}
 			
@@ -152,8 +169,8 @@ $(document).ready(
 				  //The infoWindow is opened when the sidebar button is clicked
 				  google.maps.event.addListener(m, 'click', function(){
 					  google.maps.event.trigger(m, "mouseover");	
-					  if (map.getZoom() < 10) {
-						  map.setZoom(10);
+					  if (map.getZoom() < detailZoom) {
+						  map.setZoom(detailZoom);
 					  }
 					  map.setCenter(m.position);
 				  });

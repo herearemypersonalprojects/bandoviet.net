@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -5,7 +6,7 @@
 		<div class="row">
 			<div id="results" class="col-xs-5" id="left">
 				<br>
-				<jsp:include page="newplaceform.jsp" />
+				
 				
 				<div id="textbox">
 					  <p style="font-size: 20px;color:#007bb3;float: left;">
@@ -22,14 +23,14 @@
 				
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<a href="#${item.id}" target="_blank">${item.title}</a>
+							<a href="#item${item.id}" target="_blank">${item.title}</a>
 							
 							
 						
 							<div style="float: right;  margin: auto;">
 												
 							
-								<span class="glyphicon glyphicon-pencil edit" aria-hidden="true" title="<spring:message code="home.result.item.edit"/>"></span> 
+								<span data-id="${item.id}" class="glyphicon glyphicon-pencil edit" aria-hidden="true" title="<spring:message code="home.result.item.edit"/>"></span> 
 						
 								<!-- 							
 								<img  class="/img-circle button_item" alt="facebook" src="/img/like.jpg">
@@ -44,8 +45,9 @@
 						</div>
 					</div>	
 					<div class="item_content" id="${status.index}" data-lat="${item.latitude}" 
-				data-lng="${item.longitude}" data-title="${item.title}"	data-img="${item.imagePath}">
-						<img class="photo_item" src="img/test.jpg" alt="Item test">
+					data-id="${item.id}" 
+						data-lng="${item.longitude}" data-title="${item.title}"	data-img="${item.imagePath}">
+						<img class="photo_item" src="${item.imagePath}" alt="Photo">
 						${item.information} ${item.imagePath} ${item.id}
 	
 				        <table>

@@ -1,6 +1,8 @@
 <!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html lang="en">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -40,8 +42,8 @@
 	<div class="my_location"><spring:message code="home.map.mylocation" /></div>
 	
 	<jsp:include page="mylocationalert.jsp" />
-	
-	<jsp:include page="results.jsp" />
+
+	<jsp:include page="newplaceform.jsp" />
 	<!-- end view -->
 
 	<!-- script references -->

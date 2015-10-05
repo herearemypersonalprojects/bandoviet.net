@@ -6,9 +6,8 @@ $(document).ready(function() {
 	
 	/** EDIT ITEM */
 	$('.edit').on('click', function() {
-		// add new event   
-		$('#newplaceform').show();
-		$('#title').focus();
+		var id = $(this).data('id');
+		window.location.href = "/update?id=" + id;
 	});
 	
 	/*
@@ -25,3 +24,10 @@ $(document).ready(function() {
 	*/
 
 });
+
+function getPOI(id) {
+	for (i = 0, len = poiList.length; i < len; i++) { 
+		if (poiList[i].id == id) return poiList[i];
+	}
+	return null;
+}

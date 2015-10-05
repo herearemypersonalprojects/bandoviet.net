@@ -13,9 +13,12 @@
 	<div class="navbar-collapse collapse">
 	
 		<ul class="nav navbar-nav">		
+			
 			<li class="language" lang="en"> <a href="#">English</a></li>
 			<li class="language" lang="fr"><a href="#">Français</a></li>
 			<li class="language" lang="vn"><a href="#">Tiếng Việt</a></li>
+			 
+			 <li class="language" lang="vn"><a href="#">Bản đồ của bạn</a></li>
 			<li>&nbsp;</li>
 		</ul>
 		<form class="navbar-form">

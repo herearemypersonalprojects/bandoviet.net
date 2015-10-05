@@ -45,7 +45,6 @@ $(document).ready(function() {
 
 
 	$('.navbar-form').submit(function(event){
-		  
 		  // prevent default browser behaviour
 		  event.preventDefault();
 		  //do stuff with your form here

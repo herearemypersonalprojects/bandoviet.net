@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-import net.bandoviet.tool.GeographyTool;
 /**
  * Place service.
  * 
@@ -46,6 +45,10 @@ public class PlaceService {
     }
     return results;
   }
+  
+  public Place getPlace(Long id) {
+    return placeRepository.findOne(id);
+  }
 
   public List<Place> findByCity(String cityName) {
     return placeRepository.findByCity(cityName);
@@ -65,7 +68,7 @@ public class PlaceService {
 
     TreeMap<Long, Double> sortedList = new TreeMap<Long, Double>();
     for (Place place : lst) {
-      double distance = GeographyTool.distance(lat, lng, place.getLatitude(), place.getLongitude(),
+      double distance = PlaceTools.distance(lat, lng, place.getLatitude(), place.getLongitude(),
           "K");
       sortedList.put(place.getId(), distance);
     }

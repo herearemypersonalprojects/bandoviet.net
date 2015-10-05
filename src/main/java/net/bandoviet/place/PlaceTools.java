@@ -1,15 +1,14 @@
-package net.bandoviet.tool;
+package net.bandoviet.place;
 
 /**
- * Tool to work with geography data.
+ * Tools to work with places.
  * @author quocanh
  *
  */
-public class GeographyTool {
-
-  private GeographyTool() {
+public class PlaceTools {
+  private PlaceTools() {
   }
-
+  
   /**
    * Calculate the distance in Miles or Kilometers or Nautical Miles.
    * @param lat1 the first position's latitude
