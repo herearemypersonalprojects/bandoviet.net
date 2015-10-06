@@ -27,6 +27,7 @@ $(document).ready(function() {
 		$('#selectCountry').modal('show');
 	});
 	
+	/*
 	$('.newplace').click(function() {
 		var button = $('.newplace');
 		var form = $('#newplaceform');
@@ -38,6 +39,10 @@ $(document).ready(function() {
 			form.hide();
 			button.html('+');			
 		}
+	});
+	*/
+	$('.newplace').click(function() { 
+		window.location.href = "/create";
 	});
 	
 	var lang = getUrlParameter('lang'); 
