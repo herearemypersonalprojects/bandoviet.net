@@ -46,6 +46,7 @@ public class Place {
   private String title;
 
   @Column(name = "information", nullable = true)
+  @Size(max = 1000)
   @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
   private String information;
 

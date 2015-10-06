@@ -96,7 +96,7 @@
 				<!-- end item list -->
 
 				<p id="scroll">
-					<a href="#" target="_ext"
+					<a href="/search?keywords=Việt Nam" target="_ext"
 						class="center-block btn btn-primary"><spring:message code="home.result.more" /></a>
 				</p>
 

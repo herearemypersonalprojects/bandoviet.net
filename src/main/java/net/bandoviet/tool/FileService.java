@@ -10,6 +10,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
 
 
 /**
@@ -22,6 +26,47 @@ import java.io.FileOutputStream;
 @Validated
 public class FileService {
   private static final Logger LOGGER = LoggerFactory.getLogger(FileService.class);
+  
+  /**
+   * Save image from URL.
+   * @param imageUrl path
+   * @param destinationFile location to save
+   * @throws IOException
+   */
+  public static void saveImage(String imageUrl, String destinationFile) throws IOException {
+    URL url = new URL(imageUrl);
+    InputStream is = url.openStream();
+    OutputStream os = new FileOutputStream(destinationFile);
+
+    byte[] b = new byte[2048];
+    int length;
+
+    while ((length = is.read(b)) != -1) {
+        os.write(b, 0, length);
+    }
+
+    is.close();
+    os.close();
+}
+
+  /**
+   * Save image from Google Street View.
+   * @param lat
+   * @param lng
+   * @param id
+   * @param prefix
+   * @return
+   * @throws IOException
+   */
+  public static String saveImageFromGoogleStreetView(Double lat, Double lng, Long id, String prefix) throws IOException {
+    String imageUrl = "https://maps.googleapis.com/maps/api/streetview?size=512x512&location=" + lat + "," + lng + "&heading=51.78&pitch=-0.76&key=AIzaSyCJbKbcTqdaVh5oJVTOBTHPaBDViLurLxM";
+    String homeDir = System.getProperty("user.home");
+    String path = homeDir + "/images/" + prefix + String.valueOf(id.longValue()) + "/";
+    prepareFolder(path);
+    String name = path + getFileName(id, "streetview.jpeg");
+    saveImage(imageUrl, name);
+    return name.substring(name.indexOf("images/"));
+  }
   /**
    * Save the file on the disk at the default folder.
    * 

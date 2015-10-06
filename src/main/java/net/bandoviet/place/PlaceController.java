@@ -146,16 +146,21 @@ public class PlaceController {
       return "edit";
     }
     
-    try {
+    try {      
       place.setCreatedFromIp(request.getRemoteAddr());
-      String imagePath = FileService.saveFile(image, place.getId(), "place");
-      if (StringUtils.isNotBlank(imagePath)) {
-        place.setImagePath(imagePath);
+      Place updatedPlace = placeService.save(place);
+      
+      String imagePath = FileService.saveFile(image, updatedPlace.getId(), "place");
+      if (StringUtils.isBlank(imagePath)) {
+        imagePath = FileService.saveImageFromGoogleStreetView(
+            updatedPlace.getLatitude(), place.getLongitude(),  
+            updatedPlace.getId(), "place");
       }
-      placeService.save(place);
+      updatedPlace.setImagePath(imagePath);
+      placeService.save(updatedPlace);
     } catch (Exception e) {
       LOGGER.error("Tried to save user with id", e);
-      result.reject("user.save.error");
+      result.reject("home.save.error");
       return "edit";
     }
 

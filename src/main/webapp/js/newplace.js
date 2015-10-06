@@ -20,6 +20,10 @@ $(document).ready(function() {
 	$('#placeType').change(function() {
 		changeType($(this).val()); 
 	});
+	//
+    $('#address').blur(function () {
+        showLocation($(this).val());
+    });
 	// UPDATE CASE -> auto show
 	if ($('#placeType').val() && $('#placeType').val() != 'NONE') {
 		changeType($('#placeType').val());
@@ -29,6 +33,7 @@ $(document).ready(function() {
 	$('#newplaceform').submit(function(event) {
 		console.log(event);
 	});
+		
 });
 
 /**

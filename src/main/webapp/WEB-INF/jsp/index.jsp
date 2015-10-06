@@ -56,7 +56,7 @@
 	<script src="js/scripts.js"></script>
 	
 	<script type="text/javascript" src="js/search.js"></script>
-	<script type="text/javascript" src="js/newplace.js"></script>
+	<%--<script type="text/javascript" src="js/newplace.js"></script> --%>
 	<script src="js/item.js" type="text/javascript"></script>
 	<script src="js/app.js" type="text/javascript"></script>
 	

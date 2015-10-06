@@ -4,21 +4,46 @@
     
 <div class="navbar navbar-custom navbar-fixed-top">
 	<div class="navbar-header">
-		<a class="navbar-brand" href="/"><spring:message code="home.navbar.title"/></a> <a class="navbar-toggle"
-			data-toggle="collapse" data-target=".navbar-collapse"> <span
-			class="icon-bar"></span> <span class="icon-bar"></span> <span
-			class="icon-bar"></span>
+		<a class="navbar-brand" href="/"><spring:message code="home.navbar.title"/></a> 
+		<a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> 
+			<span class="icon-bar"></span> 
+			<span class="icon-bar"></span> 
+			<span class="icon-bar"></span>
 		</a>
 	</div>
 	<div class="navbar-collapse collapse">
 	
 		<ul class="nav navbar-nav">		
-			
+			<%-- 
 			<li class="language" lang="en"> <a href="#">English</a></li>
 			<li class="language" lang="fr"><a href="#">Français</a></li>
 			<li class="language" lang="vn"><a href="#">Tiếng Việt</a></li>
-			 
-			 <li class="language" lang="vn"><a href="#">Bản đồ của bạn</a></li>
+			 --%>
+			 <li class="dropdown">
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Bản đồ nhóm <span class="caret"></span></a>
+	          <ul class="dropdown-menu">
+	            <li><a href="#">Nhóm cô dâu Việt</a></li>
+	            <li><a href="#">Nhóm Centre Parc</a></li>
+	            <li><a href="#">Nhóm Télécom ParisTech</a></li>
+	            <li role="separator" class="divider"></li>
+	            <li><a href="#">Separated link</a></li>
+	            <li role="separator" class="divider"></li>
+	            <li><a href="#">Nhóm FA</a></li>
+	            <li role="separator" class="divider"></li>
+	            <li><a href="#">Tạo nhóm mới...</a></li>
+	          </ul>
+	        </li>
+			 <li class="dropdown">
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Bản đồ của bạn <span class="caret"></span></a>
+	          <ul class="dropdown-menu">
+	            <li><a href="#">Bạn bè</a></li>
+	 
+	            <li role="separator" class="divider"></li>
+	            <li><a href="#">Gia đình, họ hàng</a></li>
+	            <li role="separator" class="divider"></li>
+	            <li><a href="#">Địa chỉ cần nhớ</a></li>
+	          </ul>
+	        </li>	        
 			<li>&nbsp;</li>
 		</ul>
 		<form class="navbar-form">
