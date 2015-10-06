@@ -51,6 +51,15 @@ public class FileService {
     os.close();
 }
 
+  public static String saveImage(String imageUrl, Long id, String prefix) throws IOException {
+   String homeDir = System.getProperty("user.home");
+    String path = homeDir + PATH + prefix + String.valueOf(id.longValue()) + "/";
+    prepareFolder(path);
+    String name = path + getFileName(id, "streetview.jpeg");
+    saveImage(imageUrl, name);
+    return name.substring(name.indexOf("images/"));
+  }
+  
   /**
    * Save image from Google Street View.
    * @param lat

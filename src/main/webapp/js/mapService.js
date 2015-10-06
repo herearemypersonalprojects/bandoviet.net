@@ -37,7 +37,7 @@
 				    title : title,
 				    icon: "/img/flags/vietnammarker.png",
 				  });
-				  
+				  ;
 				  //The infoWnd is opened when the sidebar button is clicked
 				  google.maps.event.addListener(m, 'click', function(){
 					  google.maps.event.trigger(m, "mouseover");	
@@ -46,22 +46,20 @@
 					  }
 					  map.setCenter(m.position);
 				  });
-				  
+				  var item = document.getElementById(idx)
 				  google.maps.event.addListener(m, 'mouseover', function(){
+					
 				    infoWnd.setContent(
 				    		'<strong>' + title + '</title>' + 
 				    		'<br>'+
 				    		'<img class="photo_item" src="' + $(item).data('img') + '" alt="Photo">');
 				    infoWnd.open(map, m);
-				    	
 				    
-				    var item = document.getElementById(idx);
 		            if (!$(item).hasClass("item_active")) {
 		                var lastActive = $(item).closest("#results").children(".item_active");
 		                lastActive.removeClass("item_active");
 		                $(item).addClass("item_active");		                
 		            }
-		            window.location.href ="#item" + idx;
 		            
 				  });
 				  return m;
