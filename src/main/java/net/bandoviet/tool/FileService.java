@@ -27,6 +27,8 @@ import java.net.URL;
 public class FileService {
   private static final Logger LOGGER = LoggerFactory.getLogger(FileService.class);
   
+  private static final String PATH = "/Dropbox/images/";
+  
   /**
    * Save image from URL.
    * @param imageUrl path
@@ -61,7 +63,7 @@ public class FileService {
   public static String saveImageFromGoogleStreetView(Double lat, Double lng, Long id, String prefix) throws IOException {
     String imageUrl = "https://maps.googleapis.com/maps/api/streetview?size=512x512&location=" + lat + "," + lng + "&heading=51.78&pitch=-0.76&key=AIzaSyCJbKbcTqdaVh5oJVTOBTHPaBDViLurLxM";
     String homeDir = System.getProperty("user.home");
-    String path = homeDir + "/images/" + prefix + String.valueOf(id.longValue()) + "/";
+    String path = homeDir + PATH + prefix + String.valueOf(id.longValue()) + "/";
     prepareFolder(path);
     String name = path + getFileName(id, "streetview.jpeg");
     saveImage(imageUrl, name);
@@ -102,7 +104,7 @@ public class FileService {
     String homeDir = System.getProperty("user.home");
     if (file != null && !file.isEmpty()) {
       try {
-        String path = homeDir + "/images/" + prefix + String.valueOf(id.longValue())
+        String path = homeDir + PATH + prefix + String.valueOf(id.longValue())
             + "/";
         prepareFolder(path);
         byte[] bytes = file.getBytes();

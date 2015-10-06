@@ -48,7 +48,7 @@
 					data-id="${item.id}" 
 						data-lng="${item.longitude}" data-title="${item.title}"	data-img="${item.imagePath}">
 						<img class="photo_item" src="${item.imagePath}" alt="Photo">
-						${item.information} ${item.imagePath} ${item.id}
+						${item.information} 
 	
 				        <table>
 				            <tr>

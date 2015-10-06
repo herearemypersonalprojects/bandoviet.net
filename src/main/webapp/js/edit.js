@@ -231,6 +231,7 @@ function showMarker(z) {
     map.setCenter(new google.maps.LatLng(latitude, longitude));
     map.setZoom(z);
     if (marker != null) marker.setMap(null);
+    
     marker = new google.maps.Marker({
         position: latlng,
         icon: "/img/flags/vietnammarker.png",
@@ -249,7 +250,11 @@ function showMarker(z) {
     document.getElementById('longitude').value = longitude;
 
     if (infowindow != null) {
-        infowindow.setContent("<span id='address'><b>" + bds_lang.GoogleMaps.Address + " : </b>" + $('#address').val() + "</span>");
+        var imagePath = "";
+        if ($('#imagePath').val()) {
+        	imagePath = "<img height='128' src=" + $('#imagePath').val() +"><br>" ;
+        }
+        infowindow.setContent(imagePath + "<span id='address'><b>" + bds_lang.GoogleMaps.Address + " : </b>" + $('#address').val() + "</span>");
         infowindow.open(map, marker);
     }
 } // [END showMarker]
@@ -351,7 +356,11 @@ function showLocation(address) {
                 document.getElementById('longitude').value = lng;
 
                 if (infowindow != null) {
-                    infowindow.setContent("<span id='address'><b>" + bds_lang.GoogleMaps.Address + " : </b>" + address + "</span>");
+                	var imagePath = "";
+                    if ($('#imagePath').val()) {
+                    	imagePath = "<img height='128' src=" + $('#imagePath').val() +"><br>" ;
+                    }
+                    infowindow.setContent(imagePath + "<span id='address'><b>" + bds_lang.GoogleMaps.Address + " : </b>" + address + "</span>");
                     infowindow.open(map, marker);
                 }
             } else {
@@ -393,7 +402,11 @@ function getAddress(makerDrag) {
                     addressReturn = results2[0].formatted_address;
                     $('#address').val(addressReturn);
                     if (infowindow != null) {
-                        infowindow.setContent("<span id='address'><b>" + bds_lang.GoogleMaps.Address + " : </b>" + results2[0].formatted_address + "</span>");
+                    	var imagePath = "";
+                        if ($('#imagePath').val()) {
+                        	imagePath = "<img height='128' src=" + $('#imagePath').val() +"><br>" ;
+                        }
+                        infowindow.setContent(imagePath + "<span id='address'><b>" + bds_lang.GoogleMaps.Address + " : </b>" + results2[0].formatted_address + "</span>");
                         infowindow.open(map, marker);
                     }
                 }

@@ -15,6 +15,6 @@ public class StaticResourceConfiguration extends WebMvcConfigurerAdapter {
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
     registry
       .addResourceHandler("/images/**/*")
-      .addResourceLocations("file://" + System.getProperty("user.home") + "/images/");
+      .addResourceLocations("file://" + System.getProperty("user.home") + "/Dropbox/images/");
   }
 }

@@ -20,7 +20,7 @@
 			<li class="language" lang="vn"><a href="#">Tiếng Việt</a></li>
 			 --%>
 			 <li class="dropdown">
-	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Bản đồ nhóm <span class="caret"></span></a>
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><font size="3">Bản đồ nhóm</font> <span class="caret"></span></a>
 	          <ul class="dropdown-menu">
 	            <li><a href="#">Nhóm cô dâu Việt</a></li>
 	            <li><a href="#">Nhóm Centre Parc</a></li>
