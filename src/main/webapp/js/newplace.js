@@ -21,7 +21,14 @@ $(document).ready(function() {
 		changeType($(this).val()); 
 	});
 	// UPDATE CASE -> auto show
-	if ($('#placeType').val())	changeType($('#placeType').val());
+	if ($('#placeType').val() && $('#placeType').val() != 'NONE') {
+		changeType($('#placeType').val());
+	}
+	
+	// SUBMIT
+	$('#newplaceform').submit(function(event) {
+		console.log(event);
+	});
 });
 
 /**
@@ -38,6 +45,7 @@ function changeType(type) {
     	$('#emailGroup').removeClass('hide');
     	$('#referenceUrlGroup').removeClass('hide');
     	$('#sizeGroup').addClass('hide');
+    	$('#organisedByGroup').removeClass('hide');
         break;
 
     case "NEWS":
@@ -47,6 +55,7 @@ function changeType(type) {
     	$('#emailGroup').addClass('hide');
     	$('#referenceUrlGroup').addClass('hide');
     	$('#sizeGroup').addClass('hide');
+    	$('#organisedByGroup').addClass('hide');
         break;
 
     case "ANNOUCEMENT":
@@ -56,6 +65,7 @@ function changeType(type) {
     	$('#emailGroup').removeClass('hide');
     	$('#referenceUrlGroup').addClass('hide');
     	$('#sizeGroup').addClass('hide');
+    	$('#organisedByGroup').removeClass('hide');
         break;
 
     case "RESTAURANT":
@@ -65,6 +75,7 @@ function changeType(type) {
     	$('#emailGroup').removeClass('hide');
     	$('#referenceUrlGroup').removeClass('hide');
     	$('#sizeGroup').addClass('hide');
+    	$('#organisedByGroup').removeClass('hide');
         break;
    
     case "FRIENDSMAP":
@@ -74,6 +85,7 @@ function changeType(type) {
     	$('#emailGroup').removeClass('hide');
     	$('#referenceUrlGroup').removeClass('hide');
     	$('#sizeGroup').addClass('hide');
+    	$('#organisedByGroup').addClass('hide');
         break;    	
 
     case "ADMINISTRATION":
@@ -83,24 +95,27 @@ function changeType(type) {
     	$('#emailGroup').removeClass('hide');
     	$('#referenceUrlGroup').removeClass('hide');
     	$('#sizeGroup').addClass('hide');
+    	$('#organisedByGroup').removeClass('hide');
         break;
         
     case "COMPANY":
     	$('#eventTimeGroup').addClass('hide');
-    	$('#openTimeInput').removeClass('hide');
+    	$('#openTimeInput').addClass('hide');
     	$('#telephoneGroup').removeClass('hide');
     	$('#emailGroup').removeClass('hide');
     	$('#referenceUrlGroup').removeClass('hide');
     	$('#sizeGroup').removeClass('hide');
+    	$('#organisedByGroup').removeClass('hide');
         break;
         
     case "ASSOCIATION":
     	$('#eventTimeGroup').addClass('hide');
-    	$('#openTimeInput').removeClass('hide');
+    	$('#openTimeInput').addClass('hide');
     	$('#telephoneGroup').removeClass('hide');
     	$('#emailGroup').removeClass('hide');
     	$('#referenceUrlGroup').removeClass('hide');
     	$('#sizeGroup').removeClass('hide');
+    	$('#organisedByGroup').removeClass('hide');    	
         break;
 
     case "TOURISM":
@@ -110,6 +125,7 @@ function changeType(type) {
     	$('#emailGroup').removeClass('hide');
     	$('#referenceUrlGroup').removeClass('hide');
     	$('#sizeGroup').addClass('hide');
+    	$('#organisedByGroup').addClass('hide');
         break;
         
     case "SPORT":
@@ -119,6 +135,7 @@ function changeType(type) {
     	$('#emailGroup').removeClass('hide');
     	$('#referenceUrlGroup').removeClass('hide');
     	$('#sizeGroup').addClass('hide');
+    	$('#organisedByGroup').addClass('hide');
         break;
         
     case "MARKET":
@@ -128,6 +145,7 @@ function changeType(type) {
     	$('#emailGroup').removeClass('hide');
     	$('#referenceUrlGroup').removeClass('hide');
     	$('#sizeGroup').addClass('hide');
+    	$('#organisedByGroup').addClass('hide');
         break;
         
     case "SERVICE":
@@ -137,6 +155,7 @@ function changeType(type) {
     	$('#emailGroup').removeClass('hide');
     	$('#referenceUrlGroup').removeClass('hide');
     	$('#sizeGroup').addClass('hide');
+    	$('#organisedByGroup').removeClass('hide');
         break;
         
     case "INDIVIDUAL":
@@ -146,6 +165,7 @@ function changeType(type) {
     	$('#emailGroup').removeClass('hide');
     	$('#referenceUrlGroup').removeClass('hide');
     	$('#sizeGroup').addClass('hide');
+    	$('#organisedByGroup').addClass('hide');
         break;
         
     case "COUNTRY":
@@ -155,6 +175,7 @@ function changeType(type) {
     	$('#emailGroup').addClass('hide');
     	$('#referenceUrlGroup').removeClass('hide');
     	$('#sizeGroup').removeClass('hide');
+    	$('#organisedByGroup').addClass('hide');
         break;        
         
     case "USEFULINFO":
@@ -164,6 +185,7 @@ function changeType(type) {
     	$('#emailGroup').removeClass('hide');
     	$('#referenceUrlGroup').removeClass('hide');
     	$('#sizeGroup').addClass('hide');
+    	$('#organisedByGroup').addClass('hide');
     	break;
     	
     default:

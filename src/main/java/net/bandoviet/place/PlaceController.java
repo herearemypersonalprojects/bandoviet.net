@@ -1,20 +1,27 @@
 package net.bandoviet.place;
 
+import net.bandoviet.tool.FileService;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
 
 
 /**
@@ -52,6 +59,14 @@ public class PlaceController {
     return "index";
   }
 
+  @RequestMapping("/place")
+  public String index(Map<String, Object> model, @RequestParam Long id) {
+    Place place = placeService.getPlace(id);
+    List<Place> items = new ArrayList<Place>();
+    items.add(place);
+    model.put("items", items);
+    return "index";
+  }
   /**
    * Show search results for the given query.
    *
@@ -84,11 +99,70 @@ public class PlaceController {
     if (!StringUtils.isBlank(lang)) {
       model.put("lang", lang);
     }
-    model.put("item", place);    
+    model.put("place", place);    
     model.put("typeList", PlaceType.values());
     return "edit";
   }
   
+  /**
+   * Request to create a new place.
+   * @param lang language
+   * @param model parameters communication
+   * @return form to be filled out
+   */
+  @RequestMapping(value = {"/create"}, method = RequestMethod.GET)
+  public String create(@RequestParam(value = "vn", required = false) String lang,
+      Map<String, Object> model) {
+    LOGGER.info("Received request to create a new place");
+    Place place = placeService.initNewPlace();
+    initModel(place, model, lang);
+    return "edit";
+  }
+  
+  private void initModel(Place place, Map<String, Object> model, String lang) {
+    if (!StringUtils.isBlank(lang)) {
+      model.put("lang", lang);
+    }
+    model.put("place", place);
+    model.put("typeList", PlaceType.values());    
+  }
+  /**
+   * Save edited place.
+   * @param model params commmunication
+   * @param place to be saved
+   * @param image image to be saved
+   * @param request get user's info
+   * @return the saved place
+   */
+  @RequestMapping(value = {"/save"}, method = RequestMethod.POST)
+  public String save(Map<String, Object> model, 
+      @ModelAttribute("place") @Valid final Place place,       
+      @RequestParam("image") MultipartFile image,
+      BindingResult result,
+      HttpServletRequest request ) {
+    LOGGER.info("Received request to save {}, with result={}", place, result);
+    if (result.hasErrors()) {
+      initModel(place, model, "vn");
+      return "edit";
+    }
+    
+    try {
+      place.setCreatedFromIp(request.getRemoteAddr());
+      String imagePath = FileService.saveFile(image, place.getId(), "place");
+      if (StringUtils.isNotBlank(imagePath)) {
+        place.setImagePath(imagePath);
+      }
+      placeService.save(place);
+    } catch (Exception e) {
+      LOGGER.error("Tried to save user with id", e);
+      result.reject("user.save.error");
+      return "edit";
+    }
+
+    // RETURN THE ADDED PLACE
+    return "redirect:/place?id=" + place.getId();
+  }
+    
   /**
    * Suggestions when typing search keywords.
    * @param query keywords.

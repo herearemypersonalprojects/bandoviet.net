@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 /**
  * Place service.
  * 
@@ -48,6 +51,34 @@ public class PlaceService {
   
   public Place getPlace(Long id) {
     return placeRepository.findOne(id);
+  }
+  
+  /**
+   * Initialize creation.
+   * @return empty place with some default information.
+   */
+  public Place initNewPlace() {
+    Place place = new Place();
+    place.setCommunityCode("VN");
+    return place;
+  }
+  
+  /**
+   * Save or update place.
+   * @param place to be saved
+   * @return place if success.
+   */
+  @Transactional
+  public Place save(@NotNull @Valid final Place place) {
+    LOGGER.debug("Creating {}", place);
+      /*
+      Place existing = repository.findOne(user.getId());
+      if (existing != null) {
+          throw new UserAlreadyExistsException(
+                  String.format("There already exists a user with id=%s", user.getId()));
+      }
+      */
+    return placeRepository.save(place);
   }
 
   public List<Place> findByCity(String cityName) {

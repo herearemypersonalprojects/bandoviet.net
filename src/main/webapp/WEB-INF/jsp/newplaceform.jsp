@@ -8,7 +8,14 @@
 		<div id="results" class="col-xs-5" id="left">
 			<br>
 
-			<form:form action="/save" modelAttribute="item" class="form-horizontal" id="newplaceform" method="POST" enctype="multipart/form-data">
+			<form:form action="/save" modelAttribute="place" class="form-horizontal" id="newplaceform" method="POST" enctype="multipart/form-data">
+				<form:errors path="*" cssClass="errorblock" element="div" />
+				
+				<form:input	path="id" type="hidden" id="id" name="id"/>
+				<form:input	path="createdDate" type="hidden" id="createdDate" name="createdDate"/>
+				<form:input	path="updatedDate" type="hidden" id="updatedDate" name="updatedDate"/>
+				<form:input	path="createdFromIp" type="hidden" id="createdFromIp" name="createdFromIp"/>
+				
 				<div class="form-group">
 					<form:label path="title" class="col-sm-3 control-label">
 						<spring:message	code="home.new.name" />
@@ -17,6 +24,7 @@
 						<spring:message code="home.new.name.suggest" var="suggest"/>
 						<form:input class="form-control" id="title" name="title" 
 						placeholder="${suggest}" path="title" title="${suggest}"/>						
+						<form:errors path="title" cssClass="error"/>
 					</div>
 				</div>
 				<div class="form-group">
@@ -26,7 +34,8 @@
 					<div class="col-sm-9">
 						<spring:message code="home.new.address.suggest" var="suggest"/>
 						<form:input class="form-control" id="address" name="address"	
-						placeholder="${suggest}" path="address" title="${suggest}"/>	
+						placeholder="${suggest}" path="address" title="${suggest}"/>
+						<form:errors path="address" />	
 					</div>
 					<form:input path="streetNumber" type="hidden" id="street_number" name="streetNumber" /> 
 					<form:input path="route" type="hidden" id="route" name="route" /> 
@@ -45,9 +54,10 @@
 						<spring:message	code="home.new.photo" /> 
 					</label>
 					<div class="col-sm-9">
-						<input name="image" type="file" id="file" class="form-control">						
+						<input name="image" type="file" id="image" class="form-control">						
 					</div>
 					<form:input path="imagePath" type="hidden" name="imagePath" id="imagePath"/>
+					<form:input path="iconPath" type="hidden" name="iconPath" id="iconPath"/>
 					<c:if test="${ not empty imagePath }">	<img class="photo_item" src="${imagePath}" alt="Photo"> </c:if>
 					<!-- <p class="help-block">Các thông tin có dấu (*) là bắt buộc phải điền.</p> -->
 				</div>
@@ -61,47 +71,10 @@
 									<form:option value="${option}" ><spring:message code="${option.code }"/></form:option>
 							</c:forEach>
 						</form:select>
-						<%--
-						<form:select onChange="changeType(this.value);" name="placeType"
-							class="form-control" id="placeType">
-							<option value="" selected><spring:message
-									code="home.new.type.suggest" /></option>
-							<option value="friendsmap"><spring:message
-									code="home.navbar.friendsmap" /></option>
-							<option value="event"><spring:message
-									code="home.navbar.event" /></option>
-							<option value="news"><spring:message
-									code="home.navbar.news" /></option>
-							<option value="annoucement"><spring:message
-									code="home.navbar.annoucement" /></option>
-							<option value="restaurant"><spring:message
-									code="home.navbar.restaurant" /></option>
-							<option value="administration"><spring:message
-									code="home.navbar.administration" /></option>
-							<option value="company"><spring:message
-									code="home.navbar.company" /></option>
-							<option value="association"><spring:message
-									code="home.navbar.association" /></option>
-							<option value="tourism"><spring:message
-									code="home.navbar.tourism" /></option>
-							<option value="sport"><spring:message
-									code="home.navbar.sport" /></option>
-							<option value="market"><spring:message
-									code="home.navbar.market" /></option>
-							<option value="service"><spring:message
-									code="home.navbar.service" /></option>
-							<option value="individual"><spring:message
-									code="home.navbar.individual" /></option>
-							<option value="countries"><spring:message
-									code="home.navbar.countries" /></option>
-							<option value="usefulinfo"><spring:message
-									code="home.navbar.usefulinfo" /></option>
-						</select>
-						 --%>
 					</div>
 				</div>
 				
-				<div id="eventTimeGroup" class="form-group">
+				<div id="eventTimeGroup" class="form-group hide">
 					<label for="startDate" class="col-sm-3 control-label"><spring:message
 							code="home.new.time" /></label>
 
@@ -125,13 +98,22 @@
 					<label for="information" class="col-sm-3 control-label"><spring:message
 							code="home.new.content" /></label>
 					<div class="col-sm-9">
-						<spring:message code="home.new.content.suggest" var="sgguest"/>
+						<spring:message code="home.new.content.suggest" var="suggest"/>
 						<form:textarea path="information" rows="3" name="information" class="form-control"
 							id="information"
 							placeholder="${suggest }"></form:textarea>
 					</div>
 				</div>
-
+				<div id="organisedByGroup" class="form-group hide">
+					<label for="organisedBy" class="col-sm-3 control-label">
+						<spring:message	code="home.new.organisedBy" />
+					</label>
+					<div class="col-sm-9">
+						<spring:message code="home.new.organisedBy.suggest" var="suggest"/>
+						<form:input path="organisedBy" name="organisedBy" class="form-control" id="organisedBy"
+							placeholder="${suggest }" />
+					</div>
+				</div>
 				<div id="sizeGroup" class="form-group hide">
 					<label for="size" class="col-sm-3 control-label"><spring:message
 							code="home.new.size" /></label>
@@ -143,9 +125,8 @@
 				</div>
 				
 				<div class="form-group" style="display: none">
-					<label for="title">Thuộc cộng đồng</label> <input
-						class="form-control" id="communityCode" name="communityCode"
-						id="vn"></input>
+					<label for="title">Thuộc cộng đồng</label> 
+					<form:input path="communityCode"	class="form-control" id="communityCode" name="communityCode"/>
 				</div>
 
 				<div id="openTimeInput" class="form-group hide">
@@ -179,8 +160,9 @@
 				</div>
 
 				<div id="referenceUrlGroup" class="form-group hide">
-					<label for="title" class="col-sm-3 control-label"><spring:message
-							code="home.new.homepage" /></label>
+					<label for="title" class="col-sm-3 control-label">
+						<spring:message	code="home.new.homepage" />
+					</label>
 					<div class="col-sm-9">
 						<spring:message code="home.new.homepage.suggest" var="suggest"/>
 						<form:input path="referenceUrl" class="form-control" id="referenceUrl"
@@ -197,12 +179,10 @@
     -->
 				<!-- User's information -->
 				<form:input path="createdByUserId" type="hidden" id="createdByUserId" name="createdByUserId" value="34"/> 
-				<form:input	path="id" type="hidden" id="id" name="id"/>
 
 				<div class="form-group">
 					<div class="col-sm-offset-3 col-sm-9">
-						<button id="newPlaceFormSubmit" type="submit"
-							class="btn btn-default col-sm-9">
+						<button id="newPlaceFormSubmit" type="submit" class="btn btn-default col-sm-9">
 							<spring:message code="home.new.send" />
 						</button>
 					</div>

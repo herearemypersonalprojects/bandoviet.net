@@ -5,6 +5,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Store;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -57,7 +58,7 @@ public class Place {
   String telephone;
   
   @Size(max = 100)
-  @Column(name = "address", nullable = true)
+  @Column(name = "address", nullable = false)
   @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
   private String address;
   
@@ -109,9 +110,11 @@ public class Place {
   long createdByUserId;
 
   @Column(name = "created_date")
+  @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss") 
   Date createdDate;
 
   @Column(name = "updated_date")
+  @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss") 
   Date updatedDate;
 
   @Column(name = "created_from_ip")
@@ -136,6 +139,10 @@ public class Place {
 
   public Long getId() {
     return id;
+  }
+  
+  public void setId(Long id) {
+    this.id = id;
   }
 
   @PrePersist

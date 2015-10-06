@@ -10,7 +10,7 @@
 				
 				<div id="textbox">
 					  <p style="font-size: 20px;color:#007bb3;float: left;">
-					  	${fn:length(items)} <spring:message code="home.result.title" /> <c:if test="${ not empty keywords }">	"${fn:substring(keywords, 0, 35)}..." </c:if>
+					  	${fn:length(items)} <spring:message code="home.result.title" /> <c:if test="${ not empty keywords }"> <font size="2">	"${fn:substring(keywords, 0, 35)}..."</font> </c:if>
 					  </p>
 					  <p id="newplace" class="newplace addbutton2" >+</p>
 				</div>
