@@ -4,6 +4,7 @@
     
 <div class="navbar navbar-custom navbar-fixed-top">
 	<div class="navbar-header">
+		
 		<a class="navbar-brand" href="/"><spring:message code="home.navbar.title"/></a> 
 		<a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> 
 			<span class="icon-bar"></span> 
@@ -22,13 +23,13 @@
 			 <li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><font size="3">Bản đồ nhóm</font> <span class="caret"></span></a>
 	          <ul class="dropdown-menu">
-	            <li><a href="#">Nhóm cô dâu Việt</a></li>
-	            <li><a href="#">Nhóm Centre Parc</a></li>
-	            <li><a href="#">Nhóm Télécom ParisTech</a></li>
+	            <li><a href="#">Nhóm cô dâu Việt tại Pháp (công khai)</a></li>
+	            <li><a href="#">Nhóm Centre Parc (riêng tư)</a></li>
+	            <li><a href="#">Nhóm Télécom ParisTech (công khai)</a></li>
 	            <li role="separator" class="divider"></li>
 	            <li><a href="#">Separated link</a></li>
 	            <li role="separator" class="divider"></li>
-	            <li><a href="#">Nhóm FA</a></li>
+	            <li><a href="#">Nhóm FA tại Paris (riêng tư)</a></li>
 	            <li role="separator" class="divider"></li>
 	            <li><a href="#">Tạo nhóm mới...</a></li>
 	          </ul>
@@ -36,6 +37,9 @@
 			 <li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Bản đồ của bạn <span class="caret"></span></a>
 	          <ul class="dropdown-menu">
+	          	<li><a href="#">Đăng nhập</a></li>
+	          	<li><a href="#">Đăng ký sử dụng</a></li>
+	          	<li role="separator" class="divider"></li>
 	            <li onClick="searchByType(this.value);" id="searchByfriendsmap">
 								<a href="#"><spring:message code="home.navbar.friendsmap" /> </a>
 							</li>
@@ -107,10 +111,26 @@
 						<div class="input-group-btn">							
 							<button type="submit" class="btn btn-default">
 								<span class="glyphicon glyphicon-search"></span> 
-							</button>							
+								
+							</button>				
 						</div>
-						
-						
+
+					<div class="input-group-btn">
+					<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" 
+  	data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    <span class="glyphicon glyphicon-heart-empty"></span><span class="comment_item"> Góp ý cho chúng tôi</span> 	<span class="glyphicon glyphicon-heart-empty"></span>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+    <li><a href="#">Giới thiệu</a></li>
+    <li><a href="#">Hướng dẫn sử dụng</a></li>
+
+  </ul>
+</div>
+									
+							<!-- <img  class="img-circle" width="25" style="right: 10px;" src="/img/tuan.jpg">  -->
+					
+					</div>
 				</div>
 			</div>
 		</form>

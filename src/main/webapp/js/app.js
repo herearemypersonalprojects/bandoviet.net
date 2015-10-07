@@ -24,7 +24,7 @@ $(document).ready(function() {
 	$('.navbar').removeClass('hide');
 	
 	$('.navbar-brand').click(function() {
-		$('#selectCountry').modal('show');
+		//$('#selectCountry').modal('show');
 	});
 	
 	/*
