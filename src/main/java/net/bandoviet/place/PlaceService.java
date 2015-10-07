@@ -49,6 +49,22 @@ public class PlaceService {
     return results;
   }
   
+  /**
+   * Filtred by category.
+   * @param type category
+   * @return list of places.
+   */
+  @Transactional(readOnly = true)
+  public List<Place> searchByCategory(String type) {
+    List<Place> results = null;
+    try {
+      results = placeRepository.findByType(type);
+    } catch (Exception e) {
+      LOGGER.error("An error occurred trying to search for places: " + e.toString());
+    }
+    return results;   
+  }
+  
   public Place getPlace(Long id) {
     return placeRepository.findOne(id);
   }

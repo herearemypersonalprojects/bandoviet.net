@@ -89,6 +89,20 @@ public class PlaceController {
     return "index";
   }
   
+  /**
+   * Search by category.
+   * @param type given category.
+   * @param model MVC communication.
+   * @return list of places.
+   */
+  @RequestMapping(value = {"/category", "/category/"}, method = RequestMethod.GET)
+  public String searchByCategory(@RequestParam String type, Map<String, Object> model) {
+    List<Place> items = placeService.searchByCategory(type);
+    //System.out.println(items.size());
+    model.put("items", items);
+    model.put("keywords", type);
+    return "index";
+  }
   
   /**
    * Update the item.

@@ -18,6 +18,7 @@ public enum PlaceType {
   MARKET("home.navbar.market"),
   SERVICE("home.navbar.service"),
   TOURISM("home.navbar.tourism"),
+  RELIGION("home.navbar.religion"),
   ANNOUCEMENT("home.navbar.annoucement"),
   INDIVIDUAL("home.navbar.individual"),
   COUNTRY("home.navbar.countries");

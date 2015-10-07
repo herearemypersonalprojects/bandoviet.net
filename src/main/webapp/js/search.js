@@ -6,7 +6,8 @@
 $(document).ready(function() {
 	
 	$('.selectedType').click(function() {
-		alert('ok');
+		var that = $(this);
+		window.location.href = "/category?type=" + this.id;
 	});
 
       $( '#keywords' ).autocomplete({
@@ -43,7 +44,7 @@ $(document).ready(function() {
 			// prevent autocomplete from updating the textbox
 			event.preventDefault();
 			// manually update the textbox
-			$(this).val(ui.item.label.split(":")[0]);
+			$(this).val('"' + ui.item.label.split(':')[0] + '"');
         },
       });
 
