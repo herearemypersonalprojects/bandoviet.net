@@ -4,6 +4,10 @@
 
 
 $(document).ready(function() {
+	
+	$('.selectedType').click(function() {
+		alert('ok');
+	});
 
       $( '#keywords' ).autocomplete({
       //define callback to format results

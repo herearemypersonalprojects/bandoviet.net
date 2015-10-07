@@ -62,7 +62,7 @@
 						</button>
 						<ul class="dropdown-menu">
 							<c:forEach items="<%= net.bandoviet.place.PlaceType.values()%>" var="option">
-								<li id="${option}">
+								<li class="selectedType" id="${option}">
 									<a href="#"><spring:message	code="${option.code }" /></a>
 								</li>
 							</c:forEach>
