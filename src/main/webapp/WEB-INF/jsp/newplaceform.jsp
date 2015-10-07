@@ -63,16 +63,16 @@
 					<!-- <c:if test="${ not empty place.imagePath }">	<img class="photo_item" src="${place.imagePath}" alt="Photo"> </c:if>
 					<p class="help-block">Các thông tin có dấu (*) là bắt buộc phải điền.</p> -->
 				</div>
+				<c:if test="${ empty place.id }">
 				<div class="form-group">
 					<label for="image" class="col-sm-3 control-label">
 						<spring:message	code="home.new.photo" /> 
 					</label>
-					<c:if test="${ empty place.id }">
-						<div class="col-sm-9">
-							<form:input path="imagePath" style="float:left" name="imagePath" id="imagePath" class="form-control" placeholder="Nhập đường link url từ Internet"/>
-						</div>	
-					</c:if>
+					<div class="col-sm-9">
+						<form:input path="imagePath" style="float:left" name="imagePath" id="imagePath" class="form-control" placeholder="Nhập đường link url từ Internet"/>
+					</div>						
 				</div>	
+				</c:if>
 				<div class="form-group">
 					<label for="title" class="col-sm-3 control-label"><spring:message
 							code="home.new.type" /></label>

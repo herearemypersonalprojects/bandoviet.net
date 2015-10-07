@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -45,8 +46,8 @@ public class Place {
   @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
   private String title;
 
+  @Lob 
   @Column(name = "information", nullable = true)
-  @Size(max = 1000)
   @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
   private String information;
 

@@ -30,8 +30,10 @@
 							<div style="float: right;  margin: auto;">
 												
 							
-								<span data-id="${item.id}" class="glyphicon glyphicon-pencil edit" aria-hidden="true" title="<spring:message code="home.result.item.edit"/>"></span> 
-						
+								<span data-id="${item.id}" class="comment_item glyphicon glyphicon-pencil edit" aria-hidden="true" title="<spring:message code="home.result.item.edit"/>">
+									<spring:message code="home.result.item.edit"/>
+								</span> 
+								
 								<!-- 							
 								<img  class="/img-circle button_item" alt="facebook" src="/img/like.jpg">
 								<span class="comment_item"><spring:message code="home.result.item.like"/> (23)</span>
@@ -45,7 +47,7 @@
 						</div>
 					</div>	
 					<div class="item_content" id="${status.index}" data-lat="${item.latitude}" 
-					data-id="${item.id}" 
+					data-id="${item.id}" data-type="${item.placeType}" data-icon="${item.iconPath}"
 						data-lng="${item.longitude}" data-title="${item.title}"	data-img="${item.imagePath}">
 						<img class="photo_item" src="${item.imagePath}" alt="Photo">
 						${item.information} 
@@ -76,7 +78,7 @@
 				            <c:if test="${ not empty item.referenceUrl }">		
 					            <tr>
 					                <td><span><spring:message code="home.result.item.homepage"/>: </span></td>
-					                <td><span>${item.referenceUrl}</span></td>
+					                <td><span><a href="${item.referenceUrl}">${item.referenceUrl}</a></span></td>
 					            </tr>	
 					        </c:if>			            	            			            
 				        </table>

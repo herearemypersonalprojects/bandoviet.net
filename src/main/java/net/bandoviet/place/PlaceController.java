@@ -156,14 +156,19 @@ public class PlaceController {
         if (!update && StringUtils.isNotBlank(place.getImagePath())) {
           imagePath = FileService.saveImage(place.getImagePath(),
               updatedPlace.getId(), "place"); 
-        } else {
+        } else if (StringUtils.isBlank(place.getImagePath())) {
           imagePath = FileService.saveImageFromGoogleStreetView(
               updatedPlace.getLatitude(), place.getLongitude(),  
               updatedPlace.getId(), "place");        
         }
       }
-      updatedPlace.setImagePath(imagePath);
-      placeService.save(updatedPlace);
+      if (StringUtils.isNotBlank(imagePath)) {
+        updatedPlace.setImagePath(imagePath);
+        updatedPlace.setIconPath(imagePath.substring(0, imagePath.lastIndexOf("/") + 1)
+            .concat("icon.jpg"));
+        placeService.save(updatedPlace);       
+      }
+
     } catch (Exception e) {
       LOGGER.error("Tried to save user with id", e);
       result.reject("home.save.error");

@@ -30,12 +30,17 @@
 			}
 			
 			function createMarker(map, latlng, title, idx) {
+				var item = document.getElementById(idx);
 				  //Creates a marker
+				var iconImage = "/img/flags/vietnammarker.png"; 
+				if (poiList[idx].iconPath) {
+					iconImage = poiList[idx].iconPath;
+				}
 				  var m = new google.maps.Marker({
 				    position : latlng,
 				    map : map,
 				    title : title,
-				    icon: "/img/flags/vietnammarker.png",
+				    icon: iconImage,
 				  });
 				  ;
 				  //The infoWnd is opened when the sidebar button is clicked
@@ -45,8 +50,9 @@
 						  map.setZoom(detailZoom);
 					  }
 					  map.setCenter(m.position);
+					  window.location.href ="#item" + idx; 
 				  });
-				  var item = document.getElementById(idx)
+				 
 				  google.maps.event.addListener(m, 'mouseover', function(){
 					
 				    infoWnd.setContent(

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -14,6 +16,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
+
+import javax.imageio.ImageIO;
 
 
 /**
@@ -49,7 +53,23 @@ public class FileService {
 
     is.close();
     os.close();
+    
 }
+  
+  public static void saveIcon(String imageUrl, String destinationFile) throws IOException {
+    URL url = new URL(imageUrl);
+    InputStream is = url.openStream();
+    OutputStream os = new FileOutputStream(destinationFile);
+    
+    // Save icon image
+    BufferedImage sourceImage = ImageIO.read(is);
+    Image thumbnail = sourceImage.getScaledInstance(32, -1, Image.SCALE_SMOOTH);
+    BufferedImage bufferedThumbnail = new BufferedImage(thumbnail.getWidth(null),
+                                                        thumbnail.getHeight(null),
+                                                        BufferedImage.TYPE_INT_RGB);
+    bufferedThumbnail.getGraphics().drawImage(thumbnail, 0, 0, null);
+    ImageIO.write(bufferedThumbnail, "jpeg", os); 
+  }
 
   public static String saveImage(String imageUrl, Long id, String prefix) throws IOException {
    String homeDir = System.getProperty("user.home");
@@ -57,6 +77,7 @@ public class FileService {
     prepareFolder(path);
     String name = path + getFileName(id, "streetview.jpeg");
     saveImage(imageUrl, name);
+    saveIcon(imageUrl, path + "icon.jpg");
     return name.substring(name.indexOf("images/"));
   }
   

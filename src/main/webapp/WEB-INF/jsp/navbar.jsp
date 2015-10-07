@@ -36,7 +36,9 @@
 			 <li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Bản đồ của bạn <span class="caret"></span></a>
 	          <ul class="dropdown-menu">
-	            <li><a href="#">Bạn bè</a></li>
+	            <li onClick="searchByType(this.value);" id="searchByfriendsmap">
+								<a href="#"><spring:message code="home.navbar.friendsmap" /> </a>
+							</li>
 	 
 	            <li role="separator" class="divider"></li>
 	            <li><a href="#">Gia đình, họ hàng</a></li>
@@ -61,9 +63,7 @@
 							<li>
 								<a href="#"><spring:message code="home.navbar.news" /></a>
 							</li>
-							<li onClick="searchByType(this.value);" id="searchByfriendsmap">
-								<a href="#"><spring:message code="home.navbar.friendsmap" /> </a>
-							</li>
+							
 							<li>
 								<a href="#type=annoucement"><spring:message	code="home.navbar.annoucement" /> </a>
 							</li>

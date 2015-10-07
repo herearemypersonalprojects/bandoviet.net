@@ -21,7 +21,9 @@ $(document).ready(
 						"lat": 	element.getAttribute("data-lat"),
 						"lng": element.getAttribute("data-lng"),
 						"title": element.getAttribute("data-title"),
-						"imagePath": element.getAttribute("data-img")
+						"imagePath": element.getAttribute("data-img"),
+						"iconPath": element.getAttribute("data-icon"),
+						"type": element.getAttribute("data-type")
 					};
 					poiList.push(item);
 					
