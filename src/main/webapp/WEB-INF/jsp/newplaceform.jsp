@@ -80,6 +80,7 @@
 							code="home.new.type" /></label>
 					<div class="col-sm-9">
                 		<form:select path="placeType" class="form-control" id="placeType" name="placeType">
+                			<form:option value="" ><spring:message code="home.new.type.suggest"/></form:option>
 							<c:forEach items="${typeList}" var="option">
 									<form:option value="${option}" ><spring:message code="${option.code }"/></form:option>
 							</c:forEach>

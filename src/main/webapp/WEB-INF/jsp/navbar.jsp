@@ -61,49 +61,12 @@
 							<span class="glyphicon glyphicon-chevron-down"></span>
 						</button>
 						<ul class="dropdown-menu">
-							<li id="eventCategory" class="active">
-								<a href="#"><spring:message	code="home.navbar.event" /></a>
-							</li>
-							<li>
-								<a href="#"><spring:message code="home.navbar.news" /></a>
-							</li>
-							
-							<li>
-								<a href="#type=annoucement"><spring:message	code="home.navbar.annoucement" /> </a>
-							</li>
-							<li>
-								<a href="#"><spring:message	code="home.navbar.restaurant" /> </a>
-							</li>
-							<li>
-								<a href="#"><spring:message	code="home.navbar.administration" /></a>
-							</li>
-							<li>
-								<a href="#"><spring:message	code="home.navbar.company" /></a>
-							</li>
-							<li>
-								<a href="#"><spring:message	code="home.navbar.association" /></a>
-							</li>
-							<li>
-								<a href="#"><spring:message	code="home.navbar.tourism" /></a>
-							</li>
-							<li>
-								<a href="#"><spring:message code="home.navbar.sport" /></a>
-							</li>
-							<li>
-								<a href="#"><spring:message	code="home.navbar.market" /></a>
-							</li>
-							<li>
-								<a href="#"><spring:message	code="home.navbar.service" /></a>
-							</li>
-							<li>
-								<a href="#"><spring:message	code="home.navbar.individual" /></a>
-							</li>
-							<li>
-								<a href="#"><spring:message	code="home.navbar.usefulinfo" /></a>
-							</li>
-							<li>
-								<a href="#"><spring:message	code="home.navbar.countries" /></a>
-							</li>
+							<c:forEach items="<%= net.bandoviet.place.PlaceType.values()%>" var="option">
+								<li id="${option}">
+									<a href="#"><spring:message	code="${option.code }" /></a>
+								</li>
+							</c:forEach>
+			
 						</ul>
 					</div>
 					<input id="keywords" type="text" data-provide="typeahead" class="form-control"
@@ -117,7 +80,7 @@
 
 					<div class="input-group-btn">
 					<div class="dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" 
+  <button id="feedback"  class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" 
   	data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
     <span class="glyphicon glyphicon-heart-empty"></span><span class="comment_item"> Góp ý cho chúng tôi</span> 	<span class="glyphicon glyphicon-heart-empty"></span>
   </button>

@@ -4,6 +4,11 @@
 
 
 $(document).ready(function() {
+	
+	// feedback
+	$('#feedback').click(function() {
+		$('#about').modal('show');
+	});
 
 	//alert(navigator.language.substr (0, 2));
 	// restore from cookie

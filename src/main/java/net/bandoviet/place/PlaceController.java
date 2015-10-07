@@ -59,6 +59,12 @@ public class PlaceController {
     return "index";
   }
 
+  /**
+   * Open each POI in its propre page.
+   * @param model
+   * @param id
+   * @return
+   */
   @RequestMapping("/place")
   public String index(Map<String, Object> model, @RequestParam Long id) {
     Place place = placeService.getPlace(id);
