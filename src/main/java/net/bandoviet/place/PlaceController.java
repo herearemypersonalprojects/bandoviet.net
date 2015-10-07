@@ -147,16 +147,16 @@ public class PlaceController {
     }
     
     try {      
-      boolean update = place.getId() == null ? false : true;
+      //boolean update = place.getId() == null ? false : true;
       place.setCreatedFromIp(request.getRemoteAddr());
       Place updatedPlace = placeService.save(place);
       
       String imagePath = FileService.saveFile(image, updatedPlace.getId(), "place");
       if (StringUtils.isBlank(imagePath)) {
-        if (!update && StringUtils.isNotBlank(place.getImagePath())) {
+        if (/*!update && */ StringUtils.isNotBlank(place.getImagePath())) {
           imagePath = FileService.saveImage(place.getImagePath(),
               updatedPlace.getId(), "place"); 
-        } else if (StringUtils.isBlank(place.getImagePath())) {
+        } else {
           imagePath = FileService.saveImageFromGoogleStreetView(
               updatedPlace.getLatitude(), place.getLongitude(),  
               updatedPlace.getId(), "place");        

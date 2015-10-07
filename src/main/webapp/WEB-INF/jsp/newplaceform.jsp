@@ -56,23 +56,25 @@
 					<div class="col-sm-9">
 						<input name="image" type="file" id="image" class="form-control">						
 					</div>
+					<%--
 					<c:if test="${ not empty place.id }">
 						<form:input path="imagePath"  type="hidden" name="imagePath" id="imagePath"/>
 					</c:if>
+					--%>
 					<form:input path="iconPath" type="hidden" name="iconPath" id="iconPath"/>
 					<!-- <c:if test="${ not empty place.imagePath }">	<img class="photo_item" src="${place.imagePath}" alt="Photo"> </c:if>
 					<p class="help-block">Các thông tin có dấu (*) là bắt buộc phải điền.</p> -->
 				</div>
-				<c:if test="${ empty place.id }">
+				<%--<c:if test="${ empty place.id }"> --%>
 				<div class="form-group">
 					<label for="image" class="col-sm-3 control-label">
 						<spring:message	code="home.new.photo" /> 
 					</label>
 					<div class="col-sm-9">
-						<form:input path="imagePath" style="float:left" name="imagePath" id="imagePath" class="form-control" placeholder="Nhập đường link url từ Internet"/>
+						<form:input path="imagePath" name="imagePath" id="imagePath" class="form-control" placeholder="Nhập đường link url từ Internet"/>
 					</div>						
 				</div>	
-				</c:if>
+				<%--</c:if> --%>
 				<div class="form-group">
 					<label for="title" class="col-sm-3 control-label"><spring:message
 							code="home.new.type" /></label>

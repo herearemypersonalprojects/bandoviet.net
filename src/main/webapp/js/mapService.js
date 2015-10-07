@@ -33,7 +33,7 @@
 				var item = document.getElementById(idx);
 				  //Creates a marker
 				var iconImage = "/img/flags/vietnammarker.png"; 
-				if (poiList[idx].iconPath) {
+				if ((poiList[idx].type == 'INDIVIDUAL' ||  poiList[idx].type == 'FRIENDSMAP')&&  poiList[idx].iconPath) {
 					iconImage = poiList[idx].iconPath;
 				}
 				  var m = new google.maps.Marker({
