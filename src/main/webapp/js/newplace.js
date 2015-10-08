@@ -165,7 +165,7 @@ function changeType(type) {
         
     case "INDIVIDUAL":
     	$('#eventTimeGroup').addClass('hide');
-    	$('#openTimeInput').removeClass('hide');
+    	$('#openTimeInput').addClass('hide');
     	$('#telephoneGroup').removeClass('hide');
     	$('#emailGroup').removeClass('hide');
     	$('#referenceUrlGroup').removeClass('hide');

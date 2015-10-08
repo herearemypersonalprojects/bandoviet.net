@@ -23,7 +23,7 @@
 				
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<a href="#item${item.id}" target="_blank">${item.title}</a>
+							<a href="/place?id=${item.id}" target="_blank">${item.title}</a>
 							
 							
 						

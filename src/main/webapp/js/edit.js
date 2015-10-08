@@ -70,12 +70,45 @@ function initialize() {
     	longitude = $('#longitude').val();
     	showMarker(15);
     } else {
-    	placeMarker(paris);
+    	//showMyLocation();
     }
     
 
     $("#title").focus();
 } // [END initialize]
+
+$('.my_location').on( "click", function() {	
+	showMyLocation(); 
+});
+function showMyLocation() {
+			/* map controller */
+					
+				if (navigator.geolocation) navigator.geolocation.getCurrentPosition(function(pos) {
+					latitude = pos.coords.latitude;
+					longitude = pos.coords.longitude;
+					showMarker(15);
+				 // TODO: Dung de lay dia diem nguoi dung luon
+				    
+				}, function(error) {							
+					
+					$.get("http://ipinfo.io", function(response) {
+					    //$("#ip").html(response.ip);
+					    //$("#address").html(response.city + ", " + response.region);									
+						latitude = response.loc.split(',')[0];
+						longitude = response.loc.split(',')[1]; 
+						placeMarker(new google.maps.LatLng(latitude, longitude));
+						//var alert = $('#myLocationAlert');
+						//$('#myLocationAlertcity').html(response.city);
+						//$('#myLocationAlertregion').html(response.region);
+						//$('#myLocationAlertcountry').html(response.country);
+						//alert.modal('show');
+						
+					}, "jsonp");
+					
+					
+				});			
+			};	
+		/* end map controller */
 
 // START PLACE MARKER
 //Add maker
