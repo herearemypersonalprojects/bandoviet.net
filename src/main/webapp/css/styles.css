@@ -64,7 +64,7 @@ body{
 }
 
 #map-canvas {
-	width:57.6666%;
+	width:50%;
     height:calc(100% - 0);
     position:absolute;
     right:16px;
@@ -130,6 +130,9 @@ body{
     background-color: #4cbbed;  
 }
 
+.form-horizontal .form-group {
+    margin-left: -85px;
+}
 .item:hover {
 	background-color: #f4fafd;
 }

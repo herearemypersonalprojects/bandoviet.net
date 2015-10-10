@@ -3,6 +3,12 @@
  */
 
 $(document).ready(function() {	
+    /*
+	tinymce.init({
+        selector: "#information"
+    });
+    */
+	$("#information").summernote();
 	$.datetimepicker.setLocale('vi');
 	$('.eventTime').datetimepicker({
 		dayOfWeekStart : 1,
@@ -80,7 +86,7 @@ function changeType(type) {
     	$('#emailGroup').removeClass('hide');
     	$('#referenceUrlGroup').removeClass('hide');
     	$('#sizeGroup').addClass('hide');
-    	$('#organisedByGroup').removeClass('hide');
+    	$('#organisedByGroup').addClass('hide');
         break;
    
     case "FRIENDSMAP":
@@ -100,7 +106,7 @@ function changeType(type) {
     	$('#emailGroup').removeClass('hide');
     	$('#referenceUrlGroup').removeClass('hide');
     	$('#sizeGroup').addClass('hide');
-    	$('#organisedByGroup').removeClass('hide');
+    	$('#organisedByGroup').addClass('hide');
         break;
         
     case "COMPANY":
@@ -109,8 +115,8 @@ function changeType(type) {
     	$('#telephoneGroup').removeClass('hide');
     	$('#emailGroup').removeClass('hide');
     	$('#referenceUrlGroup').removeClass('hide');
-    	$('#sizeGroup').removeClass('hide');
-    	$('#organisedByGroup').removeClass('hide');
+    	$('#sizeGroup').addClass('hide');
+    	$('#organisedByGroup').addClass('hide');
         break;
         
     case "ASSOCIATION":
@@ -119,8 +125,8 @@ function changeType(type) {
     	$('#telephoneGroup').removeClass('hide');
     	$('#emailGroup').removeClass('hide');
     	$('#referenceUrlGroup').removeClass('hide');
-    	$('#sizeGroup').removeClass('hide');
-    	$('#organisedByGroup').removeClass('hide');    	
+    	$('#sizeGroup').addClass('hide');
+    	$('#organisedByGroup').addClass('hide');    	
         break;
 
     case "TOURISM":

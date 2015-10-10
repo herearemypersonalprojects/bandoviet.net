@@ -237,12 +237,12 @@ function getCity(results) {
                 //find county
                 if (super_var2[k] == "country" && $('#country').val() == "") {
                     //put the county name in the form
-                    $('#country').val(super_var1[j].long_name);
+                    $('#country').val(super_var1[j].short_name); //alert(super_var1[j].long_name);alert(super_var1[j].short_name);
                 }
                 //find State
                 if (super_var2[k] == "postal_code" && $('#postal_code').val() == "") {
                     //put the state abbreviation in the form
-                    $('#postal_code').val(super_var1[j].short_name);
+                    $('#postal_code').val(super_var1[j].short_name); 
                 }
                 // street_number 66:  i
                 if (super_var2[k] == "street_number" && $('#street_number').val() == "") {

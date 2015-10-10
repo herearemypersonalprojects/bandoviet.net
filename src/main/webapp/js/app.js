@@ -102,7 +102,7 @@ function responsive() {
 		  $('#map-canvas').width('100%');
 	  } else {
 		  $('#results').removeClass('hide');
-		  $('#map-canvas').width('57.6666%');
+		  $('#map-canvas').width('50%');
 	  }
 	  
 	  /*

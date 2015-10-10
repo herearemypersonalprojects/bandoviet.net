@@ -4,7 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 	<div class="container-fluid" id="main">
 		<div class="row">
-			<div id="results" class="col-xs-5" id="left">
+			<div id="results" class="col-xs-6" id="left">
 				<br>
 				
 				
@@ -23,6 +23,7 @@
 				
 					<div class="panel panel-default">
 						<div class="panel-heading">
+						<img alt="" src="/img/flags/usamarker.png">
 							<a href="/place?id=${item.id}" target="_blank">${item.title}</a>
 							
 							
@@ -49,8 +50,10 @@
 					<div class="item_content" id="${status.index}" data-lat="${item.latitude}" 
 					data-id="${item.id}" data-type="${item.placeType}" data-icon="${item.iconPath}"
 						data-lng="${item.longitude}" data-title="${item.title}"	data-img="${item.imagePath}">
-						<img class="photo_item" src="${item.imagePath}" alt="Photo">
-						${item.information} 
+						<article>
+							<img class="photo_item" src="${item.imagePath}" alt="Photo">
+							${item.information}
+						</article>  
 	
 				        <table>
 				            <tr>

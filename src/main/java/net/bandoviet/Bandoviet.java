@@ -19,6 +19,9 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import java.util.Locale;
 
+import net.bandoviet.home.AccessInterceptor;
+import net.bandoviet.log.LogInterceptor;
+
 /*
  * 
  * @author quocanh
@@ -33,6 +36,26 @@ public class Bandoviet extends WebMvcConfigurerAdapter  {
 
   public static void main(String[] args) throws Exception {
     SpringApplication.run(Bandoviet.class, args);
+  }
+  
+  /**
+   * LoggerInterceptor to handle all controller's requests, 
+   * and my AccessInterceptor to handle only PrivateController's requests.
+   */
+  @Override
+  public void addInterceptors(InterceptorRegistry registry) {
+    // to hand international languages.
+    registry.addInterceptor(localeChangeInterceptor());
+    
+    // to log all controller's requests.
+    registry.addInterceptor(new LogInterceptor()).addPathPatterns("/**");
+    
+    // to handle only admin space.
+    registry.addInterceptor(new AccessInterceptor()).addPathPatterns("/admin/**");
+    
+    // continue by default.
+    super.addInterceptors(registry);
+
   }
   /**
    * Implementation of LocaleResolver that uses a locale attribute in the user’s session 
@@ -58,10 +81,5 @@ public class Bandoviet extends WebMvcConfigurerAdapter  {
     LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
     lci.setParamName("lang");
     return lci;
-  }
-
-  @Override
-  public void addInterceptors(InterceptorRegistry registry) {
-    registry.addInterceptor(localeChangeInterceptor());
   }
 }

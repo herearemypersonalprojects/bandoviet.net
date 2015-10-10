@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <div class="container-fluid" id="main">
 	<div class="row">
-		<div id="results" class="col-xs-5" id="left">
+		<div id="results" class="col-xs-6" id="left">
 			<br>
 
 			<form:form action="/save" modelAttribute="place" class="form-horizontal" id="newplaceform" method="POST" enctype="multipart/form-data">
@@ -113,7 +113,7 @@
 							code="home.new.content" /></label>
 					<div class="col-sm-9">
 						<spring:message code="home.new.content.suggest" var="suggest"/>
-						<form:textarea path="information" rows="3" name="information" class="form-control"
+						<form:textarea path="information" name="information" class="form-control"
 							id="information"
 							placeholder="${suggest }"></form:textarea>
 					</div>
@@ -194,12 +194,18 @@
 				<!-- User's information -->
 				<form:input path="createdByUserId" type="hidden" id="createdByUserId" name="createdByUserId" value="34"/> 
 
-				<div class="form-group">
-					<div class="col-sm-offset-3 col-sm-9">
-						<button id="newPlaceFormSubmit" type="submit" class="btn btn-default col-sm-9">
+				<div class="form-group" >					
+					<div class="col-sm-offset-3 col-sm-9 options btn-group">
+
+						<button id="newPlaceFormSubmit" type="submit" class="btn btn-primary col-sm-9">
 							<spring:message code="home.new.send" />
 						</button>
-					</div>
+						
+						<button onClick="window.location.href='/place?id=${place.id}'" id="cancel" type="button" class="btn btn-default">
+							Hủy bỏ
+						</button>
+					</div>		    
+					  
 				</div>
 
 				<hr>

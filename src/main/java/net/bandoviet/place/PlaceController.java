@@ -165,18 +165,18 @@ public class PlaceController {
       initModel(place, model, "vn");
       return "edit";
     }
+ 
+    place.setCreatedFromIp(request.getRemoteAddr());
+    Place updatedPlace = placeService.save(place);
     
     try {      
-      //boolean update = place.getId() == null ? false : true;
-      place.setCreatedFromIp(request.getRemoteAddr());
-      Place updatedPlace = placeService.save(place);
-      
       String imagePath = FileService.saveFile(image, updatedPlace.getId(), "place");
       if (StringUtils.isBlank(imagePath)) {
-        if (/*!update && */ StringUtils.isNotBlank(place.getImagePath())) {
+        if (StringUtils.isNotBlank(place.getImagePath()) 
+            && place.getImagePath().indexOf("http") >= 0) {
           imagePath = FileService.saveImage(place.getImagePath(),
               updatedPlace.getId(), "place"); 
-        } else {
+        } else if (StringUtils.isBlank(place.getImagePath())) {
           imagePath = FileService.saveImageFromGoogleStreetView(
               updatedPlace.getLatitude(), place.getLongitude(),  
               updatedPlace.getId(), "place");        
@@ -191,8 +191,8 @@ public class PlaceController {
 
     } catch (Exception e) {
       LOGGER.error("Tried to save user with id", e);
-      result.reject("home.save.error");
-      return "edit";
+      //result.reject("home.save.error");
+      //return "edit";
     }
 
     // RETURN THE ADDED PLACE

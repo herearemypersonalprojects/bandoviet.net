@@ -62,5 +62,6 @@
 	
 	<script type="text/javascript" src="js/avim.js"></script>
 	<script type="text/javascript" src="libs/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="libs/readmore.min.js"></script>
 </body>
 </html>

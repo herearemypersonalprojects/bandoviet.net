@@ -31,7 +31,7 @@ $(document).ready(function() {
 				event.preventDefault();
 				// manually update the textbox and hidden field
 				//$(this).val(ui.item.label.split(":")[0]);
-				searchByKeywords(ui.item.label.split(":")[0]);
+				searchByKeywords('"' + ui.item.label.split(":")[0] + '"');
             }
         },
         open: function() {
