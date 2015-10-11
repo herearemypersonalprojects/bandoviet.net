@@ -65,8 +65,10 @@
 	<%-- <script src="js/item.js" type="text/javascript"></script> --%>
 	<script src="js/app.js" type="text/javascript"></script>
 	
-	<script type="text/javascript" src="js/avim.js"></script>
+	
 	<script type="text/javascript" src="libs/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="libs/summernote/summernote.min.js"></script>
+	<script src="libs/summernote/lang/summernote-vi-VN.js"></script>
+	<script type="text/javascript" src="js/avim.js"></script>
 </body>
 </html>

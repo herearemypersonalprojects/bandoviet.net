@@ -201,7 +201,8 @@
 							<spring:message code="home.new.send" />
 						</button>
 						
-						<button onClick="window.location.href='/place?id=${place.id}'" id="cancel" type="button" class="btn btn-default">
+						<button <c:if test="${ not empty place.placeType }">
+						onClick="window.location.href='/category?type=${place.placeType}'"</c:if> id="cancel" type="button" class="btn btn-default">
 							Hủy bỏ
 						</button>
 					</div>		    

@@ -7,9 +7,58 @@ $(document).ready(function() {
 	
 	// feedback
 	$('#feedback').click(function() {
-		$('#about').modal('show');
+		$('form.contact').show();
+		$("#thanks").html('')
+		$('#form-feedback').modal('show');
 	});
+    $('form.contact').validate({
+        rules: {
+            name: {
+                minlength: 2,
+                required: true
+            },
+            email: {
+                required: true,
+                email: true
+            },
+            message: {
+                minlength: 2,
+                required: true
+            }
+        },
+        highlight: function (element) {
+            $(element).closest('.form-control').removeClass('success').addClass('error');
+        },
+        success: function (element) {
+            element.text('OK!').addClass('valid')
+                .closest('.form-control').removeClass('error').addClass('success');
+        }
+    });
+    $('form.contact').submit(function(){
+    	if ($('form.contact').valid()) {
+            $.ajax({
+                type: "POST",
+                url: "/feedback", //process to mail
+                data: $('form.contact').serialize(),
+                success: function(msg){
+                	$('form.contact').hide();
+                	$("#thanks").html(msg) //hide button and show thank you
+                	$('#thanks').removeClass('hide');
+                	//$('#thanks').delay(5000).fadeOut('slow');
+                	setTimeout(function() {
+                		$("#form-feedback").modal('hide');
+                    }, 1000);
+                    //$("#form-feedback").modal('hide'); //hide popup  
+                },
+                error: function(){
+                    alert("failure");
+                }
+            });   		
+    	}
 
+        return false;
+    });
+    
 	//alert(navigator.language.substr (0, 2));
 	// restore from cookie
 	var params = readCookie(name);

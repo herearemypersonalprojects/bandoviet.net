@@ -23,6 +23,8 @@
 	<!-- begin view -->
 	<jsp:include page="about.jsp" />
 	
+	<jsp:include page="feedback.jsp" />
+	
 	<jsp:include page="selectCountry.jsp" />
 	
 	<jsp:include page="navbar.jsp" />
@@ -46,6 +48,7 @@
 
 	<!-- script references -->
 	<script	src="js/jquery.js"></script>
+	<script	src="libs/jquery.validate.js"></script>
 	<script src="js/jquery.datetimepicker.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="http://maps.googleapis.com/maps/api/js?sensor=false&extension=.js&output=embed&amp;language=en&amp;v=3.exp&libraries=places"></script>
@@ -60,8 +63,8 @@
 	<script src="js/item.js" type="text/javascript"></script>
 	<script src="js/app.js" type="text/javascript"></script>
 	
-	<script type="text/javascript" src="js/avim.js"></script>
 	<script type="text/javascript" src="libs/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="libs/readmore.min.js"></script>
+	<script type="text/javascript" src="js/avim.js"></script>
 </body>
 </html>

@@ -230,6 +230,10 @@ body{
     z-index: 11;
 }
 
+.label {
+    color: #000;
+}
+
 .flag_item {
 	padding: 0 0 1em;
     margin: 0;

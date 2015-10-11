@@ -8,7 +8,9 @@ $(document).ready(function() {
         selector: "#information"
     });
     */
-	$("#information").summernote();
+	$("#information").summernote({
+	    lang: 'vi-VN' // default: 'en-US'
+	  });
 	$.datetimepicker.setLocale('vi');
 	$('.eventTime').datetimepicker({
 		dayOfWeekStart : 1,

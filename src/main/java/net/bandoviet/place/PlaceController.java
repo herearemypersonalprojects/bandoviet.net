@@ -52,7 +52,7 @@ public class PlaceController {
    */
   @RequestMapping("/")
   public String index(Map<String, Object> model, HttpServletRequest request) {
-    List<Place> items = placeService.findByCity("Paris");
+    List<Place> items = placeService.search("khuong");
     //System.out.println(items.size());
     model.put("items", items);
     model.put("keywords", "Paris");
