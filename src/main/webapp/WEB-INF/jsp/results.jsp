@@ -23,7 +23,7 @@
 				
 					<div class="panel panel-default">
 						<div class="panel-heading">
-						<img alt="" src="/img/flags/usamarker.png">
+						
 							<a href="/place?id=${item.id}" target="_blank">${item.title}</a>
 							
 							
@@ -58,7 +58,7 @@
 				        <table>
 				            <tr>
 				                <td><span><spring:message code="home.result.item.address"/>: </span></td>
-				                <td><span>${item.address}</span></td>
+				                <td><span>${item.address}</span>  <img alt="" src="/img/flags/${item.country}.png"></td>
 				            </tr>
 				            <c:if test="${ not empty item.openTime }">	
 					            <tr>

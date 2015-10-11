@@ -27,11 +27,11 @@ $(document).ready(function() {
             }
         },
         highlight: function (element) {
-            $(element).closest('.form-control').removeClass('success').addClass('error');
+            $(element).closest('.form-group').removeClass('success').addClass('error');
         },
         success: function (element) {
             element.text('OK!').addClass('valid')
-                .closest('.form-control').removeClass('error').addClass('success');
+                .closest('.form-group').removeClass('error').addClass('success');
         }
     });
     $('form.contact').submit(function(){

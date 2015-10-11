@@ -370,7 +370,7 @@ function showLocation(address) {
 
         if (marker != null) marker.setMap(null);
         geocoder.geocode({'address': address}, function (results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
+            if (status == google.maps.GeocoderStatus.OK) { 
                 getCity(results);
                 var lat = '';
                 var lng = '';

@@ -3,6 +3,31 @@
  */
 
 $(document).ready(function() {	
+    $('#newplaceform').validate({
+        rules: {
+        	title: {
+                minlength: 2,
+                required: true
+            },
+            address: {
+            	minlength: 2,
+                required: true                
+            },
+            placeType: {
+            	selectcheck: true
+            }
+        },
+        highlight: function (element) {
+            $(element).closest('.form-group').removeClass('success').addClass('error');
+        },
+        success: function (element) {
+            element.text('OK!').addClass('valid')
+                .closest('.form-group').removeClass('error').addClass('success');
+        }
+    });
+    jQuery.validator.addMethod('selectcheck', function (value) {
+        return (value);
+    }, "Please select the right type.");
     /*
 	tinymce.init({
         selector: "#information"

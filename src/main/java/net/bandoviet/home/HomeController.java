@@ -35,8 +35,11 @@ public class HomeController {
   @RequestMapping("/feedback")
   @ResponseBody
   public String feedback(@RequestParam String name, 
-      @RequestParam String email, @RequestParam String message) {
-    System.out.println(name + ":" + email + ":" + message);
+                         @RequestParam String email,
+                         @RequestParam String subject,
+                         @RequestParam String message) {
+    System.out.println(name + ":" + email + ":" + subject + ":" + message);
+    
     return "Thank you!";
   }
   

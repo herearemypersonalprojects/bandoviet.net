@@ -9,8 +9,11 @@
 <meta charset="utf-8">
 <title><spring:message code="application.title"/></title>
 <meta name="generator" content="Bootply" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">	
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	
 <link href="css/bootstrap.min.css" rel="stylesheet">
+<%--<link href="css/bootstrap-combined.min.css" rel="stylesheet"> --%>
+
 <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
 <!--[if lt IE 9]>	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>	<![endif]-->
 <link href="css/styles.css" rel="stylesheet">
@@ -49,6 +52,7 @@
 
 	<!-- script references -->
 	<script	src="js/jquery.js"></script>
+	<script	src="libs/jquery.validate.js"></script>
 	<script src="js/jquery.datetimepicker.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="http://maps.googleapis.com/maps/api/js?sensor=false&extension=.js&output=embed&amp;language=en&amp;v=3.exp&libraries=places"></script>
