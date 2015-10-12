@@ -38,16 +38,27 @@
 				var item = document.getElementById(idx);
 				  //Creates a marker
 				var iconImage = "/img/flags/vietnammarker.png"; 
-				if ((poiList[idx].type == 'INDIVIDUAL' ||  poiList[idx].type == 'FRIENDSMAP')&&  poiList[idx].iconPath) {
-					if (poiList[idx].iconPath) 	iconImage = poiList[idx].iconPath; 
-				}
 				  var m = new google.maps.Marker({
-				    position : latlng,
-				    map : map,
-				    title : title,
-				    icon: iconImage,
-				  });
-				  ;
+					    position : latlng,
+					    map : map,
+					    title : title,
+					    icon: iconImage,
+					  });
+				if ((poiList[idx].type == 'INDIVIDUAL' ||  poiList[idx].type == 'FRIENDSMAP')&&  poiList[idx].iconPath) {
+					var icon = {
+						    url: poiList[idx].iconPath
+						};
+					var i = new Image();
+					i.src = poiList[idx].iconPath;
+
+					i.onload = function () {
+					    m.setIcon(icon); //If icon found go ahead and show it
+					}
+					i.onerror = function () {
+					    marker.setIcon(null); //This displays brick colored standard marker icon in case image is not found.
+					}
+				}
+
 				  //The infoWnd is opened when the sidebar button is clicked
 				  google.maps.event.addListener(m, 'click', function(){
 					  google.maps.event.trigger(m, "mouseover");	
