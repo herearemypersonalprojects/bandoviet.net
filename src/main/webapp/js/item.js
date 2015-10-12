@@ -6,8 +6,8 @@ $(document).ready(function() {
 	
 	$('article').readmore({
 		  speed: 75,
-		  lessLink: '<a href="#">Thu nhỏ</a>',
-		  moreLink: '<a href="#">Đọc tiếp</a>'
+		  lessLink: '<a href="#" class="less">Thu nhỏ</a>',
+		  moreLink: '<a href="#" class="more">Đọc tiếp</a>'
 		  //collapsedHeight: 120
 		});
 	
@@ -16,6 +16,11 @@ $(document).ready(function() {
 		var id = $(this).data('id');
 		window.location.href = "/update?id=" + id;
 	});
+	
+	// EXPAND if only one item
+	if ($('.more').length == 1) {
+		$('.more').trigger('click'); 
+	}
 	
 	/*
 	

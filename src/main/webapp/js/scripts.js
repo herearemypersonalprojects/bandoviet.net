@@ -1,6 +1,6 @@
 /* Global variables */
 var currentAddress = "Paris, France";
-var marker;
+var marker = new google.maps.Marker();
 var map;
 var infoWnd = new google.maps.InfoWindow();
 var poiList = [];
@@ -39,7 +39,7 @@ $(document).ready(
 					streetViewControl: true,
 					zoomControlOptions: {
 			            style: google.maps.ZoomControlStyle.SMALL,
-			            position: google.maps.ControlPosition.RIGHT_TOP
+			            position: google.maps.ControlPosition.RIGHT_BOTTOM
 			        },
 			        panControl: false,
 			        mapTypeControl: false,
@@ -81,7 +81,7 @@ $(document).ready(
 				    idx = idx + 1;
 				  }
 				  //Fits the map bounds
-				  if (poiList.length >= 1) {
+				  if (poiList.length > 1) {
 					    // Don't zoom in too far on only one marker
 					    if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
 					       var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.01, bounds.getNorthEast().lng() + 0.01);
@@ -98,8 +98,9 @@ $(document).ready(
 						  //$('#0').trigger('click');
 					  }
 					  
-				  } else {
-					  // TODO: Extend the keywords to have results.
+				  } else if (poiList.length == 1) {
+					  $('#0').trigger('click');
+					  //showLocationLatLng(poiList[0].lat, poiList[0].lng);
 				  }			 
 				  
 				  

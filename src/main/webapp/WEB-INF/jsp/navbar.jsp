@@ -93,8 +93,9 @@
 									
 							<!-- <img  class="img-circle" width="25" style="right: 10px;" src="/img/tuan.jpg">  -->
 					
-					</div>
-				</div>
+					
+					</div>				</div>
+
 			</div>
 		</form>
 	</div>

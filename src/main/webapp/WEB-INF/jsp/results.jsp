@@ -7,15 +7,22 @@
 			<div id="results" class="col-xs-6" id="left">
 				<br>
 				
+
+					<div class="">
+								
+				      <ul class="pagination pagination-sm " style="margin: 0px 0;">
+				        <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+				        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+				        <li><a href="#">2</a></li>
+				        <li><a href="#">3</a></li>
+				        <li><a href="#">4</a></li>
+				        <li><a href="#">5</a></li>
+				        <li><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+				     </ul>
 				
-				<div id="textbox">
-					  <p style="font-size: 20px;color:#007bb3;float: left;">
-					  	${fn:length(items)} <spring:message code="home.result.title" /> <c:if test="${ not empty keywords }"> <font size="2">	"${fn:substring(keywords, 0, 35)}..."</font> </c:if>
-					  </p>
 					  <p id="newplace" class="newplace addbutton2" >+</p>
 				</div>
-				<br>	
-				<br>
+		
 
 				<!-- item list -->
 				<c:forEach var="item" items="${ items }" varStatus="status">
@@ -58,7 +65,7 @@
 				        <table>
 				            <tr>
 				                <td><span><spring:message code="home.result.item.address"/>: </span></td>
-				                <td><span>${item.address}</span>  <img alt="" src="/img/flags/${item.country}.png"></td>
+				                <td><span>${item.address}</span>  <%--<img alt="" src="/img/flags/${item.country}.png">--%></td> 
 				            </tr>
 				            <c:if test="${ not empty item.openTime }">	
 					            <tr>
@@ -99,12 +106,23 @@
 				</div>				
 				</c:forEach>
 				<!-- end item list -->
-
+				<%--
 				<p id="scroll">
 					<a href="/search?keywords=Việt Nam" target="_ext"
 						class="center-block btn btn-primary"><spring:message code="home.result.more" /></a>
 				</p>
-
+				 --%>
+				<nav class="text-center">
+				      <ul class="pagination pagination-lg">
+				        <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+				        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+				        <li><a href="#">2</a></li>
+				        <li><a href="#">3</a></li>
+				        <li><a href="#">4</a></li>
+				        <li><a href="#">5</a></li>
+				        <li><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+				     </ul>
+				 </nav>
 				<hr>
 
 			</div>

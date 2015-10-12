@@ -39,7 +39,7 @@
 				  //Creates a marker
 				var iconImage = "/img/flags/vietnammarker.png"; 
 				if ((poiList[idx].type == 'INDIVIDUAL' ||  poiList[idx].type == 'FRIENDSMAP')&&  poiList[idx].iconPath) {
-					iconImage = poiList[idx].iconPath;
+					if (poiList[idx].iconPath) 	iconImage = poiList[idx].iconPath; 
 				}
 				  var m = new google.maps.Marker({
 				    position : latlng,
@@ -86,6 +86,7 @@
 			
 			function showLocation(location) {
 			    //marker.setAnimation(google.maps.Animation.BOUNCE);
+				
 			    marker.setPosition(location);
 			    map.setCenter(location);			
 			    marker.setVisible(true);
