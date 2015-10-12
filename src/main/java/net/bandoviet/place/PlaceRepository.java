@@ -57,10 +57,50 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
       nativeQuery = true)
   List<Place> findByKeywords(@Param("keywords") String keywords);
   
+  @Query(value = "SELECT *, "
+      + "MATCH(title) AGAINST(:keywords) AS rel1, "
+      + "MATCH(information) AGAINST(:keywords) AS rel2 "
+      + "FROM place WHERE "
+      + "MATCH(title, information) AGAINST(:keywords) "
+      + "ORDER BY (rel1*10)+(rel2) desc "
+      + "LIMIT :pageLimit OFFSET :pageOffset", 
+      nativeQuery = true)
+  List<Place> searchByKeywords(@Param("keywords") String type, 
+                            @Param("pageLimit") Integer pageLimit, 
+                            @Param("pageOffset") Integer pageOffset);
+  
+  @Query(value = "SELECT * "
+      + "FROM place "
+      + "LIMIT :pageLimit OFFSET :pageOffset", 
+      nativeQuery = true)
+  List<Place> search(@Param("pageLimit") Integer pageLimit, 
+                     @Param("pageOffset") Integer pageOffset);
+  
+  @Query(value = "SELECT ceil(count(*)/:pageLimit) "
+      + "FROM place WHERE "
+      + "MATCH(title, information) AGAINST(:keywords)",
+      nativeQuery = true)
+  int getTotalPagesByKeywords(@Param("keywords") String keywords, 
+      @Param("pageLimit") Integer pageLimit);
+  
+  @Query(value = "SELECT ceil(count(*)/:pageLimit) FROM place", nativeQuery = true)
+  int getTotalPages(@Param("pageLimit") Integer pageLimit);
   
   @Query(value = "SELECT * FROM place WHERE "
       + "city=:city and "
       + "MATCH(title, information) AGAINST(:keywords)",
       nativeQuery = true)
   List<Place> findByKeywordsAndCity(@Param("keywords") String keywords, @Param("city") String city);
+  
+  @Query(value = "select * from place "
+      + "where place_type = :type "
+      + "LIMIT :pageLimit OFFSET :pageOffset", 
+      nativeQuery = true)
+  List<Place> searchByCategory(@Param("type") String type, 
+                                 @Param("pageLimit") Integer pageLimit, 
+                                 @Param("pageOffset") Integer pageOffset);
+  
+  @Query(value = "select ceil(count(*)/:pageLimit) from place where place_type = :type", 
+      nativeQuery = true)
+  int getTotalPagesByCategory(@Param("type") String type, @Param("pageLimit") Integer pageLimit);
 }

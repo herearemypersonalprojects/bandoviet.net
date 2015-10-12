@@ -3,8 +3,13 @@ package net.bandoviet.place;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.ArrayList;
@@ -13,7 +18,6 @@ import java.util.TreeMap;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-
 /**
  * Place service.
  * 
@@ -27,11 +31,64 @@ public class PlaceService {
   private static final Logger LOGGER = LoggerFactory.getLogger(PlaceService.class);
   private final PlaceRepository placeRepository;
 
+  private static final int PAGE_SIZE = 20;
+  
   @Autowired
   public PlaceService(final PlaceRepository placeRepository) {
     this.placeRepository = placeRepository;
   }
+  
+  /**
+   * Return one page which have PAGE_SIZE items.
+   * @param pageNumber page number.
+   * @return list of places.
+   */
+  public List<Place> findAll(Integer pageNumber) {
+    Pageable pageSpecification = 
+        new PageRequest(pageNumber - 1, PAGE_SIZE, new Sort(Sort.Direction.ASC, "title"));
+    Page<Place> requestedPage = placeRepository.findAll(pageSpecification);
+    return  requestedPage.getContent();
+  }
+  
+  /**
+   * Return one page which have PAGE_SIZE items.
+   * @param pageNumber page number.
+   * @return list of places.
+   */
+  public Page<Place> searchByPagination(Integer pageNumber) {
+    PageRequest request =
+        new PageRequest(pageNumber - 1, PAGE_SIZE, Sort.Direction.DESC, "createdDate");
+    return placeRepository.findAll(request);
+  }
+  
+  /**
+   * @return list of places for given search terms.
+   */
+  public List<Place> searchByKeywords(Integer pageNumber, String keywords) {
+    if (StringUtils.isEmpty(keywords)) {
+      return placeRepository.search(PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
+    }
+    return placeRepository.searchByKeywords(keywords, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
+  }
+  
+  /**
+   * @return total of pages for given search terms.
+   */
+  public int getTotalPagesByKeywords(String keywords) {
+    if (StringUtils.isEmpty(keywords)) {
+      return placeRepository.getTotalPages(PAGE_SIZE);
+    }
+    return placeRepository.getTotalPagesByKeywords(keywords, PAGE_SIZE);
+  }
+  
+  public List<Place> searchByCategory(Integer pageNumber, String type) {
+    return placeRepository.searchByCategory(type, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
+  }
 
+  public int getTotalPagesByCategory(String type) {
+    return placeRepository.getTotalPagesByCategory(type, PAGE_SIZE);
+  }
+  
   /**
    * Search by keywords.
    * 
@@ -96,6 +153,7 @@ public class PlaceService {
       */
     return placeRepository.save(place);
   }
+  
 
   public List<Place> findByCity(String cityName) {
     return placeRepository.findByCity(cityName);

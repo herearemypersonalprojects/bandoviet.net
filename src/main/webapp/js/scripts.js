@@ -13,8 +13,7 @@ $(document).ready(
 
 			function initialize() {
 				// Hien thi cac ket qua tren ban do
-				poiList = [];
-								
+				poiList = [];			
 				$('.item_content').each(function( index, element ) {
 					var item = {
 						"id": 	element.getAttribute("data-id"),
@@ -26,7 +25,6 @@ $(document).ready(
 						"type": element.getAttribute("data-type")
 					};
 					poiList.push(item);
-					
 				});
 				
 				/* position Paris */
@@ -79,6 +77,7 @@ $(document).ready(
 				    //Creates a sidebar button for the marker
 				    createMarkerButton(m, idx);
 				    idx = idx + 1;
+			
 				  }
 				  //Fits the map bounds
 				  if (poiList.length > 1) {

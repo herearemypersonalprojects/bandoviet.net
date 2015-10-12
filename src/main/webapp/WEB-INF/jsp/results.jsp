@@ -2,22 +2,51 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+<c:url var="firstUrl" value="${path}1" />
+<c:url var="lastUrl" value="${path}${totalPages}" />
+<c:url var="prevUrl" value="${path}${currentIndex - 1}" />
+<c:url var="nextUrl" value="${path}${currentIndex + 1}" />
+
 	<div class="container-fluid" id="main">
 		<div class="row">
 			<div id="results" class="col-xs-6" id="left">
 				<br>
 				
-
 					<div class="">
 								
 				      <ul class="pagination pagination-sm " style="margin: 0px 0;">
-				        <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-				        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-				        <li><a href="#">2</a></li>
-				        <li><a href="#">3</a></li>
-				        <li><a href="#">4</a></li>
-				        <li><a href="#">5</a></li>
-				        <li><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+				      	<c:choose>
+				            <c:when test="${currentIndex == 1}">
+				                <li class="disabled"><a href="#">&lt;&lt;</a></li>
+				                <li class="disabled"><a href="#">&lt;</a></li>
+				            </c:when>
+				            <c:otherwise>
+				                <li><a href="${firstUrl}">&lt;&lt;</a></li>
+				                <li><a href="${prevUrl}">&lt;</a></li>
+				            </c:otherwise>
+				        </c:choose>
+				        <c:forEach var="i" begin="${beginIndex}" end="${endIndex}">
+				            <c:url var="pageUrl" value="${path}${i}" />
+				            <c:choose>
+				                <c:when test="${i == currentIndex}">
+				                    <li class="active"><a href="${pageUrl}"><c:out value="${i}" /></a></li>
+				                </c:when>
+				                <c:otherwise>
+				                    <li><a href="${pageUrl}"><c:out value="${i}" /></a></li>
+				                </c:otherwise>
+				            </c:choose>
+				        </c:forEach>
+				        <c:choose>
+				            <c:when test="${currentIndex == totalPages}">
+				                <li class="disabled"><a href="#">&gt;</a></li>
+				                <li class="disabled"><a href="#">&gt;&gt;</a></li>
+				            </c:when>
+				            <c:otherwise>
+				                <li><a href="${nextUrl}">&gt;</a></li>
+				                <li><a href="${lastUrl}">&gt;&gt;</a></li>
+				            </c:otherwise>
+				        </c:choose>
 				     </ul>
 				
 					  <p id="newplace" class="newplace addbutton2" >+</p>
@@ -113,14 +142,38 @@
 				</p>
 				 --%>
 				<nav class="text-center">
-				      <ul class="pagination pagination-lg">
-				        <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-				        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-				        <li><a href="#">2</a></li>
-				        <li><a href="#">3</a></li>
-				        <li><a href="#">4</a></li>
-				        <li><a href="#">5</a></li>
-				        <li><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+				      <ul class="pagination" style="margin: 0px 0;">
+				      	<c:choose>
+				            <c:when test="${currentIndex == 1}">
+				                <li class="disabled"><a href="#">&lt;&lt;</a></li>
+				                <li class="disabled"><a href="#">&lt;</a></li>
+				            </c:when>
+				            <c:otherwise>
+				                <li><a href="${firstUrl}">&lt;&lt;</a></li>
+				                <li><a href="${prevUrl}">&lt;</a></li>
+				            </c:otherwise>
+				        </c:choose>
+				        <c:forEach var="i" begin="${beginIndex}" end="${endIndex}">
+				            <c:url var="pageUrl" value="${path}${i}" />
+				            <c:choose>
+				                <c:when test="${i == currentIndex}">
+				                    <li class="active"><a href="${pageUrl}"><c:out value="${i}" /></a></li>
+				                </c:when>
+				                <c:otherwise>
+				                    <li><a href="${pageUrl}"><c:out value="${i}" /></a></li>
+				                </c:otherwise>
+				            </c:choose>
+				        </c:forEach>
+				        <c:choose>
+				            <c:when test="${currentIndex == totalPages}">
+				                <li class="disabled"><a href="#">&gt;</a></li>
+				                <li class="disabled"><a href="#">&gt;&gt;</a></li>
+				            </c:when>
+				            <c:otherwise>
+				                <li><a href="${nextUrl}">&gt;</a></li>
+				                <li><a href="${lastUrl}">&gt;&gt;</a></li>
+				            </c:otherwise>
+				        </c:choose>
 				     </ul>
 				 </nav>
 				<hr>

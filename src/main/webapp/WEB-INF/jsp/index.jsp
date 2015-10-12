@@ -9,15 +9,15 @@
 <meta name="generator" content="Bootply" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">	
 
-<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/jquery.datetimepicker.css"/>
 
-
-<link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
 <!--[if lt IE 9]>	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>	<![endif]-->
-<link href="css/styles.css" rel="stylesheet">
-<link rel="stylesheet" href="libs/jquery-ui.min.css">
 
-<link rel="icon" type="image/png" href="img/map.png"> <!-- http://www.favicon.cc -->
+<link href="/css/styles.css" rel="stylesheet">
+<link rel="stylesheet" href="/libs/jquery-ui.min.css">
+
+<link rel="icon" type="image/png" href="/img/map.png"> <!-- http://www.favicon.cc -->
 </head>
 <body>
 
@@ -49,25 +49,25 @@
 	<!-- end view -->
 
 	<!-- script references -->
-	<script	src="js/jquery.js"></script>
-	<script	src="libs/jquery.validate.js"></script>
-	<script src="js/jquery.datetimepicker.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+	<script	src="/js/jquery.js"></script>
+	<script	src="/libs/jquery.validate.js"></script>
+	<script src="/js/jquery.datetimepicker.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
 	<script src="http://maps.googleapis.com/maps/api/js?sensor=false&extension=.js&output=embed&amp;language=en&amp;v=3.exp&libraries=places"></script>
   
-    <script src="js/cookie.js" type="text/javascript"></script>
+    <script src="/js/cookie.js" type="text/javascript"></script>
     
-    <script src="js/lang.js" type="text/javascript"></script>
-    <script src="js/mapService.js"></script>
-	<script src="js/scripts.js"></script>
+    <script src="/js/lang.js" type="text/javascript"></script>
+    <script src="/js/mapService.js"></script>
+	<script src="/js/scripts.js"></script>
 	
-	<script type="text/javascript" src="js/search.js"></script>
+	<script type="text/javascript" src="/js/search.js"></script>
 	<%--<script type="text/javascript" src="js/newplace.js"></script> --%>
-	<script src="js/item.js" type="text/javascript"></script>
-	<script src="js/app.js" type="text/javascript"></script>
+	<script src="/js/item.js" type="text/javascript"></script>
+	<script src="/js/app.js" type="text/javascript"></script>
 	
-	<script type="text/javascript" src="libs/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="libs/readmore.min.js"></script>
-	<script type="text/javascript" src="js/avim.js"></script>
+	<script type="text/javascript" src="/libs/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/libs/readmore.min.js"></script>
+	<script type="text/javascript" src="/js/avim.js"></script>
 </body>
 </html>

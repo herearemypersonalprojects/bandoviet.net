@@ -7,7 +7,7 @@ $(document).ready(function() {
 	
 	$('.selectedType').click(function() {
 		var that = $(this);
-		window.location.href = "/category?type=" + this.id;
+		window.location.href = '/places/category/' + this.id + '/1';
 	});
 
       $( '#keywords' ).autocomplete({
@@ -54,7 +54,7 @@ $(document).ready(function() {
 		  event.preventDefault();
 		  //do stuff with your form here
 		  if ($('#keywords').val()) {
-			  window.location.href = '/search?keywords=' + $('#keywords').val();
+			  window.location.href = '/places/searchterms/' + $('#keywords').val() + '/1';
 		  } else {
 			  $('#keywords').focus();
 		  }
@@ -62,7 +62,7 @@ $(document).ready(function() {
 });
 
 function searchByKeywords(keywords) {
-	window.location.href = '/search?keywords=' + keywords;
+	window.location.href = '/places/searchterms/' + keywords + '/1';
 }
 
 function searchByType(type) {

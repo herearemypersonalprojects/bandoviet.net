@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +25,8 @@ import javax.validation.Valid;
 
 
 
+
+
 /**
  * Controller (MVC) for places.
  * 
@@ -33,6 +36,10 @@ import javax.validation.Valid;
 @Controller
 public class PlaceController {
   private static final Logger LOGGER = LoggerFactory.getLogger(PlaceController.class);
+  
+  private static final String PLACES_PATH = "/places/";
+  private static final String PLACES_CATEGORY_PATH = "/places/category/";
+  private static final String PLACES_KEYWORDS_PATH = "/places/searchterms/";
 
   private final PlaceService placeService;
 
@@ -50,23 +57,106 @@ public class PlaceController {
    *          get user's ip
    * @return list of filtered POIs
    */
-  @RequestMapping("/")
+  @RequestMapping(value = "/", method = RequestMethod.GET)
   public String index(Map<String, Object> model, HttpServletRequest request) {
-    List<Place> items = placeService.search("khuong");
-    //System.out.println(items.size());
+    Integer pageNumber = 1;
+
+    List<Place> items = placeService.searchByKeywords(pageNumber, null);
+    
+    int current = pageNumber;
+    int begin = Math.max(1, current - 5);
+    int totalPages = placeService.getTotalPagesByKeywords(null);
+    int end = Math.min(begin + 10, totalPages);
+
+    model.put("totalPages", totalPages);
+    model.put("beginIndex", begin);
+    model.put("endIndex", end);
+    model.put("currentIndex", current);
     model.put("items", items);
-    model.put("keywords", "Paris");
+    model.put("path", PLACES_PATH);
+    
     return "index";
   }
+  
+  /**
+   * search by keywords.
+   */
+  @RequestMapping(value = PLACES_KEYWORDS_PATH + "{searchTerms}/{pageNumber}", 
+      method = RequestMethod.GET)
+  public String searchByKeyWordsPagination(Map<String, Object> model, 
+      @PathVariable String searchTerms, 
+      @PathVariable Integer pageNumber) {
 
+    List<Place> items = placeService.searchByKeywords(pageNumber, searchTerms);
+    
+    int current = pageNumber;
+    int begin = Math.max(1, current - 5);
+    int totalPages = placeService.getTotalPagesByKeywords(searchTerms);
+    int end = Math.min(begin + 10, totalPages);
+
+    model.put("totalPages", totalPages);
+    model.put("beginIndex", begin);
+    model.put("endIndex", end);
+    model.put("currentIndex", current);
+    model.put("items", items);
+    model.put("path", PLACES_KEYWORDS_PATH + searchTerms + "/");
+    
+    return "index";
+  }
+  
+  /**
+   * @return POIs by pagination.
+   */
+  @RequestMapping(value = PLACES_PATH + "{pageNumber}", method = RequestMethod.GET)
+  public String indexPagination(Map<String, Object> model, 
+      @PathVariable Integer pageNumber, HttpServletRequest request) {
+
+    List<Place> items = placeService.searchByKeywords(pageNumber, null);
+    
+    int current = pageNumber;
+    int begin = Math.max(1, current - 5);
+    int totalPages = placeService.getTotalPagesByKeywords(null);
+    int end = Math.min(begin + 10, totalPages);
+
+    model.put("totalPages", totalPages);
+    model.put("beginIndex", begin);
+    model.put("endIndex", end);
+    model.put("currentIndex", current);
+    model.put("items", items);
+    model.put("path", PLACES_PATH);
+    
+    return "index";
+  }
+  
+  /**
+   * search by category with pagination.
+   */
+  @RequestMapping(value = PLACES_CATEGORY_PATH + "{type}/{pageNumber}", method = RequestMethod.GET)
+  public String searchByCategoryPagination(Map<String, Object> model, 
+      @PathVariable String type, @PathVariable Integer pageNumber, HttpServletRequest request) {
+
+    List<Place> items = placeService.searchByCategory(pageNumber, type);
+    int current = pageNumber;
+    int begin = Math.max(1, current - 5);
+    int totalPages = placeService.getTotalPagesByCategory(type);
+    int end = Math.min(begin + 10, totalPages);
+
+    model.put("totalPages", totalPages);
+    model.put("beginIndex", begin);
+    model.put("endIndex", end);
+    model.put("currentIndex", current);
+    model.put("items", items);
+    model.put("path", PLACES_CATEGORY_PATH + type + "/");
+    
+    return "index";
+  }
+  
+  
   /**
    * Open each POI in its propre page.
-   * @param model
-   * @param id
-   * @return
    */
   @RequestMapping("/place")
-  public String index(Map<String, Object> model, @RequestParam Long id) {
+  public String showPlace(Map<String, Object> model, @RequestParam Long id) {
     Place place = placeService.getPlace(id);
     List<Place> items = new ArrayList<Place>();
     items.add(place);
@@ -80,7 +170,7 @@ public class PlaceController {
    *          The search query.
    */
   @RequestMapping(value = { "/search/", "/search" }, method = RequestMethod.GET)
-  public String index(@RequestParam String keywords, 
+  public String search(@RequestParam String keywords, 
       Map<String, Object> model, HttpServletRequest request) {
     List<Place> items = placeService.search(keywords);
     //System.out.println(items.size());
@@ -90,17 +180,20 @@ public class PlaceController {
   }
   
   /**
-   * Search by category.
+   * Search by category. '/category/INDIVIDUAL/0';
    * @param type given category.
    * @param model MVC communication.
    * @return list of places.
    */
   @RequestMapping(value = {"/category", "/category/"}, method = RequestMethod.GET)
-  public String searchByCategory(@RequestParam String type, Map<String, Object> model) {
+  public String searchByCategory(
+      @RequestParam(value = "type", required = false, defaultValue = "INDIVIDUAL") String type, 
+      Map<String, Object> model) {
     List<Place> items = placeService.searchByCategory(type);
     //System.out.println(items.size());
     model.put("items", items);
-    model.put("keywords", type);
+    model.put("keywords", "");
+    model.put("type", PlaceType.valueOf(type));
     return "index";
   }
   
