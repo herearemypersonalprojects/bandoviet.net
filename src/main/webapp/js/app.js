@@ -135,13 +135,13 @@ $(document).ready(function() {
 	    return true;
 	});
 	
-	/* RESPONSIVE */
+	/* RESPONSIVE
 	responsive();
 	$( window ).resize(function() {
 		responsive();
 	});
-	
-	window.setTimeout("$('#keywords').focus();", 1000);
+	 */
+	//window.setTimeout("$('#keywords').focus();", 1000);
 });
 
 function responsive() {

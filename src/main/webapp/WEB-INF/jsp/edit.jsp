@@ -33,13 +33,7 @@
 	
 	<jsp:include page="navbar.jsp" />
 
-	<div id="map-canvas"><div class="toggle-navigation">
-                        <div class="icon">
-                            <div class="line"></div>
-                            <div class="line"></div>
-                            <div class="line"></div>
-                        </div>
-                    </div></div>
+	<div id="map-canvas" style="width:33%;"></div>
 	
 	<%--<div class="newplace addbutton">+</div> --%>
 	

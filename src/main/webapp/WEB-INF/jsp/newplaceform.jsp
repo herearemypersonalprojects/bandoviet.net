@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <div class="container-fluid" id="main">
 	<div class="row">
-		<div id="results" class="col-xs-6" id="left">
+		<div id="results" class="col-xs-8" id="left">
 			<br>
 
 			<form:form action="/save" modelAttribute="place" class="form-horizontal" id="newplaceform" method="POST" enctype="multipart/form-data">
@@ -68,7 +68,7 @@
 				<%--<c:if test="${ empty place.id }"> --%>
 				<div class="form-group">
 					<label for="image" class="col-sm-3 control-label">
-						<spring:message	code="home.new.photo" /> 
+						<spring:message	code="home.new.photo" /> URL
 					</label>
 					<div class="col-sm-9">
 						<form:input path="imagePath" name="imagePath" id="imagePath" class="form-control" placeholder="Nhập đường link url từ Internet"/>

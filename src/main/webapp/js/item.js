@@ -7,8 +7,8 @@ $(document).ready(function() {
 	$('article').readmore({
 		  speed: 75,
 		  lessLink: '<a href="#">Thu nhỏ</a>',
-		  moreLink: '<a href="#">Đọc tiếp</a>',
-		  collapsedHeight: 120
+		  moreLink: '<a href="#">Đọc tiếp</a>'
+		  //collapsedHeight: 120
 		});
 	
 	/** EDIT ITEM */

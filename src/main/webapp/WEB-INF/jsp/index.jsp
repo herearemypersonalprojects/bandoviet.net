@@ -32,21 +32,20 @@
 	
 	<jsp:include page="navbar.jsp" />
 
-	<div id="map-canvas"><div class="toggle-navigation">
-                        <div class="icon">
-                            <div class="line"></div>
-                            <div class="line"></div>
-                            <div class="line"></div>
-                        </div>
-                    </div></div>
+	<%--
+	<div id="map-canvasd">
 	
+    </div>
+	 --%>
+	 <jsp:include page="results.jsp" />
+	 
 	<div class="newplace addbutton">+</div>
 	
 	<div class="my_location"><spring:message code="home.map.mylocation" /></div>
 	
 	<jsp:include page="mylocationalert.jsp" />
 	
-	<jsp:include page="results.jsp" />
+	
 	<!-- end view -->
 
 	<!-- script references -->
@@ -58,6 +57,7 @@
   
     <script src="js/cookie.js" type="text/javascript"></script>
     
+    <script src="js/lang.js" type="text/javascript"></script>
     <script src="js/mapService.js"></script>
 	<script src="js/scripts.js"></script>
 	

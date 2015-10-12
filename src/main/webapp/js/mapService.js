@@ -9,9 +9,12 @@
 				  //Trigger a click event to marker when the button is clicked.
 				  google.maps.event.addDomListener(item, "click", function(){ //mouseover
 					    infoWnd.setContent(
-					    		'<strong>' + $(item).data('title') + '</title>' + 
+					    		'<span><b>' + $(item).data('title') + '</b></span>' + 
 					    		'<br>'+
-					    		'<img class="photo_item" src="' + $(item).data('img') + '" alt="Photo">');
+					    		'<img class="photo_item" src="' + $(item).data('img') + '" alt="Photo">' + 
+					    		'<br>'+
+					    		'<span><b>' + bds_lang.GoogleMaps.Address + ' : </b>' + $(item).data('address') + '</span>');
+					    				    
 					    infoWnd.open(map, m);					 
 					  if (map.getZoom() < detailZoom) {
 						  map.setZoom(detailZoom);
@@ -22,9 +25,11 @@
 				  
 				  google.maps.event.addDomListener(item, "mouseover", function(){ //
 					    infoWnd.setContent(
-					    		'<strong>' + $(item).data('title') + '</title>' + 
+					    		'<span><b>' + $(item).data('title') + '</b></span>' + 
 					    		'<br>'+
-					    		'<img class="photo_item" src="' + $(item).data('img') + '" alt="Photo">');
+					    		'<img class="photo_item" src="' + $(item).data('img') + '" alt="Photo">' + 
+					    		'<br>'+
+					    		'<span><b>' + bds_lang.GoogleMaps.Address + ' : </b>' + $(item).data('address') + '</span>');
 					    infoWnd.open(map, m);	
 				  });
 			}
@@ -56,9 +61,11 @@
 				  google.maps.event.addListener(m, 'mouseover', function(){
 					
 				    infoWnd.setContent(
-				    		'<strong>' + title + '</title>' + 
+				    		'<span><b>' + title + '</b></span>' + 
 				    		'<br>'+
-				    		'<img class="photo_item" src="' + $(item).data('img') + '" alt="Photo">');
+				    		'<img class="photo_item" src="' + $(item).data('img') + '" alt="Photo">' + 
+				    		'<br>'+
+				    		'<span><b>' + bds_lang.GoogleMaps.Address + ' : </b>' + $(item).data('address') + '</span>');
 				    infoWnd.open(map, m);
 				    
 		            if (!$(item).hasClass("item_active")) {

@@ -47,7 +47,7 @@
 							
 						</div>
 					</div>	
-					<div class="item_content" id="${status.index}" data-lat="${item.latitude}" 
+					<div class="item_content" id="${status.index}" data-lat="${item.latitude}" data-address="${item.address}"  
 					data-id="${item.id}" data-type="${item.placeType}" data-icon="${item.iconPath}"
 						data-lng="${item.longitude}" data-title="${item.title}"	data-img="${item.imagePath}">
 						<article>
@@ -108,9 +108,14 @@
 				<hr>
 
 			</div>
-			<div class="col-xs-4">
+			
+			<div id="map-canvas" class="col-xs-4">
 				<!--map-canvas will be postioned here-->
 			</div>
-
+			<%--
+				 <div class="col-xs-4 open" id="sidebar"  style="height:400px;border:2px solid blue">
+				 	Hey There, I'm a 1/4 width Div
+				 </div>
+				  --%>
 		</div>
 	</div>
