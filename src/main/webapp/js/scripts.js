@@ -98,7 +98,7 @@ $(document).ready(
 					  }
 					  
 				  } else if (poiList.length == 1) {
-					  $('#0').trigger('click');
+					  //$('#0').trigger('click');
 					  //showLocationLatLng(poiList[0].lat, poiList[0].lng);
 				  }			 
 				  

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,7 @@ import javax.validation.Valid;
 public class PlaceController {
   private static final Logger LOGGER = LoggerFactory.getLogger(PlaceController.class);
   
+  private static final String PLACE_PATH = "/place/";
   private static final String PLACES_PATH = "/places/";
   private static final String PLACES_CATEGORY_PATH = "/places/category/";
   private static final String PLACES_KEYWORDS_PATH = "/places/searchterms/";
@@ -155,13 +157,12 @@ public class PlaceController {
   /**
    * Open each POI in its propre page.
    */
-  @RequestMapping("/place")
-  public String showPlace(Map<String, Object> model, @RequestParam Long id) {
+  @RequestMapping(value = PLACE_PATH + "{titleWithoutAccents}/{id}", method = RequestMethod.GET)
+  public String showPlace(Map<String, Object> model, @PathVariable String titleWithoutAccents,
+      @PathVariable Long id) {
     Place place = placeService.getPlace(id);
-    List<Place> items = new ArrayList<Place>();
-    items.add(place);
-    model.put("items", items);
-    return "index";
+    model.put("place", place);
+    return "portfolio";
   }
   /**
    * Show search results for the given query.
@@ -248,7 +249,7 @@ public class PlaceController {
    * @return the saved place
    */
   @RequestMapping(value = {"/save"}, method = RequestMethod.POST)
-  public String save(Map<String, Object> model, 
+  public ModelAndView save(Map<String, Object> model, 
       @ModelAttribute("place") @Valid final Place place,       
       @RequestParam("image") MultipartFile image,
       BindingResult result,
@@ -256,7 +257,7 @@ public class PlaceController {
     LOGGER.info("Received request to save {}, with result={}", place, result);
     if (result.hasErrors()) {
       initModel(place, model, "vn");
-      return "edit";
+      return new ModelAndView("edit");
     }
  
     place.setCreatedFromIp(request.getRemoteAddr());
@@ -289,7 +290,8 @@ public class PlaceController {
     }
 
     // RETURN THE ADDED PLACE
-    return "redirect:/place?id=" + place.getId();
+    return new ModelAndView("redirect:" + PLACE_PATH 
+        + place.getTitleWithoutAccents() + "/" + place.getId());
   }
     
   /**

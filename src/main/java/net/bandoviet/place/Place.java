@@ -45,6 +45,9 @@ public class Place {
   @Column(name = "title", nullable = false)
   @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
   private String title;
+  
+  @Column(name = "title_without_accent")
+  private String titleWithoutAccents;
 
   @Lob 
   @Column(name = "information", nullable = true)
@@ -372,4 +375,14 @@ public class Place {
   public void setPostalCode(String postalCode) {
     this.postalCode = postalCode;
   }
+
+  public String getTitleWithoutAccents() {
+    return titleWithoutAccents;
+  }
+
+  public void setTitleWithoutAccents(String titleWithoutAccents) {
+    this.titleWithoutAccents = titleWithoutAccents;
+  }
+  
+  
 }

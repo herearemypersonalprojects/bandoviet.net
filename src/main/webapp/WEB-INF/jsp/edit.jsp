@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="libs/jquery-ui.min.css">	
 <link href="libs/summernote/summernote.css" rel="stylesheet">
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
-<link rel="icon" type="image/png" href="img/map.png"> <!-- http://www.favicon.cc -->
+<link rel="icon" type="image/png" href="/img/map.png"> <!-- http://www.favicon.cc -->
 </head>
 <body>
 

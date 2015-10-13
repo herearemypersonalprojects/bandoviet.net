@@ -60,7 +60,7 @@
 					<div class="panel panel-default">
 						<div class="panel-heading">
 						
-							<a href="/place?id=${item.id}" target="_blank">${item.title}</a>
+							<a href="/place/${item.titleWithoutAccents}/${item.id}" target="_blank">${item.title}</a>
 							
 							
 						
@@ -122,7 +122,7 @@
 					        </c:if>			            	            			            
 				        </table>
 					</div>
-					<img  class="/img-circle button_item" alt="facebook" src="/img/user.png">
+					<img  class="img-circle button_item" alt="facebook" src="/img/user.png">
 					<span class="comment_item"><spring:message code="home.result.item.postedby"/> ${item.createdFromIp} - ${item.updatedDate}</span>
 					<!-- 
 					<img  class="/img-circle button_item" alt="facebook" src="/img/thank.jpg">

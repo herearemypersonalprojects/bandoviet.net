@@ -78,7 +78,7 @@ public class FileService {
     String name = path + getFileName(id, "streetview.jpeg");
     saveImage(imageUrl, name);
     saveIcon(imageUrl, path + "icon.jpg");
-    return name.substring(name.indexOf("images/"));
+    return name.substring(name.indexOf("/images/"));
   }
   
   /**
@@ -97,7 +97,7 @@ public class FileService {
     prepareFolder(path);
     String name = path + getFileName(id, "streetview.jpeg");
     saveImage(imageUrl, name);
-    return name.substring(name.indexOf("images/"));
+    return name.substring(name.indexOf("/images/"));
   }
   /**
    * Save the file on the disk at the default folder.
@@ -143,7 +143,7 @@ public class FileService {
             new FileOutputStream(new File(name)));
         stream.write(bytes);
         stream.close();
-        return name.substring(name.indexOf("images/"));
+        return name.substring(name.indexOf("/images/"));
       } catch (Exception e) {
         LOGGER.error(e.getMessage());
         return "";

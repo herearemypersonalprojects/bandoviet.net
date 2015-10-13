@@ -54,7 +54,7 @@ $(document).ready(function() {
 		changeType($(this).val()); 
 	});
 	//
-    $('#address').blur(function () {
+    $('#address').blur(function () { 
         showLocation($(this).val());
     });
 	// UPDATE CASE -> auto show

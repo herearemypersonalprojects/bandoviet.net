@@ -18,6 +18,8 @@ import java.util.TreeMap;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+
+import net.bandoviet.tool.AccentRemover;
 /**
  * Place service.
  * 
@@ -151,6 +153,7 @@ public class PlaceService {
                   String.format("There already exists a user with id=%s", user.getId()));
       }
       */
+    place.setTitleWithoutAccents(AccentRemover.toUrlFriendly(place.getTitle()));
     return placeRepository.save(place);
   }
   
