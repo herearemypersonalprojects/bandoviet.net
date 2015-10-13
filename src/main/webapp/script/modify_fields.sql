@@ -1,0 +1,1 @@
+alter table place modify information MEDIUMTEXT;

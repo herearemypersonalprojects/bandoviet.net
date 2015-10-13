@@ -3,7 +3,7 @@
  */
 
 $(document).ready(function() {
-	
+    
 	$('article').readmore({
 		  speed: 75,
 		  lessLink: '<a href="#" class="less">Thu nhỏ</a>',
@@ -37,9 +37,48 @@ $(document).ready(function() {
 
 });
 
+function quickView(id) { 
+    loadDataForModal(id);
+}
+
 function getPOI(id) {
 	for (i = 0, len = poiList.length; i < len; i++) { 
 		if (poiList[i].id == id) return poiList[i];
 	}
 	return null;
+}
+
+
+function loadDataForModal(id){
+	var item = document.getElementById(id);
+	$('#'+id).find('.more').trigger('click'); 
+    var modal =
+        '<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">' +
+            '<div class="modal-dialog">' +
+                '<div class="modal-content">' +
+                    '<div class="modal-header">' +
+                        '<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><img src="/img/close.png"></span></button>' +
+                        '<div class="left">' +
+                            '<h2>' + poiList[id].title + '</h2>' +
+                            '<figure>' + poiList[id].address + '</figure>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="modal-body">' +
+                    	$(item).html();
+                    '</div>' +
+                    '<div class="modal-footer">' +
+                        '<a href="/place/' + poiList[id].title + '/' + poiList[id].id + '" class="btn btn-default btn-large">Show Detail</a>' +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+        '</div>';
+
+    // Draw Modal gallery --------------------------------------------------------------------------------------------------
+
+
+    $('body').append(modal);
+    var $modal = $('.modal');
+    $modal.on('hidden.bs.modal', function (e) {
+        $('.modal').remove();
+    });
 }

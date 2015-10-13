@@ -14,7 +14,9 @@
 
 <!--[if lt IE 9]>	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>	<![endif]-->
 
+<link href="/css/infobox.css" rel="stylesheet">
 <link href="/css/styles.css" rel="stylesheet">
+
 <link rel="stylesheet" href="/libs/jquery-ui.min.css">
 
 <link rel="icon" type="image/png" href="/img/map.png"> <!-- http://www.favicon.cc -->
@@ -60,6 +62,7 @@
     <script src="/js/lang.js" type="text/javascript"></script>
     <script src="/js/mapService.js"></script>
 	<script src="/js/scripts.js"></script>
+	<script	src="/libs/infobox.js"></script>
 	
 	<script type="text/javascript" src="/js/search.js"></script>
 	<%--<script type="text/javascript" src="js/newplace.js"></script> --%>

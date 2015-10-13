@@ -23,7 +23,7 @@
 					<div class="col-sm-9">
 						<spring:message code="home.new.name.suggest" var="suggest"/>
 						<form:input class="form-control" id="title" name="title" 
-						placeholder="${suggest}" path="title" title="${suggest}"/>						
+						placeholder="${suggest}" maxlength="49" path="title" title="${suggest}"/>						
 						<form:errors path="title" cssClass="error"/>
 					</div>
 				</div>

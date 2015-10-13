@@ -87,7 +87,7 @@
 					data-id="${item.id}" data-type="${item.placeType}" data-icon="${item.iconPath}"
 						data-lng="${item.longitude}" data-title="${item.title}"	data-img="${item.imagePath}">
 						<article>
-							<img class="photo_item" src="${item.imagePath}" alt="Photo">
+							<img class="img-rounded photo_item" src="${item.imagePath}" alt="Photo">
 							${item.information}
 						</article>  
 	

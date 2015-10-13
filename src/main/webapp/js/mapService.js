@@ -8,14 +8,17 @@
 				var item = document.getElementById(idx);
 				  //Trigger a click event to marker when the button is clicked.
 				  google.maps.event.addDomListener(item, "click", function(){ //mouseover
+					  createInfoBox(item, m);
+					  /*
 					    infoWnd.setContent(
 					    		'<span><b>' + $(item).data('title') + '</b></span>' + 
 					    		'<br>'+
-					    		'<img class="photo_item" src="' + $(item).data('img') + '" alt="Photo">' + 
+					    		'<img class="img-rounded photo_item" src="' + $(item).data('img') + '" alt="Photo">' + 
 					    		'<br>'+
 					    		'<span><b>' + bds_lang.GoogleMaps.Address + ' : </b>' + $(item).data('address') + '</span>');
 					    				    
-					    infoWnd.open(map, m);					 
+					    infoWnd.open(map, m);		
+					   */			 
 					  if (map.getZoom() < detailZoom) {
 						  map.setZoom(detailZoom);
 					  }
@@ -24,13 +27,16 @@
 				  });
 				  
 				  google.maps.event.addDomListener(item, "mouseover", function(){ //
+					  createInfoBox(item, m);
+					  /*
 					    infoWnd.setContent(
 					    		'<span><b>' + $(item).data('title') + '</b></span>' + 
 					    		'<br>'+
-					    		'<img class="photo_item" src="' + $(item).data('img') + '" alt="Photo">' + 
+					    		'<img class="img-rounded photo_item" src="' + $(item).data('img') + '" alt="Photo">' + 
 					    		'<br>'+
 					    		'<span><b>' + bds_lang.GoogleMaps.Address + ' : </b>' + $(item).data('address') + '</span>');
 					    infoWnd.open(map, m);	
+					    */
 				  });
 			}
 			
@@ -70,14 +76,16 @@
 				  });
 				 
 				  google.maps.event.addListener(m, 'mouseover', function(){
-					
+					  createInfoBox(item, m);
+			            /*
 				    infoWnd.setContent(
 				    		'<span><b>' + title + '</b></span>' + 
 				    		'<br>'+
-				    		'<img class="photo_item" src="' + $(item).data('img') + '" alt="Photo">' + 
+				    		'<img class="img-rounded photo_item" src="' + $(item).data('img') + '" alt="Photo">' + 
 				    		'<br>'+
 				    		'<span><b>' + bds_lang.GoogleMaps.Address + ' : </b>' + $(item).data('address') + '</span>');
 				    infoWnd.open(map, m);
+				    */
 				    
 		            if (!$(item).hasClass("item_active")) {
 		                var lastActive = $(item).closest("#results").children(".item_active");
@@ -87,6 +95,49 @@
 		            
 				  });
 				  return m;
+			}
+			
+			function createInfoBox(item, marker) {
+				  
+	            var infoboxContent = document.createElement("div");
+	            var infoboxOptions = {
+	                content: infoboxContent,
+	                disableAutoPan: false,
+	                pixelOffset: new google.maps.Size(-18, -42),
+	                zIndex: null,
+	                alignBottom: true,
+	                boxClass: "infobox",
+	                enableEventPropagation: true,
+	                closeBoxMargin: "0px 0px -30px 0px",
+	                closeBoxURL: "/img/close.png",
+	                infoBoxClearance: new google.maps.Size(1, 1)
+	            };
+	            infoboxContent.innerHTML = 
+	                '<div class="infobox">' +
+	                '<div class="inner">' +
+	                    '<div class="image">' +
+	                        '<div class="overlay">' +
+	                            '<div class="wrapper">' +
+	                                '<a href="#" onclick="javascript:quickView('+$(item).attr('id')+');"  class="quick-view" data-toggle="modal" data-target="#modal" id="'+$(item).data('id')+'">Xem nhanh</a>' +
+	                                '<hr>' +
+	                                '<a href="/place/'+$(item).data('title')+'/'+$(item).data('id')+'" class="detail">Xem chi tiết</a>' +
+	                            '</div>' +
+	                        '</div>' +
+	                        '<a href="/place/'+$(item).data('title')+'/'+$(item).data('id')+'" class="description">' +
+	                            '<div class="meta">' +			                                
+	                                '<h2>'+$(item).data('title')+'</h2>' +
+	                                '<figure>'+$(item).data('address')+'</figure>' +
+	                                '<i class="fa fa-angle-right"></i>' +
+	                            '</div>' +
+	                        '</a>' +
+	                        '<img src="'+$(item).data('img')+'">' +
+	                    '</div>' +
+	                '</div>' +
+	            '</div>';
+	            if (infobox != null) infobox.close();
+	            infobox = new InfoBox(infoboxOptions);
+	            infobox.open(map, marker);
+	            infobox.setOptions({ boxClass:'fade-in-marker'});				
 			}
 			
 			

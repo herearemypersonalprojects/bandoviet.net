@@ -3,6 +3,7 @@ var currentAddress = "Paris, France";
 var marker = new google.maps.Marker();
 var map;
 var infoWnd = new google.maps.InfoWindow();
+var infobox;
 var poiList = [];
 var detailZoom = 15;
 
@@ -22,7 +23,8 @@ $(document).ready(
 						"title": element.getAttribute("data-title"),
 						"imagePath": element.getAttribute("data-img"),
 						"iconPath": element.getAttribute("data-icon"),
-						"type": element.getAttribute("data-type")
+						"type": element.getAttribute("data-type"),
+						"address": element.getAttribute("data-address")
 					};
 					poiList.push(item);
 				});
@@ -98,7 +100,7 @@ $(document).ready(
 					  }
 					  
 				  } else if (poiList.length == 1) {
-					  //$('#0').trigger('click');
+					  $('#0').trigger('click');
 					  //showLocationLatLng(poiList[0].lat, poiList[0].lng);
 				  }			 
 				  

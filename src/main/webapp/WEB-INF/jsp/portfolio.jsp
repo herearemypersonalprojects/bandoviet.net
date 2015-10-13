@@ -35,13 +35,21 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     
+    <style type="text/css">
+		    .header .profile-image {
+		    height: 168px;
+		    margin-right: 30px;
+		    width: 168px;
+		}
+    </style>
+    
 </head> 
 
 <body>
     <!-- ******HEADER****** --> 
     <header class="header">
         <div class="container">                       
-            <img width="168" class="img-circle profile-image img-responsive pull-left" src="${place.imagePath}" alt="${place.title}" />
+            <img class="img-circle profile-image img-responsive pull-left" src="${place.imagePath}" alt="${place.title}" />
             <div class="profile-content pull-left">
                 <h1 class="name">${place.title}</h1>
                 <h2 class="desc">${place.title}</h2>   
@@ -53,7 +61,7 @@
                     <li class="last-item"><a href="#"><i class="fa fa-hacker-news"></i></a></li>                 
                 </ul> 
             </div><!--//profile-->
-            <a class="btn btn-cta-primary pull-right" href="/update?id=${place.id}" target="_blank"><i class="fa fa-paper-plane"></i> <spring:message code="home.result.item.edit"/></a>              
+            <a class="btn btn-cta-primary pull-right" href="/update?id=${place.id}"><i class="fa fa-paper-plane"></i> <spring:message code="home.result.item.edit"/></a>              
         </div><!--//container-->
     </header><!--//header-->
     
