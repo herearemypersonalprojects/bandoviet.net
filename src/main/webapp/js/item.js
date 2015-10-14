@@ -50,7 +50,6 @@ function getPOI(id) {
 
 
 function loadDataForModal(id){
-	var item = document.getElementById(id);
 	$('#'+id).find('.more').trigger('click'); 
     var modal =
         '<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">' +
@@ -64,7 +63,7 @@ function loadDataForModal(id){
                         '</div>' +
                     '</div>' +
                     '<div class="modal-body">' +
-                    	$(item).html();
+                    $('#'+id).find('article').html();
                     '</div>' +
                     '<div class="modal-footer">' +
                         '<a href="/place/' + poiList[id].title + '/' + poiList[id].id + '" class="btn btn-default btn-large">Show Detail</a>' +
