@@ -70,7 +70,7 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
                             @Param("pageOffset") Integer pageOffset);
   
   @Query(value = "SELECT * "
-      + "FROM place "
+      + "FROM place order by created_date desc "
       + "LIMIT :pageLimit OFFSET :pageOffset", 
       nativeQuery = true)
   List<Place> search(@Param("pageLimit") Integer pageLimit, 

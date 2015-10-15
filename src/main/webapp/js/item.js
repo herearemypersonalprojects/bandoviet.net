@@ -17,10 +17,11 @@ $(document).ready(function() {
 		window.location.href = "/update?id=" + id;
 	});
 	
-	// EXPAND if only one item
-	if ($('.more').length == 1) {
-		$('.more').trigger('click'); 
+	/* EXPAND if only one item */
+	if ($('.item').length == 1) {
+		$('.item').trigger('click'); 
 	}
+	
 	
 	/*
 	
