@@ -4,6 +4,9 @@
 
 package net.bandoviet;
 
+import net.bandoviet.home.AccessInterceptor;
+import net.bandoviet.log.LogInterceptor;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -11,7 +14,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
@@ -19,8 +21,7 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import java.util.Locale;
 
-import net.bandoviet.home.AccessInterceptor;
-import net.bandoviet.log.LogInterceptor;
+
 
 /*
  * 
@@ -48,15 +49,26 @@ public class Bandoviet extends WebMvcConfigurerAdapter  {
     registry.addInterceptor(localeChangeInterceptor());
     
     // to log all controller's requests.
-    registry.addInterceptor(new LogInterceptor()).addPathPatterns("/**");
+    registry.addInterceptor(logInterceptor()).addPathPatterns("/**");
     
     // to handle only admin space.
-    registry.addInterceptor(new AccessInterceptor()).addPathPatterns("/admin/**");
+    registry.addInterceptor(accessInterceptor()).addPathPatterns("/admin/**");
     
     // continue by default.
     super.addInterceptors(registry);
 
   }
+  
+  @Bean
+  public LogInterceptor logInterceptor() {
+    return new LogInterceptor();
+  }
+  
+  @Bean
+  public AccessInterceptor accessInterceptor() {
+    return new AccessInterceptor();
+  }
+
   /**
    * Implementation of LocaleResolver that uses a locale attribute in the user’s session 
    * in case of a custom setting, with a fallback to the specified default locale or the 

@@ -31,6 +31,15 @@ public class Log {
   @Column(name = "send_from_ip")
   private String sendFromIp;
   
+  @Column(name = "city")
+  private String city;
+  
+  @Column(name = "country")
+  private String country;
+  
+  @Column(name = "user_id")
+  private String userId;
+  
   @Column(name = "request")
   private String request;
 
@@ -65,6 +74,28 @@ public class Log {
   public void setCreatedDate(Date createdDate) {
     this.createdDate = createdDate;
   }
-  
-  
+
+  public String getCity() {
+    return city;
+  }
+
+  public void setCity(String city) {
+    this.city = city;
+  }
+
+  public String getCountry() {
+    return country;
+  }
+
+  public void setCountry(String country) {
+    this.country = country;
+  }
+
+  public String getUserId() {
+    return userId;
+  }
+
+  public void setUserId(String userId) {
+    this.userId = userId;
+  }
 }

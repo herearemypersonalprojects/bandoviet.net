@@ -1,5 +1,7 @@
 package net.bandoviet.place;
 
+import net.bandoviet.tool.AccentRemover;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,7 @@ import java.util.TreeMap;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import net.bandoviet.tool.AccentRemover;
+
 /**
  * Place service.
  * 
