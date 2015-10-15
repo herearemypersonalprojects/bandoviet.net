@@ -37,6 +37,8 @@ body{
 
 .glyphicon {
 	color: #168ccc;
+	margin-right: 25%;
+	opacity: 0.5;
 }
 
 .glyphicon:hover {
@@ -61,16 +63,15 @@ body{
 
 #left {
 	height:100%;
+	overflow-y:scroll;
 }
 
 #map-canvas {
-	width:50%;
     height:calc(100% - 0);
     position:absolute;
-    right:16px;
+    right:0;
     top:50px;
     bottom:0;
-    overflow:hidden;
 }
 
 @font-face {
@@ -149,23 +150,27 @@ body{
 .form-horizontal .form-group {
     margin-left: -85px;
 }
-.item:hover {
-	background-color: #f4fafd;
+
+.item {
+    border-radius: 15px;
+    border: 2px solid #ddd;
+    padding: 20px; 
 }
 
-.item_content:hover {
+.item:hover {
+	border: 3px solid #4cbbed;
 	cursor: pointer;
-	background-color: #f4fafd;
 }
+
 
 .item_active {
-	background-color: #dbf1fb;
+	border: 3px solid #4cbbed;
 }
 
 .comment_item {
-	color:#007bb3;
-	font-size:10px;
-	cursor: pointer;
+    color: #007bb3;
+    cursor: pointer;
+    font-size: 10px;
 }
 .comment_item:hover {
 	text-decoration: underline;
@@ -183,14 +188,14 @@ body{
 }
 
 .photo_item {
-	float: right;
-    margin-left: 1%;
-    position: relative;
+	float: left;
+    margin-right: 2%;
     border: medium none;
     box-shadow: none;
-    height: 128px;
+    height: 70px;
     padding: 0;
-    width: 128px;
+    width: 70px;
+    opacity: 1.0;
 }
 /*
 * MAP
@@ -264,3 +269,39 @@ body{
     border: 1px solid black;
     cursor:pointer;
 } 
+
+button.edit {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: 0 none;
+    cursor: pointer;
+    padding: 0;
+}
+.edit {
+    color: #000;
+    float: right;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1;
+    opacity: 0.2;
+    text-shadow: 0 1px 0 #fff;
+}
+
+.edit:hover {
+	opacity: 1.0;
+}
+
+.pagination-smaller > li > a,
+.pagination-smaller > li > span {
+  padding: 3px 6px;
+  font-size: 10px;
+}
+.pagination-smaller > li:first-child > a,
+.pagination-smaller > li:first-child > span {
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+.pagination-smaller > li:last-child > a,
+.pagination-smaller > li:last-child > span {
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+}

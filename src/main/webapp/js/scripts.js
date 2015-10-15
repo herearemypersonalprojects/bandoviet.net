@@ -57,7 +57,9 @@ $(document).ready(
 			    //Creates a map object.
 				map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 				marker.setMap(map);
-
+				google.maps.event.addListener(map, 'click', function(event) {
+					infobox.close();
+				});
 				// STYLE
 				$.getScript( '/js/mapstyle.js', function() {
 					map.setOptions({

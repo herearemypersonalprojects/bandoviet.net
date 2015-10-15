@@ -10,12 +10,12 @@
 
 	<div class="container-fluid" id="main">
 		<div class="row">
-			<div id="results" class="col-xs-6" id="left">
+			<div id="left" class="col-xs-5">
 				<br>
 				
 					<div class="">
 								
-				      <ul class="pagination pagination-sm " style="margin: 0px 0;">
+				      <ul class="pagination pagination-smaller " style="margin: 0px 0;">
 				      	<c:choose>
 				            <c:when test="${currentIndex == 1}">
 				                <li class="disabled"><a href="#">&lt;&lt;</a></li>
@@ -51,12 +51,15 @@
 				
 					  <p id="newplace" class="newplace addbutton2" >+</p>
 				</div>
-		
 
 				<!-- item list -->
 				<c:forEach var="item" items="${ items }" varStatus="status">
-				<div id="item${status.index}" class="item" >
-				
+				<div id="item${status.index}" class="item " >
+				 	<button type="button" data-id="${item.id}" class="edit" title="<spring:message code="home.result.item.edit"/>">
+
+								<span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 
+					</button>
+					<%--
 					<div class="panel panel-default">
 						<div class="panel-heading">
 						
@@ -83,46 +86,60 @@
 							
 						</div>
 					</div>	
+					 --%>
+					<div>
+						<span style="color: #ddd;">${(currentIndex-1)*20 + status.index + 1}.</span>
+						<strong>
+						 <a href="/place/${item.titleWithoutAccents}/${item.id}" target="_blank"> ${item.title}</a>
+						</strong>
+					</div>
+					<div>
+						<img class="img-rounded photo_item" src="${item.imagePath}" alt="">
+					</div>	
+					
 					<div class="item_content" id="${status.index}" data-lat="${item.latitude}" data-address="${item.address}"  
 					data-id="${item.id}" data-type="${item.placeType}" data-icon="${item.iconPath}"
 						data-lng="${item.longitude}" data-title="${item.title}"	data-img="${item.imagePath}">
-						<article>
-							<img class="img-rounded photo_item" src="${item.imagePath}" alt="Photo">
+						
+						<article class="hide">
+							
 							${item.information}
 						</article>  
 	
 				        <table>
 				            <tr>
-				                <td><span><spring:message code="home.result.item.address"/>: </span></td>
+				                <td nowrap><span class="glyphicon glyphicon-home"></span></td>
 				                <td><span>${item.address}</span>  <%--<img alt="" src="/img/flags/${item.country}.png">--%></td> 
 				            </tr>
 				            <c:if test="${ not empty item.openTime }">	
 					            <tr>
-					                <td><span><spring:message code="home.result.item.time"/>: </span></td>
+					                <td><span class="glyphicon glyphicon-time"></span></td>
 					                <td><span>${item.openTime}</span></td>
 					            </tr>
 					        </c:if>
-				            <c:if test="${ not empty item.telephone }">	
+				           
 					            <tr>
-					                <td><span><spring:message code="home.result.item.telephone"/>: </span></td>
+					                <td nowrap><span class="glyphicon glyphicon-phone-alt"> </span></td>
 					                <td><span>${item.telephone}</span></td>
 					            </tr>	
-					        </c:if>
-				            <c:if test="${ not empty item.email }">		
+					      
+				            		
 					            <tr>
-					                <td><span><spring:message code="home.result.item.email"/>: </span></td>
+					                <td nowrap><span class="glyphicon glyphicon-envelope"></span></td>
 					                <td><span>${item.email}</span></td>
 					            </tr>	
-					        </c:if>
-				            <c:if test="${ not empty item.referenceUrl }">		
-					            <tr>
-					                <td><span><spring:message code="home.result.item.homepage"/>: </span></td>
+					        
+				         		
+					            <tr class="hide">
+					                <td nowrap><span><spring:message code="home.result.item.homepage"/>: </span></td>
 					                <td><span><a href="${item.referenceUrl}">${item.referenceUrl}</a></span></td>
 					            </tr>	
-					        </c:if>			            	            			            
+					     		            	            			            
 				        </table>
+				        
 					</div>
-					<img  class="img-circle button_item" alt="facebook" src="/img/user.png">
+					
+					<%--<img  class="img-circle button_item" alt="facebook" src="/img/user.png"> --%>
 					<span class="comment_item"><spring:message code="home.result.item.postedby"/> ${item.createdFromIp} - ${item.updatedDate}</span>
 					<!-- 
 					<img  class="/img-circle button_item" alt="facebook" src="/img/thank.jpg">
@@ -131,7 +148,7 @@
 					<img  class="/img-circle button_item" alt="facebook" src="/img/edit.png">
 					<span class="comment_item edit"><spring:message code="home.result.item.edit"/></span>
 					-->
-					<hr>
+					
 				</div>				
 				</c:forEach>
 				<!-- end item list -->
@@ -141,8 +158,9 @@
 						class="center-block btn btn-primary"><spring:message code="home.result.more" /></a>
 				</p>
 				 --%>
+				 <hr>
 				<nav class="text-center">
-				      <ul class="pagination" style="margin: 0px 0;">
+				      <ul class="pagination pagination-sm" style="margin: 0px 0;">
 				      	<c:choose>
 				            <c:when test="${currentIndex == 1}">
 				                <li class="disabled"><a href="#">&lt;&lt;</a></li>
@@ -180,7 +198,7 @@
 
 			</div>
 			
-			<div id="map-canvas" class="col-xs-4">
+			<div id="map-canvas" class="col-xs-7">
 				<!--map-canvas will be postioned here-->
 			</div>
 			<%--

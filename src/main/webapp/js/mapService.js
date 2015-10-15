@@ -5,9 +5,11 @@
 			/* map service for display results*/
 			
 			function createMarkerButton(m, idx) {
+				var place = document.getElementById("item"+idx);
 				var item = document.getElementById(idx);
 				  //Trigger a click event to marker when the button is clicked.
-				  google.maps.event.addDomListener(item, "click", function(){ //mouseover
+				  google.maps.event.addDomListener(place, "click", function(){ //mouseover
+					  
 					  createInfoBox(item, m);
 					  /*
 					    infoWnd.setContent(
@@ -26,7 +28,7 @@
 					  map.setCenter(latlng);	
 				  });
 				  
-				  google.maps.event.addDomListener(item, "mouseover", function(){ //
+				  google.maps.event.addDomListener(place, "mouseover", function(){ //
 					  createInfoBox(item, m);
 					  /*
 					    infoWnd.setContent(
@@ -42,6 +44,7 @@
 			
 			function createMarker(map, latlng, title, idx) {
 				var item = document.getElementById(idx);
+				var place = document.getElementById("item"+idx);
 				  //Creates a marker
 				var iconImage = "/img/flags/vietnammarker.png"; 
 				  var m = new google.maps.Marker({
@@ -87,10 +90,10 @@
 				    infoWnd.open(map, m);
 				    */
 				    
-		            if (!$(item).hasClass("item_active")) {
-		                var lastActive = $(item).closest("#results").children(".item_active");
+		            if (!$(place).hasClass("item_active")) {
+		                var lastActive = $(place).closest("#left").children(".item_active");
 		                lastActive.removeClass("item_active");
-		                $(item).addClass("item_active");		                
+		                $(place).addClass("item_active");		                
 		            }
 		            
 				  });
@@ -98,6 +101,13 @@
 			}
 			
 			function createInfoBox(item, marker) {
+				
+				 infoWnd.setContent(
+				    		'<span><b>' + $(item).data('title') + '</b></span>' + 
+				    		'<br>'+
+				    		'<span>'+ $(item).data('address') + '</span>');
+				 infoWnd.open(map, marker);
+				 /*   
 				  
 	            var infoboxContent = document.createElement("div");
 	            var infoboxOptions = {
@@ -134,10 +144,14 @@
 	                    '</div>' +
 	                '</div>' +
 	            '</div>';
+	            
+	         
 	            if (infobox != null) infobox.close();
 	            infobox = new InfoBox(infoboxOptions);
 	            infobox.open(map, marker);
-	            infobox.setOptions({ boxClass:'fade-in-marker'});				
+	            infobox.setOptions({ boxClass:'fade-in-marker'});		
+	            
+	            		*/
 			}
 			
 			
