@@ -37,6 +37,10 @@ body{
 
 .glyphicon {
 	color: #168ccc;
+}
+
+.glyphicon-item {
+	color: #168ccc;
 	margin-right: 25%;
 	opacity: 0.5;
 }
@@ -63,15 +67,24 @@ body{
 
 #left {
 	height:100%;
-	overflow-y:scroll;
+	/*overflow-y:scroll;*/
 }
 
-#map-canvas {
+#map-canvas-scroll {
     height:calc(100% - 0);
     position:absolute;
     right:0;
     top:50px;
     bottom:0;
+}
+
+#map-canvas {
+    height:calc(100% - 0);
+    position:absolute;
+    right:16px;
+    top:50px;
+    bottom:0;
+    overflow:hidden;
 }
 
 @font-face {

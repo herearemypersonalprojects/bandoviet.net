@@ -10,7 +10,7 @@
 
 	<div class="container-fluid" id="main">
 		<div class="row">
-			<div id="left" class="col-xs-5">
+			<div id="left" class="col-xs-6">
 				<br>
 				
 					<div class="">
@@ -101,31 +101,27 @@
 					data-id="${item.id}" data-type="${item.placeType}" data-icon="${item.iconPath}"
 						data-lng="${item.longitude}" data-title="${item.title}"	data-img="${item.imagePath}">
 						
-						<article class="hide">
-							
-							${item.information}
-						</article>  
 	
 				        <table>
 				            <tr>
-				                <td nowrap><span class="glyphicon glyphicon-home"></span></td>
+				                <td nowrap><span class="glyphicon glyphicon-item  glyphicon-home"></span></td>
 				                <td><span>${item.address}</span>  <%--<img alt="" src="/img/flags/${item.country}.png">--%></td> 
 				            </tr>
 				            <c:if test="${ not empty item.openTime }">	
 					            <tr>
-					                <td><span class="glyphicon glyphicon-time"></span></td>
+					                <td><span class="glyphicon glyphicon-item  glyphicon-time"></span></td>
 					                <td><span>${item.openTime}</span></td>
 					            </tr>
 					        </c:if>
 				           
 					            <tr>
-					                <td nowrap><span class="glyphicon glyphicon-phone-alt"> </span></td>
+					                <td nowrap><span class="glyphicon glyphicon-item  glyphicon-phone-alt"> </span></td>
 					                <td><span>${item.telephone}</span></td>
 					            </tr>	
 					      
 				            		
 					            <tr>
-					                <td nowrap><span class="glyphicon glyphicon-envelope"></span></td>
+					                <td nowrap><span class="glyphicon glyphicon-item  glyphicon-envelope"></span></td>
 					                <td><span>${item.email}</span></td>
 					            </tr>	
 					        
@@ -136,7 +132,9 @@
 					            </tr>	
 					     		            	            			            
 				        </table>
-				        
+				        <article class="">
+							${item.information}
+						</article>  
 					</div>
 					
 					<%--<img  class="img-circle button_item" alt="facebook" src="/img/user.png"> --%>
@@ -198,7 +196,7 @@
 
 			</div>
 			
-			<div id="map-canvas" class="col-xs-7">
+			<div id="map-canvas" class="col-xs-6">
 				<!--map-canvas will be postioned here-->
 			</div>
 			<%--

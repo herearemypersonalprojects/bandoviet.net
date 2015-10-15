@@ -82,7 +82,9 @@
 					<div class="dropdown">
   <button id="feedback"  class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" 
   	data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-    <span class="glyphicon glyphicon-heart-empty"></span><span class="comment_item"> Góp ý cho chúng tôi</span> 	<span class="glyphicon glyphicon-heart-empty"></span>
+    <span class="glyphicon glyphicon-heart-empty"></span>
+    <span class="comment_item"> Góp ý cho chúng tôi</span> 	
+    <span class="glyphicon glyphicon-heart-empty"></span>
   </button>
   <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
     <li><a href="#">Giới thiệu</a></li>
