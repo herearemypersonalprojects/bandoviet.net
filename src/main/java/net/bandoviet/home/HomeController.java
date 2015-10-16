@@ -24,24 +24,6 @@ public class HomeController {
 
   @Value("${application.message:Hello World}")
   private String message;
-
-  /**
-   * Get feedback from visitors.
-   * @param name visitor's name
-   * @param email visitor's email
-   * @param message visitor's message.
-   * @return thanks
-   */
-  @RequestMapping("/feedback")
-  @ResponseBody
-  public String feedback(@RequestParam String name, 
-                         @RequestParam String email,
-                         @RequestParam String subject,
-                         @RequestParam String message) {
-    System.out.println(name + ":" + email + ":" + subject + ":" + message);
-    
-    return "Thank you!";
-  }
   
   /**
    * The first request when user open the homepage.

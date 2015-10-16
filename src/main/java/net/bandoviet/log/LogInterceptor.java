@@ -49,11 +49,13 @@ public class LogInterceptor extends HandlerInterceptorAdapter {
       log.setRequest(request.getRequestURI()
           + (StringUtils.isEmpty(request.getQueryString()) ? "" : "?" + request.getQueryString()));
 
-      IpInfo ipInfo = IpInfoService.getIpInfo("86.198.34.109");
+      IpInfo ipInfo = IpInfoService.getIpInfoMaxMind(IpInfoService.getClientIP(request));
 
       if (ipInfo != null) {
         log.setCity(ipInfo.getCity());
         log.setCountry(ipInfo.getCountry_code());
+        log.setLatitude(ipInfo.getLatitude());
+        log.setLongitude(ipInfo.getLongitude());
       }
 
       logService.saveLog(log);
