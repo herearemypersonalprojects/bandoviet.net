@@ -157,10 +157,10 @@
 			
 			function showLocationLatLng(lat, lng) {
 			    var me = new google.maps.LatLng(lat, lng);
-			    showLocation(me);				
+			    showLocation1(me);				
 			}
 			
-			function showLocation(location) {
+			function showLocation1(location) {
 			    //marker.setAnimation(google.maps.Animation.BOUNCE);
 				
 			    marker.setPosition(location);
@@ -189,7 +189,7 @@
 			        geocoder.geocode({'address': address}, function (results, status) {
 			        	
 			            if (status == google.maps.GeocoderStatus.OK) {
-			            	getCity(results);
+			            	
 			                var lat = '';
 			                var lng = '';
 			                lat = results[0].geometry.location.lat();
@@ -205,7 +205,7 @@
 			                document.getElementById('locationSearch').value = addressReturn;
 			                document.getElementById('cityLat').value = lat;
 			                document.getElementById('cityLng').value = lng;
-
+			                getCity(results);	
 			                if (infoWnd != null) {
 			                	infoWnd.setContent(address);
 			                	infoWnd.open(map, marker);
@@ -230,14 +230,14 @@
 			        var super_var1 = results[i].address_components;
 			        for (j = 0; j < super_var1.length; ++j) {
 			            var super_var2 = super_var1[j].types;
-			            for (k = 0; k < super_var2.length; ++k) { 
+			            for (k = 0; k < super_var2.length; ++k) {  //console.log(super_var2[k] + ":" + super_var1[j].short_name + ":" + super_var1[j].long_name);
 			                //find city
-			                if (super_var2[k] == "locality") {
+			                if (super_var2[k] == "locality" && $('#citySearch').val() == "") {
 			                    //put the city name in the form
-			                    $('#citySearch').val(super_var1[j].long_name); 
+			                    $('#citySearch').val(super_var1[j].long_name);
 			                }
 			                //find county
-			                if (super_var2[k] == "country") {
+			                if (super_var2[k] == "country" && $('#countrySearch').val() == "") {
 			                    //put the county name in the form
 			                    $('#countrySearch').val(super_var1[j].short_name); //alert(super_var1[j].long_name);alert(super_var1[j].short_name);
 			                }

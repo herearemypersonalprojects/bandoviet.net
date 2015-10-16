@@ -24,14 +24,16 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
 
   List<Place> findByCity(@Param("city") String city);
 
-  @Query(value = "select * from place where place_type = :type", nativeQuery = true)
+  @Query(value = "select * from place where place_type = :type "
+      + "order by updated_date desc", nativeQuery = true)
   List<Place> findByType(@Param("type") String type);
 
   @Query(value = "select * from place where "
       + "latitude > :swLat and "
       + "latitude < :neLat and "
       + "longitude > :swLng and "
-      + "longitude < :neLng", 
+      + "longitude < :neLng "
+      + "order by updated_date desc", 
       nativeQuery = true)
   List<Place> findByCurrentView(@Param("swLat") Double swLat, @Param("swLng") Double swLng,
       @Param("neLat") Double neLat, @Param("neLng") Double neLng);
@@ -57,10 +59,12 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
       nativeQuery = true)
   List<Place> findByKeywords(@Param("keywords") String keywords);
   
+  
   @Query(value = "SELECT *, "
       + "MATCH(title) AGAINST(:keywords) AS rel1, "
       + "MATCH(information) AGAINST(:keywords) AS rel2 "
-      + "FROM place WHERE "
+      + "FROM place "
+      + "WHERE "
       + "MATCH(title, information) AGAINST(:keywords) "
       + "ORDER BY (rel1*10)+(rel2) desc "
       + "LIMIT :pageLimit OFFSET :pageOffset", 
@@ -69,12 +73,35 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
                             @Param("pageLimit") Integer pageLimit, 
                             @Param("pageOffset") Integer pageOffset);
   
+  @Query(value = "SELECT *, "
+      + "MATCH(title) AGAINST(:keywords) AS rel1, "
+      + "MATCH(information) AGAINST(:keywords) AS rel2 "
+      + "FROM place WHERE country like :country and "
+      + "MATCH(title, information) AGAINST(:keywords) "
+      + "ORDER BY (rel1*10)+(rel2) desc "
+      + "LIMIT :pageLimit OFFSET :pageOffset", 
+      nativeQuery = true)
+  List<Place> searchByKeywords(@Param("keywords") String type, 
+                            @Param("country") String country,
+                            @Param("pageLimit") Integer pageLimit, 
+                            @Param("pageOffset") Integer pageOffset);
+  
   @Query(value = "SELECT * "
-      + "FROM place order by created_date desc "
+      + "FROM place order by updated_date desc "
       + "LIMIT :pageLimit OFFSET :pageOffset", 
       nativeQuery = true)
   List<Place> search(@Param("pageLimit") Integer pageLimit, 
                      @Param("pageOffset") Integer pageOffset);
+  
+  @Query(value = "SELECT * "
+      + "FROM place "
+      + "WHERE country like :country "
+      + "order by updated_date desc "
+      + "LIMIT :pageLimit OFFSET :pageOffset", 
+      nativeQuery = true)
+  List<Place> search(@Param("pageLimit") Integer pageLimit, 
+                     @Param("pageOffset") Integer pageOffset,
+                     @Param("country") String country);
   
   @Query(value = "SELECT ceil(count(*)/:pageLimit) "
       + "FROM place WHERE "
@@ -88,13 +115,15 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
   
   @Query(value = "SELECT * FROM place WHERE "
       + "city=:city and "
-      + "MATCH(title, information) AGAINST(:keywords)",
+      + "MATCH(title, information) AGAINST(:keywords) "
+      + "order by updated_date desc",
       nativeQuery = true)
   List<Place> findByKeywordsAndCity(@Param("keywords") String keywords, @Param("city") String city);
   
   @Query(value = "select * from place "
       + "where place_type = :type "
-      + "LIMIT :pageLimit OFFSET :pageOffset", 
+      + "order by updated_date desc "
+      + "LIMIT :pageLimit OFFSET :pageOffset ", 
       nativeQuery = true)
   List<Place> searchByCategory(@Param("type") String type, 
                                  @Param("pageLimit") Integer pageLimit, 

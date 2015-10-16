@@ -72,13 +72,13 @@
 					<input style="width: 50%;" id="keywords" type="text" data-provide="typeahead" class="form-control"
 						   value="${keywords}"				 placeholder=<spring:message	code="home.navbar.search.placeholder" />> 
 					<input style="width: 50%;" id="locationSearch" type="text" data-provide="typeahead" class="form-control"
-										 placeholder="Vị trí tìm kiếm"> 		
-			   		<input type="hidden" id="countrySearch" name="countrySearch" value="" />
+										 placeholder="Vị trí tìm kiếm" value="${address}"> 		
+			   		<input type="hidden" id="countrySearch" name="countrySearch" value="${country}" />
 			    	<input type="hidden" id="citySearch" name="citySearch" value="" />
-					<input type="hidden" id="cityLat" name="cityLat" value="" />
-					<input type="hidden" id="cityLng" name="cityLng" value=""/> 			 								 
+					<input type="hidden" id="cityLat" name="cityLat" value="${lat}" />
+					<input type="hidden" id="cityLng" name="cityLng" value="${lng}"/> 			 								 
 						<div class="input-group-btn">							
-							<button type="submit" class="btn btn-default">
+							<button id="searchSubmit" type="button" class="btn btn-default">
 								<span class="glyphicon glyphicon-search"></span> 
 							</button>				
 						</div>

@@ -1,10 +1,12 @@
 package net.bandoviet.place;
 
+import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Store;
+import org.hibernate.search.spatial.impl.Point;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -96,7 +98,7 @@ public class Place {
   @NotNull
   @Column(name = "longitude")
   Double longitude;
-
+  
   @NotNull
   @Column(name = "community_code", nullable = false)
   String communityCode;

@@ -1,6 +1,7 @@
 package net.bandoviet.place;
 
 import net.bandoviet.tool.AccentRemover;
+import net.bandoviet.tool.DistanceCalculator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +37,8 @@ public class PlaceService {
   private final PlaceRepository placeRepository;
 
   private static final int PAGE_SIZE = 20;
+  
+  private static final double DISTANCE = 50; // km
   
   @Autowired
   public PlaceService(final PlaceRepository placeRepository) {
@@ -80,6 +83,57 @@ public class PlaceService {
       return lst;
     }
   }
+  
+  /**
+   * Filtred by area of 50km from a given lst.
+   */
+  public List<Place> searchByArea(Double lat, Double lng, List<Place> lst) {
+    List<Place> lstLatLng = new ArrayList<Place>();
+    for (Place place : lst) {
+      if (DistanceCalculator.distance(lat, lng, place.getLatitude(), 
+                                      place.getLongitude(), "K") < DISTANCE) {
+        lstLatLng.add(place);
+      }
+    }      
+    if (!lstLatLng.isEmpty()) {
+      return lstLatLng;
+    } else {
+      return lst;
+    }
+  }
+  /**
+   * @return list of places for given search terms in certain country or area.
+   */
+  public List<Place> searchByKeywordsLocation(Integer pageNumber, 
+                                      String keywords, 
+                                      Double lat, 
+                                      Double lng, 
+                                      String country) {
+    List<Place> lst = null;
+    if (country.length() <= 1) {
+      lst =  searchByKeywords(pageNumber, keywords);
+    } else {
+      if (StringUtils.isEmpty(keywords)) {
+        lst = placeRepository.search(PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE, country);
+        
+        lst = searchByArea(lat, lng, lst); 
+      } else { // keywords exist
+        lst = placeRepository
+            .searchByKeywords(keywords, country, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
+        lst = searchByArea(lat, lng, lst); 
+        
+        if (lst.isEmpty()) { // remove keywords contraint
+          lst = placeRepository.search(PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE, country);
+          lst = searchByArea(lat, lng, lst); 
+        }      
+      }
+    }
+    
+    if (lst.isEmpty()) { 
+      lst = searchByKeywords(pageNumber, ""); // remove keywords contraint
+    }
+    return lst;
+  } 
   
   /**
    * @return total of pages for given search terms.

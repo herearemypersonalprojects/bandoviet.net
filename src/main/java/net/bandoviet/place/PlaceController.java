@@ -83,13 +83,23 @@ public class PlaceController {
   /**
    * search by keywords.
    */
-  @RequestMapping(value = PLACES_KEYWORDS_PATH + "{searchTerms}/{pageNumber}", 
+  @RequestMapping(value = PLACES_KEYWORDS_PATH 
+                          + "{searchTerms}/{lat}/{lng}/{country}/{address}/{pageNumber}", 
       method = RequestMethod.GET)
   public String searchByKeyWordsPagination(Map<String, Object> model, 
       @PathVariable String searchTerms, 
+      @PathVariable Double lat, 
+      @PathVariable Double lng,
+      @PathVariable String country, 
+      @PathVariable String address,
       @PathVariable Integer pageNumber) {
-
-    List<Place> items = placeService.searchByKeywords(pageNumber, searchTerms);
+    
+    System.out.println(lat);
+    System.out.println(lng);
+    System.out.println(country);
+    
+    List<Place> items = 
+        placeService.searchByKeywordsLocation(pageNumber, searchTerms, lat, lng, country);
     
     int current = pageNumber;
     int begin = Math.max(1, current - 5);
@@ -101,9 +111,14 @@ public class PlaceController {
     model.put("endIndex", end);
     model.put("currentIndex", current);
     model.put("items", items);
-    model.put("path", PLACES_KEYWORDS_PATH + searchTerms + "/");
+    model.put("path", PLACES_KEYWORDS_PATH
+                      + searchTerms + "/" + lat + "/" + lng + "/" + country + "/" + address + "/");
     
     model.put("keywords", searchTerms);
+    model.put("lat", lat);
+    model.put("lng", lng);
+    model.put("country", country);
+    model.put("address", address);
     
     return "index";
   }
@@ -304,7 +319,11 @@ public class PlaceController {
    * @return list of suggestions.
    */
   @RequestMapping(value = {"/autocomplete"}, method = RequestMethod.GET)
-  @ResponseBody public  List<String> autocomplete(@RequestParam String query) {
+  @ResponseBody public  List<String> autocomplete(
+      @RequestParam String query,
+      @RequestParam String lat,
+      @RequestParam String lng,
+      @RequestParam String country) {
     //LOGGER.info(query);
     List<String> results = new ArrayList<String>();
     List<Place> items = placeService.search(query);

@@ -4,10 +4,42 @@
 
 
 $(document).ready(function() {
+	if (!$('#cityLat').val()) { 
+		$('#cityLat').val(0);
+		$('#cityLng').val(0);
+		$('#countrySearch').val('0');
+		$.get("http://ipinfo.io", function(response) { 
+			$('#locationSearch').val(response.city + " " + response.postal + ", " + response.region + ", " + response.country);
+			$('#countrySearch').val(response.country);
+			$('#cityLat').val(response.loc.split(',')[0]);
+			$('#cityLng').val(response.loc.split(',')[1]);
+		}, "jsonp");
+	}
+	
     $('#locationSearch').blur(function () { 
         showLocation($(this).val());
     });
     
+    $('#locationSearch').bind("enterKey",function(e){
+    	showLocation($(this).val());
+    	});
+	$('#locationSearch').keyup(function(e){
+	    if(e.keyCode == 13)
+	    {
+	        $(this).trigger("enterKey");
+	    }
+	});
+	
+    $('#keywords').bind("enterKey",function(e){
+    	$('#searchSubmit').trigger('click'); 
+    	});
+	$('#keywords').keyup(function(e){
+	    if(e.keyCode == 13)
+	    {
+	        $(this).trigger("enterKey");
+	    }
+	});
+    	
 	$('.selectedType').click(function() {
 		var that = $(this);
 		window.location.href = '/places/category/' + this.id + '/1';
@@ -17,7 +49,10 @@ $(document).ready(function() {
       //define callback to format results
         source: function (request, response) { 
             jQuery.get('/autocomplete', {
-                query: request.term
+                query: request.term,
+                lat: $('#cityLat').val(),
+                lng: $('#cityLng').val(),
+                country: $('#countrySearch').val()
             }, function (data) {
                 // assuming data is a JavaScript array such as
                 // ["one@abc.de", "onf@abc.de","ong@abc.de"]
@@ -34,7 +69,7 @@ $(document).ready(function() {
 				event.preventDefault();
 				// manually update the textbox and hidden field
 				//$(this).val(ui.item.label.split(":")[0]);
-				searchByKeywords('"' + ui.item.label.split(":")[0] + '"');
+				searchByKeywords('"' + ui.item.label.split(":")[0] + '"', $('#cityLat').val(), $('#cityLng').val(), $('#countrySearch').val(), $('#locationSearch').val());
             }
         },
         open: function() {
@@ -51,21 +86,31 @@ $(document).ready(function() {
         },
       });
 
+    $('#searchSubmit').click(function() {
+		  var keywords = $('#keywords').val(); 
+		  if (keywords) {
+			  searchByKeywords(keywords, $('#cityLat').val(), $('#cityLng').val(), $('#countrySearch').val(), $('#locationSearch').val());
+		  } else {
+			  $('#keywords').focus();
+		  }    	
+    })  ;
 
-	$('.navbar-form').submit(function(event){
+	$('.navbar-form').submit(function(event){ 
 		  // prevent default browser behaviour
 		  event.preventDefault();
 		  //do stuff with your form here
-		  if ($('#keywords').val()) {
-			  window.location.href = '/places/searchterms/' + $('#keywords').val() + '/1';
+		  var keywords = $('#keywords').val();
+		  if (keywords) {
+			  searchByKeywords(keywords, $('#cityLat').val(), $('#cityLng').val(), $('#countrySearch').val(), $('#locationSearch').val());
 		  } else {
 			  $('#keywords').focus();
 		  }
 		});
+	
 });
 
-function searchByKeywords(keywords) {
-	window.location.href = '/places/searchterms/' + keywords + '/1';
+function searchByKeywords(keywords, lat, lng, country, address) {
+	window.location.href = '/places/searchterms/' + keywords + '/' + lat + '/' + lng + '/' + country + '/' + address + '/1';
 }
 
 function searchByType(type) {

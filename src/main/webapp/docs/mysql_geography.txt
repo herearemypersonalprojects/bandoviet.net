@@ -280,3 +280,14 @@ WHERE ST_Contains( ST_MakeEnvelope(
                  ), geom )
       AND match(tags) against ("+thai +restaurant" IN BOOLEAN MODE)
 ORDER BY distance_in_meters LIMIT 10
+
+
+
+QUOC ANH's TEST:
+1. CREATE TABLE `nodes` (   `id` bigint(20) DEFAULT NULL,   `geom` geometry NOT NULL,   `user` varchar(50) DEFAULT NULL,   `version` int(11) DEFAULT NULL,   `timestamp` varchar(20) DEFAULT NULL,   `uid` int(11) DEFAULT NULL,   `changeset` int(11) DEFAULT NULL,   UNIQUE KEY `i_nodeids` (`id`),   SPATIAL INDEX `i_geomidx` (`geom`) ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+2. alter table nodes add column tags text, add fulltext index(tags);
+
+3. CREATE FUNCTION slc (lat1 double, lon1 double, lat2 double, lon2 double)   RETURNS double RETURN 6371 * acos(cos(radians(lat1)) * cos(radians(lat2)) * cos(radians(lon2) - radians(lon1)) + sin(radians(lat1)) * sin(radians(lat2)));
+
+4. select id, slc( 40.716743, -73.951368, y(geom), x(geom))*1000 as distance_in_meters, tags, astext(geom) from nodes where MBRContains(envelope(linestring(point((-73.951368+(20/111)), (40.716743+(20/111))), point((-73.951368-(20/111)), (40.716743-(20/111))))), geom) AND match(tags) against ("+thai +restaurant" IN BOOLEAN MODE) order by distance_in_meters limit 10;
