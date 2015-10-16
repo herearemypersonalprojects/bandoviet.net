@@ -8,13 +8,15 @@
 <title><spring:message code="application.title"/></title>
 <meta name="generator" content="Bootply" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">	
-
+<meta name="author" content="Le Quoc Anh - PhD in Computer Science - Telecom ParisTech, France"> 
+<meta name="description" content="Ban do nguoi Viet Nam tren the gioi, Viet kieu, the map of Vietnamese people in the world">
+        
 <link href="/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="/css/jquery.datetimepicker.css"/>
 
 <!--[if lt IE 9]>	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>	<![endif]-->
 
-<link href="/css/infobox.css" rel="stylesheet">
+<%--<link href="/css/infobox.css" rel="stylesheet"> --%>
 <link href="/css/styles.css" rel="stylesheet">
 
 <link rel="stylesheet" href="/libs/jquery-ui.min.css">
@@ -62,7 +64,7 @@
     <script src="/js/lang.js" type="text/javascript"></script>
     <script src="/js/mapService.js"></script>
 	<script src="/js/scripts.js"></script>
-	<script	src="/libs/infobox.js"></script>
+	<%--<script	src="/libs/infobox.js"></script> --%>
 	
 	<script type="text/javascript" src="/js/search.js"></script>
 	<%--<script type="text/javascript" src="js/newplace.js"></script> --%>

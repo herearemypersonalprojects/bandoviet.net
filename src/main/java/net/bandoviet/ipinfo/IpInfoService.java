@@ -56,11 +56,12 @@ public class IpInfoService {
 
   public static IpInfo getIpInfo(HttpServletRequest request) {
     String url = "http://freegeoip.net/json/" + getClientIP(request); // Using the API
+    IpInfo ipResponse = new IpInfo();
     try {
       HttpGet httpGet = new HttpGet(url);
       HttpResponse httpResponse = HTTP_CLIENT.execute(httpGet, new BasicHttpContext());
       String responseString;
-      IpInfo ipResponse;
+      
       if (httpResponse.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
         throw new RuntimeException(
             "Sorry! Response Error. Status Code: " + httpResponse.getStatusLine().getStatusCode());
@@ -71,7 +72,7 @@ public class IpInfoService {
     } catch (Exception ex) {
       System.out.println(ex.toString());
     }
-    return null;
+    return ipResponse;
   }
   
   /**
@@ -124,11 +125,12 @@ public class IpInfoService {
 
   public static IpInfo getIpInfo(String ip) {
     String url = "http://freegeoip.net/json/" + ip; // Using the API
+    IpInfo ipInfo = new IpInfo();
     try {
       HttpGet httpGet = new HttpGet(url);
       HttpResponse httpResponse = HTTP_CLIENT.execute(httpGet, new BasicHttpContext());
       String responseString;
-      IpInfo ipInfo;
+      
       if (httpResponse.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
         throw new RuntimeException(
             "Sorry! Response Error. Status Code: " + httpResponse.getStatusLine().getStatusCode());
@@ -141,7 +143,7 @@ public class IpInfoService {
     } finally {
       HTTP_CLIENT.getConnectionManager().shutdown();
     }
-    return null;
+    return ipInfo;
   }
 
   public static String getClientIP(HttpServletRequest request) {

@@ -4,6 +4,8 @@
 <html lang="en-us">
 <head>
 <title>Mappist</title>
+<meta name="author" content="Le Quoc Anh - PhD in Computer Science - Telecom ParisTech, France"> 
+<meta name="description" content="Ban do nguoi Viet Nam tren the gioi, Viet kieu, the map of Vietnamese people in the world">
 <link rel="icon" type="image/png" href="/img/map.png"> <!-- http://www.favicon.cc -->
 <style>
 .country {

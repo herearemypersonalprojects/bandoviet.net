@@ -10,7 +10,9 @@
 <title><spring:message code="application.title"/></title>
 <meta name="generator" content="Bootply" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	
+<meta name="author" content="Le Quoc Anh - PhD in Computer Science - Telecom ParisTech, France"> 
+<meta name="description" content="Ban do nguoi Viet Nam tren the gioi, Viet kieu, the map of Vietnamese people in the world">
+    	
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <%--<link href="css/bootstrap-combined.min.css" rel="stylesheet"> --%>
 
