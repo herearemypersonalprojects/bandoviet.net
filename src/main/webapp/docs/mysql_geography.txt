@@ -1,0 +1,282 @@
+
+MySQL 5.7 and GIS, an Example
+April 14, 2014Full Text Search, GIS, InnoDB, MySQLMatt Lord	
+
+Summary
+This post will offer a very simple demonstration of how you can use MySQL 5.7 for Spatial features within your applications. In order to demonstrate this, I’ll walk through how we can determine the 10 closest Thai restaurants to a particular location. For this example, we’ll be using the apartment that I lived in when I first started working at MySQL, back in 2003.
+
+For more details on all of the new GIS related work that we’ve done in MySQL 5.7, please read through these blog posts from the developers:
+
+    Why Boost.Geometry in MySQL?
+    Making Use of Boost.Geometry in MySQL GIS
+    Building MySQL with Boost
+    InnoDB Spatial Indexes in 5.7.4 LAB release
+
+
+Installing MySQL
+Let’s first install the MySQL 5.7 labs release that contains all of the refactored GIS functions, as well as the R-tree based InnoDB Spatial Indexes. (UPDATE: these features were included in the 5.7.5 DMR, so best to simply install the latest 5.7 release). For the first time in MySQL’s history, you can now use an ACID/MVCC engine for geospatial data! It’s a bit hard for me to contain my excitement on that particular point. :)
+
+Importing Open Street Map Data
+We can now use a customized version of the Open Street Map (OSM) MySQL data import scripts, which will additionally generate a geometry column from the “longitude,latitude” coordinate pairs, and create a new InnoDB spatial index on it.
+
+You can download a copy of my customized scripts here.
+
+We can then use these scripts to load a NYC area OSM data extract, using these steps:
+Importing the Data
+Shell
+mysql -e "create database nyosm"
+bunzip2 new-york.osm.bz2
+./bulkDB.pl new-york.osm nyosm
+1
+2
+3
+	
+mysql -e "create database nyosm"
+bunzip2 new-york.osm.bz2
+./bulkDB.pl new-york.osm nyosm
+
+The resulting nodes table looks like this after the initial data load:
+The Nodes Table
+MySQL
+mysql> show create table nodes\G
+*************************** 1. row ***************************
+       Table: nodes
+Create Table: CREATE TABLE `nodes` (
+  `id` bigint(20) DEFAULT NULL,
+  `geom` geometry NOT NULL,
+  `user` varchar(50) DEFAULT NULL,
+  `version` int(11) DEFAULT NULL,
+  `timestamp` varchar(20) DEFAULT NULL,
+  `uid` int(11) DEFAULT NULL,
+  `changeset` int(11) DEFAULT NULL,
+  UNIQUE KEY `i_nodeids` (`id`),
+  SPATIAL KEY `i_geomidx` (`geom`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+1 row in set (0.00 sec)
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+	
+mysql> show create table nodes\G
+*************************** 1. row ***************************
+       Table: nodes
+Create Table: CREATE TABLE `nodes` (
+  `id` bigint(20) DEFAULT NULL,
+  `geom` geometry NOT NULL,
+  `user` varchar(50) DEFAULT NULL,
+  `version` int(11) DEFAULT NULL,
+  `timestamp` varchar(20) DEFAULT NULL,
+  `uid` int(11) DEFAULT NULL,
+  `changeset` int(11) DEFAULT NULL,
+  UNIQUE KEY `i_nodeids` (`id`),
+  SPATIAL KEY `i_geomidx` (`geom`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+1 row in set (0.00 sec)
+
+You can read more about playing with the resulting OSM data here.
+
+Now we can also de-normalize the data a bit in order to avoid unnecessary and heavy subquery usage, and instead make use of the new (in MySQL 5.6) fulltext indexing feature in InnoDB. To do that, we can load all of the nodetags into a single column for each node this way:
+Tag Migration
+MySQL
+mysql> alter table nodes add column tags text, add fulltext index(tags);
+mysql> update nodes set tags=(SELECT group_concat( concat(k, "=", v) SEPARATOR ',') from nodetags where nodetags.id=nodes.id group by nodes.id);
+1
+2
+	
+mysql> alter table nodes add column tags text, add fulltext index(tags);
+mysql> update nodes set tags=(SELECT group_concat( concat(k, "=", v) SEPARATOR ',') from nodetags where nodetags.id=nodes.id group by nodes.id);
+
+You can download a dump of the final schema that I ended up with here.
+
+Creating Distance Calculation Functions
+Next we can create a new function† to calculate the geographical distance between two points (“longitude,latitude” coordinate pairs, or nodes) using the spherical law of cosines (SLC) formula for determining the “Great-circle distance”:
+SLC Function
+MySQL
+mysql> CREATE FUNCTION slc (lat1 double, lon1 double, lat2 double, lon2 double)
+  RETURNS double
+RETURN 6371 * acos(cos(radians(lat1)) * cos(radians(lat2)) * cos(radians(lon2) - radians(lon1)) + sin(radians(lat1)) * sin(radians(lat2)));
+1
+2
+3
+	
+mysql> CREATE FUNCTION slc (lat1 double, lon1 double, lat2 double, lon2 double)
+  RETURNS double
+RETURN 6371 * acos(cos(radians(lat1)) * cos(radians(lat2)) * cos(radians(lon2) - radians(lon1)) + sin(radians(lat1)) * sin(radians(lat2)));
+
+This is necessary because with Geometry types, the ST_distance and related functions only return degrees—which isn’t really helpful for us here—as they’re dealing with points in a 2 dimensional cartesian plane (euclidian geometry) and we have to manually calculate these distances on an earthlike spheriod. When MySQL has Geography type support, then the need for haversine or SLC functions will go away and we can simply use the ST_distance and similar functions to calculate the actual distance on the surface of the earth, between two geographic points.
+
+Creating the Bounding Rectangle for Our Spatial Index
+Again, as a starting point in our search for Thai restaurants, I’m going to be using the location of my apartment (40.716743,-73.951368) at the time that I first started working at MySQL.
+
+For creating the envelope or bounding box† around that location—so that we can take advantage of the spatial index on it—we can use the average distance between longitude and latitude degrees of 111km. It’s pretty close for latitude, but much more variant for longitude. If you want the bounding box or envelope to be more accurate, you can use abs(cos(radians(${latitude}))*111) for the longitude calculations. In our case though, we’re only using it for an envelope to push down to the spatial index (R-tree) for the Minimum Bounding Rectangle (MBR), so we could instead just increase the size of the envelope—since we’re still calculating the actual distance later (using the SLC function), which is what we care about in the end here—and keep things simple. Thus the calculation would be something like:
+Simple Bounding Box Formula
+${origlon} = -73.951368
+${origlat} = 40.716743
+${lon1} = ${origlon} + (${distance_in_km}/111)
+${lat1} = ${origlat} + (${distance_in_km}/111)
+${lon2} = ${origlon} - (${distance_in_km}/111)
+${lat2} = ${origlat} - (${distance_in_km}/111)
+1
+2
+3
+4
+5
+6
+	
+${origlon} = -73.951368
+${origlat} = 40.716743
+${lon1} = ${origlon} + (${distance_in_km}/111)
+${lat1} = ${origlat} + (${distance_in_km}/111)
+${lon2} = ${origlon} - (${distance_in_km}/111)
+${lat2} = ${origlat} - (${distance_in_km}/111)
+
+Or, if you want to have a more precise envelope/MBR:
+More Accurate Bounding Box Formula
+${origlon} = -73.951368
+${origlat} = 40.716743
+${lon1} = ${origlon} + (${distance_in_km}/abs(cos(radians({$origlat}))*111))
+${lat1} = ${origlat} + (${distance_in_km}/111)
+${lon2} = ${origlon} - (${distance_in_km}/abs(cos(radians({$origlat}))*111))
+${lat2} = ${origlat} - (${distance_in_km}/111)
+1
+2
+3
+4
+5
+6
+	
+${origlon} = -73.951368
+${origlat} = 40.716743
+${lon1} = ${origlon} + (${distance_in_km}/abs(cos(radians({$origlat}))*111))
+${lat1} = ${origlat} + (${distance_in_km}/111)
+${lon2} = ${origlon} - (${distance_in_km}/abs(cos(radians({$origlat}))*111))
+${lat2} = ${origlat} - (${distance_in_km}/111)
+
+Our Final Spatial Query
+So now let’s use that (simpler) MBR formula along with our SLC function to try and find out what the 10 closest Thai restaurants are to my old place, using the spatial index to weed out anything that’s not within an envelope that covers approximately a 20km radius around it†:
+
+10 Nearest Thai Places
+MySQL
+mysql> select id, slc( 40.716743, -73.951368, y(geom), x(geom))*1000 as distance_in_meters, tags, astext(geom) from nodes where MBRContains(envelope(linestring(point((-73.951368+(20/111)), (40.716743+(20/111))), point((-73.951368-(20/111)), (40.716743-(20/111))))), geom) AND match(tags) against ("+thai +restaurant" IN BOOLEAN MODE) order by distance_in_meters limit 10;
++------------+--------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------+
+| id | distance_in_meters | tags | astext(geom) |
++------------+--------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------+
+|  888976948 |  614.4973960877276 | addr:street=Bedford Avenue,amenity=restaurant,name=Tai Thai,addr:housenumber=206,phone=7185995556 | POINT(-73.958637 40.717174) |
+| 2178443635 |   2780.87697408101 | cuisine=thai,phone=(212) 228-8858,microbrewery=no,website=http://www.onemorethai.net/,name=One More Thai,amenity=restaurant,opening_hours=12:00-22:30 | POINT(-73.983871 40.7210541)  |
+| 2287619730 | 3126.8703373046105 | addr:street=East 12th Street,website=www.thaiterminalnyc.com,amenity=restaurant,addr:housenumber=349,cuisine=thai,addr:postcode=10003,name=Thai Terminal | POINT(-73.9838861 40.7302864) |
+| 1883739637 | 4077.4322333568093 | amenity=restaurant,wheelchair=yes,cuisine=thai,addr:postcode=10003,name=Laut,addr:street=15 E 17th Street,website=http://www.lautnyc.com | POINT(-73.991158 40.7376087)  | 
+| 2300356463 |  4418.032727119699 | addr:housenumber=101,amenity=restaurant,website=http://lanternthai.com/,addr:postcode=11201,cuisine=thai,addr:city=Brooklyn,addr:state=NY,name=Lantern Thai Kitchen,addr:country=US,addr:street=Montague Street,phone=+1 718 237-2594 | POINT(-73.9954678 40.6952708) |
+| 2506678248 |  4496.608193543068 | amenity=restaurant,cuisine=thai,name=Udom Thai | POINT(-73.9635028 40.6773645) |
+| 2387026673 |  4942.961598763798 | phone=(718) 875-1369,addr:street=Court Street,amenity=restaurant,website=ghangthai.com,addr:city=Brooklyn,cuisine=thai,addr:housenumber=229,name=Ghang Thai Kitchen,addr:postcode=11201 | POINT(-73.9939167 40.6861559) |
+| 2334601455 |  5046.741052543991 | addr:city=New York,addr:state=NY,drive_in=no,name=M-Thai,takeaway=yes,addr:country=US,addr:street=8th Avenue,internet_access=no,outdoor_seating=no,website=www.M-Thainyc.com,addr:housenumber=232,amenity=restaurant,internet_access:fee=no,phone=+1 212 229 9799,wheelchair=yes,addr:postcode=10011,cuisine=thai,microbrewery=no,smoking=no,wifi=no | POINT(-73.9988791 40.744378)  |
+| 2377128179 |  5051.746380714221 | addr:postcode=10011,cuisine=thai,addr:city=New York,addr:state=NY,name=Spice,addr:country=US,addr:street=8th Avenue,website=http://www.spicethainyc.com/spice/home/,addr:housenumber=236,amenity=restaurant | POINT(-73.9986916 40.7446356) |
+| 2377128187 |  5053.678371601868 | addr:postcode=10011,cuisine=thai,addr:city=New York,addr:state=NY,name=Thai Royal Siam,addr:country=US,addr:street=8th Avenue,addr:housenumber=240,amenity=restaurant | POINT(-73.9986209 40.7447326) | 
++------------+--------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------+
+10 rows in set (0.00 sec)
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+	
+mysql> select id, slc( 40.716743, -73.951368, y(geom), x(geom))*1000 as distance_in_meters, tags, astext(geom) from nodes where MBRContains(envelope(linestring(point((-73.951368+(20/111)), (40.716743+(20/111))), point((-73.951368-(20/111)), (40.716743-(20/111))))), geom) AND match(tags) against ("+thai +restaurant" IN BOOLEAN MODE) order by distance_in_meters limit 10;
++------------+--------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------+
+| id | distance_in_meters | tags | astext(geom) |
++------------+--------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------+
+|  888976948 |  614.4973960877276 | addr:street=Bedford Avenue,amenity=restaurant,name=Tai Thai,addr:housenumber=206,phone=7185995556 | POINT(-73.958637 40.717174) |
+| 2178443635 |   2780.87697408101 | cuisine=thai,phone=(212) 228-8858,microbrewery=no,website=http://www.onemorethai.net/,name=One More Thai,amenity=restaurant,opening_hours=12:00-22:30 | POINT(-73.983871 40.7210541)  |
+| 2287619730 | 3126.8703373046105 | addr:street=East 12th Street,website=www.thaiterminalnyc.com,amenity=restaurant,addr:housenumber=349,cuisine=thai,addr:postcode=10003,name=Thai Terminal | POINT(-73.9838861 40.7302864) |
+| 1883739637 | 4077.4322333568093 | amenity=restaurant,wheelchair=yes,cuisine=thai,addr:postcode=10003,name=Laut,addr:street=15 E 17th Street,website=http://www.lautnyc.com | POINT(-73.991158 40.7376087)  | 
+| 2300356463 |  4418.032727119699 | addr:housenumber=101,amenity=restaurant,website=http://lanternthai.com/,addr:postcode=11201,cuisine=thai,addr:city=Brooklyn,addr:state=NY,name=Lantern Thai Kitchen,addr:country=US,addr:street=Montague Street,phone=+1 718 237-2594 | POINT(-73.9954678 40.6952708) |
+| 2506678248 |  4496.608193543068 | amenity=restaurant,cuisine=thai,name=Udom Thai | POINT(-73.9635028 40.6773645) |
+| 2387026673 |  4942.961598763798 | phone=(718) 875-1369,addr:street=Court Street,amenity=restaurant,website=ghangthai.com,addr:city=Brooklyn,cuisine=thai,addr:housenumber=229,name=Ghang Thai Kitchen,addr:postcode=11201 | POINT(-73.9939167 40.6861559) |
+| 2334601455 |  5046.741052543991 | addr:city=New York,addr:state=NY,drive_in=no,name=M-Thai,takeaway=yes,addr:country=US,addr:street=8th Avenue,internet_access=no,outdoor_seating=no,website=www.M-Thainyc.com,addr:housenumber=232,amenity=restaurant,internet_access:fee=no,phone=+1 212 229 9799,wheelchair=yes,addr:postcode=10011,cuisine=thai,microbrewery=no,smoking=no,wifi=no | POINT(-73.9988791 40.744378)  |
+| 2377128179 |  5051.746380714221 | addr:postcode=10011,cuisine=thai,addr:city=New York,addr:state=NY,name=Spice,addr:country=US,addr:street=8th Avenue,website=http://www.spicethainyc.com/spice/home/,addr:housenumber=236,amenity=restaurant | POINT(-73.9986916 40.7446356) |
+| 2377128187 |  5053.678371601868 | addr:postcode=10011,cuisine=thai,addr:city=New York,addr:state=NY,name=Thai Royal Siam,addr:country=US,addr:street=8th Avenue,addr:housenumber=240,amenity=restaurant | POINT(-73.9986209 40.7447326) | 
++------------+--------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------+
+10 rows in set (0.00 sec)
+
+OK, we got some values, and thanks to a combination of the spatial index and the full text index, we got them very quickly!
+
+Examining the Results
+OK, now on to the data. Let’s assume that we simply want the closest one, and examine that record:
+Closest Restaurant
+MySQL
+| 888976948 |  614.4973960877276 | addr:street=Bedford Avenue,amenity=restaurant,name=Tai Thai,addr:housenumber=206,phone=7185995556 | POINT(-73.958637 40.717174)
+1
+	
+| 888976948 |  614.4973960877276 | addr:street=Bedford Avenue,amenity=restaurant,name=Tai Thai,addr:housenumber=206,phone=7185995556 | POINT(-73.958637 40.717174)
+
+So it’s about 600 meters from my old place, its name is Tai Thai, and its phone number is 718-599-5556. Let’s do a quick sanity check using google maps: directions, and location info. As we can see, our data matches up pretty well with Google maps (which I consider to be the gold standard today).
+
+Now I know that there are many other Thai restaurants in the area, but they simply don’t have any records in OSM currently (at least in the extracted snapshot for the NYC area that I’m working with). As always, your data is key. :)
+
+Presenting the Data
+Now we know what our data is telling us are the closest 10 Thai restaurants. We also have relevent information to present to the application user about each place: name, address, phone number, website, etc. So let’s look at a very simple example of how we can push these new locations out to google maps so that we can see each one on a map of the city, to go along with all of the metadata that we have for them. The simplest way is to feed the “latitude, longitude” coordinate pairs into google maps. Let’s try generating a URL to map my old place to the next closest Thai place. Again, the “latitude, longitude” coordinates for my old apartment are “40.716743, -73.951368″ and the coordinates for the next closest Thai place, One More Thai, are “40.7210541, -73.983871″. We can plug these into a simple GET call like this: https://www.google.com/maps/dir/40.716743,+-73.951368/40.7210541,+-73.983871. Or we can use the embedded API like this:
+Google Maps Embedded API Example
+XHTML
+<iframe style="border: 0;" src="https://www.google.com/maps/embed/v1/directions?origin=40.716743%20-73.951368&amp;destination=40.7210541%20-73.983871&amp;key=..." height="450" width="600" frameborder="0"></iframe>
+1
+	
+<iframe style="border: 0;" src="https://www.google.com/maps/embed/v1/directions?origin=40.716743%20-73.951368&amp;destination=40.7210541%20-73.983871&amp;key=..." height="450" width="600" frameborder="0"></iframe>
+
+As you can see it’s a pretty easy GET call either way, passing in the coordinate pairs in the given format. You can read more about the google maps APIs here.
+
+Conclusion
+Hopefully this has opened your eyes a bit to what’s possible with MySQL 5.7 in the GIS world, and whet your appetite for jumping in and playing with it!
+
+Lastly, a big thank you to all of the developers who worked so hard on these new features! Please stay tuned in here for additional features that truly make MySQL a leading player in the geospatial market.
+
+ 
+ 
+† UPDATE: We now have support for ST_Distance_Sphere() and ST_MakeEnvelope(), which makes things much simpler! The final query would then instead look like this in 5.7.6+:
+New and Improved Example Query
+MySQL
+mysql> SELECT id, ST_Distance_Sphere(Point(-73.951368, 40.716743), geom) as distance_in_meters, tags, ST_AsText(geom)
+FROM nodes
+WHERE ST_Contains( ST_MakeEnvelope(
+                    Point((-73.951368+(20/111)), (40.716743+(20/111))),
+                    Point((-73.951368-(20/111)), (40.716743-(20/111)))
+                 ), geom )
+      AND match(tags) against ("+thai +restaurant" IN BOOLEAN MODE)
+ORDER BY distance_in_meters LIMIT 10
+1
+2
+3
+4
+5
+6
+7
+8
+	
+mysql> SELECT id, ST_Distance_Sphere(Point(-73.951368, 40.716743), geom) as distance_in_meters, tags, ST_AsText(geom)
+FROM nodes
+WHERE ST_Contains( ST_MakeEnvelope(
+                    Point((-73.951368+(20/111)), (40.716743+(20/111))),
+                    Point((-73.951368-(20/111)), (40.716743-(20/111)))
+                 ), geom )
+      AND match(tags) against ("+thai +restaurant" IN BOOLEAN MODE)
+ORDER BY distance_in_meters LIMIT 10
