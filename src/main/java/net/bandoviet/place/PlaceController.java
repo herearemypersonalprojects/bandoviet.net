@@ -103,6 +103,8 @@ public class PlaceController {
     model.put("items", items);
     model.put("path", PLACES_KEYWORDS_PATH + searchTerms + "/");
     
+    model.put("keywords", searchTerms);
+    
     return "index";
   }
   
@@ -149,6 +151,8 @@ public class PlaceController {
     model.put("currentIndex", current);
     model.put("items", items);
     model.put("path", PLACES_CATEGORY_PATH + type + "/");
+    
+    model.put("keywords", type);
     
     return "index";
   }

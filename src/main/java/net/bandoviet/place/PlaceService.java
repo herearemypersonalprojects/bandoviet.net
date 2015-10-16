@@ -72,7 +72,13 @@ public class PlaceService {
     if (StringUtils.isEmpty(keywords)) {
       return placeRepository.search(PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
     }
-    return placeRepository.searchByKeywords(keywords, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
+    List<Place> lst = placeRepository
+        .searchByKeywords(keywords, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
+    if (lst.isEmpty()) {
+      return placeRepository.search(PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
+    } else {
+      return lst;
+    }
   }
   
   /**

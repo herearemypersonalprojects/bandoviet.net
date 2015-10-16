@@ -31,6 +31,8 @@
 	<!-- begin view -->
 	<jsp:include page="about.jsp" />
 	
+	<jsp:include page="feedback.jsp" />
+	
 	<jsp:include page="selectCountry.jsp" />
 	
 	<jsp:include page="navbar.jsp" />

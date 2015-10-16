@@ -178,4 +178,72 @@
 				      });
 				   }
 				 }
+			
+			// START LOCATION WITH ADDRESS
+			function showLocation(address) {
+			    if (address != null && address != '') {
+			        var add = address.split(',');
+			        address = add.join(',');
+
+			        if (marker != null) marker.setMap(null);
+			        geocoder.geocode({'address': address}, function (results, status) {
+			        	
+			            if (status == google.maps.GeocoderStatus.OK) {
+			            	getCity(results);
+			                var lat = '';
+			                var lng = '';
+			                lat = results[0].geometry.location.lat();
+			                lng = results[0].geometry.location.lng();
+			                addressReturn = results[0].formatted_address;
+			                var latlng = new google.maps.LatLng(lat, lng);
+			                map.setCenter(results[0].geometry.location);
+			                marker = new google.maps.Marker({
+			                    map: map,
+			                    position: latlng,
+			                    draggable: true
+			                });
+			                document.getElementById('locationSearch').value = addressReturn;
+			                document.getElementById('cityLat').value = lat;
+			                document.getElementById('cityLng').value = lng;
+
+			                if (infoWnd != null) {
+			                	infoWnd.setContent(address);
+			                	infoWnd.open(map, marker);
+			                }
+			            } else {
+			            	alert("The given address is not found. Please correct it!");
+			                console.log("Geocode was not successful for the following reason: " + status);
+			            }
+			        });
+			    } else {
+			        //alert(bds_lang.GoogleMaps.AddressIncorrect);
+			    }
+			} // END SHOW LOCATION WITH ADDRESS
+			// [START getCity]
+			function getCity(results) {
+			    // RESET
+			    $('#countrySearch').val("");
+			    $('#citySearch').val("");
+			   
+			    //break down the three dimensional array into simpler arrays
+			    for (i = 0; i < results.length; ++i) {
+			        var super_var1 = results[i].address_components;
+			        for (j = 0; j < super_var1.length; ++j) {
+			            var super_var2 = super_var1[j].types;
+			            for (k = 0; k < super_var2.length; ++k) { 
+			                //find city
+			                if (super_var2[k] == "locality") {
+			                    //put the city name in the form
+			                    $('#citySearch').val(super_var1[j].long_name); 
+			                }
+			                //find county
+			                if (super_var2[k] == "country") {
+			                    //put the county name in the form
+			                    $('#countrySearch').val(super_var1[j].short_name); //alert(super_var1[j].long_name);alert(super_var1[j].short_name);
+			                }
+			 
+			            }
+			        }
+			    }
+			} // [START getCity]
 			/* end map service to display results */	

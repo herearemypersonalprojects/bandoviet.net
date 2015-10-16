@@ -4,7 +4,10 @@
 
 
 $(document).ready(function() {
-	
+    $('#locationSearch').blur(function () { 
+        showLocation($(this).val());
+    });
+    
 	$('.selectedType').click(function() {
 		var that = $(this);
 		window.location.href = '/places/category/' + this.id + '/1';

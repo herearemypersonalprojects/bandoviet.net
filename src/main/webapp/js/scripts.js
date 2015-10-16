@@ -4,8 +4,11 @@ var marker = new google.maps.Marker();
 var map;
 var infoWnd = new google.maps.InfoWindow();
 var infobox;
+var locationSearchAutocomplete;
 var poiList = [];
 var detailZoom = 15;
+var geocoder = new google.maps.Geocoder();
+
 
 $(document).ready(
 		function() {
@@ -48,11 +51,13 @@ $(document).ready(
 				};
 
 				//Creates a marker object
+				/*
 				marker = new google.maps.Marker({
 					position : latlng,
 					url : '/',
 					animation : google.maps.Animation.DROP
 				});
+				*/
 
 			    //Creates a map object.
 				map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
@@ -60,6 +65,10 @@ $(document).ready(
 				google.maps.event.addListener(map, 'click', function(event) {
 					infobox.close();
 				});
+	
+			    locationSearchAutocomplete = new google.maps.places.Autocomplete(document.getElementById('locationSearch'));
+			    locationSearchAutocomplete.bindTo('bounds', map);
+	
 				// STYLE
 				$.getScript( '/js/mapstyle.js', function() {
 					map.setOptions({

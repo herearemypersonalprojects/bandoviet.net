@@ -12,6 +12,7 @@ var infowindow;
 var lstPlaces = new Array();
 var realTimeUpdateController;
 var autocomplete;
+var locationSearchAutocomplete;
 var componentForm = {
     street_number: 'short_name',
     route: 'long_name',
@@ -60,7 +61,10 @@ function initialize() {
         /** @type {HTMLInputElement} */(document.getElementById('address')),
         {types: ['geocode']});
 
-
+    locationSearchAutocomplete = new google.maps.places.Autocomplete(
+            /** @type {HTMLInputElement} */(document.getElementById('locationSearch')),
+            {types: ['geocode']});
+    
     google.maps.event.addListener(map, 'click', function (event) {
         placeMarker(event.latLng);
     });
