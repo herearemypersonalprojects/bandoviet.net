@@ -13,7 +13,7 @@
 			<div id="left" class="col-xs-6">
 				<br>
 				
-					<div class="">
+					<div class="text-center" style="margin-top:-12px;">
 								
 				      <ul class="pagination pagination-smaller " style="margin: 0px 0;">
 				      	<c:choose>
@@ -49,7 +49,7 @@
 				        </c:choose>
 				     </ul>
 				
-					  <p id="newplace" class="newplace addbutton2" >+</p>
+					  <p id="newplace" class="newplace addbutton2" >+</p> 
 				</div>
 
 				<!-- item list -->
