@@ -48,7 +48,7 @@
 	<div class="my_location"><spring:message code="home.map.mylocation" /></div>
 	
 	<jsp:include page="mylocationalert.jsp" />
-	
+	<%-- 
 	      <!--Page Footer-->
         <footer id="page-footer">
             <div class="inner">
@@ -177,7 +177,7 @@
                 <!--/.footer-bottom-->
             </div>
         </footer>
-        <!--end Page Footer-->
+        <!--end Page Footer-->--%>
 	<!-- end view -->
 
 	<!-- script references -->

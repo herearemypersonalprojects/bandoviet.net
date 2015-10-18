@@ -66,10 +66,10 @@ body{
 }
 
 #left {
-    bottom: -50px;
+    /*bottom: -50px;*/
     left: 8px;
     padding: 0;
-    position: absolute;
+    /*position: absolute;*/
     z-index: 888 !important;
 	background: #fff none repeat scroll 0 0;
     height: 100%;
@@ -178,6 +178,10 @@ body{
     border: 1px solid #ddd;
     padding: 20px;
     margin-right: 0%; 
+}
+
+.col-xs-6 {
+	border: 1px solid #ddd;
 }
 
 .item:hover {
