@@ -103,7 +103,7 @@ public class PlaceController {
     
     int current = pageNumber;
     int begin = Math.max(1, current - 5);
-    int totalPages = placeService.getTotalPagesByKeywords(searchTerms);
+    int totalPages = placeService.getTotalPagesByKeywordsLocation(searchTerms, country);
     int end = Math.min(begin + 10, totalPages);
 
     model.put("totalPages", totalPages);
@@ -321,14 +321,15 @@ public class PlaceController {
   @RequestMapping(value = {"/autocomplete"}, method = RequestMethod.GET)
   @ResponseBody public  List<String> autocomplete(
       @RequestParam String query,
-      @RequestParam String lat,
-      @RequestParam String lng,
+      @RequestParam Double lat,
+      @RequestParam Double lng,
       @RequestParam String country) {
     //LOGGER.info(query);
     List<String> results = new ArrayList<String>();
-    List<Place> items = placeService.search(query);
+    List<Place> items = 
+        placeService.searchByKeywordsLocation(new Integer(1), query, lat, lng, country);
     for (Place place : items) {
-      results.add(place.getTitle() + ": " + place.getAddress());
+      results.add(place.getTitle() + " (" + place.getCity() + ")");
     }
     return results;
   }

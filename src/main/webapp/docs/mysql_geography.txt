@@ -291,3 +291,116 @@ QUOC ANH's TEST:
 3. CREATE FUNCTION slc (lat1 double, lon1 double, lat2 double, lon2 double)   RETURNS double RETURN 6371 * acos(cos(radians(lat1)) * cos(radians(lat2)) * cos(radians(lon2) - radians(lon1)) + sin(radians(lat1)) * sin(radians(lat2)));
 
 4. select id, slc( 40.716743, -73.951368, y(geom), x(geom))*1000 as distance_in_meters, tags, astext(geom) from nodes where MBRContains(envelope(linestring(point((-73.951368+(20/111)), (40.716743+(20/111))), point((-73.951368-(20/111)), (40.716743-(20/111))))), geom) AND match(tags) against ("+thai +restaurant" IN BOOLEAN MODE) order by distance_in_meters limit 10;
+
+Test: insert into nodes (id, latitude, longitude, tags, geom) select id, latitude, longitude, title, point(latitude, longitude) from place;   
+
+
+Step 1: If you want to make a geometry column with the lon lat values (as points only, syntax is a little different for other kinds of geometries), you can do this:
+
+mysql> alter table spatial_table add column (go_slugs geometry);
+
+Step 2: This is a geometry type, if it is all single locations you could make the column type point. Then just update the new column: 
+update spatial_table set go_slugs = point(lon, lat);
+
+Step 3: Use the aswkt function to get human readable data to confirm this is correct:
+
+select aswkt(go_slugs) from spatial_table;
+
+QUOCANH's IMPLEMENTATION:
+1. mysql> show create table place;   
+2. mysql> alter table place add column (geom geometry not null);
+3. mysql> alter table place engine = MyISAM;
+4. CREATE TABLE `place1` (
+
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+
+  `address` varchar(100) DEFAULT NULL,
+
+  `city` varchar(255) DEFAULT NULL,
+
+  `close_time` varchar(255) DEFAULT NULL,
+
+  `community_code` varchar(255) NOT NULL,
+
+  `country` varchar(255) NOT NULL,
+
+  `created_by_user_id` bigint(20) DEFAULT NULL,
+
+  `created_date` datetime DEFAULT NULL,
+
+  `created_from_ip` varchar(255) DEFAULT NULL,
+
+  `email` varchar(255) DEFAULT NULL,
+
+  `icon_path` varchar(255) DEFAULT NULL,
+
+  `idlookid_url` varchar(255) DEFAULT NULL,
+
+  `image_path` varchar(255) DEFAULT NULL,
+
+  `information` mediumtext,
+
+  `latitude` double NOT NULL,
+
+  `longitude` double NOT NULL,
+
+  `open_time` varchar(255) DEFAULT NULL,
+
+  `organised_by` varchar(255) DEFAULT NULL,
+
+  `place_type` varchar(255) NOT NULL,
+
+  `postal_code` varchar(255) DEFAULT NULL,
+
+  `reference_url` varchar(255) DEFAULT NULL,
+
+  `route` varchar(255) DEFAULT NULL,
+
+  `street_number` varchar(255) DEFAULT NULL,
+
+  `telephone` varchar(255) DEFAULT NULL,
+
+  `title` varchar(255) NOT NULL,
+
+  `updated_date` datetime DEFAULT NULL,
+
+  `end_time` varchar(255) DEFAULT NULL,
+
+  `size` bigint(20) DEFAULT NULL,
+
+  `start_time` varchar(255) DEFAULT NULL,
+
+  `title_without_accent` varchar(255) DEFAULT NULL,
+
+  `geom` geometry NOT NULL,
+
+  PRIMARY KEY (`id`),
+
+  FULLTEXT KEY `title` (`title`,`information`),
+
+  FULLTEXT KEY `title_index` (`title`),
+
+  FULLTEXT KEY `information_index` (`information`),
+
+  FULLTEXT KEY `search_index` (`title`,`information`),
+  SPATIAL KEY `i_geomidx` (`geom`)
+
+) ENGINE=MyISAM AUTO_INCREMENT=953 DEFAULT CHARSET=utf8;
+
+5. mysql> update place set geom = point(latitude, longitude);
+6. mysql> insert into place1 select * from place;
+7. mysql> rename table place to place2;
+8. mysql> rename table place1 to place;
+9. mysql> show create table place;
+10. mysql> alter table place drop index title_index;
+11. mysql> alter table place drop index information_index;
+12. mysql> alter table place drop search_index;
+13. mysql> alter table place add index information_index(information);
+14. mysql> alter table place add fulltext title_index(title);
+15. mysql> alter table place add fulltext information_index(information);
+
+9. CREATE FUNCTION slc (lat1 double, lon1 double, lat2 double, lon2 double)   RETURNS double RETURN 6371 * acos(cos(radians(lat1)) * cos(radians(lat2)) * cos(radians(lon2) - radians(lon1)) + sin(radians(lat1)) * sin(radians(lat2)));
+10. select id, slc( 40.716743, -73.951368, y(geom), x(geom))*1000 as distance_in_meters, city from place where MBRContains(envelope(linestring(point((-73.951368+(12169 /111)), (40.716743+(12169 /111))), point((-73.951368-(12169 /111)), (40.716743-(12169 /111))))), geom) AND match(title, information) against ("viet nam" IN BOOLEAN MODE) order by distance_in_meters limit 50;
+
+11. Distance in km
+select title, ( 3959 * acos( cos( radians(48.8588871 ) )                * cos( radians( latitude ) )                * cos( radians( longitude ) - radians(2.294486099999972 ) )                + sin( radians(48.8588871 ) )                * sin( radians( latitude ) ) ) ) AS distance from place order by distance limit 10;

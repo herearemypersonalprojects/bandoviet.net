@@ -10,12 +10,12 @@
 
 	<div class="container-fluid" id="main">
 		<div class="row">
-			<div id="left" class="col-xs-6">
-				<br>
+			<div id="left" class="col-xs-6 result">
 				
-					<div class="text-center" style="margin-top:-12px;">
+				
+					<div class="text-center">
 								
-				      <ul class="pagination pagination-smaller " style="margin: 0px 0;">
+				      <ul class="pagination pagination-smaller ">
 				      	<c:choose>
 				            <c:when test="${currentIndex == 1}">
 				                <li class="disabled"><a href="#">&lt;&lt;</a></li>
