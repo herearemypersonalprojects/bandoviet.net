@@ -4,6 +4,7 @@
 
 
 $(document).ready(function() {
+	/*
 	if (!$('#cityLat').val()) { 
 		$('#cityLat').val(0);
 		$('#cityLng').val(0);
@@ -15,12 +16,50 @@ $(document).ready(function() {
 			$('#cityLng').val(response.loc.split(',')[1]);
 		}, "jsonp");
 	}
+	*/
+	
+	$('.my_location').on( "click", function() {			
+		if (navigator.geolocation) navigator.geolocation.getCurrentPosition(function(pos) {
+		    showLocationLatLng(pos.coords.latitude, pos.coords.longitude);
+		    searchByKeywords($('#keywords').val(), $('#cityLat').val(), $('#cityLng').val(), $('#countrySearch').val(), $('#locationSearch').val());
+		 // TODO: Dung de lay dia diem nguoi dung luon
+		    
+		}, function(error) {							
+			/*		
+			$.get("http://ipinfo.io", function(response) {
+			    //$("#ip").html(response.ip);
+			    //$("#address").html(response.city + ", " + response.region);									
+				showLocationLatLng(response.loc.split(',')[0], response.loc.split(',')[1]);
+				
+				var alert = $('#myLocationAlert');
+				$('#myLocationAlertcity').html(response.city);
+				$('#myLocationAlertregion').html(response.region);
+				$('#myLocationAlertcountry').html(response.country);
+				//alert.modal('show');
+				
+			}, "jsonp");
+			*/
+			$.get("http://ipinfo.io", function(response) { 
+				$('#locationSearch').val(response.city + " " + response.postal + ", " + response.region + ", " + response.country);
+				$('#countrySearch').val(response.country);
+				$('#cityLat').val(response.loc.split(',')[0]);
+				$('#cityLng').val(response.loc.split(',')[1]);
+				
+				showLocationLatLng(response.loc.split(',')[0], response.loc.split(',')[1]);
+				searchByKeywords($('#keywords').val(), $('#cityLat').val(), $('#cityLng').val(), $('#countrySearch').val(), $('#locationSearch').val());
+
+			}, "jsonp");
+			
+		});			
+	});					
 	
     $('#locationSearch').blur(function () { 
+    	$(this).val($(this).val().trim());
         showLocation($(this).val());
     });
     
     $('#locationSearch').bind("enterKey",function(e){
+    	$(this).val($(this).val().trim());
     	showLocation($(this).val());
     	});
 	$('#locationSearch').keyup(function(e){
@@ -60,7 +99,7 @@ $(document).ready(function() {
                 response(data);
             });
         },
-        minLength: 3,
+        minLength: 2,
         delay: 500,
       //define select handler
         select : function(event, ui) {
@@ -88,11 +127,14 @@ $(document).ready(function() {
 
     $('#searchSubmit').click(function() {
 		  var keywords = $('#keywords').val(); 
+		  searchByKeywords(keywords, $('#cityLat').val(), $('#cityLng').val(), $('#countrySearch').val(), $('#locationSearch').val());
+		  /*
 		  if (keywords) {
 			  searchByKeywords(keywords, $('#cityLat').val(), $('#cityLng').val(), $('#countrySearch').val(), $('#locationSearch').val());
 		  } else {
 			  $('#keywords').focus();
-		  }    	
+		  } 
+		  */   	
     })  ;
 
 	$('.navbar-form').submit(function(event){ 
@@ -100,17 +142,29 @@ $(document).ready(function() {
 		  event.preventDefault();
 		  //do stuff with your form here
 		  var keywords = $('#keywords').val();
+		  searchByKeywords(keywords, $('#cityLat').val(), $('#cityLng').val(), $('#countrySearch').val(), $('#locationSearch').val());
+		  /*
 		  if (keywords) {
 			  searchByKeywords(keywords, $('#cityLat').val(), $('#cityLng').val(), $('#countrySearch').val(), $('#locationSearch').val());
 		  } else {
 			  $('#keywords').focus();
 		  }
+		  */
 		});
 	
 });
 
 function searchByKeywords(keywords, lat, lng, country, address) {
-	window.location.href = '/places/searchterms/' + keywords + '/' + lat + '/' + lng + '/' + country + '/' + address + '/1';
+	if (keywords && address) {
+		window.location.href = '/places/searchterms/' + keywords + '/' + lat + '/' + lng + '/' + country + '/' + address + '/1';
+	} else {
+		if (keywords) {
+			window.location.href = '/places/searchterms/' + keywords + '/1';
+		} else {
+			window.location.href = '/places/searchterms/' + lat + '/' + lng + '/' + country + '/' + address + '/1';
+		}
+	}
+	
 }
 
 function searchByType(type) {

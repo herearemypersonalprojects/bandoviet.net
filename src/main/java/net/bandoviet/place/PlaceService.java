@@ -40,8 +40,6 @@ public class PlaceService {
   
   private static final double DISTANCE = 50; // km
   
-  private static final double WEIGHT_TITLE = 25;
-  
   @Autowired
   public PlaceService(final PlaceRepository placeRepository) {
     this.placeRepository = placeRepository;
@@ -111,8 +109,14 @@ public class PlaceService {
                                       Double lat, 
                                       Double lng, 
                                       String country) {
-    return placeRepository.findByDistanceAndKeywords(
-        keywords, lat, lng, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE, country);
+    if (StringUtils.isEmpty(keywords)) {
+      return placeRepository
+          .findByDistance(lat, lng, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE, country);
+    } else {
+      return placeRepository.findByDistanceAndKeywords(
+          keywords, lat, lng, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE, country);      
+    }
+
    /*
     List<Place> lst = null;
     if (country.length() <= 1) {
@@ -151,6 +155,10 @@ public class PlaceService {
     return placeRepository.getTotalPagesByKeywords(keywords, PAGE_SIZE);
   }
   
+  /**
+   * 
+   * @return total of pages for search in a given location.
+   */
   public int getTotalPagesByKeywordsLocation(String keywords, String country) {
     if (StringUtils.isEmpty(keywords)) {
       return placeRepository.getTotalPagesLocation(PAGE_SIZE, country);

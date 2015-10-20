@@ -94,6 +94,21 @@ $(document).ready(
 				    idx = idx + 1;
 			
 				  }
+				  
+				  // display the user's given location
+				  if ($('#locationSearch').val()) {
+					  latlng = new google.maps.LatLng($('#cityLat').val(), $('#cityLng').val());
+					  bounds.extend(latlng);
+					  var here = new google.maps.Marker({
+		                    map: map,
+		                    position: latlng,
+		                    draggable: false
+		                });
+					 infoWnd.setContent('<span>'+ $('#locationSearch').val() + '</span>');
+					 infoWnd.open(map, here);
+				  }
+				  
+				  
 				  //Fits the map bounds
 				  if (poiList.length > 1) {
 					    // Don't zoom in too far on only one marker
@@ -123,30 +138,7 @@ $(document).ready(
 			/* end google maps -----------------------------------------------------*/
 			
 			/* map controller */
-			$('.my_location').on( "click", function() {			
-				if (navigator.geolocation) navigator.geolocation.getCurrentPosition(function(pos) {
-				    showLocationLatLng(pos.coords.latitude, pos.coords.longitude);
-				    
-				 // TODO: Dung de lay dia diem nguoi dung luon
-				    
-				}, function(error) {							
 
-					$.get("http://ipinfo.io", function(response) {
-					    //$("#ip").html(response.ip);
-					    //$("#address").html(response.city + ", " + response.region);									
-						showLocationLatLng(response.loc.split(',')[0], response.loc.split(',')[1]);
-						
-						var alert = $('#myLocationAlert');
-						$('#myLocationAlertcity').html(response.city);
-						$('#myLocationAlertregion').html(response.region);
-						$('#myLocationAlertcountry').html(response.country);
-						//alert.modal('show');
-						
-					}, "jsonp");
-					
-					
-				});			
-			});					
 			/* end map controller */
 	
 		});

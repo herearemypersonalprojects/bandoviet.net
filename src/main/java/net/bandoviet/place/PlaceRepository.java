@@ -170,4 +170,21 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
       @Param("pageLimit") Integer pageLimit, 
       @Param("pageOffset") Integer pageOffset,
       @Param("country") String country);
+  
+  /* search by distance */
+  @Query(value = "SELECT *, "
+      + "( 3959 * acos( cos( radians(:latitude ) ) * cos( radians( latitude ) ) "
+      + "* cos( radians( longitude ) - radians(:longitude ) ) + "
+      + "sin( radians(:latitude ) ) * sin( radians( latitude ) ) ) ) AS distance "
+      + "FROM place WHERE country like :country "
+      + "ORDER BY distance asc "
+      + "LIMIT :pageLimit OFFSET :pageOffset ",
+      nativeQuery = true)
+  List<Place> findByDistance(
+      @Param("latitude") Double latitude,
+      @Param("longitude") Double longitude,
+//      @Param("max_in_km") Double max_in_km,
+      @Param("pageLimit") Integer pageLimit, 
+      @Param("pageOffset") Integer pageOffset,
+      @Param("country") String country);
 }

@@ -42,6 +42,7 @@ public class PlaceController {
   private static final String PLACES_PATH = "/places/";
   private static final String PLACES_CATEGORY_PATH = "/places/category/";
   private static final String PLACES_KEYWORDS_PATH = "/places/searchterms/";
+  private static final String PLACES_LOCATION_PATH = "/places/location/";
 
   private final PlaceService placeService;
 
@@ -80,23 +81,20 @@ public class PlaceController {
     return "index";
   }
   
+  
   /**
-   * search by keywords.
+   * search by keywords and location.
    */
   @RequestMapping(value = PLACES_KEYWORDS_PATH 
                           + "{searchTerms}/{lat}/{lng}/{country}/{address}/{pageNumber}", 
       method = RequestMethod.GET)
-  public String searchByKeyWordsPagination(Map<String, Object> model, 
+  public String searchByKeyWordsLocationPagination(Map<String, Object> model, 
       @PathVariable String searchTerms, 
       @PathVariable Double lat, 
       @PathVariable Double lng,
       @PathVariable String country, 
       @PathVariable String address,
       @PathVariable Integer pageNumber) {
-    
-    System.out.println(lat);
-    System.out.println(lng);
-    System.out.println(country);
     
     List<Place> items = 
         placeService.searchByKeywordsLocation(pageNumber, searchTerms, lat, lng, country);
@@ -123,6 +121,69 @@ public class PlaceController {
     return "index";
   }
   
+  /**
+   * search by location.
+   */
+  @RequestMapping(value = PLACES_KEYWORDS_PATH + "{lat}/{lng}/{country}/{address}/{pageNumber}", 
+      method = RequestMethod.GET)
+  public String searchByLocationPagination(Map<String, Object> model, 
+      @PathVariable Double lat, 
+      @PathVariable Double lng,
+      @PathVariable String country, 
+      @PathVariable String address,
+      @PathVariable Integer pageNumber) {
+    
+    List<Place> items = 
+        placeService.searchByKeywordsLocation(pageNumber, null, lat, lng, country);
+    
+    int current = pageNumber;
+    int begin = Math.max(1, current - 5);
+    int totalPages = placeService.getTotalPagesByKeywordsLocation(null, country);
+    int end = Math.min(begin + 10, totalPages);
+
+    model.put("totalPages", totalPages);
+    model.put("beginIndex", begin);
+    model.put("endIndex", end);
+    model.put("currentIndex", current);
+    model.put("items", items);
+    model.put("path", PLACES_KEYWORDS_PATH + lat + "/" + lng + "/" + country + "/" + address + "/");
+
+    model.put("lat", lat);
+    model.put("lng", lng);
+    model.put("country", country);
+    model.put("address", address);
+    
+    return "index";
+  }
+  
+  /**
+   * search by keywords.
+   */
+  @RequestMapping(value = PLACES_KEYWORDS_PATH 
+                          + "{searchTerms}/{pageNumber}", 
+      method = RequestMethod.GET)
+  public String searchByKeyWordsPagination(Map<String, Object> model, 
+      @PathVariable String searchTerms, 
+      @PathVariable Integer pageNumber) {
+    
+    List<Place> items = placeService.searchByKeywords(pageNumber, searchTerms);
+    
+    int current = pageNumber;
+    int begin = Math.max(1, current - 5);
+    int totalPages = placeService.getTotalPagesByKeywords(searchTerms);
+    int end = Math.min(begin + 10, totalPages);
+
+    model.put("totalPages", totalPages);
+    model.put("beginIndex", begin);
+    model.put("endIndex", end);
+    model.put("currentIndex", current);
+    model.put("items", items);
+    model.put("path", PLACES_KEYWORDS_PATH + searchTerms + "/");
+    
+    model.put("keywords", searchTerms);
+  
+    return "index";
+  }
   /**
    * @return POIs by pagination.
    */
