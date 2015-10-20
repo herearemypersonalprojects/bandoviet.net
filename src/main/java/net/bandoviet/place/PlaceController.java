@@ -370,8 +370,9 @@ public class PlaceController {
     }
 
     // RETURN THE ADDED PLACE
-    return new ModelAndView("redirect:" + PLACE_PATH 
-        + place.getTitleWithoutAccents() + "/" + place.getId());
+    //return new ModelAndView("redirect:" + PLACE_PATH 
+    //    + place.getTitleWithoutAccents() + "/" + place.getId());
+    return new ModelAndView("redirect:/");
   }
     
   /**

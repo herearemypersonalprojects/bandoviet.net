@@ -130,15 +130,20 @@
 					                <td nowrap><span><spring:message code="home.result.item.homepage"/>: </span></td>
 					                <td><span><a href="${item.referenceUrl}">${item.referenceUrl}</a></span></td>
 					            </tr>	
+					            
+					            <tr>
+					            </tr>
 					     		            	            			            
 				        </table>
-				        <article class="">
+				        <article>
 							${item.information}
 						</article>  
 					</div>
 					
 					<%--<img  class="img-circle button_item" alt="facebook" src="/img/user.png"> --%>
+					<%--
 					<span class="comment_item"><spring:message code="home.result.item.postedby"/> ${item.createdFromIp} - ${item.updatedDate}</span>
+					--%>
 					<!-- 
 					<img  class="/img-circle button_item" alt="facebook" src="/img/thank.jpg">
 					<span class="comment_item"><spring:message code="home.result.item.thank"/> (23)</span>
@@ -196,7 +201,7 @@
 
 			</div>
 			
-			<div id="map-canvas" class="col-xs-6">
+			<div id="map-canvas" class="col-xs-6" style="width: 50.6%;">
 				<!--map-canvas will be postioned here-->
 			</div>
 			<%--

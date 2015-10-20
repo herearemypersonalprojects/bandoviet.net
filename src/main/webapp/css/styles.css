@@ -82,7 +82,6 @@ body{
     right:0;
     top:50px;
     bottom:0;
-    width: 50.6%;
 }
 
 #map-canvas-d {
@@ -193,7 +192,7 @@ body{
 
 
 .item_active {
-	border: 3px solid #4cbbed;
+	/*border: 3px solid #4cbbed;*/
 }
 
 .comment_item {
@@ -230,6 +229,18 @@ body{
 * MAP
 */
 .my_location {
+    position: absolute;
+    right: 10px;
+    bottom: 126px;
+    z-index: 0;
+    cursor: pointer;
+    -moz-user-select: none;
+    box-shadow: 0px 1px 4px -1px rgba(0, 0, 0, 0.3);
+    border-radius: 2px;
+    background-color: rgb(255, 255, 255);
+}
+
+.my_location_ {
 	padding: 5px;
     position: absolute;
 	right: 62px;
@@ -251,7 +262,7 @@ body{
     background-color: rgb(255, 255, 255); 
 } 
 
-.my_location:hover {
+.my_location_:hover {
 	color: white;
     background-color: #4cbbed;  
 }

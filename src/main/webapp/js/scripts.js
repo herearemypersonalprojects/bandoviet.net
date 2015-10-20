@@ -39,6 +39,7 @@ $(document).ready(
 					center : latlng,
 					scrollWheel : false,
 					zoom : 13,
+					 minZoom: 2, maxZoom: 17,
 					streetViewControl: true,
 					zoomControlOptions: {
 			            style: google.maps.ZoomControlStyle.SMALL,
@@ -110,6 +111,9 @@ $(document).ready(
 					 infoWnd.setContent('<span>'+ $('#locationSearch').val() + '</span>');
 					 infoWnd.open(map, here);
 				  }
+				  
+				  // my location button
+				  $('.my_location').html('<img alt="" width="28" height="28" src="/img/mylocation.png">');
 				  
 				  
 				  //Fits the map bounds

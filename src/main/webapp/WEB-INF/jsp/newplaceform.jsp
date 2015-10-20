@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <div class="container-fluid" id="main">
 	<div class="row">
-		<div id="results" class="col-xs-8" id="left">
+		<div id="left" class="col-xs-8">
 			<br>
 
 			<form:form action="/save" modelAttribute="place" class="form-horizontal" id="newplaceform" method="POST" enctype="multipart/form-data">
@@ -212,5 +212,9 @@
 				<hr>
 			</form:form>
 		</div>
+		
+			<div id="map-canvas" class="col-xs-4">
+				<!--map-canvas will be postioned here-->
+			</div>
 	</div>
 </div>

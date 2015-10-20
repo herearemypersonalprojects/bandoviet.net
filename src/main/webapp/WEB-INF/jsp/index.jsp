@@ -45,7 +45,7 @@
 	 
 	<div class="newplace addbutton">+</div>
 	
-	<div class="my_location"><spring:message code="home.map.mylocation" /></div>
+	<div class="my_location" title="<spring:message code="home.map.mylocation"/>"></div>
 	
 	<jsp:include page="mylocationalert.jsp" />
 	<%-- 

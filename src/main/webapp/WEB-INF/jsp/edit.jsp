@@ -37,9 +37,9 @@
 	
 	<jsp:include page="navbar.jsp" />
 
-	<div id="map-canvas" style="width:33%;"></div>
+	<%--<div id="map-canvas" style="width:33%;"></div>
 	
-	<%--<div class="newplace addbutton">+</div> --%>
+	<div class="newplace addbutton">+</div> --%>
 	
 	<div class="my_location"><spring:message code="home.map.mylocation" /></div>
 	

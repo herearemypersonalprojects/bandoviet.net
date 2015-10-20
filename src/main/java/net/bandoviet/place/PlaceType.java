@@ -14,14 +14,16 @@ public enum PlaceType {
   COMPANY("home.navbar.company"),
   ASSOCIATION("home.navbar.association"),
   SPORT("home.navbar.sport"),
-  USEFULINFO("home.navbar.usefulinfo"),// Pharmacy & Doctor
+  EDUCATION("education"),
+  HEALTHCARE("healthcare"),
   MARKET("home.navbar.market"),
   SERVICE("home.navbar.service"),
   TOURISM("home.navbar.tourism"),
   RELIGION("home.navbar.religion"),
   ANNOUCEMENT("home.navbar.annoucement"),
   INDIVIDUAL("home.navbar.individual"),
-  COUNTRY("home.navbar.countries");
+  COUNTRY("home.navbar.countries"),
+  USEFULINFO("home.navbar.usefulinfo");
   
   private final String code;
   
