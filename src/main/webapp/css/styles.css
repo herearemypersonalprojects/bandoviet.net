@@ -187,7 +187,7 @@ body{
 
 
 .item:hover {
-	border: 3px solid #4cbbed;
+	border: 1px solid #4cbbed;
 	cursor: pointer;
 }
 

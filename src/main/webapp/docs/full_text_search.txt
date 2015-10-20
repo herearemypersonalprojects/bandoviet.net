@@ -32,3 +32,29 @@ mysql> select @@basedir;
 - Edit file /usr/local/mysql/my.cnf
   > show variables like 'ft_min%';
  add line: 	[mysqld] ft_min_word_len=3
+ 
+ sudo nano /etc/mysql/my.cnf
+ [mysqld]
+ft_min_word_len = 3
+
+SET GLOBAL ft_min_word_len=3;
+ALTER TABLE place ENGINE=MyISAM;
+REPAIR TABLE place QUICK;
+
+Difference Between InnoDB and MyISAM
+
+January 10, 2008 at 1:41 pm · Filed under INODB, MySQL	·Tagged Database, Innodb, Myisam, MySQL	
+
+    The big difference between MySQL Table Type MyISAM and InnoDB is that InnoDB supports transaction
+    InnoDB supports some newer features: Transactions, row-level locking, foreign keys
+    InnoDB is for high volume, high performance
+
+Most people use MyISAM if they need speed and InnoDB for data integrity. You can use more than one or any combination of these table types in your database. Remember to asses the needs of your application before building it. Even though MyISAM is faster than InnoDB in the MySQL world, InnoDB is fast compared to any database engine.With InnoDB you get transactions, speed and integrity three features not usually used in the same sentence.
+
+InnoDB has been designed for maximum performance when processing large data volumes. Its CPU efficiency is probably not matched by any other disk-based relational database engine.
+
+Fully integrated with MySQL Server, the InnoDB storage engine maintains its own buffer pool for caching data and indexes in main memory. InnoDB stores its tables and indexes in a tablespace, which may consist of several files (or raw disk partitions). This is different from, for example, MyISAM tables where each table is stored using separate files. InnoDB tables can be of any size even on operating systems where file size is limited to 2GB.
+
+So, what do you think about those engines?? Please feel free to discuss it.
+
+For more information visit http://dev.mysql.com/

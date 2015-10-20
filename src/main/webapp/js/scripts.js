@@ -2,7 +2,7 @@
 var currentAddress = "Paris, France";
 var marker = new google.maps.Marker();
 var map;
-var infoWnd = new google.maps.InfoWindow();
+var infoWnd = new google.maps.InfoWindow({disableAutoPan: true  });
 var infobox;
 var locationSearchAutocomplete;
 var poiList = [];
@@ -58,6 +58,8 @@ $(document).ready(
 					animation : google.maps.Animation.DROP
 				});
 				*/
+				
+				
 
 			    //Creates a map object.
 				map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
