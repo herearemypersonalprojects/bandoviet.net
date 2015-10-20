@@ -65,7 +65,10 @@ $(document).ready(
 				map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 				marker.setMap(map);
 				google.maps.event.addListener(map, 'click', function(event) {
-					infobox.close();
+					infoWnd.close();
+				});
+				google.maps.event.addListener(map, 'idle', function() {
+					   //Do something when the user has stopped zooming/panning
 				});
 	
 			    locationSearchAutocomplete = new google.maps.places.Autocomplete(document.getElementById('locationSearch'));

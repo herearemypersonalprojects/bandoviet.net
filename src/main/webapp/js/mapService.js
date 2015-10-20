@@ -178,7 +178,39 @@
 				      });
 				   }
 				 }
-			
+			// START LOCATION WIHT LATLNG
+			  function codeLatLng(lat, lng) {
+				    var latlng = new google.maps.LatLng(lat, lng);
+				    geocoder.geocode({'latLng': latlng}, function(results, status) {
+			            if (status == google.maps.GeocoderStatus.OK) {
+			            	
+			                var lat = '';
+			                var lng = '';
+			                lat = results[0].geometry.location.lat();
+			                lng = results[0].geometry.location.lng();
+			                addressReturn = results[0].formatted_address;
+			                var latlng = new google.maps.LatLng(lat, lng);
+			                map.setCenter(results[0].geometry.location);
+			                marker = new google.maps.Marker({
+			                    map: map,
+			                    position: latlng,
+			                    draggable: true
+			                });
+			                document.getElementById('locationSearch').value = addressReturn;
+			                document.getElementById('cityLat').value = lat;
+			                document.getElementById('cityLng').value = lng;
+			                getCity(results);	
+			                if (infoWnd != null) {
+			                	infoWnd.setContent(address);
+			                	infoWnd.open(map, marker);
+			                }
+			                
+			            } else {
+			            	alert("The given address is not found. Please correct it!");
+			                console.log("Geocode was not successful for the following reason: " + status);
+			            }
+			        });
+			  }
 			// START LOCATION WITH ADDRESS
 			function showLocation(address) {
 			    if (address != null && address != '') {
@@ -224,7 +256,7 @@
 			    // RESET
 			    $('#countrySearch').val("");
 			    $('#citySearch').val("");
-			   
+		   
 			    //break down the three dimensional array into simpler arrays
 			    for (i = 0; i < results.length; ++i) {
 			        var super_var1 = results[i].address_components;
@@ -240,6 +272,7 @@
 			                if (super_var2[k] == "country" && $('#countrySearch').val() == "") {
 			                    //put the county name in the form
 			                    $('#countrySearch').val(super_var1[j].short_name); //alert(super_var1[j].long_name);alert(super_var1[j].short_name);
+			                    searchByKeywords($('#keywords').val(), $('#cityLat').val(), $('#cityLng').val(), $('#countrySearch').val(), $('#locationSearch').val());
 			                }
 			 
 			            }

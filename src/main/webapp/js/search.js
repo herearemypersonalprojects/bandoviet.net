@@ -20,8 +20,12 @@ $(document).ready(function() {
 	
 	$('.my_location').on( "click", function() {			
 		if (navigator.geolocation) navigator.geolocation.getCurrentPosition(function(pos) {
-		    showLocationLatLng(pos.coords.latitude, pos.coords.longitude);
-		    searchByKeywords($('#keywords').val(), $('#cityLat').val(), $('#cityLng').val(), $('#countrySearch').val(), $('#locationSearch').val());
+			codeLatLng(pos.coords.latitude, pos.coords.longitude);
+			
+
+			
+		    //showLocationLatLng(pos.coords.latitude, pos.coords.longitude);
+		    
 		 // TODO: Dung de lay dia diem nguoi dung luon
 		    
 		}, function(error) {							
@@ -160,8 +164,10 @@ function searchByKeywords(keywords, lat, lng, country, address) {
 	} else {
 		if (keywords) {
 			window.location.href = '/places/searchterms/' + keywords + '/1';
-		} else {
+		} else if (address) {
 			window.location.href = '/places/searchterms/' + lat + '/' + lng + '/' + country + '/' + address + '/1';
+		} else {
+			window.location.href = '/';
 		}
 	}
 	
