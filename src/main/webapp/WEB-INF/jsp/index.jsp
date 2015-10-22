@@ -22,6 +22,7 @@
 <link rel="stylesheet" href="/libs/jquery-ui.min.css">
 
 <link rel="icon" type="image/png" href="/img/map.png"> <!-- http://www.favicon.cc -->
+
 </head>
 <body>
 
@@ -179,7 +180,16 @@
         </footer>
         <!--end Page Footer-->--%>
 	<!-- end view -->
-
+	
+	<noscript>
+		<div id="noscript"><h3>Tu dois activer JavaScript pour naviguer sur bandoviet.net</h3>
+		<p>Nous utilisons les meilleures technologies de pointe disponibles pour offrir à nos utilisateurs une expérience Web optimale.
+		<br />
+		Il est recommandé d'activer JavaScript dans les paramètres du navigateur pour continuer.</p>
+		<p class="small"><a href="/download"> Télécharge Bandoviet </a> pour ton smartphone et commence à explorer le monde qui t'entoure !</p>
+		</div>
+	</noscript>
+	
 	<!-- script references -->
 	<script	src="/js/jquery.js"></script>
 	<script	src="/libs/jquery.validate.js"></script>
@@ -202,5 +212,6 @@
 	<script type="text/javascript" src="/libs/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="/libs/readmore.min.js"></script>
 	<script type="text/javascript" src="/js/avim.js"></script>
+	<%--<script type="text/javascript" src="/libs/BrowserDetect.js"></script>--%>
 </body>
 </html>

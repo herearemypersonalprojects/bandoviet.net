@@ -8,7 +8,7 @@ $(document).ready(function() {
 		  speed: 75,
 		  lessLink: '<a href="#" class="less">Thu nhỏ</a>',
 		  moreLink: '<a href="#" class="more">Đọc tiếp</a>',
-		  collapsedHeight: 40
+		  collapsedHeight: 128
 		});
 	
 	/** EDIT ITEM */

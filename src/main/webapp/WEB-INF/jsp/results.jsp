@@ -10,10 +10,25 @@
 
 	<div class="container-fluid" id="main">
 		<div class="row">
+			<%-- 
+			<div style="    float: left;
+			    display: inline-block;
+			    width: 300px;
+			    background-color: #e9e8e2;
+			    border-color: white;
+			    border-width: 1px;
+			    border-style: solid;">
+			    <div class="body locations"><div id="a" onclick="ta.plc_search_filters_0_handlers.filterSelected('a', this)" class="filter enabled selected"><span><img class="icon sprite-icon-filter-all" src="https://static.tacdn.com/img2/x.gif"></span><span class="text has_count">Tất cả kết quả </span> <span class="count">(197)</span></div><div class="filter  disabled"><span><img class="icon sprite-icon-filter-location" src="https://static.tacdn.com/img2/x.gif"></span><span class="text ">Địa điểm </span> <span class="count"></span></div><div id="h" onclick="ta.plc_search_filters_0_handlers.filterSelected('h', this)" class="filter enabled "><span><img class="icon sprite-icon-filter-hotels" src="https://static.tacdn.com/img2/x.gif"></span><span class="text has_count">Phòng nghỉ </span> <span class="count">(3)</span></div><div class="filter  disabled"><span><img class="icon sprite-icon-filter-VR" src="https://static.tacdn.com/img2/x.gif"></span><span class="text ">Nhà nghỉ cho thuê </span> <span class="count"></span></div><div id="e" onclick="ta.plc_search_filters_0_handlers.filterSelected('e', this)" class="filter enabled "><span><img class="icon sprite-icon-filter-restaurants" src="https://static.tacdn.com/img2/x.gif"></span><span class="text has_count">Nhà hàng </span> <span class="count">(194)</span></div><div class="filter  disabled"><span><img class="icon sprite-icon-filter-t2d" src="https://static.tacdn.com/img2/x.gif"></span><span class="text ">Điểm du lịch </span> <span class="count"></span></div></div>
+			</div>
+			--%>
 			<div id="left" class="col-xs-6 result">
 				
-				
+				<div style="color:#ddd;">
+					Tìm được khoảng ${ totalPages*20} kết quả
+				</div>
+				<%--
 					<div class="text-center">
+								
 								
 				      <ul class="pagination pagination-smaller ">
 				      	<c:choose>
@@ -48,9 +63,9 @@
 				            </c:otherwise>
 				        </c:choose>
 				     </ul>
-				
+					 
 					  <p id="newplace" class="newplace addbutton2" >+</p> 
-				</div>
+				</div>--%>
 
 				<!-- item list -->
 				<c:forEach var="item" items="${ items }" varStatus="status">
@@ -88,55 +103,34 @@
 					</div>	
 					 --%>
 					<div>
-						<span style="color: #ddd;">${(currentIndex-1)*20 + status.index + 1}.</span>
+						<span style="color: #428bca;">${(currentIndex-1)*20 + status.index + 1}.</span>
 						<strong>
 						 <a href="/place/${item.titleWithoutAccents}/${item.id}" target="_blank"> ${item.title}</a>
 						</strong>
 					</div>
 					<div>
-						<img class="img-rounded photo_item" src="${item.imagePath}" alt="">
+						
 					</div>	
 					
 					<div class="item_content" id="${status.index}" data-lat="${item.latitude}" data-address="${item.address}"  
 					data-id="${item.id}" data-type="${item.placeType}" data-icon="${item.iconPath}"
 						data-lng="${item.longitude}" data-title="${item.title}"	data-img="${item.imagePath}">
 						
-	
-				        <table>
-				            <tr>
-				                <td nowrap><span class="glyphicon glyphicon-item  glyphicon-home"></span></td>
-				                <td><span>${item.address}</span>  <%--<img alt="" src="/img/flags/${item.country}.png">--%></td> 
-				            </tr>
-				            <c:if test="${ not empty item.openTime }">	
-					            <tr>
-					                <td><span class="glyphicon glyphicon-item  glyphicon-time"></span></td>
-					                <td><span>${item.openTime}</span></td>
-					            </tr>
-					        </c:if>
-				           
-					            <tr>
-					                <td nowrap><span class="glyphicon glyphicon-item  glyphicon-phone-alt"> </span></td>
-					                <td><span>${item.telephone}</span></td>
-					            </tr>	
-					      
-				            		
-					            <tr>
-					                <td nowrap><span class="glyphicon glyphicon-item  glyphicon-envelope"></span></td>
-					                <td><span>${item.email}</span></td>
-					            </tr>	
-					        
-				         		
-					            <tr class="hide">
-					                <td nowrap><span><spring:message code="home.result.item.homepage"/>: </span></td>
-					                <td><span><a href="${item.referenceUrl}">${item.referenceUrl}</a></span></td>
-					            </tr>	
-					            
-					            <tr>
-					            </tr>
-					     		            	            			            
-				        </table>
 				        <article>
-							${item.information}
+				       		 <img class="img-rounded photo_item" src="${item.imagePath}" alt="">
+				       		 <c:if test="${not empty item.address}">
+				       			 <spring:message code="home.result.item.address"/> ${item.address}<br>
+				       		 </c:if>	 
+				       		 <c:if test="${not empty item.email}">
+				       		 	<spring:message code="home.result.item.email"/>: ${item.email} <br>
+				       		 </c:if>
+				       		 <c:if test="${not empty item.telephone}">
+				       	  	 	<spring:message code="home.result.item.telephone"/>: ${item.telephone} <br>
+				       		 </c:if>
+				       		 <c:if test="${not empty item.referenceUrl}">
+				       		 	<spring:message code="home.result.item.homepage"/>: ${item.referenceUrl}<br>
+							 </c:if>
+							<br>${item.information}
 						</article>  
 					</div>
 					
@@ -161,9 +155,11 @@
 						class="center-block btn btn-primary"><spring:message code="home.result.more" /></a>
 				</p>
 				 --%>
-				 <hr>
+				 <c:if test="${totalPages > 20}">
+				 
+				 
 				<nav class="text-center">
-				      <ul class="pagination pagination-sm" style="margin: 0px 0;">
+				      <ul class="pagination pagination-sm" style="margin: 10px 0;">
 				      	<c:choose>
 				            <c:when test="${currentIndex == 1}">
 				                <li class="disabled"><a href="#">&lt;&lt;</a></li>
@@ -197,8 +193,8 @@
 				        </c:choose>
 				     </ul>
 				 </nav>
-				<hr>
-
+				
+				</c:if>
 			</div>
 			
 			<div id="map-canvas" class="col-xs-6" style="width: 50.6%;">

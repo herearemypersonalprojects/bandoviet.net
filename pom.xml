@@ -109,6 +109,20 @@
 			<version>1.0.0</version>
 		</dependency>
 		
+		<!-- ADDRESS TO LATITUDE, LONGITUDE -->
+		<dependency>
+			<groupId>fr.dudie</groupId>
+			<artifactId>nominatim-api</artifactId>
+			<version>3.2</version>
+		</dependency>
+		
+		<!-- CRAWLER -->
+	    <dependency>
+	        <groupId>edu.uci.ics</groupId>
+	        <artifactId>crawler4j</artifactId>
+	        <version>4.1</version>
+	    </dependency>
+	    		
 		<!-- IMAGE TOOLS -->
 		<dependency>
 		    <groupId>com.github.jai-imageio</groupId>

@@ -60,6 +60,7 @@
 							data-toggle="dropdown">
 							<span class="glyphicon glyphicon-chevron-down"></span>
 						</button>
+					
 						<ul class="dropdown-menu">
 							<c:forEach items="<%= net.bandoviet.place.PlaceType.values()%>" var="option">
 								<li class="selectedType" id="${option}">

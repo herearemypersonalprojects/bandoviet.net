@@ -115,6 +115,26 @@ function changeType(type) {
     	$('#sizeGroup').addClass('hide');
     	$('#organisedByGroup').addClass('hide');
         break;
+        
+    case "HEALTHCARE":
+    	$('#eventTimeGroup').addClass('hide');
+    	$('#openTimeInput').removeClass('hide');
+    	$('#telephoneGroup').removeClass('hide');
+    	$('#emailGroup').removeClass('hide');
+    	$('#referenceUrlGroup').removeClass('hide');
+    	$('#sizeGroup').addClass('hide');
+    	$('#organisedByGroup').addClass('hide');
+        break;
+        
+    case "EDUCATION":
+    	$('#eventTimeGroup').addClass('hide');
+    	$('#openTimeInput').removeClass('hide');
+    	$('#telephoneGroup').removeClass('hide');
+    	$('#emailGroup').removeClass('hide');
+    	$('#referenceUrlGroup').removeClass('hide');
+    	$('#sizeGroup').addClass('hide');
+    	$('#organisedByGroup').addClass('hide');
+        break;       
    
     case "FRIENDSMAP":
     	$('#eventTimeGroup').addClass('hide');

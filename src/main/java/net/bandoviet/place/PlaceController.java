@@ -6,6 +6,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,6 +48,9 @@ public class PlaceController {
 
   private final PlaceService placeService;
 
+  @Autowired
+  private MessageSource messageSource;
+  
   @Autowired
   public PlaceController(final PlaceService placeService) {
     this.placeService = placeService;
@@ -140,6 +145,11 @@ public class PlaceController {
     int begin = Math.max(1, current - 5);
     int totalPages = placeService.getTotalPagesByKeywordsLocation(null, country);
     int end = Math.min(begin + 10, totalPages);
+    
+    if (totalPages == 0) {
+      System.out.println("Redirect");
+      return "redirect:/create";
+    }
 
     model.put("totalPages", totalPages);
     model.put("beginIndex", begin);
@@ -228,7 +238,7 @@ public class PlaceController {
     model.put("items", items);
     model.put("path", PLACES_CATEGORY_PATH + type + "/");
     
-    model.put("keywords", type);
+    model.put("keywords", "");
     
     return "index";
   }
@@ -312,6 +322,7 @@ public class PlaceController {
     initModel(place, model, lang);
     return "edit";
   }
+  
   
   private void initModel(Place place, Map<String, Object> model, String lang) {
     if (!StringUtils.isBlank(lang)) {
