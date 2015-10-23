@@ -1,12 +1,10 @@
 package net.bandoviet.place;
 
-import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Store;
-import org.hibernate.search.spatial.impl.Point;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -41,11 +39,15 @@ public class Place {
   @Column(name = "id", nullable = false, updatable = false)
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
-
+  
   @NotNull
   @Column(name = "title", nullable = false)
   @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
   private String title;
+  
+  @Column(name = "subtitle")
+  @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
+  private String subtitle;
   
   @Column(name = "title_without_accent")
   private String titleWithoutAccents;
@@ -167,6 +169,14 @@ public class Place {
 
   public void setTitle(String title) {
     this.title = title;
+  }
+
+  public String getSubtitle() {
+    return subtitle;
+  }
+
+  public void setSubtitle(String subtitle) {
+    this.subtitle = subtitle;
   }
 
   public String getInformation() {

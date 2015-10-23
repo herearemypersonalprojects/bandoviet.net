@@ -4,9 +4,6 @@
 
 package net.bandoviet;
 
-import net.bandoviet.home.AccessInterceptor;
-import net.bandoviet.log.LogInterceptor;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +17,9 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import java.util.Locale;
+
+import net.bandoviet.home.AccessInterceptor;
+import net.bandoviet.log.LogInterceptor;
 
 
 
@@ -37,6 +37,8 @@ public class Bandoviet extends WebMvcConfigurerAdapter  {
 
   public static void main(String[] args) throws Exception {
     SpringApplication.run(Bandoviet.class, args);
+    
+    
   }
   
   /**

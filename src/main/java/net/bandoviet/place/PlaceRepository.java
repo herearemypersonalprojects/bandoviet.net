@@ -16,6 +16,9 @@ import java.util.List;
 @Repository
 public interface PlaceRepository extends JpaRepository<Place, Long> {
   
+  @Query(value = "select * from place where title like :title and address like :address",
+      nativeQuery = true)
+  List<Place> findExistings(@Param("title") String title, @Param("address") String address);
   
   @Query(value = "select distinct CONCAT(city, ', ', country) as city from place", 
       nativeQuery = true)

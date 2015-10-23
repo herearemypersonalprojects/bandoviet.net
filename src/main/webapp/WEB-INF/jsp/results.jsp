@@ -121,16 +121,17 @@
 				       		 <c:if test="${not empty item.address}">
 				       			 <spring:message code="home.result.item.address"/> ${item.address}<br>
 				       		 </c:if>	 
-				       		 <c:if test="${not empty item.email}">
+				       		 <c:if test="${false}">
 				       		 	<spring:message code="home.result.item.email"/>: ${item.email} <br>
 				       		 </c:if>
 				       		 <c:if test="${not empty item.telephone}">
 				       	  	 	<spring:message code="home.result.item.telephone"/>: ${item.telephone} <br>
 				       		 </c:if>
+				       		 <br>${item.information}<br>
 				       		 <c:if test="${not empty item.referenceUrl}">
 				       		 	<spring:message code="home.result.item.homepage"/>: ${item.referenceUrl}<br>
 							 </c:if>
-							<br>${item.information}
+							
 						</article>  
 					</div>
 					
@@ -155,7 +156,7 @@
 						class="center-block btn btn-primary"><spring:message code="home.result.more" /></a>
 				</p>
 				 --%>
-				 <c:if test="${totalPages > 20}">
+				 <c:if test="${totalPages > 0}">
 				 
 				 
 				<nav class="text-center">

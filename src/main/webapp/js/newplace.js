@@ -103,7 +103,7 @@ function changeType(type) {
     	$('#emailGroup').removeClass('hide');
     	$('#referenceUrlGroup').addClass('hide');
     	$('#sizeGroup').addClass('hide');
-    	$('#organisedByGroup').removeClass('hide');
+    	$('#organisedByGroup').addClass('hide');
         break;
 
     case "RESTAURANT":
@@ -213,7 +213,7 @@ function changeType(type) {
     	$('#emailGroup').removeClass('hide');
     	$('#referenceUrlGroup').removeClass('hide');
     	$('#sizeGroup').addClass('hide');
-    	$('#organisedByGroup').removeClass('hide');
+    	$('#organisedByGroup').addClass('hide');
         break;
         
     case "INDIVIDUAL":

@@ -2,6 +2,8 @@ package net.bandoviet.place;
 
 import net.bandoviet.tool.AccentRemover;
 import net.bandoviet.tool.DistanceCalculator;
+import net.bandoviet.tool.FileService;
+import org.apache.commons.lang.StringUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,8 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -224,11 +226,45 @@ public class PlaceService {
   /**
    * Save or update place.
    * @param place to be saved
-   * @return place if success.
    */
   @Transactional
-  public Place save(@NotNull @Valid final Place place) {
-    LOGGER.debug("Creating {}", place);
+  public void save(@NotNull @Valid final Place place, MultipartFile image) {
+    if (place.getId() == null) {
+      List<Place> lst = placeRepository.findExistings(place.getTitle(), place.getAddress());
+      if (!lst.isEmpty()) {
+        LOGGER.debug("The place " + place.getTitle() + " id: " + place.getId() + " exists already.");
+        return;
+      }
+    }
+    
+    place.setTitleWithoutAccents(AccentRemover.toUrlFriendly(place.getTitle()));
+    Place updatedPlace = placeRepository.save(place);
+    
+    try {      
+      String imagePath = FileService.saveFile(image, updatedPlace.getId(), "place");
+      if (StringUtils.isBlank(imagePath)) {
+        if (StringUtils.isNotBlank(place.getImagePath()) 
+            && place.getImagePath().indexOf("http") >= 0) {
+          imagePath = FileService.saveImage(place.getImagePath(),
+              updatedPlace.getId(), "place"); 
+        } else if (StringUtils.isBlank(place.getImagePath())) {
+          imagePath = FileService.saveImageFromGoogleStreetView(
+              updatedPlace.getLatitude(), place.getLongitude(),  
+              updatedPlace.getId(), "place");        
+        }
+      }
+      if (StringUtils.isNotBlank(imagePath)) {
+        updatedPlace.setImagePath(imagePath);
+        updatedPlace.setIconPath(imagePath.substring(0, imagePath.lastIndexOf("/") + 1)
+            .concat("icon.jpg"));
+        placeRepository.save(updatedPlace);       
+      }
+
+    } catch (Exception e) {
+      LOGGER.error("Tried to save user with id", e);
+      //result.reject("home.save.error");
+      //return "edit";
+    }
       /*
       Place existing = repository.findOne(user.getId());
       if (existing != null) {
@@ -236,8 +272,9 @@ public class PlaceService {
                   String.format("There already exists a user with id=%s", user.getId()));
       }
       */
-    place.setTitleWithoutAccents(AccentRemover.toUrlFriendly(place.getTitle()));
-    return placeRepository.save(place);
+    
+
+    
   }
   
 

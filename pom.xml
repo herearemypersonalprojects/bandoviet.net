@@ -116,13 +116,21 @@
 			<version>3.2</version>
 		</dependency>
 		
+		<!-- JSON -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20150729</version>
+		</dependency>
+
 		<!-- CRAWLER -->
-	    <dependency>
-	        <groupId>edu.uci.ics</groupId>
-	        <artifactId>crawler4j</artifactId>
-	        <version>4.1</version>
-	    </dependency>
-	    		
+		<dependency>
+		  <!-- jsoup HTML parser library @ http://jsoup.org/ -->
+		  <groupId>org.jsoup</groupId>
+		  <artifactId>jsoup</artifactId>
+		  <version>1.8.3</version>
+		</dependency>
+
 		<!-- IMAGE TOOLS -->
 		<dependency>
 		    <groupId>com.github.jai-imageio</groupId>

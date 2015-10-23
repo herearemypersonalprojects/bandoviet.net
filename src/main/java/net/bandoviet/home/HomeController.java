@@ -4,6 +4,7 @@
 
 package net.bandoviet.home;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+
+import net.bandoviet.tool.LinkedInCrawler;
 
 /**
  * Receive requests from homepage.
@@ -24,6 +27,15 @@ public class HomeController {
 
   @Value("${application.message:Hello World}")
   private String message;
+  
+  @Autowired 
+  LinkedInCrawler crawler;
+  
+  @RequestMapping("/crawl")
+  public @ResponseBody String crawl() {
+    crawler.getDataFromLinkedin();
+    return "ok";
+  }
   
   /**
    * The first request when user open the homepage.
