@@ -49,7 +49,8 @@ public class LinkedInCrawler {
   List<String> linksAlready = new ArrayList<String>();
 
   public void getDataFromLinkedin() {
-    String url = "https://www.linkedin.com/in/anphungkhac";
+    //String url = "https://www.linkedin.com/in/anphungkhac";
+    String url = "https://fr.linkedin.com/in/linhnh";
     linksInProgress.add(url);
 
     while (true) {
@@ -101,10 +102,23 @@ public class LinkedInCrawler {
 
       Elements information = doc.select("#background");
       String info = information.html();
+      info = info.replace("<h2>Background</h2>", "");
+      info = info.replace("h3", "h4");
+      info = info.replace("Summary", "Giới thiệu");
+      info = info.replace("Experience", "Kinh nghiệm làm việc");
+      info = info.replace("Education", "Quá trình đào tạo");
+      info = info.replace("Skills", "Kỹ năng");
+      info = info.replace("Publications", "Công trình công bố");
+      info = info.replace("Interests", "Sở thích cá nhân");
       place.setInformation(info);
 
       Elements locality = doc.select(".locality");
       String address = locality.get(0).html().replace("Area", "");
+      
+      if (address.indexOf("Vietnam") >= 0) {
+        return null;
+      }
+      
       System.out.println(address);
       if (!getAddress(place, address)) {
         return null;
