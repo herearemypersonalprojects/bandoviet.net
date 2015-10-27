@@ -1,5 +1,13 @@
 package net.bandoviet.tool;
 
+import fr.dudie.nominatim.client.JsonNominatimClient;
+import fr.dudie.nominatim.client.request.NominatimSearchRequest;
+import fr.dudie.nominatim.model.Address;
+import fr.dudie.nominatim.model.AddressElement;
+import net.bandoviet.place.Place;
+import net.bandoviet.place.PlaceService;
+import net.bandoviet.place.PlaceType;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.http.client.HttpClient;
@@ -13,6 +21,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -26,13 +36,14 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.dudie.nominatim.client.JsonNominatimClient;
-import fr.dudie.nominatim.client.request.NominatimSearchRequest;
-import fr.dudie.nominatim.model.Address;
-import fr.dudie.nominatim.model.AddressElement;
-import net.bandoviet.place.Place;
-import net.bandoviet.place.PlaceService;
-import net.bandoviet.place.PlaceType;
+import com.google.code.geocoder.Geocoder;
+import com.google.code.geocoder.GeocoderRequestBuilder;
+import com.google.code.geocoder.model.GeocodeResponse;
+import com.google.code.geocoder.model.GeocoderAddressComponent;
+import com.google.code.geocoder.model.GeocoderRequest;
+import com.google.code.geocoder.model.GeocoderResult;
+
+
 
 /**
  * get linkedin profiles.
@@ -40,8 +51,11 @@ import net.bandoviet.place.PlaceType;
  * @author quocanh
  *
  */
+@SuppressWarnings("deprecation")
 @Service
 public class LinkedInCrawler {
+  private static final Logger LOGGER = LoggerFactory.getLogger(LinkedInCrawler.class);
+
   @Autowired
   PlaceService placeService;
 
@@ -49,11 +63,17 @@ public class LinkedInCrawler {
   List<String> linksAlready = new ArrayList<String>();
 
   public void getDataFromLinkedin() {
-    //String url = "https://www.linkedin.com/in/anphungkhac";
-    String url = "https://fr.linkedin.com/in/linhnh";
+    linksInProgress = initSeeds();
+    // String url = "https://www.linkedin.com/in/anphungkhac";
+    String url = "https://www.linkedin.com/pub/melanie-nguyen/b7/79/699";
     linksInProgress.add(url);
+    linksInProgress.add("https://fr.linkedin.com/pub/van-thinh-vu/3b/335/456");
+    linksInProgress.add("https://www.linkedin.com/in/jennsteria");
+    linksInProgress.add("https://www.linkedin.com/in/xuantnguyen");
 
-    while (true) {
+    System.out.println("So luong seeds la: " + linksInProgress.size());
+
+    while (!linksInProgress.isEmpty()) {
       try {
         Thread.sleep(1000); // 1000 milliseconds is one second.
       } catch (InterruptedException ex) {
@@ -66,11 +86,55 @@ public class LinkedInCrawler {
           System.out.println(place.getLatitude() + "," + place.getLongitude());
           linksAlready.add(u);
           linksInProgress.remove(u);
-          placeService.save(place, null);
+          if (place.getAddress() == null || place.getLatitude() == null
+              || place.getLongitude() == null || place.getCountry() == null
+              || place.getTitle() == null) {
+            System.out.print("Co loi tai: " + u);    
+            
+          } else {
+            placeService.save(place, null);
+          }
+
         }
       }
     }
 
+  }
+  
+
+  private List initSeeds() {
+    List<String> urls = new ArrayList<String>();
+    for (int i = 0; i < VietnameseWords.names.length; i++) {
+      String url = "https://www.linkedin.com/pub/dir/?first=&last=" + VietnameseWords.names[i];
+      Document doc;
+      try {
+        LOGGER.debug("Dang xu ly: " + url);
+        doc = Jsoup.connect(url).get();
+
+        Elements links = doc.select(".vcard");
+        LOGGER.debug("So luong vcard la: " + links.size());
+
+        for (Element link : links) {
+          String furl = link.select("a").attr("href");
+          System.out.println(furl);
+          String ffullname = link.select("a").attr("title");
+          System.out.println(ffullname);
+          String photo = link.select("a img").attr("src");
+          System.out.println(photo);
+
+          if (VietnameseWords.isVietnamese(ffullname) && photo.indexOf("ghosts") < 0) {
+            System.out.println("Day la ten tieng Viet: " + ffullname);
+            if (!urls.contains(furl) && placeService.findRefs(furl).isEmpty()) {
+              urls.add(furl);
+              LOGGER.debug("Them vao: " + furl);
+            }
+          }
+        }
+      } catch (IOException e) {
+        return null;
+      }
+    }
+    return urls;
   }
 
   private Place getPlace(String url) { // id, title, address, country,latitude, longitude,
@@ -82,6 +146,9 @@ public class LinkedInCrawler {
 
     Document doc;
     try {
+      // System.setProperty("http.proxyHost", "95.211.206.151");
+      // System.setProperty("http.proxyPort", "80");
+      LOGGER.debug("Dang xu ly: " + url);
       doc = Jsoup.connect(url).get();
 
       Elements name = doc.select(".full-name");
@@ -100,6 +167,8 @@ public class LinkedInCrawler {
       String imagePath = picture.get(0).attr("src");
       place.setImagePath(imagePath);
 
+      doc.select(".summary-header").remove();
+
       Elements information = doc.select("#background");
       String info = information.html();
       info = info.replace("<h2>Background</h2>", "");
@@ -114,11 +183,11 @@ public class LinkedInCrawler {
 
       Elements locality = doc.select(".locality");
       String address = locality.get(0).html().replace("Area", "");
-      
+
       if (address.indexOf("Vietnam") >= 0) {
         return null;
       }
-      
+
       System.out.println(address);
       if (!getAddress(place, address)) {
         return null;
@@ -136,8 +205,10 @@ public class LinkedInCrawler {
 
         if (VietnameseWords.isVietnamese(ffullname) && photo.indexOf("ghosts") < 0) {
           System.out.println("Day la ten tieng Viet: " + ffullname);
-          if (!linksInProgress.contains(furl) && !linksAlready.contains(furl)) {
+          if (!linksInProgress.contains(furl) && !linksAlready.contains(furl)
+              && placeService.findRefs(furl).isEmpty()) {
             linksInProgress.add(furl);
+            LOGGER.debug("Them vao: " + furl);
           }
         }
       }
@@ -163,10 +234,14 @@ public class LinkedInCrawler {
     try {
       List<Address> addresses = nominatimClient.search(location);
       for (final Address address : addresses) {
+
         System.out
             .println(ToStringBuilder.reflectionToString(address, ToStringStyle.MULTI_LINE_STYLE));
+        if (address.getDisplayName().length() > 90)
+          break;
         place.setLatitude(address.getLatitude());
         place.setLongitude(address.getLongitude());
+
         place.setAddress(address.getDisplayName());
 
         if (address.getAddressElements() != null) {
@@ -199,9 +274,48 @@ public class LinkedInCrawler {
         break;
       }
     } catch (IOException e) {
-      return false;
+      System.out.println("Co loi: " + e.getMessage());
     }
-    return true;
+    
+    if (place.getLatitude() == null || place.getLongitude() == null || place.getCountry() == null) {
+      getAddressFromGoogleMap( place, location);
+    }
+    
+    return (place.getLatitude() != null && place.getLongitude() != null && place.getCountry() != null);
+  }
+  
+  private void getAddressFromGoogleMap(Place place, String location) {
+    try {
+      final Geocoder geocoder = new Geocoder();
+      GeocoderRequest geocoderRequest = new GeocoderRequestBuilder().setAddress("San Francisco Bay")
+          .setLanguage("en").getGeocoderRequest();
+
+      GeocodeResponse geocoderResponse = geocoder.geocode(geocoderRequest);
+      List<GeocoderResult> results = geocoderResponse.getResults();
+
+      float latitude = results.get(0).getGeometry().getLocation().getLat().floatValue();
+
+      float longitude = results.get(0).getGeometry().getLocation().getLng().floatValue();
+
+      String address = results.get(0).getFormattedAddress();
+
+      String country = "";
+      for (GeocoderAddressComponent e :results.get(0).getAddressComponents()) {
+        if (e.getTypes().contains("country")) {
+          country = e.getShortName();
+          break;
+        }         
+      }
+      
+      System.out.println(latitude + "," + longitude + ": " + address + " -- " + country );
+      place.setAddress(address);
+      place.setLatitude(Double.valueOf(latitude));
+      place.setLongitude(Double.valueOf(longitude));
+      place.setCountry(country);
+    } catch (IOException e) {
+      System.out.println("Co loi tu google geocoder: " + e.getMessage());
+    }
+    
   }
 
   public String getUrlSource(String url) throws IOException {

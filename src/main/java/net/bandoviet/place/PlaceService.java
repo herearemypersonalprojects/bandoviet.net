@@ -59,6 +59,10 @@ public class PlaceService {
     return  requestedPage.getContent();
   }
   
+  public List<Place> findRefs(String url) {
+    return placeRepository.findByUrl(url);
+  }
+  
   /**
    * Return one page which have PAGE_SIZE items.
    * @param pageNumber page number.

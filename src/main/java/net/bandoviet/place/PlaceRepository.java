@@ -16,6 +16,9 @@ import java.util.List;
 @Repository
 public interface PlaceRepository extends JpaRepository<Place, Long> {
   
+  @Query(value = "select * from place where reference_url like :url", nativeQuery = true)
+  List<Place> findByUrl(@Param("url") String url);
+  
   @Query(value = "select * from place where title like :title and address like :address",
       nativeQuery = true)
   List<Place> findExistings(@Param("title") String title, @Param("address") String address);
