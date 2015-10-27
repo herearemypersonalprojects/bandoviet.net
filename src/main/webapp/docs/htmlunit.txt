@@ -1,0 +1,20 @@
+Phan tich source trang web voi java.
+
+LUU Y CAI DAT: Phai cai dat du bo 3 dependencies:
+		<dependency>
+		    <groupId>net.sourceforge.htmlunit</groupId>
+		    <artifactId>htmlunit</artifactId>
+		    <version>2.18</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.3</version>
+		</dependency>	
+
+HtmlUnit is a "GUI-Less browser for Java programs". It models HTML documents and provides an API that allows you to invoke pages, fill out forms, click links, etc... just like you do in your "normal" browser. 
