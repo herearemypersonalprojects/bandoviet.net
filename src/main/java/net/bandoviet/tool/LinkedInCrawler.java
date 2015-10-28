@@ -63,15 +63,11 @@ public class LinkedInCrawler {
   List<String> linksAlready = new ArrayList<String>();
 
   public void getDataFromLinkedin() {
-    linksInProgress = initSeeds();
-    // String url = "https://www.linkedin.com/in/anphungkhac";
-    String url = "https://www.linkedin.com/pub/melanie-nguyen/b7/79/699";
-    linksInProgress.add(url);
-    linksInProgress.add("https://fr.linkedin.com/pub/van-thinh-vu/3b/335/456");
-    linksInProgress.add("https://www.linkedin.com/in/jennsteria");
-    linksInProgress.add("https://www.linkedin.com/in/xuantnguyen");
+    //linksInProgress = initSeeds();
+    linksInProgress.add("https://vn.linkedin.com/in/phuhoang");
 
-    System.out.println("So luong seeds la: " + linksInProgress.size());
+
+    //System.out.println("So luong seeds la: " + linksInProgress.size());
 
     while (!linksInProgress.isEmpty()) {
       try {
@@ -92,7 +88,11 @@ public class LinkedInCrawler {
             System.out.print("Co loi tai: " + u);    
             
           } else {
-            placeService.save(place, null);
+            try {
+              placeService.save(place, null);
+            } catch (Exception e) {
+              System.out.print("Co loi tai: " + e.getMessage());    
+            }
           }
 
         }
@@ -105,7 +105,7 @@ public class LinkedInCrawler {
   private List initSeeds() {
     List<String> urls = new ArrayList<String>();
     for (int i = 0; i < VietnameseWords.names.length; i++) {
-      String url = "https://www.linkedin.com/pub/dir/?first=&last=" + VietnameseWords.names[i];
+      String url = "https://www.linkedin.com/pub/dir/?first=Huong&last=" + VietnameseWords.names[i] + "&search=Search&searchType=fps";
       Document doc;
       try {
         LOGGER.debug("Dang xu ly: " + url);
@@ -172,6 +172,8 @@ public class LinkedInCrawler {
       Elements information = doc.select("#background");
       String info = information.html();
       info = info.replace("<h2>Background</h2>", "");
+      info = info.replace("h5", "h6");
+      info = info.replace("h4", "h5");
       info = info.replace("h3", "h4");
       info = info.replace("Summary", "Giới thiệu");
       info = info.replace("Experience", "Kinh nghiệm làm việc");
@@ -184,9 +186,11 @@ public class LinkedInCrawler {
       Elements locality = doc.select(".locality");
       String address = locality.get(0).html().replace("Area", "");
 
+      /*
       if (address.indexOf("Vietnam") >= 0) {
         return null;
       }
+      */
 
       System.out.println(address);
       if (!getAddress(place, address)) {
@@ -219,69 +223,84 @@ public class LinkedInCrawler {
   }
 
   private boolean getAddress(Place place, String location) {
-    NominatimSearchRequest req = new NominatimSearchRequest();
-
-    final SchemeRegistry registry = new SchemeRegistry();
-    registry.register(new Scheme("http", new PlainSocketFactory(), 80));
-    final ClientConnectionManager connexionManager = new SingleClientConnManager(null, registry);
-
-    final HttpClient httpClient = new DefaultHttpClient(connexionManager, null);
-
-    final String baseUrl = "http://nominatim.openstreetmap.org/";
-    final String email = "quocanh263@gmail.com";
-    JsonNominatimClient nominatimClient = new JsonNominatimClient(baseUrl, httpClient, email);
-
     try {
-      List<Address> addresses = nominatimClient.search(location);
-      for (final Address address : addresses) {
+      NominatimSearchRequest req = new NominatimSearchRequest();
 
-        System.out
-            .println(ToStringBuilder.reflectionToString(address, ToStringStyle.MULTI_LINE_STYLE));
-        if (address.getDisplayName().length() > 90)
+      final SchemeRegistry registry = new SchemeRegistry();
+      registry.register(new Scheme("http", new PlainSocketFactory(), 80));
+      final ClientConnectionManager connexionManager = new SingleClientConnManager(null, registry);
+
+      final HttpClient httpClient = new DefaultHttpClient(connexionManager, null);
+
+      final String baseUrl = "http://nominatim.openstreetmap.org/";
+      final String email = "quocanh263@gmail.com";
+      JsonNominatimClient nominatimClient = new JsonNominatimClient(baseUrl, httpClient, email);
+
+      try {
+        List<Address> addresses = nominatimClient.search(location);
+        for (final Address address : addresses) {
+
+          System.out
+              .println(ToStringBuilder.reflectionToString(address, ToStringStyle.MULTI_LINE_STYLE));
+          if (address.getDisplayName().length() > 255)
+            address.setDisplayName(location);
+          place.setLatitude(address.getLatitude());
+          place.setLongitude(address.getLongitude());
+
+          place.setAddress(address.getDisplayName());
+
+          if (address.getAddressElements() != null) {
+            for (AddressElement element : address.getAddressElements()) {
+              if (element.getKey().equalsIgnoreCase("country_code")) {
+                place.setCountry(element.getValue().toUpperCase());
+              }
+
+              if (element.getKey().equalsIgnoreCase("city")) {
+                place.setCity(element.getValue());
+              }
+
+              if (element.getKey().equalsIgnoreCase("postcode")) {
+                place.setPostalCode(element.getValue());
+              }
+            }
+          } else {
+            try {
+              Thread.sleep(1000); // 1000 milliseconds is one second.
+            } catch (InterruptedException ex) {
+              Thread.currentThread().interrupt();
+            }
+            try {
+              NominatimReverseGeocodingJAPI nominatim = new NominatimReverseGeocodingJAPI();
+              NominatimAddress add = nominatim.getAdress(place.getLatitude(), place.getLongitude());
+              if (add != null) {
+                if (add.getCity() != null)  place.setCity(add.getCity());
+                if (add.getPostcode() != null) place.setPostalCode(add.getPostcode());
+                if (add.getCountry() != null)  place.setCountry(add.getCountryCode().toUpperCase());    
+              }
+                    
+            } catch (Exception e){
+              break;
+            }
+
+          }
+
           break;
-        place.setLatitude(address.getLatitude());
-        place.setLongitude(address.getLongitude());
-
-        place.setAddress(address.getDisplayName());
-
-        if (address.getAddressElements() != null) {
-          for (AddressElement element : address.getAddressElements()) {
-            if (element.getKey().equalsIgnoreCase("country_code")) {
-              place.setCountry(element.getValue().toUpperCase());
-            }
-
-            if (element.getKey().equalsIgnoreCase("city")) {
-              place.setCity(element.getValue());
-            }
-
-            if (element.getKey().equalsIgnoreCase("postcode")) {
-              place.setPostalCode(element.getValue());
-            }
-          }
-        } else {
-          try {
-            Thread.sleep(1000); // 1000 milliseconds is one second.
-          } catch (InterruptedException ex) {
-            Thread.currentThread().interrupt();
-          }
-          NominatimReverseGeocodingJAPI nominatim = new NominatimReverseGeocodingJAPI();
-          NominatimAddress add = nominatim.getAdress(place.getLatitude(), place.getLongitude());
-          place.setCity(add.getCity());
-          place.setPostalCode(add.getPostcode());
-          place.setCountry(add.getCountryCode().toUpperCase());
         }
-
-        break;
-      }
-    } catch (IOException e) {
+      } catch (IOException e) {
+        System.out.println("Co loi: " + e.getMessage());
+      }     
+    } catch (Exception e) {
       System.out.println("Co loi: " + e.getMessage());
     }
+
     
     if (place.getLatitude() == null || place.getLongitude() == null || place.getCountry() == null) {
       getAddressFromGoogleMap( place, location);
     }
     
-    return (place.getLatitude() != null && place.getLongitude() != null && place.getCountry() != null);
+    return (place.getLatitude() != null 
+        && place.getLongitude() != null 
+        && place.getCountry() != null);
   }
   
   private void getAddressFromGoogleMap(Place place, String location) {
@@ -292,26 +311,30 @@ public class LinkedInCrawler {
 
       GeocodeResponse geocoderResponse = geocoder.geocode(geocoderRequest);
       List<GeocoderResult> results = geocoderResponse.getResults();
-
-      float latitude = results.get(0).getGeometry().getLocation().getLat().floatValue();
-
-      float longitude = results.get(0).getGeometry().getLocation().getLng().floatValue();
-
-      String address = results.get(0).getFormattedAddress();
-
-      String country = "";
-      for (GeocoderAddressComponent e :results.get(0).getAddressComponents()) {
-        if (e.getTypes().contains("country")) {
-          country = e.getShortName();
-          break;
-        }         
-      }
       
-      System.out.println(latitude + "," + longitude + ": " + address + " -- " + country );
-      place.setAddress(address);
-      place.setLatitude(Double.valueOf(latitude));
-      place.setLongitude(Double.valueOf(longitude));
-      place.setCountry(country);
+      if (results != null && !results.isEmpty()) {
+        float latitude = results.get(0).getGeometry().getLocation().getLat().floatValue();
+
+        float longitude = results.get(0).getGeometry().getLocation().getLng().floatValue();
+
+        String address = results.get(0).getFormattedAddress();
+
+        String country = "";
+        for (GeocoderAddressComponent e :results.get(0).getAddressComponents()) {
+          if (e.getTypes().contains("country")) {
+            country = e.getShortName();
+            break;
+          }         
+        }
+        
+        System.out.println(latitude + "," + longitude + ": " + address + " -- " + country );
+        place.setAddress(address);
+        place.setLatitude(Double.valueOf(latitude));
+        place.setLongitude(Double.valueOf(longitude));
+        place.setCountry(country);
+             
+      }
+
     } catch (IOException e) {
       System.out.println("Co loi tu google geocoder: " + e.getMessage());
     }

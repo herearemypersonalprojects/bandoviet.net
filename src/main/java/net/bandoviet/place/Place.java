@@ -65,7 +65,6 @@ public class Place {
   @Field(index = Index.YES, analyze = Analyze.NO, store = Store.NO)
   String telephone;
   
-  @Size(max = 100)
   @Column(name = "address", nullable = false)
   @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
   private String address;
