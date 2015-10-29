@@ -109,7 +109,9 @@ public class LinkedInCrawler {
       Document doc;
       try {
         LOGGER.debug("Dang xu ly: " + url);
-        doc = Jsoup.connect(url).get();
+        doc = Jsoup.connect(url)
+            .userAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.71 Safari/537.36")
+            .get();
 
         Elements links = doc.select(".vcard");
         LOGGER.debug("So luong vcard la: " + links.size());
