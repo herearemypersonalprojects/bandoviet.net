@@ -8,13 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
+import net.bandoviet.linkedin.LinkedInService;
 import net.bandoviet.tool.AmbassadeCrawler;
 import net.bandoviet.tool.AmeliCrawler;
 import net.bandoviet.tool.HncityCrawler;
@@ -45,8 +43,16 @@ public class HomeController {
   
   @Autowired SocieteCrawler societeCrawler;
   
+  @Autowired LinkedInService linkedInService;
+  
+  @RequestMapping("/linkedin")
+  @ResponseBody public String linkedin() {
+    linkedInService.crawl();
+    return "ok";
+  }
+  
   @RequestMapping("/crawlSocietes")
-  public @ResponseBody String crawlSocietes() {
+  @ResponseBody public String crawlSocietes() {
     societeCrawler.getData();
     return "ok";
   }
