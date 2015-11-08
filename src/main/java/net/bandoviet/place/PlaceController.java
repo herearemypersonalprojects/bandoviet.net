@@ -1,7 +1,5 @@
 package net.bandoviet.place;
 
-import net.bandoviet.tool.FileService;
-
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -48,6 +45,8 @@ public class PlaceController {
 
   private final PlaceService placeService;
 
+  @Autowired PlaceSaveService placeSaveService;
+  
   @Autowired
   private MessageSource messageSource;
   
@@ -251,8 +250,12 @@ public class PlaceController {
   public String showPlace(Map<String, Object> model, @PathVariable String titleWithoutAccents,
       @PathVariable Long id) {
     Place place = placeService.getPlace(id);
-    model.put("place", place);
-    return "portfolio";
+    //model.put("place", place);
+    //return "portfolio";
+    List<Place> items = new ArrayList<Place>();
+    items.add(place);
+    model.put("items", items);
+    return "index";
   }
   /**
    * Show search results for the given query.
@@ -352,7 +355,7 @@ public class PlaceController {
     }
  
     place.setCreatedFromIp(request.getRemoteAddr());
-    placeService.save(place, image);
+    placeSaveService.save(place, image);
     
 
 

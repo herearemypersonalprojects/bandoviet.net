@@ -2,6 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:url var="firstUrl" value="${path}1" />
 <c:url var="lastUrl" value="${path}${totalPages}" />
@@ -26,7 +27,7 @@
 				<div style="color:#ddd;">
 					Tìm được khoảng ${ totalPages*20} kết quả
 				</div>
-				<%--
+				
 					<div class="text-center">
 								
 								
@@ -65,7 +66,7 @@
 				     </ul>
 					 
 					  <p id="newplace" class="newplace addbutton2" >+</p> 
-				</div>--%>
+				</div>
 
 				<!-- item list -->
 				<c:forEach var="item" items="${ items }" varStatus="status">
@@ -103,10 +104,11 @@
 					</div>	
 					 --%>
 					<div>
-						<span style="color: #428bca;">${(currentIndex-1)*20 + status.index + 1}.</span>
+						<span style="color: #428bca;">${(currentIndex-1)*20 + status.index + 1}. </span>
 						<strong>
-						 <a href="/place/${item.titleWithoutAccents}/${item.id}" target="_blank"> ${item.title}</a>
+						 <a href="/place/${item.titleWithoutAccents}/${item.id}" target="_blank"> ${item.title}</a>						 
 						</strong>
+						
 					</div>
 					<div>
 						
@@ -117,10 +119,14 @@
 						data-lng="${item.longitude}" data-title="${item.title}"	data-img="${item.imagePath}">
 						
 				        <article>
-				       		 <img class="img-rounded photo_item" src="${item.imagePath}" alt="">
-				       		 <c:if test="${not empty item.address}">
+				       		 <img class="img-rounded photo_item" src="${item.imagePath}" alt="${item.title}">
+				       		 <c:if test="${not empty item.address}"> 
 				       			 <spring:message code="home.result.item.address"/> ${item.address}<br>
 				       		 </c:if>	 
+				       		
+				       		 Khoảng cách: 
+				       		 <fmt:formatNumber type="number" pattern="######" value="${item.distance}" /> m
+				       		 <br>	
 				       		 <c:if test="${false}">
 				       		 	<spring:message code="home.result.item.email"/>: ${item.email} <br>
 				       		 </c:if>

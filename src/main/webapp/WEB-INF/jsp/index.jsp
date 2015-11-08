@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="en">
@@ -182,12 +183,11 @@
 	<!-- end view -->
 	
 	<noscript>
-		<div id="noscript"><h3>Tu dois activer JavaScript pour naviguer sur bandoviet.net</h3>
-		<p>Nous utilisons les meilleures technologies de pointe disponibles pour offrir à nos utilisateurs une expérience Web optimale.
-		<br />
-		Il est recommandé d'activer JavaScript dans les paramètres du navigateur pour continuer.</p>
-		<p class="small"><a href="/download"> Télécharge Bandoviet </a> pour ton smartphone et commence à explorer le monde qui t'entoure !</p>
-		</div>
+		<div id="noscript">
+			<h3>Tu dois activer JavaScript pour naviguer sur bandoviet.net</h3>
+			<h3>You don't have javascript enabled.</h3>
+			<h3>TrÃ¬nh duyá»‡t cá»§a báº¡n chÆ°a báº­t JavaScript.</h3>
+	</div>
 	</noscript>
 	
 	<!-- script references -->
@@ -195,9 +195,10 @@
 	<script	src="/libs/jquery.validate.js"></script>
 	<script src="/js/jquery.datetimepicker.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
-	<script src="http://maps.googleapis.com/maps/api/js?sensor=false&extension=.js&output=embed&amp;language=en&amp;v=3.exp&libraries=places"></script>
+	<script src="http://maps.googleapis.com/maps/api/js?extension=.js&output=embed&amp;language=en&amp;v=3.exp&libraries=places"></script>
   
-    <script src="/js/cookie.js" type="text/javascript"></script>
+  	<script src="/js/detectmobilebrowser.js"></script>
+    <script src="/js/cookie.js" type="text/javascript"></script> 
     
     <script src="/js/lang.js" type="text/javascript"></script>
     <script src="/js/mapService.js"></script>

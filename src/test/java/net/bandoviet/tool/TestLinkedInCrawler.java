@@ -42,7 +42,7 @@ import net.bandoviet.place.PlaceType;
  */
 public class TestLinkedInCrawler {
 
-  @Test
+  
   public void testGoogleGeoCoder() {
     try {
       final Geocoder geocoder = new Geocoder();
@@ -80,6 +80,7 @@ public class TestLinkedInCrawler {
     System.out.println(VietnameseWords.removeAccents(s));
   }
 
+  @Test
   public void getDataFromLinkedin() {
     String url = "https://www.linkedin.com/in/anphungkhac";
     Place place = getPlace(url);
@@ -97,47 +98,89 @@ public class TestLinkedInCrawler {
 
     Document doc;
     try {
-      doc = Jsoup.connect(url).get();
+      // System.setProperty("http.proxyHost", "95.211.206.151");
+      // System.setProperty("http.proxyPort", "80");
+      // System.out.println("Dang xu ly: " + url);
+      doc = Jsoup.connect(url)
+          .userAgent(
+              "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.71 Safari/537.36")
+          .get();
 
-      Elements name = doc.select(".full-name");
+      Elements name = doc.select("#name");
       String fullname = name.text();
       if (StringUtils.isEmpty(fullname)) {
         return null;
       }
+      if (fullname.indexOf(",") > 0) {
+        fullname = fullname.substring(0, fullname.indexOf(","));
+      }
+
       place.setTitle(fullname);
 
-      Elements title = doc.select(".title");
-      String subtitle = title.text();
+      Elements title = doc.select(".profile-overview").select(".title");
+      String subtitle = title.get(0).text();
       place.setSubtitle(subtitle);
-      place.setTitle(place.getTitle() + subtitle);
+      place.setTitle(place.getTitle() + " - " + subtitle);
 
-      Elements picture = doc.select(".profile-picture").select("img");
-      String imagePath = picture.get(0).attr("src");
+      Elements picture = doc.select(".profile-picture").get(0).select(".photo");
+      String imagePath = picture.get(0).attr("data-delayed-url");
       place.setImagePath(imagePath);
 
-      Elements information = doc.select("#background");
+      doc.select(".summary-header").remove();
+
+      Elements information = doc.select("#profile");
       String info = information.html();
+
+      /*
+       * if (info.indexOf("Chinese") > 0) { return null; }
+       */
+
+      info = info.replace("<h2>Background</h2>", "");
+      info = info.replace("h5", "h6");
+      info = info.replace("h4", "h5");
+      info = info.replace("h3", "h4");
+      info = info.replace("Summary", "Giới thiệu");
+      info = info.replace("Experience", "Kinh nghiệm làm việc");
+      info = info.replace("Education", "Quá trình đào tạo");
+      info = info.replace("Skills", "Kỹ năng");
+      info = info.replace("Publications", "Công trình công bố");
+      info = info.replace("Interests", "Sở thích cá nhân");
       place.setInformation(info);
 
       Elements locality = doc.select(".locality");
       String address = locality.get(0).html().replace("Area", "");
-      System.out.println(address);
+
+      /*
+       * if (address.indexOf("Vietnam") >= 0) { return null; }
+       */
+
+      // System.out.println(address);
       if (!getAddress(place, address)) {
         return null;
       }
 
-      Elements links = doc.select(".insights-browse-map ul li");
-      System.out.println(links.size());
-      for (Element link : links) {
-        String furl = link.select("h4 a").attr("href");
-        System.out.println(furl);
-        String ffullname = link.select("h4 a").text();
-        System.out.println(ffullname);
-        String photo = link.select("a img").attr("data-li-src");
-        System.out.println(photo);
+      if (address.indexOf("Vietnam") < 0) {
 
-        if (VietnameseWords.isVietnamese(ffullname)) {
-          System.out.println("Day la ten tieng Viet: " + ffullname);
+        Elements links = doc.select(".insights li");
+        System.out.println(links.size());
+        for (Element link : links) {
+          String furl = link.select("a").get(0).attr("href");
+          // System.out.println(furl);
+          String ffullname = link.select(".info").get(0).select("a").text();
+          if (ffullname.indexOf(",") > 0) {
+            ffullname = ffullname.substring(0, ffullname.indexOf(","));
+          }
+
+          // System.out.println(ffullname);
+          String photo = link.select("a").get(0).select("img").attr("src");
+          System.out.println(photo);
+
+          if (VietnameseWords.isVietnamese(ffullname) && (photo.indexOf("ghosts") < 0)) {
+            System.out.println("Day la ten tieng Viet: " + ffullname);
+            
+              System.out.println("Them vao: " + furl);
+            
+          }
         }
       }
     } catch (IOException e) {

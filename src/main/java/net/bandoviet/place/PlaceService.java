@@ -115,40 +115,23 @@ public class PlaceService {
                                       Double lat, 
                                       Double lng, 
                                       String country) {
+    List<Place> places = new ArrayList<Place>();
     if (StringUtils.isEmpty(keywords)) {
-      return placeRepository
+      places = placeRepository
           .findByDistance(lat, lng, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE, country);
     } else {
-      return placeRepository.findByDistanceAndKeywords(
+      places = placeRepository.findByDistanceAndKeywords(
           keywords, lat, lng, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE, country);      
     }
-
-   /*
-    List<Place> lst = null;
-    if (country.length() <= 1) {
-      lst =  searchByKeywords(pageNumber, keywords);
-    } else {
-      if (StringUtils.isEmpty(keywords)) {
-        lst = placeRepository.search(PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE, country);
-        
-        lst = searchByArea(lat, lng, lst); 
-      } else { // keywords exist
-        lst = placeRepository
-            .searchByKeywords(keywords, country, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
-        lst = searchByArea(lat, lng, lst); 
-        
-        if (lst.isEmpty()) { // remove keywords contraint
-          lst = placeRepository.search(PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE, country);
-          lst = searchByArea(lat, lng, lst); 
-        }      
-      }
+    for (Place place : places) {
+      double distance = 3959 * Math.acos( Math.cos( Math.toRadians(lat) ) 
+                        * Math.cos( Math.toRadians( place.getLatitude() ) ) 
+                        * Math.cos( Math.toRadians( place.getLongitude() ) - Math.toRadians(lng) )
+                        + Math.sin( Math.toRadians(lat) ) 
+                        * Math.sin( Math.toRadians(place.getLatitude()) ) ) ;
+      place.setDistance(distance * 1.609344 * 1000);
     }
-    
-    if (lst.isEmpty()) { 
-      lst = searchByKeywords(pageNumber, ""); // remove keywords contraint
-    }
-    return lst;
-    */
+    return places;
   } 
   
   /**
@@ -233,7 +216,7 @@ public class PlaceService {
    */
   @Transactional
   public void save(@NotNull @Valid final Place place, MultipartFile image) {
-    if (place.getId() == null) {
+    if (place.getId() == null) { // chi xet trong truong hop them moi
       List<Place> lst = placeRepository.findExistings(place.getTitle(), place.getAddress());
       if (!lst.isEmpty()) {
         LOGGER.debug("The place " + place.getTitle() + " id: " + place.getId() + " exists already.");

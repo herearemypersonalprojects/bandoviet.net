@@ -15,7 +15,12 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import net.bandoviet.tool.AmbassadeCrawler;
+import net.bandoviet.tool.AmeliCrawler;
+import net.bandoviet.tool.HncityCrawler;
 import net.bandoviet.tool.LinkedInCrawler;
+import net.bandoviet.tool.SocieteCrawler;
+import net.bandoviet.tool.TripAdvisorCrawler;
 
 /**
  * Receive requests from homepage.
@@ -28,13 +33,52 @@ public class HomeController {
   @Value("${application.message:Hello World}")
   private String message;
   
-  @Autowired 
-  LinkedInCrawler crawler;
+  @Autowired LinkedInCrawler crawler;
+  
+  @Autowired AmeliCrawler ameli;
+  
+  @Autowired HncityCrawler hncity;
+  
+  @Autowired TripAdvisorCrawler tripAdvisorCrawler;
+  
+  @Autowired AmbassadeCrawler ambassadeCrawler;
+  
+  @Autowired SocieteCrawler societeCrawler;
+  
+  @RequestMapping("/crawlSocietes")
+  public @ResponseBody String crawlSocietes() {
+    societeCrawler.getData();
+    return "ok";
+  }
+  
+  @RequestMapping("/crawlAmbassades")
+  public @ResponseBody String crawlAmbassades() {
+    ambassadeCrawler.getAmbassades();
+    return "ok";
+  }
+  
+  @RequestMapping("/crawlTripAdvisor")
+  public @ResponseBody String crawlTripAdvisor() {
+    tripAdvisorCrawler.getFromTripAdvisor();
+    return "ok";
+  }
+  
+  @RequestMapping("/crawlHncity")
+  public @ResponseBody String crawlHncity() {
+    hncity.getDataFrom360hncity();
+    return "ok";
+  }
   
   @RequestMapping("/crawl")
   public @ResponseBody String crawl() {
     crawler.getDataFromLinkedin();
     return "ok";
+  }
+  
+  @RequestMapping("/crawlAmeli")
+  public @ResponseBody String crawlAmeli() {
+    ameli.getDataFromAmeli();
+    return "ok ameli";
   }
   
   /**

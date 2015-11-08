@@ -64,7 +64,7 @@ $(document).ready(function() {
 	
 	// SUBMIT
 	$('#newplaceform').submit(function(event) {
-		console.log(event);
+		alert("Thank you. We will update your information.");
 	});
 		
 });

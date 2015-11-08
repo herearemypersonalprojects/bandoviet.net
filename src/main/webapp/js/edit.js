@@ -26,6 +26,11 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 // [START initialize]
 function initialize() {
+	if(jQuery.browser.mobile)
+	{
+		window.location.href = "/unsupported";
+	}
+	
     map = new google.maps.Map(document.getElementById('map-canvas'), {
         zoom: zoomLevel,
         minZoom: zoomMin,

@@ -20,6 +20,7 @@
 			<li class="language" lang="fr"><a href="#">Français</a></li>
 			<li class="language" lang="vn"><a href="#">Tiếng Việt</a></li>
 			 --%>
+			 <%--
 			 <li class="dropdown">
 	          <a href="javascript: onclick();" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><font size="3">Bản đồ nhóm</font> <span class="caret"></span></a>
 	          <ul class="dropdown-menu">
@@ -34,6 +35,7 @@
 	            <li><a href="#">Tạo nhóm mới...</a></li>
 	          </ul>
 	        </li>
+	         --%>
 			 <li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Bản đồ của bạn <span class="caret"></span></a>
 	          <ul class="dropdown-menu">

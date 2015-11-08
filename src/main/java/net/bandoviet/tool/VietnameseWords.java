@@ -27,36 +27,77 @@ public class VietnameseWords {
       + "i,i,i,i,i,i,I,I,I,I,I,I,"
       + "d,D,y,y,y,y,y,y,Y,Y,Y,Y,Y,Y";
   
-  public static String[] names = {"Nguyen", "Tran", "Pham", "Hoang", "Huynh", 
+
+  public static String[] AmericanNames = {
+      "James", "Christopher", "Ronald", "Mary", "Lisa", "Michelle",
+      "John", "Daniel", "Anthony", "Patricia", "Nancy", "Laura",
+      "Robert", "Paul", "Kevin", "Linda", "Karen", "Sarah",
+      "Michael", "Mark", "Jason", "Barbara", "Betty", "Kimberly",
+      "William", "Donald", "Jeff", "Elizabeth", "Helen", "Deborah",
+      "David", "George", "Jennifer", "Sandra",  
+      "Richard", "Kenneth", "Maria", "Donna",
+      "Charles", "Steven", "Susan", "Carol",
+      "Joseph", "Edward", "Margaret", "Ruth",
+      "Thomas", "Brian", "Dorothy", "Sharon"
+  };
+  
+  public static String[] surnames = {"Nguyen", "Tran", "Pham", "Hoang", "Huynh", 
       "Phan", "Dang", "Bui", "Ngo", "Duong", "Chau", "Doan", "Giang", "Luong",
       "Phung", "Nghiem", "Quang", "Quynh", "Quyen", "Thao", "Thuy", "Trang", 
-      "Trieu", "Trinh", "Van", "Vinh", "Vuong", "Bang", "Minh", "Tam"};
+      "Trieu", "Trinh", "Vinh", "Vuong", "Bang", "Minh", "Dinh", "Quoc", "Vu", "Do", "Ho"};
   
-  // Dung de search ten tieng Viet
-  public static String VOCABULARY = " nguyen tran le pham hoang huynh phan vu "
-      + "vo dang bui do ho ngo duong ly bi bien binh bo ca cai cam cao cat can "
-      + "che chiem chu chau chung chuong co cu cung da danh diem doan du diep "
-      + "dam dan dao dau dien dinh doan don dong doi dai duong gia giao giang "
-      + "giap ha hang han hy hinh hoa hong hung hua kha khuong khau khuu khoa "
-      + "khong khu khuat khuc kieu kim la lac lai lam leu lieu lo luc lu luong "
-      + "luu ly ma mac mach mai mang mau man moc ninh nham nhiem ngan nghiem "
-      + "nghi nguy nhu nong ong phi pho phung phuong quan quach sam son su ta "
-      + "tao tang thach thai thao than thap thi thieu thinh thoi tieu tiep tong "
-      + "to ton tong trang tra trac trieu trinh trung truong tu ty uong ung "
-      + "van vi vien vuong vu xa yen ngoc "
-      + "bang tuyet nhu bao gia xuan bich an thai son nguyet thi diem hai hoan "
-      + "hong linh loan minh tran diep chi hanh khanh lan hoang cuc cuong trang "
-      + "dai quynh anh ngoc thuc truc thien kieu dung nghi chieu my thu giang "
-      + "hoai thanh thien thuy tra quynh lam mai ngan nhat van viet dieu cam "
+  // Dung de search ten tieng Viet  
+  public static String RESTAU = " nguyen tran pham hoang huynh phan"
+      + "dang bui ngo duong bien binh cao cat "
+      + "che chiem chau chuong cung danh diem doan diep "
+      + "dam dao dau dien dinh doan dong duong gia giao giang "
+      + "giap hang han hinh hoa "
+      + "khong luong "
+      + "mach mang mau man moc ninh nham nhiem ngan nghiem "
+      + "nghi nguy nhu nongphi pho phung phuong quan "
+      + "thach thai thao than thap thi thieu thinh thoi tieu tiep "
+      + "tong trang tra trieu trinh trung truong "
+      + "vien yen ngoc "
+      + "bang tuyet gia xuan bich thai nguyet thi diem hai hoan "
+      + "linh loan minh diep chi hanh khanh lan hoang cuc cuong trang "
+      + "dai quynh anh ngoc thuc truc thien kieu dung nghi chieu thu giang "
+      + "hoai thanh thien thuy tra quynh ngan nhat viet dieu "
       + "hieu xuan mong bach phuong huong nha yen hop xuan huyen thanh thuy nhu "
-      + "gia phi thien khue lien uyen nuong tu nguyet hoang sa san suong kiet "
-      + "trinh tuong tham thi thuong thu van hoai tue tho thoa ai bach thuy dang "
-      + "duy phuoc the truong vinh duong quang quoc the thieu thuan trung tuan "
+      + "gia phi thien khue lien uyen nuong nguyet hoang suong kiet "
+      + "trinh tuong tham thi thuong thu hoai tue tho thoa bach thuy dang "
+      + "duy phuoc truong vinh duong quang quoc thieu thuan trung tuan "
+      + "tuong tung hoai gia cong bang tieu bui buu thien khai huu manh hung "
+      + "khac khai nhat phuc trong dien giap huy khuong hiep tuan tri "
+      + "dinh nhat phuoc duc nhan hai ninh nam thien phu che sinh san "
+      + "trong luong cong khac doanh kinh toc loc xanh tuoi khiem khoan "
+      + "buom chim vui cham tram nhuong tien tuong kinh banh chon "
+      + "khoai ";
+  
+  // Dung de search ten tieng Viet  
+  public static String VOCABULARY = " nguyen tran pham hoang huynh phan vu "
+      + "vo dang bui do ho ngo duong bien binh cao cat "
+      + "che chiem chau chuong cung danh diem doan diep "
+      + "dam dao dau dien dinh doan dong duong gia giao giang "
+      + "giap ha hang han hy hinh hoa hung kha khuong khau khuu khoa "
+      + "khong khu khuat khuc kieu lac lam lieu luong "
+      + "mach mai mang mau man moc ninh nham nhiem ngan nghiem "
+      + "nghi nguy nhu nong ong phi pho phung phuong quan "
+      + "thach thai thao than thap thi thieu thinh thoi tieu tiep "
+      + "trang tra trac trieu trinh trung truong "
+      + "vien vuong yen ngoc "
+      + "bang tuyet nhu bao gia xuan bich thai nguyet thi diem hai hoan "
+      + "linh loan minh diep chi hanh khanh lan hoang cuc cuong trang "
+      + "dai quynh anh ngoc thuc truc thien kieu dung nghi chieu thu giang "
+      + "hoai thanh thien thuy tra quynh ngan nhat viet dieu "
+      + "hieu xuan mong bach phuong huong nha yen hop xuan huyen thanh thuy nhu "
+      + "gia phi thien khue lien uyen nuong nguyet hoang suong kiet "
+      + "trinh tuong tham thi thuong thu hoai tue tho thoa bach thuy dang "
+      + "duy phuoc truong vinh duong quang quoc thieu thuan trung tuan "
       + "tuong tung ho hoai gia cong bang tieu bui buu thien khai huu manh hung "
-      + "khac khai nhat phuc trong the dien giap huy ky khuong hiep ha tuan tri "
-      + "dinh hao lai nhat ba phuoc duc nhan hai ninh nam thien phu che sinh san "
-      + "trong luong uy vi cong khac doanh kinh toc loc xanh tuoi khiem khoan "
-      + "buom chim vui be cham tram nhuong tien tuong kinh an em banh chon "
+      + "khac khai nhat phuc trong dien giap huy ky khuong hiep ha tuan tri "
+      + "dinh nhat phuoc duc nhan hai ninh nam thien phu che sinh san "
+      + "trong luong cong khac doanh kinh toc loc xanh tuoi khiem khoan "
+      + "buom chim vui cham tram nhuong tien tuong kinh banh chon "
       + "khoai khoac kho khe ";
       
   public static String VOCABULARY2 = " ach bech ang anh benh ao beo ap "
@@ -226,13 +267,31 @@ public class VietnameseWords {
   public static boolean isVietnamese(String name) {
     name = VietnameseWords.removeAccents(name).toLowerCase();
     
+    if (isTwoVietnamese(name)) return true;
+    
+    
     String[] words = name.trim().split(" ");
     for (int i = 0; i < words.length; i++) {
-      String word = words[i]; System.out.println(word);
-      if (VietnameseWords.VOCABULARY.contains(" " + word + " ")) {
-        return true;
+      String word = " " + words[i] + " "; 
+      
+      for (int j = 0; j < VietnameseWords.surnames.length; j ++ ) {
+        if (word.equalsIgnoreCase(" " + VietnameseWords.surnames[j] + " ")) 
+          return true;
       }
     }
     return false;
+  }
+  
+  public static boolean isTwoVietnamese(String name) {
+    name = VietnameseWords.removeAccents(name).toLowerCase();
+    int count = 0;
+    String[] words = name.trim().split(" ");
+    for (int i = 0; i < words.length; i++) {
+      String word = words[i]; 
+      if (VietnameseWords.VOCABULARY.contains(" " + word + " ")) {
+        count ++;
+      }
+    }
+    return count > 1;
   }
 }

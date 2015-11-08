@@ -53,7 +53,8 @@
 					    title : title,
 					    icon: iconImage,
 					  });
-				if ((poiList[idx].type == 'INDIVIDUAL' ||  poiList[idx].type == 'FRIENDSMAP')&&  poiList[idx].iconPath) {
+				/*
+				  if ((poiList[idx].type == 'INDIVIDUAL' ||  poiList[idx].type == 'FRIENDSMAP')&&  poiList[idx].iconPath) {
 					var icon = {
 						    url: poiList[idx].iconPath
 						};
@@ -66,7 +67,7 @@
 					i.onerror = function () {
 					    marker.setIcon(null); //This displays brick colored standard marker icon in case image is not found.
 					}
-				}
+				} */
 
 				  //The infoWnd is opened when the sidebar button is clicked
 				  google.maps.event.addListener(m, 'click', function(){

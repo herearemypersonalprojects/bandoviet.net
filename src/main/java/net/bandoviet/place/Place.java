@@ -18,8 +18,8 @@ import javax.persistence.Lob;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  * Point of interest model.
@@ -39,6 +39,9 @@ public class Place {
   @Column(name = "id", nullable = false, updatable = false)
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
+  
+  @Transient
+  private Double distance;
   
   @NotNull
   @Column(name = "title", nullable = false)
@@ -143,6 +146,14 @@ public class Place {
   String organisedBy;
 
   /* PUBLIC METHODS */
+  /*table1Field1,table1Field2 etc. map to your table1.* coulmns
+  public Place(String table1Field1,int table1Field2, Double  distance){
+  
+  //..other assignments here
+  
+  this.distance = distance; // transient assignment here
+  
+  }*/
 
   public Long getId() {
     return id;
@@ -150,6 +161,14 @@ public class Place {
   
   public void setId(Long id) {
     this.id = id;
+  }
+
+  public Double getDistance() {
+    return distance;
+  }
+
+  public void setDistance(Double distance) {
+    this.distance = distance;
   }
 
   @PrePersist

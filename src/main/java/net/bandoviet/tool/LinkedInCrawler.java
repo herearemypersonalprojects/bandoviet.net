@@ -34,7 +34,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.google.code.geocoder.Geocoder;
 import com.google.code.geocoder.GeocoderRequestBuilder;
@@ -42,8 +44,11 @@ import com.google.code.geocoder.model.GeocodeResponse;
 import com.google.code.geocoder.model.GeocoderAddressComponent;
 import com.google.code.geocoder.model.GeocoderRequest;
 import com.google.code.geocoder.model.GeocoderResult;
-
-
+import com.google.maps.GeoApiContext;
+import com.google.maps.GeocodingApi;
+import com.google.maps.model.AddressComponent;
+import com.google.maps.model.GeocodingResult;
+import com.google.maps.model.LocationType;
 
 /**
  * get linkedin profiles.
@@ -54,6 +59,20 @@ import com.google.code.geocoder.model.GeocoderResult;
 @SuppressWarnings("deprecation")
 @Service
 public class LinkedInCrawler {
+  class Coordination {
+    Double lat;
+    Double lng;
+    String city;
+    String country;
+
+    public Coordination(Double lat, Double lng, String city, String country) {
+      this.lat = lat;
+      this.lng = lng;
+      this.city = city;
+      this.country = country;
+    }
+  }
+
   private static final Logger LOGGER = LoggerFactory.getLogger(LinkedInCrawler.class);
 
   @Autowired
@@ -62,14 +81,22 @@ public class LinkedInCrawler {
   List<String> linksInProgress = new ArrayList<String>();
   List<String> linksAlready = new ArrayList<String>();
 
+  Map<String, Coordination> existingLocation = new HashMap<String, Coordination>();
+
   public void getDataFromLinkedin() {
-    //linksInProgress = initSeeds();
-    linksInProgress.add("https://vn.linkedin.com/in/phuhoang");
-
-
-    //System.out.println("So luong seeds la: " + linksInProgress.size());
-
-    while (!linksInProgress.isEmpty()) {
+    // linksInProgress = initSeeds();
+    linksInProgress.add("https://fr.linkedin.com/in/vungocanh");
+    linksInProgress.add("https://www.linkedin.com/pub/khuong-nguyen/31/2a7/5a");
+    linksInProgress.add("https://www.linkedin.com/in/paulvinhphan");
+    linksInProgress.add("https://www.linkedin.com/in/christophergphan");
+    linksInProgress.add("https://www.linkedin.com/in/codeformoney");
+    linksInProgress.add("https://www.linkedin.com/in/tamthaopham");
+    // System.out.println("So luong seeds la: " + linksInProgress.size());
+    boolean flag = true;
+    while (!linksInProgress.isEmpty() && flag) {
+      System.out.println("DA XU LY: " + linksAlready.size());
+      System.out.println("CON LAI: " + linksInProgress.size());
+      flag = false;
       try {
         Thread.sleep(1000); // 1000 milliseconds is one second.
       } catch (InterruptedException ex) {
@@ -78,20 +105,22 @@ public class LinkedInCrawler {
       List<String> newLst = new ArrayList<String>(linksInProgress);
       for (String u : newLst) {
         Place place = getPlace(u);
+        linksAlready.add(u);
+        linksInProgress.remove(u);
         if (place != null) {
           System.out.println(place.getLatitude() + "," + place.getLongitude());
-          linksAlready.add(u);
-          linksInProgress.remove(u);
+
           if (place.getAddress() == null || place.getLatitude() == null
               || place.getLongitude() == null || place.getCountry() == null
               || place.getTitle() == null) {
-            System.out.print("Co loi tai: " + u);    
-            
+            System.out.print("Co loi tai: " + u);
+
           } else {
             try {
+              flag = true;
               placeService.save(place, null);
             } catch (Exception e) {
-              System.out.print("Co loi tai: " + e.getMessage());    
+              System.out.print("Co loi tai: " + e.getMessage());
             }
           }
 
@@ -100,47 +129,96 @@ public class LinkedInCrawler {
     }
 
   }
-  
 
   private List initSeeds() {
+
     List<String> urls = new ArrayList<String>();
-    for (int i = 0; i < VietnameseWords.names.length; i++) {
-      String url = "https://www.linkedin.com/pub/dir/?first=Huong&last=" + VietnameseWords.names[i] + "&search=Search&searchType=fps";
-      Document doc;
-      try {
-        LOGGER.debug("Dang xu ly: " + url);
-        doc = Jsoup.connect(url)
-            .userAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.71 Safari/537.36")
-            .get();
+    for (int i = 0; i < VietnameseWords.surnames.length; i++)
+      for (int k = 0; k < VietnameseWords.VOCABULARY.split(" ").length; k++) {
 
-        Elements links = doc.select(".vcard");
-        LOGGER.debug("So luong vcard la: " + links.size());
+        String url = "https://www.linkedin.com/pub/dir/?first="
+            + VietnameseWords.VOCABULARY.split(" ")[k] + "&last=" + VietnameseWords.surnames[i]
+            + "&search=Search&searchType=fps";
+        Document doc;
+        try {
+          System.out.println("Dang xu ly: " + url);
+          doc = Jsoup.connect(url)
+              .userAgent(
+                  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.71 Safari/537.36")
+              .get();
 
-        for (Element link : links) {
-          String furl = link.select("a").attr("href");
-          System.out.println(furl);
-          String ffullname = link.select("a").attr("title");
-          System.out.println(ffullname);
-          String photo = link.select("a img").attr("src");
-          System.out.println(photo);
+          Elements links = doc.select(".profile-card");
+          // System.out.println("So luong vcard la: " + links.size());
 
-          if (VietnameseWords.isVietnamese(ffullname) && photo.indexOf("ghosts") < 0) {
-            System.out.println("Day la ten tieng Viet: " + ffullname);
-            if (!urls.contains(furl) && placeService.findRefs(furl).isEmpty()) {
-              urls.add(furl);
-              LOGGER.debug("Them vao: " + furl);
+          for (Element link : links) {
+            String furl = link.select("a").attr("href");
+            // System.out.println(furl);
+            String ffullname = link.select("a img").attr("alt");
+            if (ffullname.indexOf(",") > 0) {
+              ffullname = ffullname.substring(0, ffullname.indexOf(","));
+            }
+            // System.out.println(ffullname);
+            String photo = link.select("a img").attr("src");
+            // System.out.println(photo);
+
+            if (VietnameseWords.isVietnamese(ffullname) && photo.indexOf("ghosts") < 0) {
+              // System.out.println("Day la ten tieng Viet: " + ffullname);
+              if (!urls.contains(furl)) {
+                urls.add(furl);
+                // System.out.println("Them vao: " + furl);
+              }
             }
           }
+        } catch (IOException e) {
+          return urls;
         }
-      } catch (IOException e) {
-        return null;
       }
-    }
+    // AMERICAN SURNAMES
+    for (int i = 0; i < VietnameseWords.surnames.length; i++)
+      for (int k = 0; k < VietnameseWords.AmericanNames.length; k++) {
+
+        String url = "https://www.linkedin.com/pub/dir/?first=" + VietnameseWords.AmericanNames[k]
+            + "&last=" + VietnameseWords.surnames[i] + "&search=Search&searchType=fps";
+        Document doc;
+        try {
+          System.out.println("Dang xu ly: " + url);
+          doc = Jsoup.connect(url)
+              .userAgent(
+                  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.71 Safari/537.36")
+              .get();
+
+          Elements links = doc.select(".profile-card");
+          // System.out.println("So luong vcard la: " + links.size());
+
+          for (Element link : links) {
+            String furl = link.select("a").attr("href");
+            // System.out.println(furl);
+            String ffullname = link.select("a img").attr("alt");
+            if (ffullname.indexOf(",") > 0) {
+              ffullname = ffullname.substring(0, ffullname.indexOf(","));
+            }
+            // System.out.println(ffullname);
+            String photo = link.select("a img").attr("src");
+            // System.out.println(photo);
+
+            if (VietnameseWords.isVietnamese(ffullname) && photo.indexOf("ghosts") < 0) {
+              // System.out.println("Day la ten tieng Viet: " + ffullname);
+              if (!urls.contains(furl)) {
+                urls.add(furl);
+                // System.out.println("Them vao: " + furl);
+              }
+            }
+          }
+        } catch (IOException e) {
+          return urls;
+        }
+      }
     return urls;
   }
 
   private Place getPlace(String url) { // id, title, address, country,latitude, longitude,
                                        // place_type
+    System.out.println("DANG XU LY: " + url);
     Place place = new Place();
     place.setCommunityCode("VN");
     place.setReferenceUrl(url);
@@ -150,29 +228,53 @@ public class LinkedInCrawler {
     try {
       // System.setProperty("http.proxyHost", "95.211.206.151");
       // System.setProperty("http.proxyPort", "80");
-      LOGGER.debug("Dang xu ly: " + url);
-      doc = Jsoup.connect(url).get();
+      // System.out.println("Dang xu ly: " + url);
+      doc = Jsoup.connect(url).timeout(15000)
+          .userAgent(
+              "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.71 Safari/537.36")
+          .get();
 
-      Elements name = doc.select(".full-name");
+      Elements name = doc.select("#name");
       String fullname = name.text();
       if (StringUtils.isEmpty(fullname)) {
+        System.out.println("NAME is null");
         return null;
       }
+      if (fullname.indexOf(",") > 0) {
+        fullname = fullname.substring(0, fullname.indexOf(","));
+      }
+
       place.setTitle(fullname);
 
-      Elements title = doc.select(".title");
-      String subtitle = title.text();
-      place.setSubtitle(subtitle);
-      place.setTitle(place.getTitle() + " - " + subtitle);
+      Elements title = doc.select(".profile-overview").select(".title");
+      if (!title.isEmpty() && title.size() > 0) {
+        String subtitle = title.get(0).text();
+        place.setSubtitle(subtitle);
+        place.setTitle(place.getTitle() + " - " + subtitle);
+      }
 
-      Elements picture = doc.select(".profile-picture").select("img");
-      String imagePath = picture.get(0).attr("src");
-      place.setImagePath(imagePath);
+      Elements picture = doc.select(".profile-picture");
+      if (!picture.isEmpty() && picture.size() > 0) {
+        String imagePath = picture.get(0).select("a img").attr("data-delayed-url");
+        if (imagePath.isEmpty())
+          imagePath = picture.get(0).select(".photo").attr("src");
+        place.setImagePath(imagePath);
+      }
 
       doc.select(".summary-header").remove();
 
-      Elements information = doc.select("#background");
-      String info = information.html();
+      Elements information = doc.select(".profile-section");
+      information.select("iframe").remove();
+      String info = "";
+      if (!information.isEmpty() && information.size() > 1) {
+        for (int k = 1; k < information.size(); k++)
+          info = info.concat(information.get(k).html());
+      }
+
+      /*
+       * if (info.indexOf("Chinese") > 0) { return null; }
+       */
+
       info = info.replace("<h2>Background</h2>", "");
       info = info.replace("h5", "h6");
       info = info.replace("h4", "h5");
@@ -185,46 +287,106 @@ public class LinkedInCrawler {
       info = info.replace("Interests", "Sở thích cá nhân");
       place.setInformation(info);
 
-      Elements locality = doc.select(".locality");
-      String address = locality.get(0).html().replace("Area", "");
 
-      /*
-      if (address.indexOf("Vietnam") >= 0) {
-        return null;
-      }
-      */
+      // if (address.indexOf("Vietnam") < 0) {
 
-      System.out.println(address);
-      if (!getAddress(place, address)) {
-        return null;
-      }
-
-      Elements links = doc.select(".insights-browse-map ul li");
+      Elements links = doc.select(".insights li");
       System.out.println(links.size());
+      boolean vietnamese = false;
       for (Element link : links) {
-        String furl = link.select("h4 a").attr("href");
-        System.out.println(furl);
-        String ffullname = link.select("h4 a").text();
-        System.out.println(ffullname);
-        String photo = link.select("a img").attr("data-li-src");
-        System.out.println(photo);
+        try {
 
-        if (VietnameseWords.isVietnamese(ffullname) && photo.indexOf("ghosts") < 0) {
-          System.out.println("Day la ten tieng Viet: " + ffullname);
-          if (!linksInProgress.contains(furl) && !linksAlready.contains(furl)
-              && placeService.findRefs(furl).isEmpty()) {
-            linksInProgress.add(furl);
-            LOGGER.debug("Them vao: " + furl);
+          if (link.select("a").isEmpty())
+            continue;
+          String furl = link.select("a").get(0).attr("href");
+          // System.out.println(furl);
+          if (!link.select(".info").isEmpty() && link.select(".info").size() > 0) {
+            String ffullname = link.select(".info").get(0).select("a").text();
+            if (ffullname.indexOf(",") > 0) {
+              ffullname = ffullname.substring(0, ffullname.indexOf(","));
+            }
+
+            // System.out.println(ffullname);
+            String photo = link.select("a").get(0).select("img").attr("src");
+            if (photo.isEmpty()) {
+              photo = link.select("a").get(0).select("img").attr("data-delayed-url");
+            }
+           // System.out.println("photo: " + photo);
+
+            if (VietnameseWords.isVietnamese(ffullname) ) {
+              vietnamese = true;
+              System.out.println("Day la ten tieng Viet: " + ffullname);
+              if ((photo.indexOf("ghosts") < 0) && !linksInProgress.contains(furl) && !linksAlready.contains(furl)) {
+                linksInProgress.add(linksInProgress.size(), furl);
+                // System.out.println("Them vao: " + furl);
+              }
+            }
           }
+        } catch (Exception e) {
+          System.out.println(e.getMessage() + " : " + link.html());
         }
       }
+      if (!vietnamese) {
+        System.out.println("KHONG CO BAN CHUNG VIET");
+        return null;
+      }
+      
+      
+      Elements locality = doc.select(".locality");
+      if (locality.isEmpty() || locality.size() < 1) {
+        locality = doc.select(".location");
+        if (locality.isEmpty()) System.out.println("ADDRESS is null");
+        return null;
+      }
+        
+      String address = locality.get(0).html().replace("Area", "").replace("Greater ", "");
+
+      /*
+       * if (address.indexOf("Vietnam") >= 0) { return null; }
+       */
+
+      // Neu dia chi nay da duoc tinh toan sang lat, lng roi thi chi viec lay ra
+      if (existingLocation.containsKey(address)) {
+        System.out.println("Dia chi: " + address + " : da duoc tinh toan");
+        Coordination result = existingLocation.get(address);
+        place.setAddress(address);
+        place.setLatitude(result.lat);
+        place.setLongitude(result.lng);
+        place.setCity(result.city);
+        place.setCountry(result.country);
+
+      }
+      // neu khong phai tinh toan lai
+      else {
+        if (!getAddress(place, address)) {
+          // neu dia chi ko ton tai thi stop
+          System.out.println("ADDRESS is not found");
+          return null;
+        }
+        // sau khi tinh toan thi them vao danh sach ton tai
+        else {
+          existingLocation.put(address, new Coordination(place.getLatitude(), place.getLongitude(),
+              place.getCity(), place.getCountry()));
+        }
+      }
+
+      // }
     } catch (IOException e) {
+      System.out.println("BI LOI: "  + e.getMessage());
       return null;
     }
     return place;
   }
 
-  private boolean getAddress(Place place, String location) {
+  public boolean getAddress(Place place, String location) {
+    if (StringUtils.isEmpty(location)) {
+      return false;
+    }
+    try {
+      Thread.sleep(1000); // 1000 milliseconds is one second.
+    } catch (InterruptedException ex) {
+      Thread.currentThread().interrupt();
+    }
     try {
       NominatimSearchRequest req = new NominatimSearchRequest();
 
@@ -266,21 +428,20 @@ public class LinkedInCrawler {
               }
             }
           } else {
-            try {
-              Thread.sleep(1000); // 1000 milliseconds is one second.
-            } catch (InterruptedException ex) {
-              Thread.currentThread().interrupt();
-            }
+
             try {
               NominatimReverseGeocodingJAPI nominatim = new NominatimReverseGeocodingJAPI();
               NominatimAddress add = nominatim.getAdress(place.getLatitude(), place.getLongitude());
               if (add != null) {
-                if (add.getCity() != null)  place.setCity(add.getCity());
-                if (add.getPostcode() != null) place.setPostalCode(add.getPostcode());
-                if (add.getCountry() != null)  place.setCountry(add.getCountryCode().toUpperCase());    
+                if (add.getCity() != null)
+                  place.setCity(add.getCity());
+                if (add.getPostcode() != null)
+                  place.setPostalCode(add.getPostcode());
+                if (add.getCountry() != null)
+                  place.setCountry(add.getCountryCode().toUpperCase());
               }
-                    
-            } catch (Exception e){
+
+            } catch (Exception e) {
               break;
             }
 
@@ -289,58 +450,66 @@ public class LinkedInCrawler {
           break;
         }
       } catch (IOException e) {
-        System.out.println("Co loi: " + e.getMessage());
-      }     
+        System.out.println("Co loi nominatimClient: " + e.getMessage());
+
+      }
     } catch (Exception e) {
-      System.out.println("Co loi: " + e.getMessage());
+      System.out.println("Co loi NominatimSearchRequest: " + e.getMessage());
     }
 
-    
     if (place.getLatitude() == null || place.getLongitude() == null || place.getCountry() == null) {
-      getAddressFromGoogleMap( place, location);
+      getAddressFromGoogleMap(place, location);
     }
-    
-    return (place.getLatitude() != null 
-        && place.getLongitude() != null 
+
+    return (place.getLatitude() != null && place.getLongitude() != null
         && place.getCountry() != null);
   }
-  
-  private void getAddressFromGoogleMap(Place place, String location) {
+
+  public boolean getAddressFromGoogleMap(Place place, String location) {
+
+    if (StringUtils.isEmpty(location)) {
+      return false;
+    }
+
+    GeoApiContext context = new GeoApiContext()
+        .setApiKey("AIzaSyCJbKbcTqdaVh5oJVTOBTHPaBDViLurLxM");
+    GeocodingResult[] results;
     try {
-      final Geocoder geocoder = new Geocoder();
-      GeocoderRequest geocoderRequest = new GeocoderRequestBuilder().setAddress("San Francisco Bay")
-          .setLanguage("en").getGeocoderRequest();
+      results = GeocodingApi.geocode(context, location).await();
+      System.out.println(results[0].formattedAddress);
 
-      GeocodeResponse geocoderResponse = geocoder.geocode(geocoderRequest);
-      List<GeocoderResult> results = geocoderResponse.getResults();
-      
-      if (results != null && !results.isEmpty()) {
-        float latitude = results.get(0).getGeometry().getLocation().getLat().floatValue();
+      if (results != null && results.length > 0) {
+        double latitude = results[0].geometry.location.lat;
 
-        float longitude = results.get(0).getGeometry().getLocation().getLng().floatValue();
+        double longitude = results[0].geometry.location.lng;
 
-        String address = results.get(0).getFormattedAddress();
+        String address = results[0].formattedAddress;
 
         String country = "";
-        for (GeocoderAddressComponent e :results.get(0).getAddressComponents()) {
-          if (e.getTypes().contains("country")) {
-            country = e.getShortName();
-            break;
-          }         
+        for (int j = 0; j < results[0].addressComponents.length; j++) {
+          AddressComponent e = results[0].addressComponents[j];
+
+          for (int k = 0; k < e.types.length; k++) {
+            if (e.types[k].equals("country")) {
+              country = e.shortName;
+              break;
+            }
+          }
         }
-        
-        System.out.println(latitude + "," + longitude + ": " + address + " -- " + country );
+
+        System.out.println(latitude + "," + longitude + ": " + address + " -- " + country);
         place.setAddress(address);
         place.setLatitude(Double.valueOf(latitude));
         place.setLongitude(Double.valueOf(longitude));
         place.setCountry(country);
-             
+
       }
 
-    } catch (IOException e) {
-      System.out.println("Co loi tu google geocoder: " + e.getMessage());
+    } catch (Exception e1) {
+      System.out.println(e1.getMessage());
+      return false;
     }
-    
+    return true;
   }
 
   public String getUrlSource(String url) throws IOException {
