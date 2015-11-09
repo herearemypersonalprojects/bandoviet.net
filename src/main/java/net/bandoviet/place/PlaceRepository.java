@@ -16,6 +16,12 @@ import java.util.List;
 @Repository
 public interface PlaceRepository extends JpaRepository<Place, Long> {
   
+  @Query(value = "SELECT * FROM place "
+      + "WHERE country <> 'VN' and place_type <> 'INDIVIDUAL' and place_type <> 'COMPANY' "
+      + "ORDER BY RAND() LIMIT :randNum", nativeQuery = true)
+  List<Place> findRandom(@Param("randNum") int randNum);
+  
+  
   @Query(value = "select * from place where reference_url like :url", nativeQuery = true)
   List<Place> findByUrl(@Param("url") String url);
   

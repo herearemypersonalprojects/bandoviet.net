@@ -1,8 +1,14 @@
 package net.bandoviet.tool;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,12 +32,39 @@ import com.google.maps.model.GeocodingResult;
 
 public class TestGoogleGeoCoder {
 
+  @Test
+  public void testGoogleSearch() throws UnsupportedEncodingException, IOException {
+    String google = "http://www.google.com/search?q=";
+    String search = "nguyen+linkedin";
+    String charset = "UTF-8";
+    String userAgent = "ExampleBot 1.0 (+http://example.com/bot)"; // Change this to your company's
+                                                                   // name and bot homepage!
+
+    Elements links = Jsoup.connect(google + URLEncoder.encode(search, charset)).userAgent(userAgent)
+        .get().select("li.g>h3>a");
+
+    for (Element link : links) {
+      String title = link.text();
+      String url = link.absUrl("href"); // Google returns URLs in format
+                                        // "http://www.google.com/url?q=<url>&sa=U&ei=<someKey>".
+      url = URLDecoder.decode(url.substring(url.indexOf('=') + 1, url.indexOf('&')), "UTF-8");
+
+      if (!url.startsWith("http")) {
+        continue; // Ads/news/etc.
+      }
+
+      System.out.println("Title: " + title);
+      System.out.println("URL: " + url);
+    }
+    
+  }
+
   public void test2() {
     try {
       final Geocoder geocoder = new Geocoder();
-      GeocoderRequest geocoderRequest = new GeocoderRequestBuilder().setAddress("Paris, France").setLanguage("en").getGeocoderRequest();
+      GeocoderRequest geocoderRequest = new GeocoderRequestBuilder().setAddress("Paris, France")
+          .setLanguage("en").getGeocoderRequest();
       GeocodeResponse geocoderResponse = geocoder.geocode(geocoderRequest);
-
 
       List<GeocoderResult> results = geocoderResponse.getResults();
 
@@ -58,17 +91,16 @@ public class TestGoogleGeoCoder {
       System.out.println("Co loi tu google geocoder: " + e.getMessage());
     }
   }
-  @Test
+
   public void test() {
- // Replace the API key below with a valid API key.
-    GeoApiContext context 
-        = new GeoApiContext().setApiKey("AIzaSyCJbKbcTqdaVh5oJVTOBTHPaBDViLurLxM");
+    // Replace the API key below with a valid API key.
+    GeoApiContext context = new GeoApiContext()
+        .setApiKey("AIzaSyCJbKbcTqdaVh5oJVTOBTHPaBDViLurLxM");
     GeocodingResult[] results;
     try {
-      results = GeocodingApi.geocode(context,
-          "1600 Amphitheatre Parkway Mountain View, CA 94043").await();
+      results = GeocodingApi.geocode(context, "1600 Amphitheatre Parkway Mountain View, CA 94043")
+          .await();
       System.out.println(results[0].formattedAddress);
-     
 
       if (results != null && results.length > 0) {
         double latitude = results[0].geometry.location.lat;
@@ -80,18 +112,18 @@ public class TestGoogleGeoCoder {
         String country = "";
         for (int j = 0; j < results[0].addressComponents.length; j++) {
           AddressComponent e = results[0].addressComponents[j];
-  
+
           for (int k = 0; k < e.types.length; k++) {
             if (e.types[k].equals("country")) {
-              country = e.shortName; 
+              country = e.shortName;
               break;
             }
           }
         }
 
-        System.out.println(latitude + "," + longitude + ": " + address + " -- " + country);    
+        System.out.println(latitude + "," + longitude + ": " + address + " -- " + country);
       }
-      
+
     } catch (Exception e1) {
       System.out.println(e1.getMessage());
     }

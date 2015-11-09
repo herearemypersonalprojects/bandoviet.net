@@ -45,6 +45,18 @@ public class HomeController {
   
   @Autowired LinkedInService linkedInService;
   
+  
+  /**
+   * Homepage
+   * @param model communication between view and controller.
+   * @return the login page if user has not yet connected or index page otherwise.
+   */
+  @RequestMapping("/")
+  public String home(Map<String, Object> model ) {
+    
+    return "redirect:/index";
+  }
+  
   @RequestMapping("/linkedin")
   @ResponseBody public String linkedin() {
     linkedInService.crawl();

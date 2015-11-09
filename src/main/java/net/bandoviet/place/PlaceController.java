@@ -64,7 +64,7 @@ public class PlaceController {
    *          get user's ip
    * @return list of filtered POIs
    */
-  @RequestMapping(value = "/", method = RequestMethod.GET)
+  @RequestMapping(value = "/index", method = RequestMethod.GET)
   public String index(Map<String, Object> model, HttpServletRequest request) {
     Integer pageNumber = 1;
 

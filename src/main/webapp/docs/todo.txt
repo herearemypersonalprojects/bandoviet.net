@@ -1,0 +1,24 @@
+1. Lay du lieu tu server
+2. Loc lai du lieu de loai bo het ten khong phai nguoi Viet
+3. Tap trung lam phan user
+4. Chuyen lai dia chi 80
+5. Khi vao trang chu bandoviet.net thì hiển thị giao diện Đăng nhập hoặc Đăng ký. Hiển thị thêm một số dịch vụ có ảnh
+tại thành phố (nếu tồn tại POIs) hoặc đất nước dựa vào user's IP.
+
+Tại màn hình Đăng Ký sẽ yêu cầu vị trí của người dùng. Vị trí này sẽ được điền luôn vào form đăng ký. Các thông tin 
+bao gồm: Tên, năm sinh, email, địa chỉ (được điền tự động có thể chỉnh sửa), nghề nghiệp chuyên môn, mật khẩu.
+Form đăng nhập chỉ gồm Email và mật khẩu.
+Sẽ dùng Facebook, Linkedin hoặc Twitter để hỗ trợ đăng ký. 
+
+6. Sau khi đăng nhập sẽ trỏ đến bandoviet.net/index. Thực tế thì không cần đăng nhập vẫn có thể vào được đường dẫn này,
+để cho phép google có thể indexed, nhưng mục đích khuyến khích người dùng đăng nhập.
+7. Nếu người dùng đã đăng nhập và có độ tín nhiệm thì có thể edit hoặc add new trực tiếp lên CSDL gốc. 
+Mức độ khả tín dựa 1 đóng góp đã được valided của người đó.
+8. Tạm thời có lẽ bỏ text editor đi, chỉ để text không để có thể gõ tiếng Việt và giảm dung lượng chứa. Nhưng sẽ không
+được đẹp lắm khi copy - paste.
+9. Đi lấy toàn bộ dũ liệu của EYLP tất cả các thành phố trên thế giới.
+10. Khi một người đã đăng nhập. Trên bản đồ sẽ hiển thị có người Việt ở 
+vị trí này, nhưng chỉ đưa ra icon mà không đưa các thông tin cá nhân như ảnh hoặc tên. Trên mỗi icon như vậy sẽ có
+một nút Xin làm quen để người khác có thể xin phép được trò chuyện.
+Nếu một người nhấn nút Làm Quen thì thông tin cá nhân của họ như ảnh, tên sẽ được gửi tới người họ xin làm quen.
+Chỉ khi người được làm quen chấp nhận thì 2 người mới thấy profile của nhau. 

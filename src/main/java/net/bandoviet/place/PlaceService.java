@@ -38,7 +38,7 @@ public class PlaceService {
   private static final Logger LOGGER = LoggerFactory.getLogger(PlaceService.class);
   private final PlaceRepository placeRepository;
 
-  private static final int PAGE_SIZE = 20;
+  private static final int PAGE_SIZE = 50;
   
   private static final double DISTANCE = 50; // km
   
@@ -63,6 +63,12 @@ public class PlaceService {
     return placeRepository.findByUrl(url);
   }
   
+  /*
+   * Tra ve mot so cac dia diem ngau nhien.
+   */
+  public List<Place> getRandom(int randNum) {
+    return placeRepository.findRandom(randNum);
+  }
   /**
    * Return one page which have PAGE_SIZE items.
    * @param pageNumber page number.
