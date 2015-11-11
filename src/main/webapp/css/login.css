@@ -153,4 +153,14 @@ h2 { font-size: 30px; line-height:38px; font-weight:normal; }
   .container {
   width: 36%;
   }
-  
+  .error {
+	color: #ff0000;
+}
+
+.errorblock{
+	color: #000;
+	background-color: #ffEEEE;
+	border: 3px solid #ff0000;
+	padding:8px;
+	margin:16px;
+}

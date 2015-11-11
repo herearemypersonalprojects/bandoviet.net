@@ -4,7 +4,12 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -16,37 +21,51 @@ import javax.validation.constraints.Size;
  */
 
 @Entity
+@Table(name = "user")
 public class User {
 
+  /* There is also an unique constraint on the email field, 
+  * but it's not a primary key. The user is identified by id 
+  * for a reason that e-mail addresses is quite a sensitive 
+  * information you don't want to appear in access logs, so we'll stick to using id whenever we can.
+  */
   @Id
-  @NotNull
-  @Size(max = 64)
-  private String id; // id = user ip + invert(the first part of user email)
-
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id", nullable = false, updatable = false)
+  private Long id;
+  
+  @Column(name = "enabled", nullable = false)
+  private boolean enabled;
+  
   @NotNull
   @Size(max = 64)
   @Column(name = "password", nullable = false)
+  // only the hash of the password will be stored in a database, which is usually a good idea
   private String password;
 
-  @Column(name = "email", nullable = false)
+  @Column(name = "email", nullable = false, unique = true)
   private String email;
-
-  @Column(name = "login")
-  private String login;
-
-  @Column(name = "created_date", nullable = false)
+  
+  @Column(name = "role", nullable = false)
+  @Enumerated(EnumType.STRING)
+  private Role role;
+  
+  @Column(name = "fullname")
+  private String fullname;
+  
+  @Column(name = "created_date")
   private Date createdDate;
 
-  @Column(name = "last_login_date", nullable = false)
+  @Column(name = "last_login_date")
   private Date lastLoginDate;
 
   @Column(name = "last_active_time")
   private long lastActiveTime; // in milliseconds
 
-  @Column(name = "first_connected_ip", nullable = false)
+  @Column(name = "first_connected_ip")
   private String firstConnectedIp;
 
-  @Column(name = "last_connected_ip", nullable = false)
+  @Column(name = "last_connected_ip")
   private String lastConnectedIp;
 
   @Column(name = "telephone")
@@ -66,12 +85,6 @@ public class User {
 
   @Column(name = "avatar_url")
   private String avatarUrl;
-
-  @Column(name = "lastname")
-  private String lastname;
-
-  @Column(name = "firstname")
-  private String firstname;
 
   @Column(name = "access_level")
   private int accessLevel; // 0: normal; 1: admin; 2: superadmin
@@ -115,17 +128,33 @@ public class User {
   @Column(name = "language")
   private String language;
 
-  User() {
+  /* PUBLIC METHODS */
+  
+  public User() {
   }
-
-  public User(final String id, final String password) {
-    this.id = id;
+  
+  /**
+   * Khoi tao user.
+   */
+  public User(String fullname, String email, String password, boolean enabled) {
+    this.fullname = fullname;
+    this.email = email;
     this.password = password;
+    this.enabled = enabled;
   }
-
-  public String getId() {
-    return id;
+  
+  /**
+   * Khoi tao user.
+   */  
+  public User(String fullname, String email, String password, boolean enabled,
+      Role userRole) {
+    this.fullname = fullname;
+    this.email = email;
+    this.password = password;
+    this.enabled = enabled;
+    this.role = userRole;
   }
+  
 
   public String getPassword() {
     return password;
@@ -143,12 +172,36 @@ public class User {
     this.email = email;
   }
 
-  public String getLogin() {
-    return login;
+  public boolean isEnabled() {
+    return enabled;
   }
 
-  public void setLogin(String login) {
-    this.login = login;
+  public void setEnabled(boolean enabled) {
+    this.enabled = enabled;
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public Role getRole() {
+    return role;
+  }
+
+  public void setRole(Role role) {
+    this.role = role;
+  }
+
+  public String getFullname() {
+    return fullname;
+  }
+
+  public void setFullname(String fullname) {
+    this.fullname = fullname;
   }
 
   public long getLastActiveTime() {
@@ -238,23 +291,7 @@ public class User {
   public void setAvatarUrl(String avatarUrl) {
     this.avatarUrl = avatarUrl;
   }
-
-  public String getLastname() {
-    return lastname;
-  }
-
-  public void setLastname(String lastname) {
-    this.lastname = lastname;
-  }
-
-  public String getFirstname() {
-    return firstname;
-  }
-
-  public void setFirstname(String firstname) {
-    this.firstname = firstname;
-  }
-
+  
   public int getAccessLevel() {
     return accessLevel;
   }

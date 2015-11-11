@@ -50,6 +50,8 @@
 	            <li><a href="#">Gia đình, họ hàng</a></li>
 	            <li role="separator" class="divider"></li>
 	            <li><a href="#">Địa chỉ cần nhớ</a></li>
+	            <li role="separator" class="divider"></li>
+	            <li><a href="#">Thoát ra</a></li>
 	          </ul>
 	        </li>	        
 			<li>&nbsp;</li>
