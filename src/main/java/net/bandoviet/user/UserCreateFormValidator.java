@@ -1,13 +1,15 @@
 package net.bandoviet.user;
 
+import net.bandoviet.tool.EmailUtils;
+import net.bandoviet.tool.VietnameseWords;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import net.bandoviet.tool.EmailUtils;
+
 
 /**
  * To check if the password and repeated passwords are matching. To check if the email exists in a
@@ -34,10 +36,13 @@ public class UserCreateFormValidator implements Validator {
     validateVietnameseName(errors, form);
     validatePasswords(errors, form);
     validateEmail(errors, form);
-   }
+  }
   
-  private void validateVietnameseName(Errors erros, UserCreateForm form) {
-    
+  private void validateVietnameseName(Errors errors, UserCreateForm form) {
+    if (StringUtils.isNotBlank(form.getFullname()) 
+        && !VietnameseWords.isVietnamese(form.getFullname())) {
+      errors.rejectValue("fullname", "fullname.invalidated", "Tên không đúng");
+    }
   }
 
   private void validatePasswords(Errors errors, UserCreateForm form) {

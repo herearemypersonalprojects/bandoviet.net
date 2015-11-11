@@ -44,7 +44,22 @@ public class VietnameseWords {
   public static String[] surnames = {"Nguyen", "Tran", "Pham", "Hoang", "Huynh", 
       "Phan", "Dang", "Bui", "Ngo", "Duong", "Chau", "Doan", "Giang", "Luong",
       "Phung", "Nghiem", "Quang", "Quynh", "Quyen", "Thao", "Thuy", "Trang", 
-      "Trieu", "Trinh", "Vinh", "Vuong", "Bang", "Minh", "Dinh", "Quoc", "Vu", "Do", "Ho"};
+      "Trieu", "Trinh", "Vinh", "Vuong", "Bang", "Minh", "Dinh", "Quoc", "Vu", 
+      "Do", "Ho", "Le", "Vo", "Ly", "An", "Anh", "Au", "Ba", "Bạc", "Bạch", "Bang",
+      "Banh", "Bao", "Buu", "Be", "Bi", "Bien", "Binh", "Bo", "Ca", "Cai", "Cam",
+      "Cao", "Cat", "Cam", "Can", "Che", "Chiem", "Chu", "Chau", "Chung", "Chuong",
+      "Chu", "Co", "Cu", "Cung", "Cu", "Da", "Danh", "Diem", "Doan", "Du", "Diep",
+      "Dam", "Dan", "Dao", "Dau", "Dien", "Dinh", "Doan", "Don", "Dong", "Dong",
+      "Doi", "Dai", "Duong", "Gia", "Giao", "Giang", "Giap", "Ha", "Hang", "Han", "Hy",
+      "Hin", "Hoa", "Hong", "Hung", "Hua", "Kha", "Khuong", "Khau", "Khuu", "Khoa", "Khong", 
+      "Khu", "Khuat", "Khuc", "Kieu", "Kim", "La", "Lac", "Lai", "Lam", "Leu", "Lieu",
+      "Lo", "Luc", "Lu", "Lo", "Lu", "La", "Luong", "Luu", "Ma", "Mac", "Mach", "Mai",
+      "Mang", "Mau", "Man", "Moc", "Ninh", "Nham", "Nhiem", "Ngan", "Nghiem", "Nghi",
+      "Nguy", "Nhu", "Nong", "Ong", "Phi", "Pho", "Phung", "Phuong", "Quan", "Quach",
+      "Sam", "Son", "Su", "Ta", "Tao", "Tang", "Thach", "Thai", "Thao", "Than", "Thap",
+      "Thi", "Thieu", "Thinh", "Thoi", "Tieu", "Tiep", "Tong", "To", "Ton", "Tong",
+      "Trang", "Tra", "Trac", "Trieu", "Trinh", "Trung", "Truong", "Tu", "Ty", "Uong",
+      "Ung", "Van", "Vi", "Vien", "Vuong", "Vu", "Xa", "Yen", "Ngoc"};
   
   // Dung de search ten tieng Viet  
   public static String RESTAU = " nguyen tran pham hoang huynh phan"
