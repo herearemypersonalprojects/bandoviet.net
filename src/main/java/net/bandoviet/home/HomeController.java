@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import net.bandoviet.linkedin.LinkedInService;
 import net.bandoviet.tool.AmbassadeCrawler;
 import net.bandoviet.tool.AmeliCrawler;
@@ -52,9 +54,12 @@ public class HomeController {
    * @return the login page if user has not yet connected or index page otherwise.
    */
   @RequestMapping("/")
-  public String home(Map<String, Object> model ) {
-    
-    return "redirect:/index";
+  public String home(Map<String, Object> model, HttpServletRequest request ) {
+    if (request.getHeader("User-Agent").indexOf("Mobile") != -1) {
+      return "redirect:/unsupported";
+    } else {
+      return "redirect:/index";
+    }    
   }
   
   @RequestMapping("/linkedin")

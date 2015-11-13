@@ -41,7 +41,7 @@ public class UserCreateFormValidator implements Validator {
   private void validateVietnameseName(Errors errors, UserCreateForm form) {
     if (StringUtils.isNotBlank(form.getFullname()) 
         && !VietnameseWords.isVietnamese(form.getFullname())) {
-      errors.rejectValue("fullname", "fullname.invalidated", "Tên không đúng");
+      errors.rejectValue("fullname", "fullname.invalidated", "Họ tên thiếu hoặc không đúng");
     }
   }
 

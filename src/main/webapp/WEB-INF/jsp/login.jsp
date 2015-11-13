@@ -82,11 +82,10 @@
 	<!-- header ends here -->
 
 	<div class="loginbox radius">
-		<h2 style="color: #141823; text-align: center;">Gia nhập bản đồ
-			Việt</h2>
+		<h2 style="color: #141823; text-align: center;">Bản đồ Việt trên thế giới</h2>
 		<div class="loginboxinner radius">
 			<div class="loginheader">
-				<h4 class="title">Kết nối với giá trị Việt xung quanh bạn.</h4>
+				<h4 class="title">Khám phá giá trị Việt xung quanh bạn.</h4>
 			</div>
 			<!--loginheader-->
 
@@ -96,7 +95,7 @@
 					<%-- <form:errors path="*" cssClass="errorblock" element="div" />--%>
 					<p>
 						<form:input path="fullname" type="text" id="fullname"
-							name="fullname" placeholder="Họ và tên" value="" class="radius" />
+							name="fullname" placeholder="Họ và tên đầy đủ" value="" class="radius" />
 						<br>
 						<form:errors path="fullname" cssClass="error" />
 					</p>

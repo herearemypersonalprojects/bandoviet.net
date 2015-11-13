@@ -3,7 +3,13 @@ package net.bandoviet.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
+import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -19,6 +25,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import net.bandoviet.place.PlaceService;
@@ -41,6 +48,12 @@ public class UserController {
   @Autowired
   UserCreateFormValidator userCreateFormValidator;
   
+  @Autowired
+  protected AuthenticationManager authenticationManager;
+  
+  @Autowired
+  CurrentUserDetailsService userDetailsManager;
+
   /**
    * Homepage
    * 
@@ -99,12 +112,14 @@ public class UserController {
    */
   @RequestMapping(value = "/user/create", method = RequestMethod.POST)
   public String handleUserCreateForm(@Valid @ModelAttribute("newuser") UserCreateForm form,
-      BindingResult bindingResult) {
+      BindingResult bindingResult, HttpServletRequest request) {
     if (bindingResult.hasErrors()) {
       return "login";
     }
     try {
-      userService.create(form);
+      User user = userService.create(form);
+      //After successfully Creating user
+      authenticateUserAndSetSession(user, request);
     } catch (DataIntegrityViolationException e) {
       if (userService.getUserByEmail(form.getEmail()).isPresent()) {
         bindingResult.reject("email.exists", "Email already exists");
@@ -113,7 +128,26 @@ public class UserController {
       }
       return "login";
     }
+
     return "redirect:/index";
+  }
+  
+  private void authenticateUserAndSetSession(User user, HttpServletRequest request) {
+    String username = user.getEmail();
+
+    try {
+      // generate session if one doesn't exist
+      request.getSession();
+
+      // Authenticate the user
+      UserDetails userDetail = userDetailsManager.loadUserByUsername(username);
+      Authentication auth = new UsernamePasswordAuthenticationToken(userDetail, null,
+          userDetail.getAuthorities());
+      SecurityContextHolder.getContext().setAuthentication(auth);
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
+
   }
 
 }

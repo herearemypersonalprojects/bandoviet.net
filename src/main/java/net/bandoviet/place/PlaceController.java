@@ -63,12 +63,11 @@ public class PlaceController {
    * 
    * @param model
    *          communication between frontend and backend
-   * @param request
    *          get user's ip
    * @return list of filtered POIs
    */
   @RequestMapping(value = "/index", method = RequestMethod.GET)
-  public String index(Authentication authentication, Map<String, Object> model, HttpServletRequest request) {
+  public String index(Authentication authentication, Map<String, Object> model) {
     Integer pageNumber = 1;
 
     List<Place> items = placeService.searchByKeywords(pageNumber, null);
