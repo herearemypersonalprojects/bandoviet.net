@@ -89,7 +89,7 @@ public class User {
   @Column(name = "access_level")
   private int accessLevel; // 0: normal; 1: admin; 2: superadmin
 
-  @Column(name = "confident_level")
+  @Column(name = "confident_level") // thang diem 100
   private int confidentLevel;
 
   @Column(name = "thanks_given_by")

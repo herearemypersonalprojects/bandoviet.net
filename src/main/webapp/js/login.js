@@ -10,39 +10,41 @@ $(document).ready(function() {
 	function initialize() {
 		locationSearchAutocomplete = new google.maps.places.Autocomplete(document.getElementById('address'));
 		
-		
-		showCurrentLocation();
+		if ($('#confidentLevel').val() != 80) {
+			showCurrentLocation();
+		} else {
+			$('#addressBox').hide();
+		}
 	}
 	
     $('#address').blur(function () { 
     	$(this).val($(this).val().trim());
     	if (address != null && address != '') {
     		showLocation($(this).val(), false);
+    		
     	}
+    });
+    
+    $('#address').keypress(function(event) {
+        if (event.keyCode == 13) {
+        	$(this).trigger('blur');
+            event.preventDefault();
+        }
     });
     
     function showCurrentLocation() {
   			if (navigator.geolocation) navigator.geolocation.getCurrentPosition(function(pos) {
 					latitude = pos.coords.latitude;
 					longitude = pos.coords.longitude;
+					$('#addressBox').hide();
+					$('#confidentLevel').val(80);
 					showLocation(new google.maps.LatLng(latitude, longitude), true);
+					
 				 // TODO: Dung de lay dia diem nguoi dung luon
-				    $('#addressBox').hide();
+				    
 				}, function(error) {							
 					
-					$.get("http://ipinfo.io", function(response) {
-					    //$("#ip").html(response.ip);
-					    //$("#address").html(response.city + ", " + response.region);									
-						latitude = response.loc.split(',')[0];
-						longitude = response.loc.split(',')[1]; 
-						showLocation(new google.maps.LatLng(latitude, longitude), true);
-						//var alert = $('#myLocationAlert');
-						//$('#myLocationAlertcity').html(response.city);
-						//$('#myLocationAlertregion').html(response.region);
-						//$('#myLocationAlertcountry').html(response.country);
-						//alert.modal('show');
-						
-					}, "jsonp");
+
 					
 					
 				});	
@@ -57,6 +59,25 @@ $(document).ready(function() {
 	        } else {
 		        geocoder.geocode({'address': address}, function (results, status) {
 		        	getLocation(results, status) ;
+		        	
+		    		// Kiem tra xem dia chi nhap co dung khong (by country)
+					$.get("http://ipinfo.io", function(response) { 
+						if (response.country != $('#country').val()) {
+							alert('Địa chỉ hoặc thành phố không đúng!');
+							$('#address').val('');
+						}
+						
+					    //$("#ip").html(response.ip);
+					    //$("#address").html(response.city + ", " + response.region);									
+						//latitude = response.loc.split(',')[0];
+						//longitude = response.loc.split(',')[1]; 
+						//showLocation(new google.maps.LatLng(latitude, longitude), true);
+						//var alert = $('#myLocationAlert');
+						//$('#myLocationAlertcity').html(response.city);
+						//$('#myLocationAlertregion').html(response.region);
+						//$('#myLocationAlertcountry').html(response.country);
+						//alert.modal('show');
+					}, "jsonp");		        	
 		        });        	
 	        }
 

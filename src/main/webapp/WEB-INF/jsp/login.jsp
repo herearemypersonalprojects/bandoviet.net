@@ -101,7 +101,7 @@
 					</p>
 					<p id="addressBox">
 						<form:input path="address" id="address" name="address"
-							placeholder="Địa chỉ" class="radius" title="Nhập địa chỉ" />
+							placeholder="Nhập địa chỉ hoặc thành phố của bạn" class="radius" title="Nhập địa chỉ hoặc thành phố của bạn" />
 						<br>
 						<form:errors path="address" cssClass="error" />
 					</p>
@@ -124,13 +124,13 @@
 						<br>
 						<form:errors path="passwordRepeated" cssClass="error" />
 					</p>
+					
 					<form:input path="city" type="hidden" id="city" name="city" />
-					<form:input path="country" type="hidden" id="country"
-						name="country" />
-					<form:input path="latitude" type="hidden" id="latitude"
-						name="latitude" />
-					<form:input path="longitude" type="hidden" id="longitude"
-						name="longitude" />
+					<form:input path="country" type="hidden" id="country" name="country" />
+					<form:input path="latitude" type="hidden" id="latitude"	name="latitude" />
+					<form:input path="longitude" type="hidden" id="longitude" name="longitude" />
+					<form:input path="confidentLevel" type="hidden" id="confidentLevel" name="confidentLevel"/>
+					
 					<form:input path="role" type="hidden" id="role" name="role" />
 					<p>
 						<button type="submit" class="radius title" name="client_login">Đăng

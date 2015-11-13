@@ -32,6 +32,8 @@ public class UserCreateForm {
   
   Double longitude = 0.0d;
   
+  private int confidentLevel = 50;
+  
   @NotEmpty(message = "Chưa nhập Email")
   private String email = "";
 
@@ -93,6 +95,14 @@ public class UserCreateForm {
 
   public void setLongitude(Double longitude) {
     this.longitude = longitude;
+  }
+
+  public int getConfidentLevel() {
+    return confidentLevel;
+  }
+
+  public void setConfidentLevel(int confidentLevel) {
+    this.confidentLevel = confidentLevel;
   }
 
   public String getEmail() {

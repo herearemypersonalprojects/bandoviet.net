@@ -54,6 +54,7 @@ public class UserService {
     user.setCity(form.getCity());
     user.setLatitude(form.getLatitude());
     user.setLongitude(form.getLongitude());
+    user.setConfidentLevel(form.getConfidentLevel());
     
     user.setEmail(form.getEmail());
     //user.setPassword(new BCryptPasswordEncoder().encode(form.getPassword())); // never decoded
