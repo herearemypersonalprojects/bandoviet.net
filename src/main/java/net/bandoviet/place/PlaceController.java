@@ -20,11 +20,14 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import net.bandoviet.user.CurrentUser;
+import net.bandoviet.user.User;
+import net.bandoviet.user.UserService;
 
 
 
@@ -52,6 +55,9 @@ public class PlaceController {
   
   @Autowired
   private MessageSource messageSource;
+  
+  @Autowired 
+  private UserService userService;
    
   @Autowired
   public PlaceController(final PlaceService placeService) {
@@ -69,8 +75,19 @@ public class PlaceController {
   @RequestMapping(value = "/index", method = RequestMethod.GET)
   public String index(Authentication authentication, Map<String, Object> model) {
     Integer pageNumber = 1;
+    
+    
+    if (authentication != null && authentication.getPrincipal() != null) {
+      CurrentUser currentUser = (CurrentUser) authentication.getPrincipal();
+      Optional<User> user = userService.getUserByEmail(currentUser.getUsername());
+      if (user.isPresent()) {
+        return "redirect:" + PLACES_KEYWORDS_PATH + user.get().getLatitude() + "/" 
+                 + user.get().getLongitude() + "/" + user.get().getCountry() + "/"
+                 + user.get().getAddress() + "/1";
+      }
+    } 
 
-    List<Place> items = placeService.searchByKeywords(pageNumber, null);
+    List<Place> items = placeService.searchByKeywords(pageNumber, null); 
     
     int current = pageNumber;
     int begin = Math.max(1, current - 5);
@@ -84,8 +101,8 @@ public class PlaceController {
     model.put("items", items);
     model.put("path", PLACES_PATH);
     
-    CurrentUser currentUser = (CurrentUser) authentication.getPrincipal();
-    model.put("user", currentUser);
+
+
     
     return "index";
   }

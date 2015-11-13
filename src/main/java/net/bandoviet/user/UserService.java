@@ -51,6 +51,7 @@ public class UserService {
     user.setFullname(form.getFullname());
     user.setAddress(form.getAddress());
     user.setCountry(form.getCountry());
+    user.setCity(form.getCity());
     user.setLatitude(form.getLatitude());
     user.setLongitude(form.getLongitude());
     

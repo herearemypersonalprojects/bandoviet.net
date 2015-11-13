@@ -10,12 +10,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet"
-	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script
-	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<link rel="stylesheet"	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="http://maps.googleapis.com/maps/api/js?extension=.js&output=embed&amp;language=en&amp;v=3.exp&libraries=places"></script>
+
+<script	src="/js/login.js"></script>
 
 <title>Bản đồ Việt</title>
 <link rel="stylesheet" href="/css/login.css" type="text/css" />
@@ -99,7 +99,7 @@
 						<br>
 						<form:errors path="fullname" cssClass="error" />
 					</p>
-					<p>
+					<p id="addressBox">
 						<form:input path="address" id="address" name="address"
 							placeholder="Địa chỉ" class="radius" title="Nhập địa chỉ" />
 						<br>
@@ -112,13 +112,13 @@
 						<form:errors path="email" cssClass="error" />
 					</p>
 					<p>
-						<form:input path="password" id="password" name="password"
+						<form:input type="password" path="password" id="password" name="password"
 							placeholder="Mật khẩu" class="radius" />
 						<br>
 						<form:errors path="password" cssClass="error" />
 					</p>
 					<p>
-						<form:input path="passwordRepeated" id="passwordRepeated"
+						<form:input type="password" path="passwordRepeated" id="passwordRepeated"
 							name="passwordRepeated" placeholder="Xác nhận Mật khẩu"
 							class="radius" />
 						<br>
