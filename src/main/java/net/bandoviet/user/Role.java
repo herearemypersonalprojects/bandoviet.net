@@ -6,5 +6,5 @@ package net.bandoviet.user;
  *
  */
 public enum Role {
-  USER, ADMIN, SUPERADMIN
+  USER, ADMIN, SUPERADMIN, MODERATOR
 }

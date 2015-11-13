@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,6 +23,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+
+import net.bandoviet.user.CurrentUser;
 
 
 
@@ -49,7 +52,7 @@ public class PlaceController {
   
   @Autowired
   private MessageSource messageSource;
-  
+   
   @Autowired
   public PlaceController(final PlaceService placeService) {
     this.placeService = placeService;
@@ -65,7 +68,7 @@ public class PlaceController {
    * @return list of filtered POIs
    */
   @RequestMapping(value = "/index", method = RequestMethod.GET)
-  public String index(Map<String, Object> model, HttpServletRequest request) {
+  public String index(Authentication authentication, Map<String, Object> model, HttpServletRequest request) {
     Integer pageNumber = 1;
 
     List<Place> items = placeService.searchByKeywords(pageNumber, null);
@@ -81,6 +84,9 @@ public class PlaceController {
     model.put("currentIndex", current);
     model.put("items", items);
     model.put("path", PLACES_PATH);
+    
+    CurrentUser currentUser = (CurrentUser) authentication.getPrincipal();
+    model.put("user", currentUser);
     
     return "index";
   }

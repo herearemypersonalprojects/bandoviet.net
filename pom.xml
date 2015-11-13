@@ -39,6 +39,10 @@
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-taglibs</artifactId>
+		</dependency>
 		<!-- JSP: Dependency-wise, since we want to use JSP for the views, those 
 			two must be present -->
 		<dependency>

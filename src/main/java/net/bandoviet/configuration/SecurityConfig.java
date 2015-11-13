@@ -2,6 +2,7 @@ package net.bandoviet.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -9,7 +10,11 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+
+import javax.sql.DataSource;
 
 /**
  * Quyet dinh phan nao duoc truy cap can hoac khong can dang nhap.
@@ -21,6 +26,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+  
   @Autowired
   private UserDetailsService userDetailsService;
   
@@ -28,29 +34,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests().antMatchers("/img/**", "/fonts/**", "/libs/**").permitAll();
     http.authorizeRequests()
-              .antMatchers("/", "/index", "/place/**", "/public/**").permitAll()
+              //.antMatchers("/", "/index", "/place/**", "/public/**").permitAll()
               .antMatchers("/users/**").hasAuthority("ADMIN")
-              //.anyRequest().fullyAuthenticated()
+              .anyRequest().fullyAuthenticated()
               .and()
               .formLogin()
-              .loginPage("/login")
-              .failureUrl("/login?error")
-              .usernameParameter("email")
-              .permitAll()
+                  .loginPage("/login")
+                  .failureUrl("/login?error")
+                  .usernameParameter("email")
+                  .permitAll()
               .and()
               .logout()
-              .logoutUrl("/logout")
-              .deleteCookies("remember-me")
-              .logoutSuccessUrl("/")
-              .permitAll()
+                  .logoutUrl("/logout")
+                  .deleteCookies("remember-me")
+                  .logoutSuccessUrl("/")
+                  .permitAll()
               .and()
-              .rememberMe();
+              .rememberMe()
+              .tokenValiditySeconds(157680000);;
   }
+  
   
   @Override
   public void configure(AuthenticationManagerBuilder auth) throws Exception {
     auth
-              .userDetailsService(userDetailsService)
-              .passwordEncoder(new BCryptPasswordEncoder());
+              .userDetailsService(userDetailsService);
+              //.passwordEncoder(new BCryptPasswordEncoder());
   }
 }

@@ -89,7 +89,7 @@ public class VietnameseWords {
       + "khoai ";
   
   // Dung de search ten tieng Viet  
-  public static String VOCABULARY = " nguyen tran pham hoang huynh phan vu "
+  public static String VOCABULARY1 = " nguyen tran pham hoang huynh phan vu "
       + "vo dang bui do ho ngo duong bien binh cao cat "
       + "che chiem chau chuong cung danh diem doan diep "
       + "dam dao dau dien dinh doan dong duong gia giao giang "
@@ -188,7 +188,7 @@ public class VietnameseWords {
       + "xom xon xong xup xut xuy xuya xuyen xuynh xuyt xot xua xuan xuat "
       + "xuc xue xui yem xum xung yeu xuoc xuoi xuom xuong ";
   
-  public static String VOCABULARY1 = " ach bech ang anh beng benh ao beo ap "
+  public static String VOCABULARY = " ach bech ang anh beng benh ao beo ap "
       + "bep beu bia bich biec biem bieng biet bieu bim binh bip biu banh "
       + "boi bao bom boong canh bu bua cao buc bui buoc buoi buom buon buong "
       + "buop buot cau buou bup buyt cac cach cai cam chac chach chan chang chanh "

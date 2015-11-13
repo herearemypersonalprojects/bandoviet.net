@@ -25,6 +25,11 @@ public class UserService {
   @Autowired 
   UserRepository userRepository;
   
+  public boolean canAccessUser(CurrentUser currentUser, Long userId) {
+    return currentUser != null
+            && (currentUser.getRole() == Role.ADMIN || currentUser.getId().equals(userId));
+  }
+  
   public Optional<User> getUserById(long id) {
     return Optional.ofNullable(userRepository.findOne(id));
   }
@@ -50,8 +55,10 @@ public class UserService {
     user.setLongitude(form.getLongitude());
     
     user.setEmail(form.getEmail());
-    user.setPassword(new BCryptPasswordEncoder().encode(form.getPassword())); // never decoded
+    //user.setPassword(new BCryptPasswordEncoder().encode(form.getPassword())); // never decoded
+    user.setPassword(form.getPassword());
     user.setRole(form.getRole());
+    user.setEnabled(false);
     return userRepository.save(user);
   }
 }

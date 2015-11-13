@@ -2,6 +2,8 @@ package net.bandoviet.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -32,11 +34,13 @@ public class UserController {
 
   @Autowired
   PlaceService placeService;
+  
   @Autowired
   UserService userService;
+  
   @Autowired
   UserCreateFormValidator userCreateFormValidator;
-
+  
   /**
    * Homepage
    * 
@@ -49,12 +53,22 @@ public class UserController {
     model.put("places", placeService.getRandom(20));
     model.put("newuser", new UserCreateForm());
     if (error.isPresent()) {
+      
       model.put("error", error);
     }
     return "login";
   }
-
-  @RequestMapping("/users")
+  
+  /*
+   * The hasAuthority() SpEL expression is provided by Spring Security, among others, i.e.:
+      
+      hasAnyAuthority() or hasAnyRole() ('authority' and 'role' are synonyms in Spring Security lingo!) - checks whether the current user has one of the GrantedAuthority in the list.
+      hasAuthority() or hasRole() - as above, but for just one.
+      isAuthenticated() or isAnonymous() - whether the current user is authenticated or not.
+      isRememberMe() or isFullyAuthenticated() - whether the current user is authenticated by 'remember me' token or not.
+   */
+  @PreAuthorize("hasAuthority('ADMIN')")
+  @RequestMapping(value = "/users", method = RequestMethod.GET)
   public String users(Map<String, Object> model) {
     model.put("users", userService.getAllUsers());
     return "users";
@@ -65,7 +79,8 @@ public class UserController {
     binder.addValidators(userCreateFormValidator);
   }
 
-  // TODO: only admin can do
+  // only user himself can access
+  @PreAuthorize("@userService.canAccessUser(principal, #id)")
   @RequestMapping("/user/{id}")
   public ModelAndView getUserPage(@PathVariable Long id) {
     return new ModelAndView("index", "user", userService.getUserById(id)

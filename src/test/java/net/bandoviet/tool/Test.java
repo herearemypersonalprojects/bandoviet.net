@@ -30,25 +30,6 @@ class Sub extends Base {
 public class Test {
 
   public static void main(String args[]) {
-    Base b = new Sub();
-    b.display(10);
-    int prim = 1;
-    Integer wrapper = new Integer(9);
-    
-   // prim = wrapper;
-    prim = new Integer(10);
-    wrapper = 9;
-    
-    System.out.println(prim);
-    System.out.println(wrapper);
-    
-    Date a = new Date();
-    Calendar d = Calendar.getInstance();
-    d.setTime(a);
-    d.get(Calendar.YEAR);
-    
-    Base[] sdb = new Base[6];
-    Base[] qds[];
-    Base qq[][] = new Base[2][];
+    int v = 1/0;
   }
 }
