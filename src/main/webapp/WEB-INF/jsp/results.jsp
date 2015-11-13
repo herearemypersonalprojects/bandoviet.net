@@ -23,7 +23,7 @@
 			</div>
 			--%>
 			<div id="left" class="col-xs-6 result">
-				
+			  <c:if test="${totalPages > 0}">
 				<div style="color:#ddd;">
 					Tìm được khoảng ${ totalPages*20} kết quả
 				</div>
@@ -67,7 +67,7 @@
 					 
 					  <p id="newplace" class="newplace addbutton2" >+</p> 
 				</div>
-
+				</c:if>
 				<!-- item list -->
 				<c:forEach var="item" items="${ items }" varStatus="status">
 				<div id="item${status.index}" class="item " >

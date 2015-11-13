@@ -41,7 +41,7 @@ public class PlaceController {
   private static final Logger LOGGER = LoggerFactory.getLogger(PlaceController.class);
   
   private static final String PLACE_PATH = "/place/";
-  private static final String PLACES_PATH = "/places/";
+  private static final String PLACES_PATH = "/public/";
   private static final String PLACES_CATEGORY_PATH = "/places/category/";
   private static final String PLACES_KEYWORDS_PATH = "/places/searchterms/";
   private static final String PLACES_LOCATION_PATH = "/places/location/";

@@ -3,13 +3,15 @@
  */
 
 $(document).ready(function() {
-    
-	$('article').readmore({
-		  speed: 75,
-		  lessLink: '<a href="#" class="less">Thu nhỏ</a>',
-		  moreLink: '<a href="#" class="more">Đọc tiếp</a>',
-		  collapsedHeight: 128
-		});
+    if ($('.item').length > 1) {
+    	$('article').readmore({
+  		  speed: 75,
+  		  lessLink: '<a href="#" class="less">Thu nhỏ</a>',
+  		  moreLink: '<a href="#" class="more">Đọc tiếp</a>',
+  		  collapsedHeight: 128
+  		});   	
+    }
+
 	
 	/** EDIT ITEM */
 	$('.edit').on('click', function() {

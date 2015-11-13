@@ -37,6 +37,8 @@
 	          </ul>
 	        </li>
 	         --%>
+	         <sec:authorize access="isAuthenticated()"> 
+	         
 			 <li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 	          <sec:authentication property="principal.username" /> <span class="caret"></span></a>
@@ -50,12 +52,16 @@
 	            <li role="separator" class="divider"></li>
 	            <li><a href="#">Địa chỉ cần nhớ</a></li>
 	            <li role="separator" class="divider"></li>
-	            <li><a href="/user/${user.username}">Thông tin tài khoản</a></li>
-	            <li><a href="#">Thoát ra</a></li>
+	            <li><a href="javascript:$('#logoutbutton').trigger('click')">Ngắt kết nối (logout)</a></li>
 	          </ul>
 	        </li>	        
 			<li>&nbsp;</li>
+			</sec:authorize>
 		</ul>
+        <form class="hidden" action="/logout" method="post">
+             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+             <button id="logoutbutton" type="submit">Log out</button>
+        </form>
 		<form class="navbar-form">
 			<div class="form-group" style="display: inline;">
 				<div class="input-group">

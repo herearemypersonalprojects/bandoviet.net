@@ -49,11 +49,18 @@ public class UserController {
    * @return the login page if user has not yet connected or index page otherwise.
    */
   @RequestMapping(value = "/login", method = RequestMethod.GET)
-  public String login(Map<String, Object> model, @RequestParam Optional<String> error) {
+  public String login(Authentication authentication, Map<String, Object> model, @RequestParam Optional<String> error) {
+    if (authentication != null) {
+      CurrentUser user = (CurrentUser) authentication.getPrincipal();
+      if (user != null && user.getRole() == Role.USER) {
+        return "redirect:/index";
+      }     
+    }
+
+    
     model.put("places", placeService.getRandom(20));
     model.put("newuser", new UserCreateForm());
     if (error.isPresent()) {
-      
       model.put("error", error);
     }
     return "login";
