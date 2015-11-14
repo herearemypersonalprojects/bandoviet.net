@@ -23,7 +23,7 @@
 			</div>
 			--%>
 			<div id="left" class="col-xs-6 result">
-			  <c:if test="${totalPages > 0}">
+			  <c:if test="${totalPages > 1}">
 				<div style="color:#ddd;">
 					Tìm được khoảng ${ totalPages*20} kết quả
 				</div>
@@ -75,6 +75,8 @@
 
 								<span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 
 					</button>
+					
+					<span style="float: right"><a href="/delete/${item.id}">Xóa</a></span>
 					<%--
 					<div class="panel panel-default">
 						<div class="panel-heading">
@@ -106,7 +108,7 @@
 					<div>
 						<span style="color: #428bca;">${(currentIndex-1)*20 + status.index + 1}. </span>
 						<strong>
-						 <a href="/place/${item.titleWithoutAccents}/${item.id}" target="_blank"> ${item.title}</a>						 
+						 <a style="color:#116c9e;" href="/place/${item.titleWithoutAccents}/${item.id}" target="_blank"> ${item.title}</a>						 
 						</strong>
 						
 					</div>
@@ -162,7 +164,7 @@
 						class="center-block btn btn-primary"><spring:message code="home.result.more" /></a>
 				</p>
 				 --%>
-				 <c:if test="${totalPages > 0}">
+				 <c:if test="${totalPages > 1}">
 				 
 				 
 				<nav class="text-center">

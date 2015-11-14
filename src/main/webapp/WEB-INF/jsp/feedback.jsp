@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
   <!-- Trigger the modal with a button
   <button style="display:none" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myLocationAlert">Open Modal</button>
 	
@@ -17,13 +18,13 @@
 			       <div class="control-group">
 			            <label class="control-label" for="name">Tên của bạn/Your Name</label>
 			            <div class="controls">
-			                <input type="text" name="name" id="name" placeholder="Your name">
+			                <input value="<sec:authentication property="principal.fullname" />" type="text" name="name" id="name" placeholder="Your name">
 			            </div>
 			        </div>
 			        <div class="control-group">
 			            <label class="control-label" for="email">Địa chỉ thư điện tử/Your Email Address</label>
 			            <div class="controls">
-			                <input type="text" name="email" id="email" placeholder="Your email address">
+			                <input value="<sec:authentication property="principal.username" />" type="text" name="email" id="email" placeholder="Your email address">
 			            </div>
 			        </div>
 			        <div class="control-group">

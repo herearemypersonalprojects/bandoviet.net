@@ -127,8 +127,8 @@ public class UserController {
       Optional<User> user = userService.getUserById(id);
       if (user.isPresent()) {
         user = userService.enable(user.get());
-        authenticateUserAndSetSession(user.get(), request);
-        return "redirect:/index";
+        //authenticateUserAndSetSession(user.get(), request);
+        //return "redirect:/index";
       }
     } catch (Exception e) {
       LOGGER.error("Co loi active user: " + id + " : " + e.getMessage());

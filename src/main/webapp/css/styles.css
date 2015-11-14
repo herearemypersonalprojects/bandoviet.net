@@ -22,12 +22,13 @@ body{
 }
 
 .navbar-custom {
-	background-color: #168ccc;
+	background-color: #116c9e;
     color:#fff;
 }
 
 .navbar-custom li>a:hover,.navbar-custom li>a:focus {
-	background-color:#49bfff;
+	background-color: #116c9e;
+    color:#fff;
 }
 
 .navbar-custom a{
@@ -36,18 +37,18 @@ body{
 
 
 .glyphicon {
-	color: #168ccc;
+	color: #116c9e;
 }
 
 .glyphicon-item {
-	color: #168ccc;
+	color: #116c9e;
 	margin-right: 25%;
 	opacity: 0.1;
 }
 
 .glyphicon:hover {
 	cursor: pointer;
- color: #0000ff!important;
+ color: #116c9e!important;
  }
 
 .navbar-custom .form-control:focus {
@@ -105,7 +106,7 @@ body{
 .addbutton{
 	padding: 4px 0;
   	font-size: 30px;
-    color: #4cbbed;
+    color: #116c9e;
     background-color: white;
     border-radius: 50%;
     border: medium none;
@@ -125,12 +126,12 @@ body{
 
 .addbutton:hover{   
 	color: white;
-    background-color: #4cbbed;  
+    background-color: #116c9e;  
 }
 
 .addbutton1{
   	font-size: 22px;
-    color: #4cbbed;
+    color: #116c9e;
     background-color: white;
     border-radius: 50%;
     border: medium none;
@@ -148,7 +149,7 @@ body{
     border: medium none;
     border-radius: 50%;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3), 0 0 1px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(255, 255, 255, 0.25) inset, 0 -1px 0 rgba(0, 0, 0, 0.15) inset;
-    color: #4cbbed;
+    color: #116c9e;
     cursor: pointer;
     float: right;
     font-size: 18px;
@@ -165,7 +166,7 @@ body{
 
 .addbutton2:hover{   
 	color: white;
-    background-color: #4cbbed;
+    background-color: #116c9e;
     opacity: 1.0;  
 }
 
@@ -292,7 +293,7 @@ height: 154px;
 }
 
 .modal-header {
-	background-color: #168ccc;
+	background-color: #116c9e;
     color:#fff;
 }
 

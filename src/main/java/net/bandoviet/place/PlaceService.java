@@ -47,6 +47,10 @@ public class PlaceService {
     this.placeRepository = placeRepository;
   }
   
+  public void delete(Long id) {
+    placeRepository.delete(id);
+  }
+  
   /**
    * Return one page which have PAGE_SIZE items.
    * @param pageNumber page number.

@@ -63,7 +63,7 @@
              <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
              <button id="logoutbutton" type="submit">Log out</button>
         </form>
-		<form class="navbar-form">
+		<form class="navbar-form navbar-left">
 			<div class="form-group" style="display: inline;">
 				<div class="input-group">
 					<div class="input-group-btn">

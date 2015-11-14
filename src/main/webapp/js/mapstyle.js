@@ -114,13 +114,13 @@ var styles = [ {
 	}, {
 		"lightness" : -11
 	}, {
-		"hue" : "#007bb3"
+		"hue" : "#116c9e"
 	} ]
 }, {
 	"featureType" : "water",
 	"elementType" : "geometry.fill",
 	"stylers" : [ {
-		"saturation" : "-32"
+		"saturation" : "-62"
 	}, {
 		"lightness" : "-15"
 	}, {

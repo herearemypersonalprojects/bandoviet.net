@@ -59,7 +59,12 @@ public class PlaceController {
   }
 
     
-  
+  @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+  public String delete(Map<String, Object> model, 
+      @PathVariable Long id, HttpServletRequest request) {
+    placeService.delete(id);
+    return "redirect:/index";
+  }
   /**
    * index.
    * 

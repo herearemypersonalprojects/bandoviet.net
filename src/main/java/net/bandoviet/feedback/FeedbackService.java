@@ -7,6 +7,8 @@ import java.sql.Date;
 
 import net.bandoviet.ipinfo.IpInfo;
 import net.bandoviet.ipinfo.IpInfoService;
+import net.bandoviet.mail.Mail;
+import net.bandoviet.mail.MailService;
 
 /**
  * Services for feedback's messages.
@@ -18,6 +20,8 @@ public class FeedbackService {
   @Autowired
   private FeedbackRepository feedbackRepository;
   
+  @Autowired
+  private MailService mailService;
   /**
    * Setup and save feedback's info.
    * @param feedback from the user.
@@ -31,6 +35,16 @@ public class FeedbackService {
     feedback.setCreatedDate(new Date(System.currentTimeMillis()));
     
     feedbackRepository.save(feedback);
+    
+    // gui vao email cua ca user va cua ca admin
+    Mail mail = new Mail();
+    mail.setTo(feedback.getEmail());
+    mail.setCc("bandoviet.net@gmail.com");
+    mail.setFrom("bandoviet.net@gmail.com");
+    mail.setSubject("Feedback for bandoviet.net: " + feedback.getSubject());
+    mail.setText(feedback.getMessage());
+    
+    mailService.sendMail(mail);
   }
   
   /**
