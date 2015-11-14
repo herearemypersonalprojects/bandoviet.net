@@ -43,15 +43,16 @@
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 	          <sec:authentication property="principal.fullname" /> <span class="caret"></span></a>
 	          <ul class="dropdown-menu">
-	            <li><a href="/mymap">Bản đồ cá nhân </a></li>
+	            <li><a href="/places/category/FRIENDSMAP/1">Bản đồ cá nhân </a></li>
 	            <li role="separator" class="divider"></li>
 	            <li><a href="/create">Thêm địa điểm</a></li>
+	           <!-- 
 	            <li><a href="/contribution">Các địa điểm đã thêm hoặc tham gia chỉnh sửa</a></li>
 	            <li role="separator" class="divider"></li>
 	            <li><a href="/verify">Thẩm định địa điểm mới thêm bởi người khác</a></li>
-	            
+	             -->
 	            <li role="separator" class="divider"></li>
-	            <li id="feedback"><a href="#">Gửi ý tưởng, đánh giá, nhận xét của bạn</a></li>
+	            <li id="feedback"><a href="#">Gửi ý tưởng, đánh giá, nhận xét</a></li>
 	            <li role="separator" class="divider"></li>
 	            <li><a href="javascript:$('#logoutbutton').trigger('click')">Ngắt kết nối (logout)</a></li>
 	          </ul>
