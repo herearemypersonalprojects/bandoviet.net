@@ -127,13 +127,13 @@ public class UserController {
       Optional<User> user = userService.getUserById(id);
       if (user.isPresent()) {
         user = userService.enable(user.get());
-        //authenticateUserAndSetSession(user.get(), request);
+        //authenticateUserAndSetSession(user.get(), request); => nguy hiem vi co the bi hack de vao tk nguoi khac
         //return "redirect:/index";
       }
     } catch (Exception e) {
       LOGGER.error("Co loi active user: " + id + " : " + e.getMessage());
     }
-    return "login";
+    return "redirect:/login";
   }
   
   /**

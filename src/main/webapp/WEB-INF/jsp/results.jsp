@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <c:url var="firstUrl" value="${path}1" />
 <c:url var="lastUrl" value="${path}${totalPages}" />
@@ -75,8 +76,9 @@
 
 								<span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 
 					</button>
-					
-					<span style="float: right"><a href="/delete/${item.id}">Xóa</a></span>
+					<sec:authorize access="hasRole('SUPERADMIN')">
+						<span style="float: right"><a href="/delete/${item.id}">Xóa</a></span>
+					</sec:authorize>
 					<%--
 					<div class="panel panel-default">
 						<div class="panel-heading">
