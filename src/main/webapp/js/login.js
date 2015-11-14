@@ -5,6 +5,7 @@ var locationSearchAutocomplete;
 var geocoder = new google.maps.Geocoder();
 
 $(document).ready(function() {
+	
 	google.maps.event.addDomListener(window, 'load', initialize);
 
 	function initialize() {

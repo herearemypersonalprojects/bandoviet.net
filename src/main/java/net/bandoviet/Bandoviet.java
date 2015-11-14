@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -20,6 +21,7 @@ import java.util.Locale;
 
 import net.bandoviet.home.AccessInterceptor;
 import net.bandoviet.log.LogInterceptor;
+import net.bandoviet.mail.MailConfig;
 
 
 
@@ -33,6 +35,7 @@ import net.bandoviet.log.LogInterceptor;
 @ComponentScan("net.bandoviet")
 @EnableAutoConfiguration
 @EnableJpaRepositories
+@Import(MailConfig.class)
 public class Bandoviet extends WebMvcConfigurerAdapter  {
 
   public static void main(String[] args) throws Exception {

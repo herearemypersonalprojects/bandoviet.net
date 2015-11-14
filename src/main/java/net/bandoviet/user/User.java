@@ -1,5 +1,7 @@
 package net.bandoviet.user;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -54,9 +56,11 @@ public class User {
   private String fullname;
   
   @Column(name = "created_date")
+  @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss") 
   private Date createdDate;
 
   @Column(name = "last_login_date")
+  @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss") 
   private Date lastLoginDate;
 
   @Column(name = "last_active_time")

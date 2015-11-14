@@ -36,6 +36,13 @@ public class UserCreateFormValidator implements Validator {
     validateVietnameseName(errors, form);
     validatePasswords(errors, form);
     validateEmail(errors, form);
+    validateAddress(errors, form);
+  }
+  
+  private void validateAddress(Errors errors, UserCreateForm form) {
+    if (StringUtils.isBlank(form.country)) {
+      errors.rejectValue("address", "address.invalidated", "Địa chỉ thiếu hoặc không đúng");
+    }
   }
   
   private void validateVietnameseName(Errors errors, UserCreateForm form) {

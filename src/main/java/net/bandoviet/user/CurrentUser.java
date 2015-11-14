@@ -1,9 +1,6 @@
 package net.bandoviet.user;
 
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
-
-import java.util.Collection;
 
 /**
  * The UserDetails is just an interface. It describes a user having username, password, list of
@@ -30,7 +27,7 @@ public class CurrentUser extends org.springframework.security.core.userdetails.U
    * constructor.
    */
   public CurrentUser(User user) {
-    super(user.getEmail(), user.getPassword(), true, true, true, true,
+    super(user.getEmail(), user.getPassword(), user.isEnabled(), true, true, true,
         AuthorityUtils.createAuthorityList(user.getRole().toString()));
     this.user = user;
   }
@@ -47,4 +44,7 @@ public class CurrentUser extends org.springframework.security.core.userdetails.U
     return user.getRole();
   }
 
+  public String getFullname() {
+    return user.getFullname();
+  }
 }

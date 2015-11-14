@@ -43,7 +43,7 @@
 							<tr>
 								<c:if
 									test="${not empty error and not fn:contains(error, 'empty')}">
-									<p style="color:#f28a13;">Email hoặc mật khẩu không đúng, hãy nhập lại.</p>
+									<p style="color:#f28a13;">Email hoặc mật khẩu không đúng hoặc chưa được kích hoạt.</p>
 								</c:if>
 
 
@@ -67,7 +67,7 @@
 								<td><label><input id="remember-me" type="checkbox"
 										name="remember-me" value="1" checked="1" /><span
 										style="color: #ccc;">Ghi nhớ cho lần sau</span></label></td>
-								<td><label><a href=""
+								<td><label><a href="/lostpassword"
 										style="color: #ccc; text-decoration: none">quên mật khẩu?</a></label></td>
 							</tr>
 						</table>

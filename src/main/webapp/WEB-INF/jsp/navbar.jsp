@@ -41,7 +41,7 @@
 	         
 			 <li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-	          <sec:authentication property="principal.username" /> <span class="caret"></span></a>
+	          <sec:authentication property="principal.fullname" /> <span class="caret"></span></a>
 	          <ul class="dropdown-menu">
 	            <li onClick="searchByType(this.value);" id="searchByfriendsmap">
 								<a href="#"><spring:message code="home.navbar.friendsmap" /> </a>

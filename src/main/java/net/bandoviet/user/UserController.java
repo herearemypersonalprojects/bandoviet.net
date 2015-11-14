@@ -1,5 +1,7 @@
 package net.bandoviet.user;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -8,8 +10,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
-import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -39,6 +39,8 @@ import net.bandoviet.place.PlaceService;
 @Controller
 public class UserController {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+  
   @Autowired
   PlaceService placeService;
   
@@ -53,6 +55,7 @@ public class UserController {
   
   @Autowired
   CurrentUserDetailsService userDetailsManager;
+
 
   /**
    * Homepage
@@ -106,7 +109,33 @@ public class UserController {
     return new ModelAndView("index", "user", userService.getUserById(id)
         .orElseThrow(() -> new NoSuchElementException(String.format("User=%s not found", id))));
   }
-
+  
+  @RequestMapping(value = "/lostpassword", method = RequestMethod.GET)
+  public String lostPasswordGet() {
+    return "lostpassword";
+  }
+  @RequestMapping(value = "/lostpassword", method = RequestMethod.POST)
+  public String lostPasswordPost(@RequestParam("email") String email ) {
+    return "login";
+  }
+  /**
+   * Kich hoat tai khoan theo duong link gui den tu mail.
+   */
+  @RequestMapping("/active/{id}")
+  public String activeUser(@PathVariable Long id, HttpServletRequest request) {
+    try {
+      Optional<User> user = userService.getUserById(id);
+      if (user.isPresent()) {
+        user = userService.enable(user.get());
+        authenticateUserAndSetSession(user.get(), request);
+        return "redirect:/index";
+      }
+    } catch (Exception e) {
+      LOGGER.error("Co loi active user: " + id + " : " + e.getMessage());
+    }
+    return "login";
+  }
+  
   /**
    * Save the new user.
    */
@@ -117,9 +146,11 @@ public class UserController {
       return "login";
     }
     try {
-      User user = userService.create(form);
-      //After successfully Creating user
+      User user = userService.create(form, request.getRemoteAddr());
+      // Login automatically after successfully creating user
       authenticateUserAndSetSession(user, request);
+      // Send mail for activation
+      userService.sendActivationMail(user);
     } catch (DataIntegrityViolationException e) {
       if (userService.getUserByEmail(form.getEmail()).isPresent()) {
         bindingResult.reject("email.exists", "Email already exists");
