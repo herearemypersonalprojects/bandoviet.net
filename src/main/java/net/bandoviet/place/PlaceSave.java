@@ -115,8 +115,8 @@ public class PlaceSave {
   @Column(name = "idlookid_url", nullable = true)
   String idLookitUrl;
 
-  @Column(name = "created_by_user_id")
-  long createdByUserId;
+  @Column(name = "created_by_user")
+  String createdByUser;
 
   @Column(name = "created_date")
   @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss") 
@@ -284,12 +284,12 @@ public class PlaceSave {
     this.idLookitUrl = idLookitUrl;
   }
 
-  public long getCreatedByUserId() {
-    return createdByUserId;
+  public String getCreatedByUser() {
+    return createdByUser;
   }
 
-  public void setCreatedByUserId(long createdByUserId) {
-    this.createdByUserId = createdByUserId;
+  public void setCreatedByUser(String createdByUser) {
+    this.createdByUser = createdByUser;
   }
 
   public Date getCreatedDate() {

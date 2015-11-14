@@ -44,7 +44,7 @@ public class PlaceSaveService {
     placeSave.setPlaceType(place.getPlaceType());
     placeSave.setReferenceUrl(place.getReferenceUrl());
     placeSave.setIdLookitUrl(place.getIdLookitUrl());
-    placeSave.setCreatedByUserId(place.getCreatedByUserId());
+    placeSave.setCreatedByUser(place.getCreatedByUser());
     placeSave.setCreatedDate(place.getCreatedDate());
     placeSave.setUpdatedDate(place.getUpdatedDate());
     placeSave.setCreatedFromIp(place.getCreatedFromIp());

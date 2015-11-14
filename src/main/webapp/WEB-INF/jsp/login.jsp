@@ -67,8 +67,10 @@
 								<td><label><input id="remember-me" type="checkbox"
 										name="remember-me" value="1" checked="1" /><span
 										style="color: #ccc;">Ghi nhớ cho lần sau</span></label></td>
+								<%--
 								<td><label><a href="/lostpassword"
 										style="color: #ccc; text-decoration: none">quên mật khẩu?</a></label></td>
+								 --%>		
 							</tr>
 						</table>
 					</form>

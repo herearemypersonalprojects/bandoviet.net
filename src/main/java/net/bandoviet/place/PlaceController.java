@@ -4,7 +4,6 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -47,14 +46,9 @@ public class PlaceController {
   private static final String PLACES_PATH = "/public/";
   private static final String PLACES_CATEGORY_PATH = "/places/category/";
   private static final String PLACES_KEYWORDS_PATH = "/places/searchterms/";
-  private static final String PLACES_LOCATION_PATH = "/places/location/";
-
   private final PlaceService placeService;
 
   @Autowired PlaceSaveService placeSaveService;
-  
-  @Autowired
-  private MessageSource messageSource;
   
   @Autowired 
   private UserService userService;
@@ -64,6 +58,8 @@ public class PlaceController {
     this.placeService = placeService;
   }
 
+    
+  
   /**
    * index.
    * 
@@ -368,14 +364,21 @@ public class PlaceController {
   public ModelAndView save(Map<String, Object> model, 
       @ModelAttribute("place") @Valid final Place place,       
       @RequestParam("image") MultipartFile image,
-      BindingResult result,
+      BindingResult result, Authentication authentication,
       HttpServletRequest request ) {
     LOGGER.info("Received request to save {}, with result={}", place, result);
     if (result.hasErrors()) {
       initModel(place, model, "vn");
       return new ModelAndView("edit");
     }
- 
+    // luu thong tin ai la nguoi edit, add
+    if (authentication != null && authentication.getPrincipal() != null) {
+      CurrentUser currentUser = (CurrentUser) authentication.getPrincipal();
+      Optional<User> user = userService.getUserByEmail(currentUser.getUsername());
+      place.setCreatedByUser(user.get().getEmail());
+    } else {
+      place.setCreatedByUser(null);
+    }
     place.setCreatedFromIp(request.getRemoteAddr());
     placeSaveService.save(place, image);
     

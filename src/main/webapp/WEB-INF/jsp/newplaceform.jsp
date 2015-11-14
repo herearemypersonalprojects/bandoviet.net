@@ -192,7 +192,7 @@
   </div>
     -->
 				<!-- User's information -->
-				<form:input path="createdByUserId" type="hidden" id="createdByUserId" name="createdByUserId" value="34"/> 
+				<form:input path="createdByUser" type="hidden" id="createdByUser" name="createdByUser" value="34"/> 
 
 				<div class="form-group" >					
 					<div class="col-sm-offset-3 col-sm-9 options btn-group">

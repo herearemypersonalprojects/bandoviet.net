@@ -174,7 +174,7 @@ function searchByKeywords(keywords, lat, lng, country, address) {
 }
 
 function searchByType(type) {
-	$('#about').find('.modal-body').find('p').text('Bạn phải login vào để xem bản đồ bạn bè của mình');
-	$('#about').modal('show');
+	//$('#about').find('.modal-body').find('p').text('Bạn phải login vào để xem bản đồ bạn bè của mình');
+	//$('#about').modal('show');
 }
 

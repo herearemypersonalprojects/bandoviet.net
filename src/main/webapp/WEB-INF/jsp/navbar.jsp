@@ -43,14 +43,13 @@
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 	          <sec:authentication property="principal.fullname" /> <span class="caret"></span></a>
 	          <ul class="dropdown-menu">
-	            <li onClick="searchByType(this.value);" id="searchByfriendsmap">
-								<a href="#"><spring:message code="home.navbar.friendsmap" /> </a>
-							</li>
-	 
+	            <li><a href="/mymap">Bản đồ cá nhân </a></li>
 	            <li role="separator" class="divider"></li>
-	            <li><a href="#">Gia đình, họ hàng</a></li>
+	            <li><a href="/create">Thêm địa điểm</a></li>
 	            <li role="separator" class="divider"></li>
-	            <li><a href="#">Địa chỉ cần nhớ</a></li>
+	            <li><a href="/verify">Thẩm định địa điểm mới thêm bởi người khác</a></li>
+	            <li role="separator" class="divider"></li>
+	            <li><a href="/contribution">Đóng góp của bạn cho bản đồ Việt</a></li>
 	            <li role="separator" class="divider"></li>
 	            <li><a href="javascript:$('#logoutbutton').trigger('click')">Ngắt kết nối (logout)</a></li>
 	          </ul>
