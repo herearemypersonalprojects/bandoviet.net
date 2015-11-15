@@ -11,7 +11,6 @@ $(document).ready(function() {
   		  collapsedHeight: 128
   		});   	
     }
-
 	
 	/** EDIT ITEM */
 	$('.edit').on('click', function() {

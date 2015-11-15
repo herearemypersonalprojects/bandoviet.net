@@ -6,7 +6,7 @@ package net.bandoviet.place;
  *
  */
 public enum PlaceType {
-  //FRIENDSMAP("home.navbar.friendsmap"),
+  FRIENDSMAP("home.navbar.friendsmap"),
   EVENT("home.navbar.event"),
   NEWS("home.navbar.news"),
   RESTAURANT("home.navbar.restaurant"),

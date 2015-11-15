@@ -105,7 +105,7 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
                             @Param("pageOffset") Integer pageOffset);
   
   @Query(value = "SELECT * "
-      + "FROM place WHERE order by updated_date desc "
+      + "FROM place order by updated_date desc "
       + "LIMIT :pageLimit OFFSET :pageOffset", 
       nativeQuery = true)
   List<Place> search(@Param("pageLimit") Integer pageLimit, 

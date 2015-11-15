@@ -102,8 +102,11 @@
 						<form:errors path="fullname" cssClass="error" />
 					</p>
 					<p id="addressBox">
-						<form:input path="address" id="address" name="address"
+
+							<form:input path="address" id="address" name="address"
 							placeholder="Nhập địa chỉ hoặc thành phố của bạn" class="radius" title="Nhập địa chỉ hoặc thành phố của bạn" />
+
+	
 						<br>
 						<form:errors path="address" cssClass="error" />
 					</p>

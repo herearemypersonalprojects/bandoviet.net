@@ -71,15 +71,20 @@ public class UserController {
       if (user != null && user.getRole() == Role.USER) {
         return "redirect:/index";
       }     
-    }
-
-    
+    }    
     model.put("places", placeService.getRandom(20));
     model.put("newuser", new UserCreateForm());
     if (error.isPresent()) {
       model.put("error", error);
     }
     return "login";
+  }
+  
+  @RequestMapping(value = "/public/trysignup", method = RequestMethod.GET)
+  public void trysignup(@RequestParam String addressinput, @RequestParam String addressfound, 
+      HttpServletRequest request) {
+    String info = addressinput + ":" + addressfound + ":" + request.getRemoteAddr();
+    userService.sendInfo(info, info);
   }
   
   /*

@@ -65,6 +65,13 @@ $(document).ready(function() {
 					$.get("http://ipinfo.io", function(response) { 
 						if (response.country != $('#country').val()) {
 							alert('Địa chỉ hoặc thành phố không đúng!');
+							
+							// thong bao cho admin biet truong hop nay
+							$.ajax({url: "/public/trysignup?addressinput=" + $('#address').val() + "&addressfound=" + response.country, success: function(result){
+						        
+						    }});
+							
+							// reset
 							$('#address').val('');
 						}
 						

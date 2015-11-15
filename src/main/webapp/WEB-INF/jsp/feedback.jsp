@@ -18,13 +18,13 @@
 			       <div class="control-group">
 			            <label class="control-label" for="name">Tên của bạn/Your Name</label>
 			            <div class="controls">
-			                <input value="<sec:authentication property="principal.fullname" />" type="text" name="name" id="name" placeholder="Your name">
+			                <input <sec:authorize access="isAuthenticated()"> value="<sec:authentication property="principal.fullname" />" </sec:authorize> type="text" name="name" id="name" placeholder="Your name">
 			            </div>
 			        </div>
 			        <div class="control-group">
 			            <label class="control-label" for="email">Địa chỉ thư điện tử/Your Email Address</label>
 			            <div class="controls">
-			                <input value="<sec:authentication property="principal.username" />" type="text" name="email" id="email" placeholder="Your email address">
+			                <input <sec:authorize access="isAuthenticated()">value="<sec:authentication property="principal.username" />" </sec:authorize> type="text" name="email" id="email" placeholder="Your email address">
 			            </div>
 			        </div>
 			        <div class="control-group">

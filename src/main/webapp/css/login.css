@@ -40,6 +40,7 @@ h2 { font-size: 30px; line-height:38px; font-weight:normal; }
 .loginbox button { 
 	background: #5870A8; background-image:-webkit-linear-gradient(top, #168bcc, #4F67A4); padding: 10px 20px; font-size: 18px; border: 1px solid #1D3871; letter-spacing: 1px; color: #fff; width: 440px; line-height:30px; font-family:	'Helvetica Neue', Helvetica, Arial, sans-serif;
 	-moz-box-shadow: 1px 1px 3px #1D3871; -webkit-box-shadow: 1px 1px 3px #1D3871; box-shadow: 1px 1px 3px #1D3871; cursor: pointer;
+	background-image:-moz-linear-gradient(top, #168bcc 0%, #4F67A4 100%); 
 }
 
 .radius { -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; }
@@ -131,7 +132,17 @@ h2 { font-size: 30px; line-height:38px; font-weight:normal; }
 	text-align: left;
 	vertical-align: middle;
 }
-.fbbutton { border:1px solid #1D3871; width:94px; background-image:-webkit-linear-gradient(top, #168bcc, #4F67A4); font-size:14px; line-height:25px; font-weight:normal; color:#fff; }
+/*
+-moz-  Firefox and other browsers using Mozilla’s browser engine 
+-webkit-  Safari, Chrome and browsers using the Webkit engine 
+-o-  Opera 
+-ms-  Internet Explorer (but not always) 
+*/
+.fbbutton { border:1px solid #1D3871; width:94px; background-image:-moz-linear-gradient(top, #168bcc 0%, #4F67A4 100%); font-size:14px; line-height:25px; font-weight:normal; color: #fff; }
+.fbbutton { border:1px solid #1D3871; width:94px; background-image:-webkit-linear-gradient(top, #168bcc 0%, #4F67A4 100%); font-size:14px; line-height:25px; font-weight:normal; color: #fff; }
+.fbbutton { border:1px solid #1D3871; width:94px; background-image:-o-linear-gradient(top, #168bcc 0%, #4F67A4 100%); font-size:14px; line-height:25px; font-weight:normal; color: #fff; }
+.fbbutton { border:1px solid #1D3871; width:94px; background-image:-ms-linear-gradient(top, #168bcc 0%, #4F67A4 100%); font-size:14px; line-height:25px; font-weight:normal; color: #fff; }
+
 .linkedinbutton { border:1px solid #1D3871; width:150px; background-image:-webkit-linear-gradient(top, #007BB6, #4F67A4); font-size:14px; line-height:25px; font-weight:normal; color:#fff; }
 .facebookbutton { border:1px solid #1D3871; width:150px; background-image:-webkit-linear-gradient(top, #3B5998, #4F67A4); font-size:14px; line-height:25px; font-weight:normal; color:#fff; }
 
@@ -164,3 +175,4 @@ h2 { font-size: 30px; line-height:38px; font-weight:normal; }
 	padding:8px;
 	margin:16px;
 }
+

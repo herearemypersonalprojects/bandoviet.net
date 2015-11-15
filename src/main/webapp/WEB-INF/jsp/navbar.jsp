@@ -74,10 +74,12 @@
 						</button>
 					
 						<ul class="dropdown-menu">
-							<c:forEach items="<%= net.bandoviet.place.PlaceType.values()%>" var="option">
+							<c:forEach items="<%= net.bandoviet.place.PlaceType.values()%>" var="option" varStatus="recipeCounter">
+							 <c:if test="${recipeCounter.count > 1}">
 								<li class="selectedType" id="${option}">
 									<a href="#"><spring:message	code="${option.code }" /></a>
 								</li>
+							 </c:if>	
 							</c:forEach>
 			
 						</ul>

