@@ -4,7 +4,6 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -48,9 +47,7 @@ public class PlaceController {
   private static final String PLACES_CATEGORY_PATH = "/places/category/";
   private static final String PLACES_KEYWORDS_PATH = "/places/searchterms/";
   private final PlaceService placeService;
-
-  @Autowired PlaceSaveService placeSaveService;
-  
+ 
   @Autowired 
   private UserService userService;
    
@@ -59,7 +56,7 @@ public class PlaceController {
     this.placeService = placeService;
   }
 
-  @PreAuthorize("hasAuthority('SUPERADMIN')")  
+  //@PreAuthorize("hasAuthority('SUPERADMIN')")  da cau hinh trong SecurityConfig
   @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
   public String delete(Map<String, Object> model, 
       @PathVariable Long id, HttpServletRequest request) {
@@ -124,12 +121,14 @@ public class PlaceController {
       @PathVariable String address,
       @PathVariable Integer pageNumber) {
     
+    searchTerms = searchTerms.replaceAll("\"", "\'");
+    
     List<Place> items = 
         placeService.searchByKeywordsLocation(pageNumber, searchTerms, lat, lng, country);
     
     int current = pageNumber;
     int begin = Math.max(1, current - 5);
-    int totalPages = placeService.getTotalPagesByKeywordsLocation(searchTerms, country);
+    int totalPages = placeService.getTotalPagesByKeywordsLocation(searchTerms, lat, lng, country);
     int end = Math.min(begin + 10, totalPages);
 
     model.put("totalPages", totalPages);
@@ -166,7 +165,7 @@ public class PlaceController {
     
     int current = pageNumber;
     int begin = Math.max(1, current - 5);
-    int totalPages = placeService.getTotalPagesByKeywordsLocation(null, country);
+    int totalPages = placeService.getTotalPagesByKeywordsLocation(null, lat, lng, country);
     int end = Math.min(begin + 10, totalPages);
     
     if (totalPages == 0) {
@@ -198,7 +197,7 @@ public class PlaceController {
   public String searchByKeyWordsPagination(Map<String, Object> model, 
       @PathVariable String searchTerms, 
       @PathVariable Integer pageNumber) {
-    
+    searchTerms = searchTerms.replaceAll("\"", "\'");
     List<Place> items = placeService.searchByKeywords(pageNumber, searchTerms);
     
     int current = pageNumber;
@@ -366,12 +365,14 @@ public class PlaceController {
    * @param request get user's info
    * @return the saved place
    */
+  //@PreAuthorize("hasAuthority('USER')")
   @RequestMapping(value = {"/save"}, method = RequestMethod.POST)
   public ModelAndView save(Map<String, Object> model, 
       @ModelAttribute("place") @Valid final Place place,       
       @RequestParam("image") MultipartFile image,
       BindingResult result, Authentication authentication,
       HttpServletRequest request ) {
+    
     LOGGER.info("Received request to save {}, with result={}", place, result);
     if (result.hasErrors()) {
       initModel(place, model, "vn");
@@ -386,7 +387,7 @@ public class PlaceController {
       place.setCreatedByUser(null);
     }
     place.setCreatedFromIp(request.getRemoteAddr());
-    placeSaveService.save(place, image);
+    placeService.save(place, image);
     
 
 

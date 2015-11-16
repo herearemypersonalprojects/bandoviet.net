@@ -9,7 +9,6 @@
 <c:url var="lastUrl" value="${path}${totalPages}" />
 <c:url var="prevUrl" value="${path}${currentIndex - 1}" />
 <c:url var="nextUrl" value="${path}${currentIndex + 1}" />
-
 	<div class="container-fluid" id="main">
 		<div class="row">
 			<%-- 
@@ -26,7 +25,7 @@
 			<div id="left" class="col-xs-6 result">
 			  <c:if test="${totalPages > 1}">
 				<div style="color:#ddd;">
-					Tìm được khoảng ${ totalPages*20} kết quả
+					Tìm được khoảng ${ (totalPages-1)*50} kết quả
 				</div>
 				
 					<div class="text-center">
@@ -43,14 +42,14 @@
 				                <li><a href="${prevUrl}">&lt;</a></li>
 				            </c:otherwise>
 				        </c:choose>
-				        <c:forEach var="i" begin="${beginIndex}" end="${endIndex}">
+				        <c:forEach var="i" begin="${beginIndex}" end="${endIndex}">				        
 				            <c:url var="pageUrl" value="${path}${i}" />
 				            <c:choose>
 				                <c:when test="${i == currentIndex}">
 				                    <li class="active"><a href="${pageUrl}"><c:out value="${i}" /></a></li>
 				                </c:when>
 				                <c:otherwise>
-				                    <li><a href="${pageUrl}"><c:out value="${i}" /></a></li>
+				                    <li><a href="${path}${i}"><c:out value="${i}" /></a></li>
 				                </c:otherwise>
 				            </c:choose>
 				        </c:forEach>
@@ -108,7 +107,7 @@
 					</div>	
 					 --%>
 					<div>
-						<span style="color: #428bca;">${(currentIndex-1)*20 + status.index + 1}. </span>
+						<span style="color: #428bca;">${(currentIndex-1)*50 + status.index + 1}. </span>
 						<strong>
 						 <a style="color:#116c9e;" href="/place/${item.titleWithoutAccents}/${item.id}" target="_blank"> ${item.title}</a>						 
 						</strong>
@@ -127,10 +126,11 @@
 				       		 <c:if test="${not empty item.address}"> 
 				       			 <spring:message code="home.result.item.address"/> ${item.address}<br>
 				       		 </c:if>	 
-				       		
+				       		<c:if test="${not empty item.distance}">
 				       		 Khoảng cách: 
 				       		 <fmt:formatNumber type="number" pattern="######" value="${item.distance}" /> m
 				       		 <br>	
+				       		 </c:if>
 				       		 <c:if test="${false}">
 				       		 	<spring:message code="home.result.item.email"/>: ${item.email} <br>
 				       		 </c:if>
@@ -182,7 +182,7 @@
 				            </c:otherwise>
 				        </c:choose>
 				        <c:forEach var="i" begin="${beginIndex}" end="${endIndex}">
-				            <c:url var="pageUrl" value="${path}${i}" />
+				            <c:url var="pageUrl" value="${path}${i}" />				            
 				            <c:choose>
 				                <c:when test="${i == currentIndex}">
 				                    <li class="active"><a href="${pageUrl}"><c:out value="${i}" /></a></li>
@@ -218,3 +218,10 @@
 				  --%>
 		</div>
 	</div>
+	
+	
+<%-- 	
+<SELECT count(*), ( 3959 * acos( cos( radians(48.8365132 ) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(2.3486268999999993 ) ) + sin( radians(48.8365132 ) ) * sin( radians( latitude ) ) ) ) AS distance FROM place WHERE country like 'FR'  and MATCH(title) AGAINST('viet nam') HAVING distance < 50;
+SELECT ( 3959 * acos( cos( radians(48.8365132 ) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(2.3486268999999993 ) ) + sin( radians(48.8365132 ) ) * sin( radians( latitude ) ) ) ) AS distance FROM place WHERE country like 'FR' and MATCH(title) AGAINST('viet nam') HAVING distance < 50;
+SELECT ceil(count(*)/50) FROM place WHERE country like 'FR' and MATCH(title) AGAINST('viet nam') and ( 3959 * acos( cos( radians(48.8365132 ) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(2.3486268999999993 ) ) + sin( radians(48.8365132 ) ) * sin( radians( latitude ) ) ) ) < 50;
+--%>

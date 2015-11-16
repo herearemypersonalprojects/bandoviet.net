@@ -95,7 +95,7 @@ public class UserController {
       isAuthenticated() or isAnonymous() - whether the current user is authenticated or not.
       isRememberMe() or isFullyAuthenticated() - whether the current user is authenticated by 'remember me' token or not.
    */
-  @PreAuthorize("hasAuthority('ADMIN')")
+  @PreAuthorize("hasAuthority('SUPERADMIN')")
   @RequestMapping(value = "/users", method = RequestMethod.GET)
   public String users(Map<String, Object> model) {
     model.put("users", userService.getAllUsers());

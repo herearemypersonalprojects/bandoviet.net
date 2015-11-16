@@ -37,6 +37,8 @@ import javax.validation.constraints.NotNull;
 public class PlaceService {
   private static final Logger LOGGER = LoggerFactory.getLogger(PlaceService.class);
   private final PlaceRepository placeRepository;
+  
+  @Autowired private PlaceSaveService placeSaveService;
 
   private static final int PAGE_SIZE = 50;
   
@@ -131,7 +133,7 @@ public class PlaceService {
           .findByDistance(lat, lng, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE, country);
     } else {
       places = placeRepository.findByDistanceAndKeywords(
-          keywords, lat, lng, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE, country);      
+          keywords, lat, lng, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE, country, DISTANCE);      
     }
     for (Place place : places) {
       double distance = 3959 * Math.acos( Math.cos( Math.toRadians(lat) ) 
@@ -158,11 +160,23 @@ public class PlaceService {
    * 
    * @return total of pages for search in a given location.
    */
-  public int getTotalPagesByKeywordsLocation(String keywords, String country) {
+  public int getTotalPagesByKeywordsLocation(String keywords, 
+      Double lat, Double lng, String country) {
     if (StringUtils.isEmpty(keywords)) {
       return placeRepository.getTotalPagesLocation(PAGE_SIZE, country);
     }
-    return placeRepository.getTotalPagesByKeywordsLocation(keywords, PAGE_SIZE, country);
+    return placeRepository.getTotalPagesByKeywordsLocation(keywords, lat, lng, PAGE_SIZE, country, DISTANCE);
+    /* vi du nay de lan sau biet ma su dung
+    List<Object[]> results = 
+        placeRepository.getTotalPagesByKeywordsLocation(keywords, lat, lng, PAGE_SIZE, country, DISTANCE);
+    
+    for (Object[] result : results) {
+      int count = ((Number) result[0]).intValue();
+      System.out.println(count);
+    }
+    
+    return ((Number) results.get(0)[0]).intValue();
+    */
   }
   
   public List<Place> searchByCategory(Integer pageNumber, String type) {
@@ -232,6 +246,9 @@ public class PlaceService {
         LOGGER.debug("The place " + place.getTitle() + " id: " + place.getId() + " exists already.");
         return;
       }
+    } else { // if edit then save in history
+      Place placeHistory = placeRepository.findOne(place.getId());
+      placeSaveService.save(placeHistory, null);
     }
     
     place.setTitleWithoutAccents(AccentRemover.toUrlFriendly(place.getTitle()));
