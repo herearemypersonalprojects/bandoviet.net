@@ -67,6 +67,34 @@
 		<form class="navbar-form">
 			<div class="form-group" style="display: inline;">
 				<div class="input-group">
+					
+						<div class="input-group-btn">
+							<%-- <button tabindex="-1" class="btn btn-default" type="button">Phân loại</button>--%>
+							<button tabindex="-1" data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
+							<%-- <span class="caret"></span>--%>
+							<span class="glyphicon glyphicon-chevron-down"></span>
+							</button>
+							<ul role="menu" class="dropdown-menu">
+								<li><a href="#">
+									<input type="checkbox"><span class="lbl"> Chọn tất cả</span>
+								</a></li>
+								<li class="divider"></li>
+								
+								<c:forEach items="<%= net.bandoviet.place.PlaceType.values()%>" var="option" varStatus="recipeCounter">
+								 <c:if test="${recipeCounter.count > 1}">
+									<li class="selectedType" id="${option}">
+										<a href="#"><input type="checkbox"><span class="lbl"> <spring:message	code="${option.code }" /></span></a>
+									</li>
+								 </c:if>	
+								</c:forEach>
+
+								<li class="divider"></li>
+								<li><a href="#"><input type="checkbox"><span class="lbl"> Không chọn loại nào</span></a></li>
+							</ul>
+						</div>
+					    <input type="hidden" id="categories">
+					
+					<%--
 					<div class="input-group-btn">
 						<button type="button" class="btn btn-default dropdown-toggle"
 							data-toggle="dropdown">
@@ -84,6 +112,7 @@
 			
 						</ul>
 					</div>
+					 --%>
 					<input style="width: 50%;" id="keywords" type="text" data-provide="typeahead" class="form-control"
 						   value="${keywords}"				 placeholder=<spring:message	code="home.navbar.search.placeholder" />> 
 					<input style="width: 50%;" id="locationSearch" type="text" data-provide="typeahead" class="form-control"

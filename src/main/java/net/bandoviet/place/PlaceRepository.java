@@ -175,14 +175,15 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
       + "( 3959 * acos( cos( radians(:latitude ) ) * cos( radians( latitude ) ) "
       + "* cos( radians( longitude ) - radians(:longitude ) ) + "
       + "sin( radians(:latitude ) ) * sin( radians( latitude ) ) ) ) AS distance "
-      //+ ",MATCH(title) AGAINST(:keywords) AS rel1, "
-      //+ "MATCH(information) AGAINST(:keywords) AS rel2 "
+      + ",MATCH(title) AGAINST(:keywords) AS rel1 "
+      //+ ",MATCH(information) AGAINST(:keywords) AS rel2 "
       + "FROM place WHERE country like :country and "
 //      + "MBRContains(envelope(linestring("
 //      + "point((:longitude+(:max_in_km /111)), (:latitude+(:max_in_km /111))), "
 //      + "point((:longitude-(:max_in_km /111)), (:latitude-(:max_in_km /111))))), geom) AND "
       + "MATCH(title) AGAINST(:keywords) "
       + "HAVING distance < :distance "
+      + "ORDER BY distance*(10-rel1) asc "
       //+ "ORDER BY (rel1*1000)+(rel2) desc "
       + "LIMIT :pageLimit OFFSET :pageOffset ",
       nativeQuery = true)
