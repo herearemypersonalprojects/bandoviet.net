@@ -15,16 +15,16 @@ public class TestMaxMind {
    
   }
 
-  //@Test
+  @Test
   public void testIpInfo() {
-    IpInfo ipInfo = IpInfoService.getIpInfo("86.198.34.109");
+    IpInfo ipInfo = IpInfoService.getIpInfo("83.200.56.35");
     System.out.println(ipInfo.getCity() 
         + " - " + ipInfo.getCountry_code() + " - " + ipInfo.getCountry_name() );
   }
 
-  @Test
+  //@Test
   public void testMaxMind() {
-    IpInfo ipInfo = IpInfoService.getIpInfoMaxMind("86.198.34.109");
+    IpInfo ipInfo = IpInfoService.getIpInfoMaxMind("83.200.56.35");
     System.out.println(ipInfo.getCity() 
         + " - " + ipInfo.getCountry_code() + " - " + ipInfo.getCountry_name() );
   }

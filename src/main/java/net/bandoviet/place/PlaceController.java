@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -114,10 +115,35 @@ public class PlaceController {
       @PathVariable String country, 
       @PathVariable String address,
       @PathVariable Integer pageNumber) {
+    searchTerms = searchTerms.replaceAll("\"", "\'");
+    String[] types = categories.split("aaa");
+    List<Place> items = placeService.searchByKeywordsLocation(Arrays.asList(types), pageNumber, searchTerms, lat, lng, country);
     
+    int current = pageNumber;
+    int begin = Math.max(1, current - 5);
+    int totalPages = placeService.getTotalPagesByKeywordsLocation(Arrays.asList(types), searchTerms, lat, lng, country);
+    int end = Math.min(begin + 10, totalPages);
     
+    if (totalPages == 0) {
+      System.out.println("Redirect");
+      return "redirect:/create";
+    }
+
+    model.put("totalPages", totalPages);
+    model.put("beginIndex", begin);
+    model.put("endIndex", end);
+    model.put("currentIndex", current);
+    model.put("items", items);
+    model.put("path", "/search/" + categories + "/" + searchTerms + "/" + lat + "/" + lng + "/" + country + "/" + address + "/");
+
+    model.put("lat", lat);
+    model.put("lng", lng);
+    model.put("country", country);
+    model.put("address", address);
     
-    return "index";
+    model.put("categories", categories);
+    model.put("keywords", searchTerms);
+    return "index";     
   }
   
   
@@ -128,7 +154,24 @@ public class PlaceController {
       @PathVariable String categories,
       @PathVariable String searchTerms, 
       @PathVariable Integer pageNumber) {
+    searchTerms = searchTerms.replaceAll("\"", "\'");
+    String[] types = categories.split("aaa");
+    List<Place> items = placeService.searchByKeywords(Arrays.asList(types), pageNumber, searchTerms);
     
+    int current = pageNumber;
+    int begin = Math.max(1, current - 5);
+    int totalPages = placeService.getTotalPagesByKeywords(Arrays.asList(types), searchTerms);
+    int end = Math.min(begin + 10, totalPages);
+
+    model.put("totalPages", totalPages);
+    model.put("beginIndex", begin);
+    model.put("endIndex", end);
+    model.put("currentIndex", current);
+    model.put("items", items);
+    model.put("path", PLACES_KEYWORDS_PATH + searchTerms + "/");
+    
+    model.put("keywords", searchTerms);
+  
     return "index";
   }
   
@@ -143,8 +186,36 @@ public class PlaceController {
       @PathVariable String country, 
       @PathVariable String address,
       @PathVariable Integer pageNumber) {
-     
-    return "index";
+    
+    String[] types = categories.split("aaa");
+    List<Place> items = placeService.searchByKeywordsLocation(Arrays.asList(types), pageNumber, null, lat, lng, country);
+    
+    int current = pageNumber;
+    int begin = Math.max(1, current - 5);
+    int totalPages = placeService.getTotalPagesByKeywordsLocation(Arrays.asList(types), null, lat, lng, country);
+    int end = Math.min(begin + 10, totalPages);
+    
+    if (totalPages == 0) {
+      System.out.println("Redirect");
+      return "redirect:/create";
+    }
+
+    model.put("totalPages", totalPages);
+    model.put("beginIndex", begin);
+    model.put("endIndex", end);
+    model.put("currentIndex", current);
+    model.put("items", items);
+    model.put("path", "/search/" + categories + "/" + lat + "/" + lng + "/" + country + "/" + address + "/");
+
+    model.put("lat", lat);
+    model.put("lng", lng);
+    model.put("country", country);
+    model.put("address", address);
+    
+    model.put("categories", categories);
+    
+    
+    return "index";     
   }
   
   @RequestMapping(value = "/search/{categories}/{pageNumber}", method = RequestMethod.GET)

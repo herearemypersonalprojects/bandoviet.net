@@ -1,9 +1,14 @@
 package net.bandoviet.log;
 
+import net.bandoviet.ipinfo.IpInfo;
+import net.bandoviet.ipinfo.IpInfoService;
+
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import java.text.SimpleDateFormat;
@@ -12,8 +17,6 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.bandoviet.ipinfo.IpInfo;
-import net.bandoviet.ipinfo.IpInfoService;
 
 /**
  * Log all controller's requests.
@@ -45,19 +48,36 @@ public class LogInterceptor extends HandlerInterceptorAdapter {
     try {
       Log log = new Log();
       log.setCreatedDate(resultdate);
-      log.setSendFromIp(request.getRemoteAddr());
+      
       log.setRequest(request.getRequestURI()
-          + (StringUtils.isEmpty(request.getQueryString()) ? "" : "?" + request.getQueryString()));
+          + (StringUtils.isBlank(request.getQueryString()) ? "" : "?" + request.getQueryString()));
 
-      IpInfo ipInfo = IpInfoService.getIpInfoMaxMind(IpInfoService.getClientIP(request));
-
-      if (ipInfo != null) {
+      String ip = IpInfoService.getClientIP(request);
+      IpInfo ipInfo = IpInfoService.getIpInfoMaxMind(ip);
+      
+      
+      
+      if (ipInfo.getCountry_code() == null) {
+        ipInfo = IpInfoService.getIpInfo(ip);
+      }
+      //System.out.println(ipInfo.getCountry_code());
+      log.setSendFromIp(ip);
+      
+      if (StringUtils.isNotBlank(ipInfo.getCountry_code())) {
         log.setCity(ipInfo.getCity());
         log.setCountry(ipInfo.getCountry_code());
         log.setLatitude(ipInfo.getLatitude());
         log.setLongitude(ipInfo.getLongitude());
+      } else {
+        System.out.println("Khong xac dinh duoc vi tri cua IP: " + ip);
+        LOGGER.error("Khong xac dinh duoc vi tri cua IP: " + ip);
       }
 
+      Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+      if (authentication != null) {
+        log.setUserId(authentication.getName());
+      }
+      
       logService.saveLog(log);
     } catch (Exception e) {
       LOGGER.error("Error from save log: " + e.getMessage());

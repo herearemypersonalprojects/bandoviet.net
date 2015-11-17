@@ -5,3 +5,6 @@ sudo /usr/local/mysql/support-files/mysql.server start
 // Clone table
 CREATE TABLE table_clonee LIKE table_source ;
 INSERT INTO table_clonee SELECT * FROM table_source ;
+
+// Nhin dung luong file
+ls -hg Dropbox/01/

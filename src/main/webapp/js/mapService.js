@@ -273,7 +273,7 @@
 			                if (super_var2[k] == "country" && $('#countrySearch').val() == "") {
 			                    //put the county name in the form
 			                    $('#countrySearch').val(super_var1[j].short_name); //alert(super_var1[j].long_name);alert(super_var1[j].short_name);
-			                    searchByKeywords($('#keywords').val(), $('#cityLat').val(), $('#cityLng').val(), $('#countrySearch').val(), $('#locationSearch').val());
+			                    searchByKeywords($('#keywords').val(), $('#cityLat').val(), $('#cityLng').val(), $('#countrySearch').val(), $('#locationSearch').val(), $('#categories').val());
 			                }
 			 
 			            }

@@ -63,7 +63,7 @@ $(document).ready(function() {
 		        	
 		    		// Kiem tra xem dia chi nhap co dung khong (by country)
 					$.get("http://ipinfo.io", function(response) { 
-						if (response.country != $('#country').val()) {
+						if (response.country && response.country != $('#country').val()) {
 							alert('Địa chỉ hoặc thành phố không đúng!');
 							
 							// thong bao cho admin biet truong hop nay

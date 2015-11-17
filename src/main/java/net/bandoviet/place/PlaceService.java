@@ -103,6 +103,19 @@ public class PlaceService {
     }
   }
   
+  public List<Place> searchByKeywords(List<String> types, Integer pageNumber, String keywords) {
+    if (StringUtils.isEmpty(keywords)) {
+      return placeRepository.search(types, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
+    }
+    List<Place> lst = placeRepository
+        .searchByKeywords(types, keywords, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
+    if (lst.isEmpty()) {
+      return placeRepository.search(types, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
+    } else {
+      return lst;
+    }
+  }
+  
   /**
    * Filtred by area of 50km from a given lst.
    */
@@ -147,6 +160,30 @@ public class PlaceService {
     return places;
   } 
   
+  
+  public List<Place> searchByKeywordsLocation(List<String> types, Integer pageNumber, 
+                  String keywords, 
+                  Double lat, 
+                  Double lng, 
+                  String country) {
+    List<Place> places = new ArrayList<Place>();
+    if (StringUtils.isEmpty(keywords)) {
+      places = placeRepository.findByDistance(types, lat, lng, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE,
+          country);
+    } else {
+      places = placeRepository.findByDistanceAndKeywords(types, keywords, lat, lng, PAGE_SIZE,
+          (pageNumber - 1) * PAGE_SIZE, country, DISTANCE);
+    }
+    for (Place place : places) {
+      double distance = 3959
+          * Math.acos(Math.cos(Math.toRadians(lat)) * Math.cos(Math.toRadians(place.getLatitude()))
+              * Math.cos(Math.toRadians(place.getLongitude()) - Math.toRadians(lng))
+              + Math.sin(Math.toRadians(lat)) * Math.sin(Math.toRadians(place.getLatitude())));
+      place.setDistance(distance * 1.609344 * 1000);
+    }
+    return places;
+  } 
+  
   /**
    * @return total of pages for given search terms.
    */
@@ -155,6 +192,13 @@ public class PlaceService {
       return placeRepository.getTotalPages(PAGE_SIZE);
     }
     return placeRepository.getTotalPagesByKeywords(keywords, PAGE_SIZE);
+  }
+  
+  public int getTotalPagesByKeywords(List<String> types, String keywords) {
+    if (StringUtils.isEmpty(keywords)) {
+      return placeRepository.getTotalPages(types, PAGE_SIZE);
+    }
+    return placeRepository.getTotalPagesByKeywords(types, keywords, PAGE_SIZE);
   }
   
   /**
@@ -179,6 +223,15 @@ public class PlaceService {
     return ((Number) results.get(0)[0]).intValue();
     */
   }
+  
+  public int getTotalPagesByKeywordsLocation(List<String> types, String keywords, 
+      Double lat, Double lng, String country) {
+    if (StringUtils.isEmpty(keywords)) {
+      return placeRepository.getTotalPagesLocation(types, PAGE_SIZE, country);
+    }
+    return placeRepository.getTotalPagesByKeywordsLocation(types, keywords, lat, lng, PAGE_SIZE, country, DISTANCE);
+  }
+  
   public List<Place> searchByCategory(Integer pageNumber, String[] types) {
     return placeRepository.searchByCategory(Arrays.asList(types), PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
   }

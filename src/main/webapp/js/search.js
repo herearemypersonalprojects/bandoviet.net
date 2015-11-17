@@ -97,6 +97,7 @@ $(document).ready(function() {
                 }
             });
             $("#categories").val(line);
+            searchByKeywords($('#keywords').val(), $('#cityLat').val(), $('#cityLng').val(), $('#countrySearch').val(), $('#locationSearch').val(), $('#categories').val());
         });
     });
     if ($('#categories')) {

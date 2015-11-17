@@ -4,6 +4,8 @@
 3. Hoan thien search theo categories cung keywords va location
 4. Moi nguoi dung co trang page rieng. Trong do liet ke cac users khac cung thanh pho hoac cung dat nuoc. 
 5. Cho phep 1 user send mail hoac connect den cac users khac. Mot khi 2 users connected thi ho se thay het profile cua nhau.
+6. Clone table place in order to store data for Vietnam (vnplace).
+6. Create independent table for Individuals crawled automatically from Internet.
 
 02/11/2015
 1. Lay du lieu tu server

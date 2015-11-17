@@ -75,11 +75,12 @@
 							<span class="glyphicon glyphicon-chevron-down"></span>
 							</button>
 							<ul role="menu" class="dropdown-menu">
+								<%-- 
 								<li><a href="#">
 									<input type="checkbox"><span class="lbl"> Chọn tất cả</span>
 								</a></li>
 								<li class="divider"></li>
-								
+								--%>
 								<c:forEach items="<%= net.bandoviet.place.PlaceType.values()%>" var="option" varStatus="recipeCounter">
 								 <c:if test="${recipeCounter.count > 1}">
 									<li class="selectedType" >
