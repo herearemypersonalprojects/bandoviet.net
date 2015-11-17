@@ -1,3 +1,11 @@
+16/11/2015
+1. Hide du lieu kieu FRIENDSMAP
+2. Hide du lieu INDIVIDUAL + kieu Nguoi Viet
+3. Hoan thien search theo categories cung keywords va location
+4. Moi nguoi dung co trang page rieng. Trong do liet ke cac users khac cung thanh pho hoac cung dat nuoc. 
+5. Cho phep 1 user send mail hoac connect den cac users khac. Mot khi 2 users connected thi ho se thay het profile cua nhau.
+
+02/11/2015
 1. Lay du lieu tu server
 2. Loc lai du lieu de loai bo het ten khong phai nguoi Viet
 3. Tap trung lam phan user

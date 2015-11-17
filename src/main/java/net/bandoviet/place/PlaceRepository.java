@@ -166,10 +166,23 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
                                  @Param("pageLimit") Integer pageLimit, 
                                  @Param("pageOffset") Integer pageOffset);
   
+  @Query(value = "select * from place "
+      + "where place_type in :types "
+      + "order by updated_date desc "
+      + "LIMIT :pageLimit OFFSET :pageOffset ", 
+      nativeQuery = true)
+  List<Place> searchByCategory(@Param("types") List<String> types,
+                                @Param("pageLimit") Integer pageLimit, 
+                                @Param("pageOffset") Integer pageOffset);
+  
   @Query(value = "select ceil(count(*)/:pageLimit) from place where place_type = :type", 
       nativeQuery = true)
   int getTotalPagesByCategory(@Param("type") String type, @Param("pageLimit") Integer pageLimit);
   
+  @Query(value = "select ceil(count(*)/:pageLimit) from place where place_type in :types", 
+      nativeQuery = true)
+  int getTotalPagesByCategory(@Param("types") List<String> types, 
+                              @Param("pageLimit") Integer pageLimit);
   /* search by distance in miles and keywords */
   @Query(value = "SELECT *, "
       + "( 3959 * acos( cos( radians(:latitude ) ) * cos( radians( latitude ) ) "

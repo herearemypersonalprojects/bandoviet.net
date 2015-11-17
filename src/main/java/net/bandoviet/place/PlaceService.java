@@ -18,6 +18,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -177,6 +178,13 @@ public class PlaceService {
     
     return ((Number) results.get(0)[0]).intValue();
     */
+  }
+  public List<Place> searchByCategory(Integer pageNumber, String[] types) {
+    return placeRepository.searchByCategory(Arrays.asList(types), PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
+  }
+  
+  public int getTotalPagesByCategory(String[] types) {
+    return placeRepository.getTotalPagesByCategory(Arrays.asList(types), PAGE_SIZE);
   }
   
   public List<Place> searchByCategory(Integer pageNumber, String type) {

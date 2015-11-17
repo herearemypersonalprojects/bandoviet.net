@@ -100,12 +100,74 @@ public class PlaceController {
     model.put("items", items);
     model.put("path", PLACES_PATH);
     
-
-
+    return "index";
+  }
+  
+  @RequestMapping(value = "/search/"
+                        + "{categories}/{searchTerms}/{lat}/{lng}/{country}/{address}/{pageNumber}",
+      method = RequestMethod.GET)
+  public String searchByCategories(Map<String, Object> model,
+      @PathVariable String categories,
+      @PathVariable String searchTerms, 
+      @PathVariable Double lat, 
+      @PathVariable Double lng,
+      @PathVariable String country, 
+      @PathVariable String address,
+      @PathVariable Integer pageNumber) {
+    
+    
     
     return "index";
   }
   
+  
+  @RequestMapping(value = "/search/"
+                    + "{categories}/{searchTerms}/{pageNumber}",
+      method = RequestMethod.GET)
+  public String searchByCategories(Map<String, Object> model,
+      @PathVariable String categories,
+      @PathVariable String searchTerms, 
+      @PathVariable Integer pageNumber) {
+    
+    return "index";
+  }
+  
+  
+  @RequestMapping(value = "/search/"
+                    + "{categories}/{lat}/{lng}/{country}/{address}/{pageNumber}",
+      method = RequestMethod.GET)
+  public String searchByCategories(Map<String, Object> model,
+      @PathVariable String categories,
+      @PathVariable Double lat, 
+      @PathVariable Double lng,
+      @PathVariable String country, 
+      @PathVariable String address,
+      @PathVariable Integer pageNumber) {
+     
+    return "index";
+  }
+  
+  @RequestMapping(value = "/search/{categories}/{pageNumber}", method = RequestMethod.GET)
+  public String searchByCategories(Map<String, Object> model,
+      @PathVariable String categories,
+      @PathVariable Integer pageNumber) {
+    String[] types = categories.split("aaa");
+    List<Place> items = placeService.searchByCategory(pageNumber, types);
+    int current = pageNumber;
+    int begin = Math.max(1, current - 5);
+    int totalPages = placeService.getTotalPagesByCategory(types);
+    int end = Math.min(begin + 10, totalPages);
+
+    model.put("totalPages", totalPages);
+    model.put("beginIndex", begin);
+    model.put("endIndex", end);
+    model.put("currentIndex", current);
+    model.put("items", items);
+    model.put("categories", categories);
+    model.put("path", "/search/" + categories + "/");
+  
+    return "index";
+  }
   
   /**
    * search by keywords and location.

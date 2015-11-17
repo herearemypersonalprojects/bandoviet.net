@@ -60,6 +60,7 @@ public class UserService {
     User user = new User();
     user.setFullname(form.getFullname());
     user.setAddress(form.getAddress());
+    user.setKeywords(form.getKeywords());
     user.setCountry(form.getCountry());
     user.setCity(form.getCity());
     user.setLatitude(form.getLatitude());

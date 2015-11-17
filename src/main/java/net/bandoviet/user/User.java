@@ -131,6 +131,9 @@ public class User {
 
   @Column(name = "language")
   private String language;
+  
+  @Column(name = "keywords")
+  private String keywords; // nghe nghiep, chuyen mon, linh vuc thong thao
 
   /* PUBLIC METHODS */
   
@@ -407,4 +410,13 @@ public class User {
   public void setLanguage(String language) {
     this.language = language;
   }
+
+  public String getKeywords() {
+    return keywords;
+  }
+
+  public void setKeywords(String keywords) {
+    this.keywords = keywords;
+  }
+  
 }

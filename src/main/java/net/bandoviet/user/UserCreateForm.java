@@ -24,6 +24,8 @@ public class UserCreateForm {
   @NotEmpty(message = "Chưa nhập địa chỉ")
   private String address = "";
   
+  private String keywords;
+  
   String city = "";
   
   String country = "";
@@ -63,6 +65,14 @@ public class UserCreateForm {
 
   public void setAddress(String address) {
     this.address = address;
+  }
+
+  public String getKeywords() {
+    return keywords;
+  }
+
+  public void setKeywords(String keywords) {
+    this.keywords = keywords;
   }
 
   public String getCity() {

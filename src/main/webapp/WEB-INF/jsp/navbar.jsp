@@ -82,17 +82,18 @@
 								
 								<c:forEach items="<%= net.bandoviet.place.PlaceType.values()%>" var="option" varStatus="recipeCounter">
 								 <c:if test="${recipeCounter.count > 1}">
-									<li class="selectedType" id="${option}">
-										<a href="#"><input type="checkbox"><span class="lbl"> <spring:message	code="${option.code }" /></span></a>
+									<li class="selectedType" >
+										<a href="#"><input id="${option}" value="${option}" type="checkbox"><span class="lbl"> <spring:message	code="${option.code }" /></span></a>
 									</li>
 								 </c:if>	
 								</c:forEach>
-
+								<%-- 
 								<li class="divider"></li>
 								<li><a href="#"><input type="checkbox"><span class="lbl"> Không chọn loại nào</span></a></li>
+								--%>
 							</ul>
 						</div>
-					    <input type="hidden" id="categories">
+					    <input type="hidden" id="categories" value="${categories }">
 					
 					<%--
 					<div class="input-group-btn">
