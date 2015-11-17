@@ -151,6 +151,8 @@
 		<!--loginboxinner-->
 	</div>
 	<!--loginbox-->
+	
+	<a></a>
 
 	<div id="ad" style="width: 100%; margin-top: -12px;">
 		<center>
@@ -191,13 +193,12 @@
 
 
 
-	<%--
-<p style="font-size:12px;">
+	
+<p style="font-size:12px; ">
   <center>
-    <a href="http://www.bandoviet.net">Phát triển bởi bandoviet.net</a>
+    <a style = "visibility:hidden;" href="http://bandoviet.net/public/1">Phát triển bởi bandoviet.net</a>
   </center>
 </p>
- --%>
 
 </body>
 

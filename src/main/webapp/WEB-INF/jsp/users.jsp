@@ -24,6 +24,7 @@ th, td {
 		<tr>
 			<th>Stt</th>
 			<th>Ho ten</th>
+			<th>Chuyen mon</th>
 			<th>Email</th>
 			<th>Do tin tuong</th>
 			<th>Enabled</th>
@@ -33,6 +34,7 @@ th, td {
 			<tr>
 				<td>${recipeCounter.count}</td>
 				<td>${user.fullname}</td>
+				<td>${user.keywords}</td>
 				<td>${user.email}</td>
 				<td>${user.confidentLevel}</td>
 				<td><c:if test="${user.enabled}">Da kich hoat</c:if></td>

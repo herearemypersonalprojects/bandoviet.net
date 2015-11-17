@@ -43,7 +43,7 @@
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 	          <sec:authentication property="principal.fullname" /> <span class="caret"></span></a>
 	          <ul class="dropdown-menu">
-	            <li><a href="/places/category/FRIENDSMAP/1">Bản đồ cá nhân </a></li>
+	            <li><a href="/places/category/PERSONAL/1">Bản đồ cá nhân </a></li>
 	            <li role="separator" class="divider"></li>
 	            <li><a href="/create">Thêm địa điểm</a></li>
 	           <!-- 
@@ -69,10 +69,12 @@
 				<div class="input-group">
 					
 						<div class="input-group-btn">
-							<%-- <button tabindex="-1" class="btn btn-default" type="button">Phân loại</button>--%>
-							<button tabindex="-1" data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
-							<%-- <span class="caret"></span>--%>
-							<span class="glyphicon glyphicon-chevron-down"></span>
+							<%-- <button id="selectCategory" tabindex="-1" class="btn btn-default" type="button"></button> --%>
+							<button  tabindex="-1" data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
+							Lọc thông tin
+							
+							 <span class="caret"></span>
+							<%--<span class="glyphicon glyphicon-chevron-down"></span> --%>
 							</button>
 							<ul role="menu" class="dropdown-menu">
 								<%-- 
@@ -84,7 +86,7 @@
 								<c:forEach items="<%= net.bandoviet.place.PlaceType.values()%>" var="option" varStatus="recipeCounter">
 								 <c:if test="${recipeCounter.count > 1}">
 									<li class="selectedType" >
-										<a href="#"><input id="${option}" value="${option}" type="checkbox"><span class="lbl"> <spring:message	code="${option.code }" /></span></a>
+										<a href="#"><input id="${option}" value="${option}" type="checkbox"><span id== class="selectTypes lbl"> <spring:message	code="${option.code }" /></span></a>
 									</li>
 								 </c:if>	
 								</c:forEach>

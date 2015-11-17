@@ -88,6 +88,9 @@ $(document).ready(function() {
 		//window.location.href = '/places/category/' + this.id + '/1';
 	});
 	
+	$('.selectTypes').click(function() {
+		$(this).prev().trigger('click');
+	});
     $("ul.dropdown-menu input[type=checkbox]").each(function() {
         $(this).change(function() {
             var line = "";
@@ -177,6 +180,7 @@ $(document).ready(function() {
 		});
 	
 });
+
 
 function searchByKeywords(keywords, lat, lng, country, address, categories) {
 	if (categories) {

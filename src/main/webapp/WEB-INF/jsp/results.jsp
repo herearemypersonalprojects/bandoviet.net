@@ -23,10 +23,18 @@
 			</div>
 			--%>
 			<div id="left" class="col-xs-6 result">
+				<c:if test="${empty items}">
+					<div style="color:#6e6e6e;">
+						Chưa có thông tin nào được thêm vào.
+						<a href="/create">Nhấn vào đây để thêm thông tin.</a>
+					</div>
+				</c:if>
+			
 			  <c:if test="${totalPages > 1}">
 				<div style="color:#ddd;">
 					Tìm được khoảng ${ (totalPages-1)*50} kết quả
 				</div>
+				
 				
 					<div class="text-center">
 								

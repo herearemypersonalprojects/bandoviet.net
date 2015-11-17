@@ -241,11 +241,12 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
   List<Place> findByKeywordsAndCity(@Param("keywords") String keywords, @Param("city") String city);
   
   @Query(value = "select * from place "
-      + "where place_type = :type "
+      + "where place_type = :type and created_by_user like :email "
       + "order by updated_date desc "
       + "LIMIT :pageLimit OFFSET :pageOffset ", 
       nativeQuery = true)
-  List<Place> searchByCategory(@Param("type") String type, 
+  List<Place> searchByCategory(  @Param("email") String email,
+                                 @Param("type") String type, 
                                  @Param("pageLimit") Integer pageLimit, 
                                  @Param("pageOffset") Integer pageOffset);
   
@@ -258,9 +259,11 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
                                 @Param("pageLimit") Integer pageLimit, 
                                 @Param("pageOffset") Integer pageOffset);
   
-  @Query(value = "select ceil(count(*)/:pageLimit) from place where place_type = :type", 
+  @Query(value = "select ceil(count(*)/:pageLimit) "
+      + "from place where place_type = :type and created_by_user like :email ", 
       nativeQuery = true)
-  int getTotalPagesByCategory(@Param("type") String type, @Param("pageLimit") Integer pageLimit);
+  int getTotalPagesByCategory(@Param("email") String email, 
+      @Param("type") String type, @Param("pageLimit") Integer pageLimit);
   
   @Query(value = "select ceil(count(*)/:pageLimit) from place where place_type in :types", 
       nativeQuery = true)

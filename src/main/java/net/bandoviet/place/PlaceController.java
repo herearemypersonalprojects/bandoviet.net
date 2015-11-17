@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -377,13 +378,18 @@ public class PlaceController {
    * search by category with pagination.
    */
   @RequestMapping(value = PLACES_CATEGORY_PATH + "{type}/{pageNumber}", method = RequestMethod.GET)
-  public String searchByCategoryPagination(Map<String, Object> model, 
+  public String personalPlaces(Map<String, Object> model, 
       @PathVariable String type, @PathVariable Integer pageNumber, HttpServletRequest request) {
+    
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    if (auth == null) {
+      return "redirect:/login";
+    }
 
-    List<Place> items = placeService.searchByCategory(pageNumber, type);
+    List<Place> items = placeService.searchByCategory(auth.getName(), pageNumber, type);
     int current = pageNumber;
     int begin = Math.max(1, current - 5);
-    int totalPages = placeService.getTotalPagesByCategory(type);
+    int totalPages = placeService.getTotalPagesByCategory(auth.getName(), type);
     int end = Math.min(begin + 10, totalPages);
 
     model.put("totalPages", totalPages);

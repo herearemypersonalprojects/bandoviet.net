@@ -240,12 +240,12 @@ public class PlaceService {
     return placeRepository.getTotalPagesByCategory(Arrays.asList(types), PAGE_SIZE);
   }
   
-  public List<Place> searchByCategory(Integer pageNumber, String type) {
-    return placeRepository.searchByCategory(type, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
+  public List<Place> searchByCategory(String email, Integer pageNumber, String type) {
+    return placeRepository.searchByCategory(email, type, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
   }
 
-  public int getTotalPagesByCategory(String type) {
-    return placeRepository.getTotalPagesByCategory(type, PAGE_SIZE);
+  public int getTotalPagesByCategory(String email, String type) {
+    return placeRepository.getTotalPagesByCategory(email, type, PAGE_SIZE);
   }
   
   /**

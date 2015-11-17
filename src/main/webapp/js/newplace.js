@@ -136,7 +136,7 @@ function changeType(type) {
     	$('#organisedByGroup').addClass('hide');
         break;       
    
-    case "FRIENDSMAP":
+    case "PERSONAL":
     	$('#eventTimeGroup').addClass('hide');
     	$('#openTimeInput').addClass('hide');
     	$('#telephoneGroup').removeClass('hide');
