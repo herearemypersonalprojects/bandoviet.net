@@ -1,3 +1,7 @@
+18/11/2015
+1. Don dep thu muc (if Folder exist and ID place not exist then Delete Folder)
+2. Chay du lieu YELP cho Paris (ok)
+
 16/11/2015
 1. Hide du lieu kieu FRIENDSMAP (ok)
 2. Hide du lieu INDIVIDUAL + kieu Nguoi Viet (ok)

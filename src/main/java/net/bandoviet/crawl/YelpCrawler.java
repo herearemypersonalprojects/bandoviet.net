@@ -35,6 +35,12 @@ public class YelpCrawler {
       linksAlready.add(link);
       System.out.println("DANG XU LY: " + link);
       getPage(link, country, city);
+      
+      try {
+        Thread.sleep(1000); // 1000 milliseconds is one second.
+      } catch (InterruptedException ex) {
+        Thread.currentThread().interrupt();
+      }
     }
   }
   
@@ -47,6 +53,11 @@ public class YelpCrawler {
           .get();
       //Document doc = Jsoup.connect(url).get();
       Elements items = doc.select(".regular-search-result");
+      
+      if (items == null || items.size() < 1) {
+        return;
+      }
+      
       System.out.println(items.size());
       
       getCoordinations(doc);
