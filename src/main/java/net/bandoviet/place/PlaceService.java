@@ -96,11 +96,13 @@ public class PlaceService {
     }
     List<Place> lst = placeRepository
         .searchByKeywords(keywords, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
+    /*
     if (lst.isEmpty()) {
       return placeRepository.search(PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
     } else {
       return lst;
-    }
+    }*/
+    return lst;
   }
   
   public List<Place> searchByKeywords(List<String> types, Integer pageNumber, String keywords) {
@@ -109,11 +111,13 @@ public class PlaceService {
     }
     List<Place> lst = placeRepository
         .searchByKeywords(types, keywords, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
+    /*
     if (lst.isEmpty()) {
       return placeRepository.search(types, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
     } else {
       return lst;
-    }
+    }*/
+    return lst;
   }
   
   /**
@@ -328,10 +332,10 @@ public class PlaceService {
               updatedPlace.getId(), "place");        
         }
       }
+      
       if (StringUtils.isNotBlank(imagePath)) {
         updatedPlace.setImagePath(imagePath);
-        updatedPlace.setIconPath(imagePath.substring(0, imagePath.lastIndexOf("/") + 1)
-            .concat("icon.jpg"));
+        //updatedPlace.setIconPath(imagePath.substring(0, imagePath.lastIndexOf("/") + 1).concat("icon.jpg"));
         placeRepository.save(updatedPlace);       
       }
 

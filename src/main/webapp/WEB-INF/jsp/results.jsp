@@ -25,7 +25,7 @@
 			<div id="left" class="col-xs-6 result">
 				<c:if test="${empty items}">
 					<div style="color:#6e6e6e;">
-						Chưa có thông tin nào được thêm vào.
+						Không tìm thấy kết quả tương ứng nào.
 						<a href="/create">Nhấn vào đây để thêm thông tin.</a>
 					</div>
 				</c:if>
@@ -139,6 +139,8 @@
 				       		 <fmt:formatNumber type="number" pattern="######" value="${item.distance}" /> m
 				       		 <br>	
 				       		 </c:if>
+				       		 Chủ đề: <spring:message	code="${item.placeType }" />
+				       		 <br>
 				       		 <c:if test="${false}">
 				       		 	<spring:message code="home.result.item.email"/>: ${item.email} <br>
 				       		 </c:if>

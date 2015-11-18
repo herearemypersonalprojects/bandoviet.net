@@ -77,7 +77,7 @@ public class FileService {
     prepareFolder(path);
     String name = path + getFileName(id, "streetview.jpeg");
     saveImage(imageUrl, name);
-    saveIcon(imageUrl, path + "icon.jpg");
+    //saveIcon(imageUrl, path + "icon.jpg");
     return name.substring(name.indexOf("/images/"));
   }
   

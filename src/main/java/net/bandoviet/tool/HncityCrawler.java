@@ -68,7 +68,7 @@ public class HncityCrawler {
 
     Document doc;
     try {
-      doc = Jsoup.connect(url).get();
+      doc = Jsoup.connect(url).timeout(500000).get();
 
       Elements name = doc.select(".cartouche h1");
       place.setTitle(name.text());
@@ -96,9 +96,11 @@ public class HncityCrawler {
       }
       
       Elements photo = doc.select(".texte img");
-      System.out.println(photo.get(0).attr("src"));
-      place.setImagePath("http://360.hncity.org/" + photo.get(0).attr("src"));
-      
+      if (photo != null && !photo.isEmpty()) {
+        System.out.println(photo.get(0).attr("src"));
+        place.setImagePath("http://360.hncity.org/" + photo.get(0).attr("src"));          
+      }
+     
       map.remove();
       
       Elements info = doc.select(".texte");

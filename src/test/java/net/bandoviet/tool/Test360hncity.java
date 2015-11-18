@@ -39,6 +39,7 @@ import net.bandoviet.place.PlaceType;
 public class Test360hncity {
   
  
+  //@Test
   public void testGeo(){
     List<String> seeds = new ArrayList<String>();
     seeds.add("http://360.hncity.org/?-%C4%90en-mieu-");
@@ -81,7 +82,7 @@ public class Test360hncity {
 
     Document doc;
     try {
-      doc = Jsoup.connect(url).get();
+      doc = Jsoup.connect(url).timeout(500000).get();
 
       Elements name = doc.select(".cartouche h1");
       place.setTitle(name.text());
@@ -114,7 +115,7 @@ public class Test360hncity {
       
       Elements info = doc.select(".texte");
       String infostr = info.html();
-      //System.out.println( );
+      System.out.println( );
       
       place.setInformation(summarystr + "<br>" + infostr + "<br>" + datestr);
       
@@ -162,6 +163,7 @@ public class Test360hncity {
        
       } */
     } catch (IOException e) {
+      System.out.println(e.getMessage());
       return null;
     }
     return place;
