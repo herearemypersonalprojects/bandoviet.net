@@ -87,7 +87,7 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
       + "ORDER BY (rel1*1000)+(rel2) desc "
       + "LIMIT :pageLimit OFFSET :pageOffset", 
       nativeQuery = true)
-  List<Place> searchByKeywords(@Param("keywords") String type, 
+  List<Place> searchByKeywordsInfo(@Param("keywords") String type, 
                             @Param("pageLimit") Integer pageLimit, 
                             @Param("pageOffset") Integer pageOffset);
   
@@ -100,7 +100,7 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
       + "ORDER BY (rel1*1000)+(rel2) desc "
       + "LIMIT :pageLimit OFFSET :pageOffset", 
       nativeQuery = true)
-  List<Place> searchByKeywords(@Param("types") List<String> types,
+  List<Place> searchByKeywordsInfo(@Param("types") List<String> types,
                             @Param("keywords") String keywords, 
                             @Param("pageLimit") Integer pageLimit, 
                             @Param("pageOffset") Integer pageOffset);
@@ -108,13 +108,12 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
   @Query(value = "SELECT * "
       //+ ",MATCH(title) AGAINST(:keywords) AS rel1, "
       //+ "MATCH(information) AGAINST(:keywords) AS rel2 "
-      + "FROM place WHERE country like :country and "
+      + "FROM place WHERE "
       + "MATCH(title) AGAINST(:keywords) "
       //+ "ORDER BY (rel1*1000)+(rel2) desc "
       + "LIMIT :pageLimit OFFSET :pageOffset", 
       nativeQuery = true)
   List<Place> searchByKeywords(@Param("keywords") String type, 
-                            @Param("country") String country,
                             @Param("pageLimit") Integer pageLimit, 
                             @Param("pageOffset") Integer pageOffset);
   
@@ -122,14 +121,13 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
   @Query(value = "SELECT * "
       //+ ",MATCH(title) AGAINST(:keywords) AS rel1, "
       //+ "MATCH(information) AGAINST(:keywords) AS rel2 "
-      + "FROM place WHERE country like :country and place_type in :types and "
+      + "FROM place WHERE place_type in :types and "
       + "MATCH(title) AGAINST(:keywords) "
       //+ "ORDER BY (rel1*1000)+(rel2) desc "
       + "LIMIT :pageLimit OFFSET :pageOffset", 
       nativeQuery = true)
   List<Place> searchByKeywords(@Param("types") List<String> types,
                             @Param("keywords") String type, 
-                            @Param("country") String country,
                             @Param("pageLimit") Integer pageLimit, 
                             @Param("pageOffset") Integer pageOffset);
   
@@ -149,27 +147,6 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
                      @Param("pageLimit") Integer pageLimit, 
                      @Param("pageOffset") Integer pageOffset);
   
-  @Query(value = "SELECT * "
-      + "FROM place "
-      + "WHERE country like :country  "
-      + "order by updated_date desc "
-      + "LIMIT :pageLimit OFFSET :pageOffset", 
-      nativeQuery = true)
-  List<Place> search(@Param("pageLimit") Integer pageLimit, 
-                     @Param("pageOffset") Integer pageOffset,
-                     @Param("country") String country);
- 
-  @Query(value = "SELECT * "
-      + "FROM place "
-      + "WHERE country like :country and place_type in :types  "
-      + "order by updated_date desc "
-      + "LIMIT :pageLimit OFFSET :pageOffset", 
-      nativeQuery = true)
-  List<Place> search(@Param("types") List<String> types,
-                     @Param("pageLimit") Integer pageLimit, 
-                     @Param("pageOffset") Integer pageOffset,
-                     @Param("country") String country);
-  
   @Query(value = "SELECT ceil(count(*)/:pageLimit) "
       + "FROM place WHERE "
       + "MATCH(title) AGAINST(:keywords)",
@@ -186,7 +163,7 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
                               @Param("pageLimit") Integer pageLimit);
   
   @Query(value = "SELECT ceil(count(*)/:pageLimit) "
-      + "FROM place WHERE country like :country  and "
+      + "FROM place WHERE "
       + "MATCH(title) AGAINST(:keywords) and "
       + "( 3959 * acos( cos( radians(:latitude ) ) * cos( radians( latitude ) ) "
       + "* cos( radians( longitude ) - radians(:longitude ) ) + "
@@ -196,11 +173,10 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
       @Param("latitude") Double latitude,
       @Param("longitude") Double longitude,      
       @Param("pageLimit") Integer pageLimit,
-      @Param("country") String country,
       @Param("distance") Double distance);
   
   @Query(value = "SELECT ceil(count(*)/:pageLimit) "
-      + "FROM place WHERE country like :country and place_type in :types  and "
+      + "FROM place WHERE place_type in :types  and "
       + "MATCH(title) AGAINST(:keywords) and "
       + "( 3959 * acos( cos( radians(:latitude ) ) * cos( radians( latitude ) ) "
       + "* cos( radians( longitude ) - radians(:longitude ) ) + "
@@ -212,7 +188,6 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
       @Param("latitude") Double latitude,
       @Param("longitude") Double longitude,      
       @Param("pageLimit") Integer pageLimit,
-      @Param("country") String country,
       @Param("distance") Double distance);
   
   @Query(value = "SELECT ceil(count(*)/:pageLimit) FROM place", nativeQuery = true)
@@ -221,17 +196,14 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
   @Query(value = "SELECT ceil(count(*)/:pageLimit) WHERE place_type in :types FROM place", nativeQuery = true)
   int getTotalPages(@Param("types") List<String> types, @Param("pageLimit") Integer pageLimit);
   
-  @Query(value = "SELECT ceil(count(*)/:pageLimit) FROM place "
-      + "WHERE country like :country ", nativeQuery = true)
-  int getTotalPagesLocation(@Param("pageLimit") Integer pageLimit, 
-      @Param("country") String country);
+  @Query(value = "SELECT ceil(count(*)/:pageLimit) FROM place ", nativeQuery = true)
+  int getTotalPagesLocation(@Param("pageLimit") Integer pageLimit);
   
   @Query(value = "SELECT ceil(count(*)/:pageLimit) FROM place "
-      + "WHERE country like :country and place_type in :types", nativeQuery = true)
+      + "WHERE place_type in :types", nativeQuery = true)
   int getTotalPagesLocation(
       @Param("types") List<String> types,
-      @Param("pageLimit") Integer pageLimit, 
-      @Param("country") String country);
+      @Param("pageLimit") Integer pageLimit);
   
   @Query(value = "SELECT * FROM place WHERE "
       + "city=:city and "
@@ -276,7 +248,7 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
       + "sin( radians(:latitude ) ) * sin( radians( latitude ) ) ) ) AS distance "
       + ",MATCH(title) AGAINST(:keywords) AS rel1 "
       //+ ",MATCH(information) AGAINST(:keywords) AS rel2 "
-      + "FROM place WHERE country like :country and "
+      + "FROM place WHERE "
 //      + "MBRContains(envelope(linestring("
 //      + "point((:longitude+(:max_in_km /111)), (:latitude+(:max_in_km /111))), "
 //      + "point((:longitude-(:max_in_km /111)), (:latitude-(:max_in_km /111))))), geom) AND "
@@ -292,7 +264,6 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
 //      @Param("max_in_km") Double max_in_km,
       @Param("pageLimit") Integer pageLimit, 
       @Param("pageOffset") Integer pageOffset,
-      @Param("country") String country,
       @Param("distance") Double distance);
   
   @Query(value = "SELECT *, "
@@ -301,7 +272,7 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
       + "sin( radians(:latitude ) ) * sin( radians( latitude ) ) ) ) AS distance "
       + ",MATCH(title) AGAINST(:keywords) AS rel1 "
       //+ ",MATCH(information) AGAINST(:keywords) AS rel2 "
-      + "FROM place WHERE country like :country and place_type in :types and "
+      + "FROM place WHERE place_type in :types and "
 //      + "MBRContains(envelope(linestring("
 //      + "point((:longitude+(:max_in_km /111)), (:latitude+(:max_in_km /111))), "
 //      + "point((:longitude-(:max_in_km /111)), (:latitude-(:max_in_km /111))))), geom) AND "
@@ -319,7 +290,6 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
 //      @Param("max_in_km") Double max_in_km,
       @Param("pageLimit") Integer pageLimit, 
       @Param("pageOffset") Integer pageOffset,
-      @Param("country") String country,
       @Param("distance") Double distance);
   
   /* search by distance in km */
@@ -327,7 +297,7 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
       + "( 3959 * acos( cos( radians(:latitude ) ) * cos( radians( latitude ) ) "
       + "* cos( radians( longitude ) - radians(:longitude ) ) + "
       + "sin( radians(:latitude ) ) * sin( radians( latitude ) ) ) ) AS distance "
-      + "FROM place WHERE country like :country  "
+      + "FROM place "
       + "ORDER BY distance asc "
       + "LIMIT :pageLimit OFFSET :pageOffset",
       nativeQuery = true)
@@ -336,14 +306,13 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
       @Param("longitude") Double longitude,
 //      @Param("max_in_km") Double max_in_km,
       @Param("pageLimit") Integer pageLimit, 
-      @Param("pageOffset") Integer pageOffset,
-      @Param("country") String country);
+      @Param("pageOffset") Integer pageOffset);
   
   @Query(value = "SELECT *, "
       + "( 3959 * acos( cos( radians(:latitude ) ) * cos( radians( latitude ) ) "
       + "* cos( radians( longitude ) - radians(:longitude ) ) + "
       + "sin( radians(:latitude ) ) * sin( radians( latitude ) ) ) ) AS distance "
-      + "FROM place WHERE country like :country and place_type in :types "
+      + "FROM place WHERE place_type in :types "
       + "ORDER BY distance asc "
       + "LIMIT :pageLimit OFFSET :pageOffset",
       nativeQuery = true)
@@ -353,8 +322,7 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
       @Param("longitude") Double longitude,
 //      @Param("max_in_km") Double max_in_km,
       @Param("pageLimit") Integer pageLimit, 
-      @Param("pageOffset") Integer pageOffset,
-      @Param("country") String country);
+      @Param("pageOffset") Integer pageOffset);
 }
 
 

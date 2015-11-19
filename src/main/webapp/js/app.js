@@ -8,7 +8,10 @@ $(document).ready(function() {
 	{
 		window.location.href = "/unsupported";
 	}
-	
+	// create a new group
+	$('#createtype').click(function() {
+		$('#form-createtype').modal('show');
+	});
 	
 	// feedback
 	$('#feedback').click(function() {

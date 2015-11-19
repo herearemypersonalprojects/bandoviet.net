@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="a" uri="http://www.springframework.org/security/tags"%>
     
 <div class="navbar navbar-custom navbar-fixed-top">
 	<div class="navbar-header">
@@ -21,31 +23,41 @@
 			<li class="language" lang="fr"><a href="#">Français</a></li>
 			<li class="language" lang="vn"><a href="#">Tiếng Việt</a></li>
 			 --%>
-			 <%--
 			 <li class="dropdown">
 	          <a href="javascript: onclick();" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><font size="3">Bản đồ nhóm</font> <span class="caret"></span></a>
 	          <ul class="dropdown-menu">
-	            <li><a href="#">Nhóm cô dâu Việt tại Pháp (công khai)</a></li>
-	            <li><a href="#">Nhóm Centre Parc (riêng tư)</a></li>
-	            <li><a href="#">Nhóm Télécom ParisTech (công khai)</a></li>
+				<c:forEach items="${types }" var="type" varStatus="recipeCounter">
+				 <c:if test="${type.nhom == 'GROUP' && type.securityLevel == 3}">
+					<li class="selectedType" >
+						<a href="#"><input id="${type.code}" value="${type.code}" type="checkbox"><span id== class="selectTypes lbl"> ${type.name }</span></a>
+					</li>
+				 </c:if>	
+				</c:forEach>	    
+			
 	            <li role="separator" class="divider"></li>
-	            <li><a href="#">Separated link</a></li>
-	            <li role="separator" class="divider"></li>
-	            <li><a href="#">Nhóm FA tại Paris (riêng tư)</a></li>
-	            <li role="separator" class="divider"></li>
-	            <li><a href="#">Tạo nhóm mới...</a></li>
+	            <li id="createtype"><a href="#">Tạo nhóm bản đồ mới...</a></li>
 	          </ul>
 	        </li>
-	         --%>
+	        
 	         <sec:authorize access="isAuthenticated()"> 
-	         
+	         <a:authentication property="principal" var="principal" />
 			 <li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 	          <sec:authentication property="principal.fullname" /> <span class="caret"></span></a>
 	          <ul class="dropdown-menu">
-	            <li><a href="/places/category/PERSONAL/1">Bản đồ cá nhân </a></li>
+	            <li class="selectedType"><a href="#"><input id="PERSONAL" value="PERSONAL" type="checkbox"><span id== class="selectTypes lbl"> Bản đồ cá nhân</span></a></li>
+	            
+				<c:forEach items="${types }" var="type" varStatus="recipeCounter">
+				 <c:if test="${type.nhom == 'GROUP' && type.securityLevel < 3 && type.createdByUser == principal.username}">
+					<li role="separator" class="divider"></li>
+					<li class="selectedType" >
+						<a href="#"><input id="${type.code}" value="${type.code}" type="checkbox"><span id== class="selectTypes lbl"> ${type.name }</span></a>
+					</li>
+				 </c:if>	
+				</c:forEach>	            
 	            <li role="separator" class="divider"></li>
 	            <li><a href="/create">Thêm địa điểm</a></li>
+	            <li id="createtype"><a href="#">Tạo nhóm bản đồ mới...</a></li>
 	           <!-- 
 	            <li><a href="/contribution">Các địa điểm đã thêm hoặc tham gia chỉnh sửa</a></li>
 	            <li role="separator" class="divider"></li>
@@ -83,13 +95,13 @@
 								</a></li>
 								<li class="divider"></li>
 								--%>
-								<c:forEach items="<%= net.bandoviet.place.PlaceType.values()%>" var="option" varStatus="recipeCounter">
-								 <c:if test="${recipeCounter.count > 1}">
+								<c:forEach items="${types }" var="type" varStatus="recipeCounter">
+								 <c:if test="${type.nhom == 'PUBLIC' && type.securityLevel == 3}">
 									<li class="selectedType" >
-										<a href="#"><input id="${option}" value="${option}" type="checkbox"><span id== class="selectTypes lbl"> <spring:message	code="${option.code }" /></span></a>
+										<a href="#"><input id="${type.code}" value="${type.code}" type="checkbox"><span id== class="selectTypes lbl"> ${type.name }</span></a>
 									</li>
 								 </c:if>	
-								</c:forEach>
+								</c:forEach>	
 								<%-- 
 								<li class="divider"></li>
 								<li><a href="#"><input type="checkbox"><span class="lbl"> Không chọn loại nào</span></a></li>

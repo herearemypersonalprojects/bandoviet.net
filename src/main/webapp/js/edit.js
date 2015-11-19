@@ -265,6 +265,7 @@ function getCity(results) {
             }
         }
     }
+    
 } // [START getCity]
 
 // [START showMarker]
@@ -396,6 +397,11 @@ function showLocation(address) {
                 document.getElementById('address').value = addressReturn;
                 document.getElementById('latitude').value = lat;
                 document.getElementById('longitude').value = lng;
+                
+                $('#cityLat').val(lat);
+                $('#cityLng').val(lng);
+                $('#countrySearch').val($('#country').val());
+                $('#locationSearch').val(addressReturn);
 
                 if (infowindow != null) {
                 	var imagePath = "";
@@ -452,6 +458,11 @@ function getAddress(makerDrag) {
                         infowindow.setContent(imagePath + "<span id='address'><b>" + bds_lang.GoogleMaps.Address + " : </b>" + results2[0].formatted_address + "</span>");
                         infowindow.open(map, marker);
                     }
+                    
+                    $('#cityLat').val(lat);
+                    $('#cityLng').val(lng);
+                    $('#countrySearch').val($('#country').val());
+                    $('#locationSearch').val(addressReturn);
                 }
             } else {
                 console.log("Geocoder failed due to: " + status);

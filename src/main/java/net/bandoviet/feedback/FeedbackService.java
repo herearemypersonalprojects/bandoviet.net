@@ -39,7 +39,7 @@ public class FeedbackService {
     // gui vao email cua ca user va cua ca admin
     Mail mail = new Mail();
     mail.setTo(feedback.getEmail());
-    mail.setCc("bandoviet.net@gmail.com");
+    mail.setCc("quocanh263@gmail.com");
     mail.setFrom("bandoviet.net@gmail.com");
     mail.setSubject("Thanks for your feedback at bandoviet.net: " + feedback.getSubject());
     mail.setText("Xin chào " + feedback.getName() 

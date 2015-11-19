@@ -148,10 +148,10 @@ public class PlaceService {
     List<Place> places = new ArrayList<Place>();
     if (StringUtils.isEmpty(keywords)) {
       places = placeRepository
-          .findByDistance(lat, lng, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE, country);
+          .findByDistance(lat, lng, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
     } else {
       places = placeRepository.findByDistanceAndKeywords(
-          keywords, lat, lng, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE, country, DISTANCE);      
+          keywords, lat, lng, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE, DISTANCE);      
     }
     for (Place place : places) {
       double distance = 3959 * Math.acos( Math.cos( Math.toRadians(lat) ) 
@@ -172,11 +172,10 @@ public class PlaceService {
                   String country) {
     List<Place> places = new ArrayList<Place>();
     if (StringUtils.isEmpty(keywords)) {
-      places = placeRepository.findByDistance(types, lat, lng, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE,
-          country);
+      places = placeRepository.findByDistance(types, lat, lng, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
     } else {
       places = placeRepository.findByDistanceAndKeywords(types, keywords, lat, lng, PAGE_SIZE,
-          (pageNumber - 1) * PAGE_SIZE, country, DISTANCE);
+          (pageNumber - 1) * PAGE_SIZE, DISTANCE);
     }
     for (Place place : places) {
       double distance = 3959
@@ -212,9 +211,9 @@ public class PlaceService {
   public int getTotalPagesByKeywordsLocation(String keywords, 
       Double lat, Double lng, String country) {
     if (StringUtils.isEmpty(keywords)) {
-      return placeRepository.getTotalPagesLocation(PAGE_SIZE, country);
+      return placeRepository.getTotalPagesLocation(PAGE_SIZE);
     }
-    return placeRepository.getTotalPagesByKeywordsLocation(keywords, lat, lng, PAGE_SIZE, country, DISTANCE);
+    return placeRepository.getTotalPagesByKeywordsLocation(keywords, lat, lng, PAGE_SIZE, DISTANCE);
     /* vi du nay de lan sau biet ma su dung
     List<Object[]> results = 
         placeRepository.getTotalPagesByKeywordsLocation(keywords, lat, lng, PAGE_SIZE, country, DISTANCE);
@@ -231,9 +230,9 @@ public class PlaceService {
   public int getTotalPagesByKeywordsLocation(List<String> types, String keywords, 
       Double lat, Double lng, String country) {
     if (StringUtils.isEmpty(keywords)) {
-      return placeRepository.getTotalPagesLocation(types, PAGE_SIZE, country);
+      return placeRepository.getTotalPagesLocation(types, PAGE_SIZE);
     }
-    return placeRepository.getTotalPagesByKeywordsLocation(types, keywords, lat, lng, PAGE_SIZE, country, DISTANCE);
+    return placeRepository.getTotalPagesByKeywordsLocation(types, keywords, lat, lng, PAGE_SIZE, DISTANCE);
   }
   
   public List<Place> searchByCategory(Integer pageNumber, String[] types) {
@@ -304,12 +303,12 @@ public class PlaceService {
    * @param place to be saved
    */
   @Transactional
-  public void save(@NotNull @Valid final Place place, MultipartFile image) {
+  public Place save(@NotNull @Valid final Place place, MultipartFile image) {
     if (place.getId() == null) { // chi xet trong truong hop them moi
       List<Place> lst = placeRepository.findExistings(place.getTitle(), place.getAddress());
       if (!lst.isEmpty()) {
         LOGGER.debug("The place " + place.getTitle() + " id: " + place.getId() + " exists already.");
-        return;
+        return null;
       }
     } else { // if edit then save in history
       Place placeHistory = placeRepository.findOne(place.getId());
@@ -343,6 +342,7 @@ public class PlaceService {
       LOGGER.error("Tried to save user with id", e);
       //result.reject("home.save.error");
       //return "edit";
+      return null;
     }
       /*
       Place existing = repository.findOne(user.getId());
@@ -352,7 +352,7 @@ public class PlaceService {
       }
       */
     
-
+    return updatedPlace;
     
   }
   

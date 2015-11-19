@@ -124,11 +124,12 @@ public class PlaceController {
     int begin = Math.max(1, current - 5);
     int totalPages = placeService.getTotalPagesByKeywordsLocation(Arrays.asList(types), searchTerms, lat, lng, country);
     int end = Math.min(begin + 10, totalPages);
-    
+    /*
     if (totalPages == 0) {
       System.out.println("Redirect");
       return "redirect:/create";
     }
+    */
 
     model.put("totalPages", totalPages);
     model.put("beginIndex", begin);
@@ -196,10 +197,12 @@ public class PlaceController {
     int totalPages = placeService.getTotalPagesByKeywordsLocation(Arrays.asList(types), null, lat, lng, country);
     int end = Math.min(begin + 10, totalPages);
     
+    /*
     if (totalPages == 0) {
       System.out.println("Redirect");
       return "redirect:/create";
     }
+    */
 
     model.put("totalPages", totalPages);
     model.put("beginIndex", begin);
@@ -302,10 +305,12 @@ public class PlaceController {
     int totalPages = placeService.getTotalPagesByKeywordsLocation(null, lat, lng, country);
     int end = Math.min(begin + 10, totalPages);
     
+    /*
     if (totalPages == 0) {
       System.out.println("Redirect");
       return "redirect:/create";
     }
+    */
 
     model.put("totalPages", totalPages);
     model.put("beginIndex", begin);
@@ -481,9 +486,13 @@ public class PlaceController {
    */
   @RequestMapping(value = {"/create"}, method = RequestMethod.GET)
   public String create(@RequestParam(value = "vn", required = false) String lang,
+      @RequestParam(value = "placeType", required = false) String placeType,
       Map<String, Object> model) {
     LOGGER.info("Received request to create a new place");
     Place place = placeService.initNewPlace();
+    if (placeType != null) {
+      place.setPlaceType(placeType);
+    }
     initModel(place, model, lang);
     return "edit";
   }

@@ -81,6 +81,29 @@ public class HomeController {
     return "ok";
   }
   
+  @RequestMapping(value = {"/crawYelp/{country}/{city}/{ip}/{port}"}, method = RequestMethod.GET )
+  @ResponseBody public String crawYelp(      
+      @PathVariable("country") String country,
+      @PathVariable("city") String city,
+      @PathVariable("ip") String ip,
+      @PathVariable("port") Integer port) {
+    crawYelp.run(country, city, ip, port.intValue());
+    return "ok";
+  }
+  //run(String country, String city, String ip, int port) 
+  
+  @RequestMapping(value = {"/crawYelp/{country}"}, method = RequestMethod.GET )
+  @ResponseBody public String crawYelp(@PathVariable("country") String country) {
+    crawYelp.run(country);
+    return "ok";
+  }
+  
+  @RequestMapping(value = {"/crawYelp"}, method = RequestMethod.GET )
+  @ResponseBody public String crawYelp() {
+    crawYelp.run();
+    return "ok";
+  }
+  
   @RequestMapping("/crawlSocietes")
   @ResponseBody public String crawlSocietes() {
     societeCrawler.getData();

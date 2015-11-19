@@ -56,8 +56,8 @@ public class Bandoviet extends WebMvcConfigurerAdapter  {
     // to log all controller's requests.
     registry.addInterceptor(logInterceptor()).addPathPatterns("/**");
     
-    // to handle only admin space.
-    registry.addInterceptor(accessInterceptor()).addPathPatterns("/admin/**");
+    // to handle all controller's requests to build navigation menu.
+    registry.addInterceptor(accessInterceptor()).addPathPatterns("/**");
     
     // continue by default.
     super.addInterceptors(registry);

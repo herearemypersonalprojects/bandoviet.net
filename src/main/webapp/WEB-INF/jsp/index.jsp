@@ -33,6 +33,7 @@
 	<jsp:include page="about.jsp" />
 	
 	<jsp:include page="feedback.jsp" />
+	<jsp:include page="createtype.jsp" />
 	
 	<jsp:include page="selectCountry.jsp" />
 	
