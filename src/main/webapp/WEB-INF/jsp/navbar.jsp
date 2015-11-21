@@ -28,8 +28,8 @@
 	          <ul class="dropdown-menu">
 				<c:forEach items="${types }" var="type" varStatus="recipeCounter">
 				 <c:if test="${type.nhom == 'GROUP' && type.securityLevel == 3}">
-					<li class="selectedType" >
-						<a href="#"><input id="${type.code}" value="${type.code}" type="checkbox"><span id== class="selectTypes lbl"> ${type.name }</span></a>
+					<li class="selectedType_group" id="${type.code}" >
+						<a href="#"><span class="selectTypes_group lbl"> ${type.name }</span></a>
 					</li>
 				 </c:if>	
 				</c:forEach>	    
@@ -45,19 +45,22 @@
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 	          <sec:authentication property="principal.fullname" /> <span class="caret"></span></a>
 	          <ul class="dropdown-menu">
-	            <li class="selectedType"><a href="#"><input id="PERSONAL" value="PERSONAL" type="checkbox"><span id== class="selectTypes lbl"> Bản đồ cá nhân</span></a></li>
-	            
+	            <li class="selectedType_group" id="PERSONAL"><a href="#"><span class="selectTypes_group lbl"> Bản đồ cá nhân</span></a></li>
+	            <%--/places/category/PERSONAL/1 --%>
 				<c:forEach items="${types }" var="type" varStatus="recipeCounter">
 				 <c:if test="${type.nhom == 'GROUP' && type.securityLevel < 3 && type.createdByUser == principal.username}">
 					<li role="separator" class="divider"></li>
-					<li class="selectedType" >
-						<a href="#"><input id="${type.code}" value="${type.code}" type="checkbox"><span id== class="selectTypes lbl"> ${type.name }</span></a>
+					<li class="selectedType_group" id="${type.code}">
+						<a href="#"><span class="selectTypes_group lbl"> ${type.name }</span></a>
 					</li>
 				 </c:if>	
 				</c:forEach>	            
 	            <li role="separator" class="divider"></li>
-	            <li><a href="/create">Thêm địa điểm</a></li>
-	            <li id="createtype"><a href="#">Tạo nhóm bản đồ mới...</a></li>
+	            <li><a href="/create">Thêm địa điểm...</a></li>
+	            <li id="createtype"><a onClick="javascript:$('#form-createtype').modal('show');" href="#">Tạo nhóm bản đồ mới...</a></li>
+	            <li role="separator" class="divider"></li>
+	            <li><a href="/contribution/1">Đóng góp của bạn cho bản đồ Việt</a></li>
+
 	           <!-- 
 	            <li><a href="/contribution">Các địa điểm đã thêm hoặc tham gia chỉnh sửa</a></li>
 	            <li role="separator" class="divider"></li>
@@ -98,7 +101,7 @@
 								<c:forEach items="${types }" var="type" varStatus="recipeCounter">
 								 <c:if test="${type.nhom == 'PUBLIC' && type.securityLevel == 3}">
 									<li class="selectedType" >
-										<a href="#"><input id="${type.code}" value="${type.code}" type="checkbox"><span id== class="selectTypes lbl"> ${type.name }</span></a>
+										<a href="#"><input class="filtreInput"  id="${type.code}" value="${type.code}" type="checkbox"><span class="selectTypes lbl"> ${type.name }</span></a>
 									</li>
 								 </c:if>	
 								</c:forEach>	

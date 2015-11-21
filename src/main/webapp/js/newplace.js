@@ -50,6 +50,7 @@ $(document).ready(function() {
 	      }
 		});
 	
+	changeType($(this).val()); 
 	$('#placeType').change(function() {
 		changeType($(this).val()); 
 	});
@@ -64,7 +65,7 @@ $(document).ready(function() {
 	
 	// SUBMIT
 	$('#newplaceform').submit(function(event) {
-		alert("Thank you. We will update your information.");
+		//alert("Thank you. We will update your information.");
 	});
 		
 });

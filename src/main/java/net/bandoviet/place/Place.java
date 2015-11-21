@@ -118,7 +118,10 @@ public class Place {
 
   @Column(name = "created_by_user")
   String createdByUser;
-
+  
+  @Column(name = "created_by_user_fullname")
+  String createdByUserFullname;
+  
   @Column(name = "created_date")
   @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss") 
   Date createdDate;
@@ -299,6 +302,14 @@ public class Place {
 
   public void setCreatedByUser(String createdByUser) {
     this.createdByUser = createdByUser;
+  }
+
+  public String getCreatedByUserFullname() {
+    return createdByUserFullname;
+  }
+
+  public void setCreatedByUserFullname(String createdByUserFullname) {
+    this.createdByUserFullname = createdByUserFullname;
   }
 
   public Date getCreatedDate() {

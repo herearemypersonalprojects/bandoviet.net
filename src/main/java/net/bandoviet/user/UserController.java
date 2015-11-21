@@ -153,7 +153,7 @@ public class UserController {
     try {
       User user = userService.create(form, request.getRemoteAddr());
       // Login automatically after successfully creating user
-      // authenticateUserAndSetSession(user, request);
+      authenticateUserAndSetSession(user, request);
       // Send mail for activation
       userService.sendActivationMail(user);
     } catch (DataIntegrityViolationException e) {

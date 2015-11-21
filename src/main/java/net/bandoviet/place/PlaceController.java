@@ -4,6 +4,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -45,7 +46,7 @@ public class PlaceController {
   private static final Logger LOGGER = LoggerFactory.getLogger(PlaceController.class);
   
   private static final String PLACE_PATH = "/place/";
-  private static final String PLACES_PATH = "/public/";
+  private static final String PLACES_PUBLIC = "/public/";
   private static final String PLACES_CATEGORY_PATH = "/places/category/";
   private static final String PLACES_KEYWORDS_PATH = "/places/searchterms/";
   private final PlaceService placeService;
@@ -58,7 +59,7 @@ public class PlaceController {
     this.placeService = placeService;
   }
 
-  //@PreAuthorize("hasAuthority('SUPERADMIN')")  da cau hinh trong SecurityConfig
+  @PreAuthorize("hasAuthority('SUPERADMIN')")  //da cau hinh trong SecurityConfig
   @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
   public String delete(Map<String, Object> model, 
       @PathVariable Long id, HttpServletRequest request) {
@@ -75,24 +76,34 @@ public class PlaceController {
    */
   @RequestMapping(value = "/index", method = RequestMethod.GET)
   public String index(Authentication authentication, Map<String, Object> model) {
-    Integer pageNumber = 1;
-    
-    
+
     if (authentication != null && authentication.getPrincipal() != null) {
       CurrentUser currentUser = (CurrentUser) authentication.getPrincipal();
       Optional<User> user = userService.getUserByEmail(currentUser.getUsername());
       if (user.isPresent()) {
-        return "redirect:" + PLACES_KEYWORDS_PATH + user.get().getLatitude() + "/" 
+        return "redirect:" + PLACES_KEYWORDS_PATH + "/ /" + user.get().getLatitude() + "/" 
                  + user.get().getLongitude() + "/" + user.get().getCountry() + "/"
                  + user.get().getAddress() + "/1";
-      }
+      } 
     } 
+    return "redirect:/login";
+    
+  }
+  
+  @RequestMapping(value = "/contribution/{pageNumber}", method = RequestMethod.GET)
+  public String contribution(Map<String, Object> model, 
+      @PathVariable Integer pageNumber, HttpServletRequest request) {
 
-    List<Place> items = placeService.searchByKeywords(pageNumber, null); 
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    if (auth == null) {
+      return "redirect:/login";
+    }
+    
+    List<Place> items = placeService.searchByKeywords(auth.getName(), pageNumber, null);
     
     int current = pageNumber;
     int begin = Math.max(1, current - 5);
-    int totalPages = placeService.getTotalPagesByKeywords(null);
+    int totalPages = placeService.getTotalPagesByKeywords(auth.getName(), null);
     int end = Math.min(begin + 10, totalPages);
 
     model.put("totalPages", totalPages);
@@ -100,13 +111,13 @@ public class PlaceController {
     model.put("endIndex", end);
     model.put("currentIndex", current);
     model.put("items", items);
-    model.put("path", PLACES_PATH);
+    model.put("path", "/contribution/");
     
     return "index";
   }
   
   @RequestMapping(value = "/search/"
-                        + "{categories}/{searchTerms}/{lat}/{lng}/{country}/{address}/{pageNumber}",
+                        + "{categories}/{searchTerms}/{lat}/{lng}/{country}/{address:.+}/{pageNumber}",
       method = RequestMethod.GET)
   public String searchByCategories(Map<String, Object> model,
       @PathVariable String categories,
@@ -116,13 +127,19 @@ public class PlaceController {
       @PathVariable String country, 
       @PathVariable String address,
       @PathVariable Integer pageNumber) {
+    
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    if (auth == null) {
+      return "redirect:/login";
+    }
+    
     searchTerms = searchTerms.replaceAll("\"", "\'");
     String[] types = categories.split("aaa");
-    List<Place> items = placeService.searchByKeywordsLocation(Arrays.asList(types), pageNumber, searchTerms, lat, lng, country);
+    List<Place> items = placeService.searchByKeywordsLocation(auth.getName(), Arrays.asList(types), pageNumber, searchTerms, lat, lng, country);
     
     int current = pageNumber;
     int begin = Math.max(1, current - 5);
-    int totalPages = placeService.getTotalPagesByKeywordsLocation(Arrays.asList(types), searchTerms, lat, lng, country);
+    int totalPages = placeService.getTotalPagesByKeywordsLocation(auth.getName(), Arrays.asList(types), searchTerms, lat, lng, country);
     int end = Math.min(begin + 10, totalPages);
     /*
     if (totalPages == 0) {
@@ -156,13 +173,18 @@ public class PlaceController {
       @PathVariable String categories,
       @PathVariable String searchTerms, 
       @PathVariable Integer pageNumber) {
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    if (auth == null) {
+      return "redirect:/login";
+    }
+    
     searchTerms = searchTerms.replaceAll("\"", "\'");
     String[] types = categories.split("aaa");
-    List<Place> items = placeService.searchByKeywords(Arrays.asList(types), pageNumber, searchTerms);
+    List<Place> items = placeService.searchByKeywords(auth.getName(), Arrays.asList(types), pageNumber, searchTerms);
     
     int current = pageNumber;
     int begin = Math.max(1, current - 5);
-    int totalPages = placeService.getTotalPagesByKeywords(Arrays.asList(types), searchTerms);
+    int totalPages = placeService.getTotalPagesByKeywords(auth.getName(), Arrays.asList(types), searchTerms);
     int end = Math.min(begin + 10, totalPages);
 
     model.put("totalPages", totalPages);
@@ -179,7 +201,7 @@ public class PlaceController {
   
   
   @RequestMapping(value = "/search/"
-                    + "{categories}/{lat}/{lng}/{country}/{address}/{pageNumber}",
+                    + "{categories}/{lat}/{lng}/{country}/{address:.+}/{pageNumber}",
       method = RequestMethod.GET)
   public String searchByCategories(Map<String, Object> model,
       @PathVariable String categories,
@@ -189,12 +211,17 @@ public class PlaceController {
       @PathVariable String address,
       @PathVariable Integer pageNumber) {
     
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    if (auth == null) {
+      return "redirect:/login";
+    }
+    
     String[] types = categories.split("aaa");
-    List<Place> items = placeService.searchByKeywordsLocation(Arrays.asList(types), pageNumber, null, lat, lng, country);
+    List<Place> items = placeService.searchByKeywordsLocation(auth.getName(), Arrays.asList(types), pageNumber, null, lat, lng, country);
     
     int current = pageNumber;
     int begin = Math.max(1, current - 5);
-    int totalPages = placeService.getTotalPagesByKeywordsLocation(Arrays.asList(types), null, lat, lng, country);
+    int totalPages = placeService.getTotalPagesByKeywordsLocation(auth.getName(), Arrays.asList(types), null, lat, lng, country);
     int end = Math.min(begin + 10, totalPages);
     
     /*
@@ -226,11 +253,17 @@ public class PlaceController {
   public String searchByCategories(Map<String, Object> model,
       @PathVariable String categories,
       @PathVariable Integer pageNumber) {
+    
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    if (auth == null) {
+      return "redirect:/login";
+    }
+    
     String[] types = categories.split("aaa");
-    List<Place> items = placeService.searchByCategory(pageNumber, types);
+    List<Place> items = placeService.searchByCategories(auth.getName(), pageNumber, types);
     int current = pageNumber;
     int begin = Math.max(1, current - 5);
-    int totalPages = placeService.getTotalPagesByCategory(types);
+    int totalPages = placeService.getTotalPagesByCategories(auth.getName(), types);
     int end = Math.min(begin + 10, totalPages);
 
     model.put("totalPages", totalPages);
@@ -248,7 +281,7 @@ public class PlaceController {
    * search by keywords and location.
    */
   @RequestMapping(value = PLACES_KEYWORDS_PATH 
-                          + "{searchTerms}/{lat}/{lng}/{country}/{address}/{pageNumber}", 
+                          + "{searchTerms}/{lat}/{lng}/{country}/{address:.+}/{pageNumber}", 
       method = RequestMethod.GET)
   public String searchByKeyWordsLocationPagination(Map<String, Object> model, 
       @PathVariable String searchTerms, 
@@ -258,14 +291,21 @@ public class PlaceController {
       @PathVariable String address,
       @PathVariable Integer pageNumber) {
     
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    if (auth == null) {
+      return "redirect:/login";
+    }
+    
     searchTerms = searchTerms.replaceAll("\"", "\'");
     
     List<Place> items = 
-        placeService.searchByKeywordsLocation(pageNumber, searchTerms, lat, lng, country);
+        placeService.searchByKeywordsLocation(auth.getName(), 
+            pageNumber, searchTerms, lat, lng, country);
     
     int current = pageNumber;
     int begin = Math.max(1, current - 5);
-    int totalPages = placeService.getTotalPagesByKeywordsLocation(searchTerms, lat, lng, country);
+    int totalPages = placeService.getTotalPagesByKeywordsLocation(auth.getName(), 
+        searchTerms, lat, lng, country);
     int end = Math.min(begin + 10, totalPages);
 
     model.put("totalPages", totalPages);
@@ -288,7 +328,7 @@ public class PlaceController {
   /**
    * search by location.
    */
-  @RequestMapping(value = PLACES_KEYWORDS_PATH + "{lat}/{lng}/{country}/{address}/{pageNumber}", 
+  @RequestMapping(value = PLACES_KEYWORDS_PATH + "{lat}/{lng}/{country}/{address:.+}/{pageNumber}", 
       method = RequestMethod.GET)
   public String searchByLocationPagination(Map<String, Object> model, 
       @PathVariable Double lat, 
@@ -297,12 +337,18 @@ public class PlaceController {
       @PathVariable String address,
       @PathVariable Integer pageNumber) {
     
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    if (auth == null) {
+      return "redirect:/login";
+    }
+    
     List<Place> items = 
-        placeService.searchByKeywordsLocation(pageNumber, null, lat, lng, country);
+        placeService.searchByKeywordsLocation(auth.getName(), pageNumber, null, lat, lng, country);
     
     int current = pageNumber;
     int begin = Math.max(1, current - 5);
-    int totalPages = placeService.getTotalPagesByKeywordsLocation(null, lat, lng, country);
+    int totalPages = placeService.getTotalPagesByKeywordsLocation(auth.getName(), 
+        null, lat, lng, country);
     int end = Math.min(begin + 10, totalPages);
     
     /*
@@ -336,12 +382,18 @@ public class PlaceController {
   public String searchByKeyWordsPagination(Map<String, Object> model, 
       @PathVariable String searchTerms, 
       @PathVariable Integer pageNumber) {
+    
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    if (auth == null) {
+      return "redirect:/login";
+    }
+    
     searchTerms = searchTerms.replaceAll("\"", "\'");
-    List<Place> items = placeService.searchByKeywords(pageNumber, searchTerms);
+    List<Place> items = placeService.searchByKeywords(auth.getName(), pageNumber, searchTerms);
     
     int current = pageNumber;
     int begin = Math.max(1, current - 5);
-    int totalPages = placeService.getTotalPagesByKeywords(searchTerms);
+    int totalPages = placeService.getTotalPagesByKeywords(auth.getName(), searchTerms);
     int end = Math.min(begin + 10, totalPages);
 
     model.put("totalPages", totalPages);
@@ -358,15 +410,15 @@ public class PlaceController {
   /**
    * @return POIs by pagination.
    */
-  @RequestMapping(value = PLACES_PATH + "{pageNumber}", method = RequestMethod.GET)
+  @RequestMapping(value = PLACES_PUBLIC + "{pageNumber}", method = RequestMethod.GET)
   public String indexPagination(Map<String, Object> model, 
       @PathVariable Integer pageNumber, HttpServletRequest request) {
 
-    List<Place> items = placeService.searchByKeywords(pageNumber, null);
+    List<Place> items = placeService.searchByKeywords(null, pageNumber, null);
     
     int current = pageNumber;
     int begin = Math.max(1, current - 5);
-    int totalPages = placeService.getTotalPagesByKeywords(null);
+    int totalPages = placeService.getTotalPagesByKeywords(null, null);
     int end = Math.min(begin + 10, totalPages);
 
     model.put("totalPages", totalPages);
@@ -374,7 +426,7 @@ public class PlaceController {
     model.put("endIndex", end);
     model.put("currentIndex", current);
     model.put("items", items);
-    model.put("path", PLACES_PATH);
+    model.put("path", PLACES_PUBLIC);
     
     return "index";
   }
@@ -433,7 +485,13 @@ public class PlaceController {
   @RequestMapping(value = { "/search/", "/search" }, method = RequestMethod.GET)
   public String search(@RequestParam String keywords, 
       Map<String, Object> model, HttpServletRequest request) {
-    List<Place> items = placeService.search(keywords);
+    
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    if (auth == null) {
+      return "redirect:/login";
+    }
+    
+    List<Place> items = placeService.search(auth.getName(), keywords);
     //System.out.println(items.size());
     model.put("items", items);
     model.put("keywords", keywords);
@@ -450,7 +508,11 @@ public class PlaceController {
   public String searchByCategory(
       @RequestParam(value = "type", required = false, defaultValue = "INDIVIDUAL") String type, 
       Map<String, Object> model) {
-    List<Place> items = placeService.searchByCategory(type);
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    if (auth == null) {
+      return "redirect:/login";
+    }
+    List<Place> items = placeService.searchByCategory(auth.getName(), type);
     //System.out.println(items.size());
     model.put("items", items);
     model.put("keywords", "");
@@ -529,8 +591,8 @@ public class PlaceController {
     // luu thong tin ai la nguoi edit, add
     if (authentication != null && authentication.getPrincipal() != null) {
       CurrentUser currentUser = (CurrentUser) authentication.getPrincipal();
-      Optional<User> user = userService.getUserByEmail(currentUser.getUsername());
-      place.setCreatedByUser(user.get().getEmail());
+      place.setCreatedByUser(currentUser.getUsername());
+      place.setCreatedByUserFullname(currentUser.getFullname());
     } else {
       place.setCreatedByUser(null);
     }
@@ -540,9 +602,9 @@ public class PlaceController {
 
 
     // RETURN THE ADDED PLACE
-    //return new ModelAndView("redirect:" + PLACE_PATH 
-    //    + place.getTitleWithoutAccents() + "/" + place.getId());
-    return new ModelAndView("redirect:/");
+    return new ModelAndView("redirect:" + PLACE_PATH 
+        + place.getTitleWithoutAccents() + "/" + place.getId());
+    //return new ModelAndView("redirect:/");
   }
     
   /**
@@ -556,10 +618,20 @@ public class PlaceController {
       @RequestParam Double lat,
       @RequestParam Double lng,
       @RequestParam String country) {
-    //LOGGER.info(query);
+    
+
+    
     List<String> results = new ArrayList<String>();
+    
+    
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    if (auth == null) {
+      return results;
+    }
+    
     List<Place> items = 
-        placeService.searchByKeywordsLocation(new Integer(1), query, lat, lng, country);
+        placeService.searchByKeywordsLocation(auth.getName(), 
+            new Integer(1), query, lat, lng, country);
     for (Place place : items) {
       results.add(place.getTitle() + " (" + place.getCity() + ")");
     }

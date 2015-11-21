@@ -43,9 +43,9 @@ public class FeedbackService {
     mail.setFrom("bandoviet.net@gmail.com");
     mail.setSubject("Thanks for your feedback at bandoviet.net: " + feedback.getSubject());
     mail.setText("Xin chào " + feedback.getName() 
-        + "\n\n Cảm ơn bạn đã viết cho chúng tôi với nội dung: \n\n" 
+        + "\n\nCảm ơn bạn đã viết cho chúng tôi với nội dung: \n\n" 
         + feedback.getMessage() 
-        + "\n\n Chúng tôi sẽ cố gắng có phản hồi cho bạn sớm nhất."
+        + "\n\nChúng tôi sẽ cố gắng có phản hồi cho bạn sớm nhất."
         + "\n\nThay mặt ban điều hành,"
         + "\n Bản đồ Việt");
     

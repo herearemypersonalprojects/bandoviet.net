@@ -21,7 +21,8 @@ public class TypeController {
   public String createtype(@RequestParam String name, 
                          @RequestParam Integer securityLevel) {
      // save to database name=sdfsdfsq&securityLevel=3
-    typeService.save(name, "GROUP", securityLevel);
-    return "redirect:/create";
+    Type type = typeService.save(name, "GROUP", securityLevel);
+    
+    return "redirect:/create?placeType=" + type.getCode();
   }
 }

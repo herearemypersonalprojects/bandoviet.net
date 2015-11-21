@@ -1,3 +1,12 @@
+20/11/2015
+1. bộ lọc thông tin có thể customize tuỳ theo profil ?
+2. them phan Nhung dong gop cua ban cho Ban do Viet trong do liet ke ban da them dia chi nao, valid dia chi nao, tao nhom ban do nao
+3. nếu có thêm bộ lọc dựa trên khoảng cách geolocation 500 m, 1Km, :))
+4. em muon no hien ro rang hon la cty la ben canh ghi director hoac chi ten cty hien ra thoi con ten nguoi Viet lam director co the hien ben duoi
+titre la ten cty ben duoi la Director roi moi den dchi y a 
+5. cam cai do drop ra diem khac khong, di chuyen icon tren ban do va refresh lai vi tri tim kiem
+6. Nhan vao icon ben phai de hien thi bo loc filtre don gian
+
 18/11/2015
 1. Don dep thu muc (if Folder exist and ID place not exist then Delete Folder)
 2. Chay du lieu YELP cho Paris (ok)

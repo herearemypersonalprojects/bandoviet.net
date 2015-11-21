@@ -11,7 +11,7 @@ import java.util.List;
 import net.bandoviet.mail.Mail;
 import net.bandoviet.mail.MailService;
 import net.bandoviet.tool.AccentRemover;
-import net.bandoviet.tool.VietnameseWords;
+import net.bandoviet.user.CurrentUser;
 
 
 /**
@@ -30,23 +30,25 @@ public class TypeService {
    * Setup and save type's info.
    * @param type from the user.
    */
-  public void save(Type type) {
+  public Type save(Type type) {
+    Type result = null;
     type.setCreatedDate(new Date(System.currentTimeMillis()));
    
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     if (authentication == null) {
-      return ;
+      return null;
     }
     
     type.setCreatedByUser(authentication.getName());
     
     try {
-      typeRepository.save(type);
+      result = typeRepository.save(type);
     } catch (Exception e) {
       System.out.println("Bi loi: " + e.getMessage());
-      return;
+      return null;
     }
     
+    CurrentUser user =  (CurrentUser) authentication.getPrincipal();
     
     // gui vao email cua ca user va cua ca admin
     Mail mail = new Mail();
@@ -54,27 +56,28 @@ public class TypeService {
     mail.setCc("quocanh263@gmail.com");
     mail.setFrom("bandoviet.net@gmail.com");
     mail.setSubject("Thanks for creating a new group at bandoviet.net: " + type.getName());
-    mail.setText("Xin chào "
-        + "\n\n Cảm ơn bạn đã tạo nhóm bản đồ mới cho chúng tôi với nội dung: \n\n" 
+    mail.setText("Xin chào  " + user.getFullname() + ","
+        + "\n\nCảm ơn bạn đã tạo nhóm bản đồ mới cho chúng tôi với nội dung: \n\n" 
         + type.getName()
-        + "\n\n Chúng tôi sẽ cập nhật thông tin của bạn."
+        + "\n\nChúng tôi sẽ cập nhật thông tin của bạn."
         + "\n\nThay mặt ban điều hành,"
         + "\n Bản đồ Việt");
     
     mailService.sendMail(mail);
+    return result;
   }
   
   /**
    * Create a new type from given parameters.
    */
-  public void save(String name, String nhom, Integer securityLevel) {
+  public Type save(String name, String nhom, Integer securityLevel) {
     Type type = new Type();
     type.setName(name);
     type.setNhom(nhom);
     type.setCode(AccentRemover.toUrlFriendly(name)); //TODO: Kiem tra ten da bi trung truoc khi save
     type.setSecurityLevel(securityLevel);
     
-    save(type);
+    return save(type);
   }
   
   public List<Type> findAll() {

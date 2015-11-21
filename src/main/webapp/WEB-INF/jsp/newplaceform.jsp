@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="a" uri="http://www.springframework.org/security/tags"%>
+
 <div class="container-fluid" id="main">
 	<div class="row">
 		<div id="left" class="col-xs-8">
@@ -79,11 +82,24 @@
 					<label for="title" class="col-sm-3 control-label"><spring:message
 							code="home.new.type" /></label>
 					<div class="col-sm-9">
+	
                 		<form:select path="placeType" class="form-control" id="placeType" name="placeType">
                 			<form:option value="" ><spring:message code="home.new.type.suggest"/></form:option>
-							<c:forEach items="${typeList}" var="option">
-									<form:option value="${option}" ><spring:message code="${option.code }"/></form:option>
-							</c:forEach>
+                		        <sec:authorize access="isAuthenticated()"> 
+       								<a:authentication property="principal" var="principal" />
+	   								<c:forEach items="${types }" var="type" varStatus="recipeCounter">
+										<c:if test="${(type.securityLevel < 3 && type.createdByUser == principal.username) || 
+										(type.nhom == 'PERSONAL' && type.securityLevel == 1) }">
+											<form:option value="${type.code}" >${type.name }</form:option>
+										</c:if>	
+									</c:forEach>	    								
+       					 		</sec:authorize>
+                			
+								<c:forEach items="${types }" var="type" varStatus="recipeCounter">
+									<c:if test="${type.securityLevel == 3}">
+										<form:option value="${type.code}" >${type.name }</form:option>
+									</c:if>	
+								</c:forEach>								
 						</form:select>
 					</div>
 				</div>

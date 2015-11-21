@@ -115,13 +115,13 @@
 					</p>
 					<p>
 						<form:input path="email" id="email" name="email"
-							placeholder="Email" value="" class="radius" />
+							placeholder="Email để nhận mã kích hoạt tài khoản" value="" class="radius" />
 						<br>
 						<form:errors path="email" cssClass="error" />
 					</p>
 					<p>
 						<form:input type="password" path="password" id="password" name="password"
-							placeholder="Mật khẩu" class="radius" />
+							placeholder="Mật khẩu truy cập bandoviet.net" class="radius" />
 						<br>
 						<form:errors path="password" cssClass="error" />
 					</p>

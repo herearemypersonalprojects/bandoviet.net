@@ -139,7 +139,7 @@
 				       		 <fmt:formatNumber type="number" pattern="######" value="${item.distance}" /> m
 				       		 <br>	
 				       		 </c:if>
-				       		 Chủ đề: <spring:message	code="${item.placeType }" />
+				       		 Chủ đề: ${item.placeType }
 				       		 <br>
 				       		 <c:if test="${false}">
 				       		 	<spring:message code="home.result.item.email"/>: ${item.email} <br>

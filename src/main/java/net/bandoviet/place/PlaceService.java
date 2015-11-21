@@ -41,7 +41,7 @@ public class PlaceService {
   
   @Autowired private PlaceSaveService placeSaveService;
 
-  private static final int PAGE_SIZE = 50;
+  private static final int PAGE_SIZE = 20;
   
   private static final double DISTANCE = 50; // km
   
@@ -59,7 +59,7 @@ public class PlaceService {
    * @param pageNumber page number.
    * @return list of places.
    */
-  public List<Place> findAll(Integer pageNumber) {
+  public List<Place> findAll_tobedeleted(Integer pageNumber) {
     Pageable pageSpecification = 
         new PageRequest(pageNumber - 1, PAGE_SIZE, new Sort(Sort.Direction.ASC, "title"));
     Page<Place> requestedPage = placeRepository.findAll(pageSpecification);
@@ -81,7 +81,7 @@ public class PlaceService {
    * @param pageNumber page number.
    * @return list of places.
    */
-  public Page<Place> searchByPagination(Integer pageNumber) {
+  public Page<Place> searchByPagination_tobedeleted(Integer pageNumber) {
     PageRequest request =
         new PageRequest(pageNumber - 1, PAGE_SIZE, Sort.Direction.DESC, "createdDate");
     return placeRepository.findAll(request);
@@ -90,27 +90,27 @@ public class PlaceService {
   /**
    * @return list of places for given search terms.
    */
-  public List<Place> searchByKeywords(Integer pageNumber, String keywords) {
-    if (StringUtils.isEmpty(keywords)) {
-      return placeRepository.search(PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
-    }
-    List<Place> lst = placeRepository
-        .searchByKeywords(keywords, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
-    /*
-    if (lst.isEmpty()) {
-      return placeRepository.search(PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
+  public List<Place> searchByKeywords(String email, Integer pageNumber, String keywords) {
+    List<Place> lst = new ArrayList<Place>();
+    if (StringUtils.isEmpty(email)) {
+      
+      if (StringUtils.isEmpty(keywords)) {
+        return placeRepository.search(email, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
+      }
+      lst = placeRepository
+          .searchByKeywords(email, keywords, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
     } else {
-      return lst;
-    }*/
+      lst = placeRepository.searchByContribution(email, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
+    }
     return lst;
   }
   
-  public List<Place> searchByKeywords(List<String> types, Integer pageNumber, String keywords) {
+  public List<Place> searchByKeywords(String email, List<String> types, Integer pageNumber, String keywords) {
     if (StringUtils.isEmpty(keywords)) {
-      return placeRepository.search(types, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
+      return placeRepository.search(email, types, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
     }
     List<Place> lst = placeRepository
-        .searchByKeywords(types, keywords, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
+        .searchByKeywords(email, types, keywords, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
     /*
     if (lst.isEmpty()) {
       return placeRepository.search(types, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
@@ -123,7 +123,7 @@ public class PlaceService {
   /**
    * Filtred by area of 50km from a given lst.
    */
-  public List<Place> searchByArea(Double lat, Double lng, List<Place> lst) {
+  public List<Place> searchByArea_tobedeleted(Double lat, Double lng, List<Place> lst) {
     List<Place> lstLatLng = new ArrayList<Place>();
     for (Place place : lst) {
       if (DistanceCalculator.distance(lat, lng, place.getLatitude(), 
@@ -140,7 +140,8 @@ public class PlaceService {
   /**
    * @return list of places for given search terms in certain country or area.
    */
-  public List<Place> searchByKeywordsLocation(Integer pageNumber, 
+  public List<Place> searchByKeywordsLocation(String email, 
+                                      Integer pageNumber, 
                                       String keywords, 
                                       Double lat, 
                                       Double lng, 
@@ -148,10 +149,14 @@ public class PlaceService {
     List<Place> places = new ArrayList<Place>();
     if (StringUtils.isEmpty(keywords)) {
       places = placeRepository
-          .findByDistance(lat, lng, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
+          .findByDistance(email, lat, lng, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
     } else {
-      places = placeRepository.findByDistanceAndKeywords(
+      places = placeRepository.findByDistanceAndKeywords(email, 
           keywords, lat, lng, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE, DISTANCE);      
+      if (places == null || (places != null && places.isEmpty())) {
+        places = placeRepository.findByDistanceAndKeywords(email, 
+            keywords, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);          
+      }
     }
     for (Place place : places) {
       double distance = 3959 * Math.acos( Math.cos( Math.toRadians(lat) ) 
@@ -165,16 +170,16 @@ public class PlaceService {
   } 
   
   
-  public List<Place> searchByKeywordsLocation(List<String> types, Integer pageNumber, 
+  public List<Place> searchByKeywordsLocation(String email, List<String> types, Integer pageNumber, 
                   String keywords, 
                   Double lat, 
                   Double lng, 
                   String country) {
     List<Place> places = new ArrayList<Place>();
     if (StringUtils.isEmpty(keywords)) {
-      places = placeRepository.findByDistance(types, lat, lng, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
+      places = placeRepository.findByDistance(email, types, lat, lng, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
     } else {
-      places = placeRepository.findByDistanceAndKeywords(types, keywords, lat, lng, PAGE_SIZE,
+      places = placeRepository.findByDistanceAndKeywords(email, types, keywords, lat, lng, PAGE_SIZE,
           (pageNumber - 1) * PAGE_SIZE, DISTANCE);
     }
     for (Place place : places) {
@@ -190,30 +195,35 @@ public class PlaceService {
   /**
    * @return total of pages for given search terms.
    */
-  public int getTotalPagesByKeywords(String keywords) {
-    if (StringUtils.isEmpty(keywords)) {
-      return placeRepository.getTotalPages(PAGE_SIZE);
+  public int getTotalPagesByKeywords(String email, String keywords) {
+    if (StringUtils.isEmpty(email)) {
+      if (StringUtils.isEmpty(keywords)) {
+        return placeRepository.getTotalPages(PAGE_SIZE);
+      }
+      return placeRepository.getTotalPagesByKeywords(keywords, PAGE_SIZE);     
+    } else {
+      return placeRepository.getTotalPagesByContribution(email, PAGE_SIZE);
     }
-    return placeRepository.getTotalPagesByKeywords(keywords, PAGE_SIZE);
+
   }
   
-  public int getTotalPagesByKeywords(List<String> types, String keywords) {
+  public int getTotalPagesByKeywords(String email, List<String> types, String keywords) {
     if (StringUtils.isEmpty(keywords)) {
-      return placeRepository.getTotalPages(types, PAGE_SIZE);
+      return placeRepository.getTotalPages(email, types, PAGE_SIZE);
     }
-    return placeRepository.getTotalPagesByKeywords(types, keywords, PAGE_SIZE);
+    return placeRepository.getTotalPagesByKeywords(email, types, keywords, PAGE_SIZE);
   }
   
   /**
    * 
    * @return total of pages for search in a given location.
    */
-  public int getTotalPagesByKeywordsLocation(String keywords, 
+  public int getTotalPagesByKeywordsLocation(String email, String keywords, 
       Double lat, Double lng, String country) {
     if (StringUtils.isEmpty(keywords)) {
-      return placeRepository.getTotalPagesLocation(PAGE_SIZE);
+      return placeRepository.getTotalPagesLocation(email, PAGE_SIZE);
     }
-    return placeRepository.getTotalPagesByKeywordsLocation(keywords, lat, lng, PAGE_SIZE, DISTANCE);
+    return placeRepository.getTotalPagesByKeywordsLocation(email, keywords, lat, lng, PAGE_SIZE, DISTANCE);
     /* vi du nay de lan sau biet ma su dung
     List<Object[]> results = 
         placeRepository.getTotalPagesByKeywordsLocation(keywords, lat, lng, PAGE_SIZE, country, DISTANCE);
@@ -227,20 +237,20 @@ public class PlaceService {
     */
   }
   
-  public int getTotalPagesByKeywordsLocation(List<String> types, String keywords, 
+  public int getTotalPagesByKeywordsLocation(String email, List<String> types, String keywords, 
       Double lat, Double lng, String country) {
     if (StringUtils.isEmpty(keywords)) {
-      return placeRepository.getTotalPagesLocation(types, PAGE_SIZE);
+      return placeRepository.getTotalPagesLocation(email, types, PAGE_SIZE);
     }
-    return placeRepository.getTotalPagesByKeywordsLocation(types, keywords, lat, lng, PAGE_SIZE, DISTANCE);
+    return placeRepository.getTotalPagesByKeywordsLocation(email, types, keywords, lat, lng, PAGE_SIZE, DISTANCE);
   }
   
-  public List<Place> searchByCategory(Integer pageNumber, String[] types) {
-    return placeRepository.searchByCategory(Arrays.asList(types), PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
+  public List<Place> searchByCategories(String email, Integer pageNumber, String[] types) {
+    return placeRepository.searchByCategories(email, Arrays.asList(types), PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
   }
   
-  public int getTotalPagesByCategory(String[] types) {
-    return placeRepository.getTotalPagesByCategory(Arrays.asList(types), PAGE_SIZE);
+  public int getTotalPagesByCategories(String email, String[] types) {
+    return placeRepository.getTotalPagesByCategories(email, Arrays.asList(types), PAGE_SIZE);
   }
   
   public List<Place> searchByCategory(String email, Integer pageNumber, String type) {
@@ -258,10 +268,10 @@ public class PlaceService {
    * @return list of corresponding places.
    */
   @Transactional(readOnly = true)
-  public List<Place> search(String keywords) {
+  public List<Place> search(String email, String keywords) {
     List<Place> results = null;
     try {
-      results = placeRepository.findByKeywords(keywords);
+      results = placeRepository.findByKeywords(email, keywords);
     } catch (Exception e) {
       LOGGER.error("An error occurred trying to search for places: " + e.toString());
     }
@@ -274,10 +284,10 @@ public class PlaceService {
    * @return list of places.
    */
   @Transactional(readOnly = true)
-  public List<Place> searchByCategory(String type) {
+  public List<Place> searchByCategory(String email, String type) {
     List<Place> results = null;
     try {
-      results = placeRepository.findByType(type);
+      results = placeRepository.findByType(email, type);
     } catch (Exception e) {
       LOGGER.error("An error occurred trying to search for places: " + e.toString());
     }
@@ -316,6 +326,7 @@ public class PlaceService {
     }
     
     place.setTitleWithoutAccents(AccentRemover.toUrlFriendly(place.getTitle()));
+    place.setInformation(place.getInformation().trim());
     Place updatedPlace = placeRepository.save(place);
     
     try {      
@@ -357,8 +368,8 @@ public class PlaceService {
   }
   
 
-  public List<Place> findByCity(String cityName) {
-    return placeRepository.findByCity(cityName);
+  public List<Place> findByCity_tobedeleted(String email, String cityName) {
+    return placeRepository.findByCity(email, cityName);
   }
 
   /**
@@ -370,7 +381,7 @@ public class PlaceService {
    *          given longitude
    * @return list of nearest places.
    */
-  public List<Place> findByLocation(double lat, double lng) {
+  public List<Place> findByLocation_tobedeleted(double lat, double lng) {
     List<Place> lst = placeRepository.findAll();
 
     TreeMap<Long, Double> sortedList = new TreeMap<Long, Double>();

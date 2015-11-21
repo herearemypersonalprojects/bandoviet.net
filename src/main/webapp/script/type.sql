@@ -1,7 +1,7 @@
 CREATE TABLE `type` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  'code' varchar(255) unique,
+  `code` varchar(255) unique,
   `nhom` varchar(255) NOT NULL,
   `created_date` datetime DEFAULT NULL,
   `created_by_user` varchar(255) DEFAULT NULL,
@@ -9,7 +9,8 @@ CREATE TABLE `type` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8; 
 
-
+alter table type convert to character set utf8;
+alter table type modify column name varchar(255) character set utf8 collate utf8_general_ci;
 
 mysql> insert into type (name, nhom, created_date, created_by_user, security_level) values ('Bản đồ cá nhân', 'PERSONAL', curdate(), 'quocanh263@gmail.com', 1);
 Query OK, 1 row affected (0,00 sec)

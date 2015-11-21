@@ -1,13 +1,15 @@
 package net.bandoviet.user;
 
-import net.bandoviet.tool.EmailUtils;
-import net.bandoviet.tool.VietnameseWords;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+
+import net.bandoviet.mail.Mail;
+import net.bandoviet.mail.MailService;
+import net.bandoviet.tool.EmailUtils;
+import net.bandoviet.tool.VietnameseWords;
 
 
 
@@ -24,6 +26,9 @@ public class UserCreateFormValidator implements Validator {
 
   @Autowired
   UserService userService;
+  
+  @Autowired
+  MailService mailService;
 
   @Override
   public boolean supports(Class<?> clazz) {
@@ -48,6 +53,19 @@ public class UserCreateFormValidator implements Validator {
   private void validateVietnameseName(Errors errors, UserCreateForm form) {
     if (StringUtils.isNotBlank(form.getFullname()) 
         && !VietnameseWords.isVietnamese(form.getFullname())) {
+      Mail mail = new Mail();
+      mail.setTo("quocanh263@gmail.com");
+      mail.setFrom("bandoviet.net@gmail.com");
+      String address = "";
+      if (form.getAddress() != null) {
+        address = form.getAddress();
+      }
+      mail.setSubject("Login.fullname.invalidated: " + form.getFullname() + " -- " + address);
+      mail.setText(form.getFullname() );
+      if (form.getEmail() != null) {
+        mail.setText(mail.getText() + " : " + form.getEmail());
+      }
+      mailService.sendMail(mail);
       errors.rejectValue("fullname", "fullname.invalidated", "Họ tên thiếu hoặc không đúng");
     }
   }
