@@ -28,6 +28,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import net.bandoviet.ipinfo.IpInfoService;
 import net.bandoviet.place.PlaceService;
 
 /**
@@ -83,7 +84,7 @@ public class UserController {
   @RequestMapping(value = "/public/trysignup", method = RequestMethod.GET)
   public void trysignup(@RequestParam String addressinput, @RequestParam String addressfound, 
       HttpServletRequest request) {
-    String info = addressinput + ":" + addressfound + ":" + request.getRemoteAddr();
+    String info = addressinput + ":" + addressfound + ":" + IpInfoService.getClientIP(request);
     userService.sendInfo(info, info);
   }
   
