@@ -170,6 +170,15 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
                      @Param("pageOffset") Integer pageOffset);
   
   @Query(value = "SELECT * "
+      + "FROM place "
+      + "order by updated_date desc "
+      + "LIMIT :pageLimit OFFSET :pageOffset", 
+      nativeQuery = true)
+  List<Place> search(
+                     @Param("pageLimit") Integer pageLimit, 
+                     @Param("pageOffset") Integer pageOffset);
+  
+  @Query(value = "SELECT * "
       + "FROM place p join type t on p.place_type = t.code "
       + "WHERE place_type in :types and (t.security_level = 3 or p.created_by_user like :email) "
       + "order by p.updated_date desc "
@@ -245,6 +254,10 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
       + "WHERE p.created_by_user like :email", nativeQuery = true)
   int getTotalPagesByContribution(@Param("email") String email, 
       @Param("pageLimit") Integer pageLimit);
+  
+  @Query(value = "SELECT ceil(count(*)/:pageLimit) "
+      + "FROM place", nativeQuery = true)
+  int getTotalPagesByPublic(@Param("pageLimit") Integer pageLimit);
   
   @Query(value = "SELECT ceil(count(*)/:pageLimit) "
       + "FROM place p join type t on p.place_type = t.code "

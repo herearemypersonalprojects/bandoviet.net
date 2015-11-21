@@ -99,11 +99,11 @@ public class PlaceController {
       return "redirect:/login";
     }
     
-    List<Place> items = placeService.searchByKeywords(auth.getName(), pageNumber, null);
+    List<Place> items = placeService.searchByContribution(auth.getName(), pageNumber);
     
     int current = pageNumber;
     int begin = Math.max(1, current - 5);
-    int totalPages = placeService.getTotalPagesByKeywords(auth.getName(), null);
+    int totalPages = placeService.getTotalPagesByContribution(auth.getName());
     int end = Math.min(begin + 10, totalPages);
 
     model.put("totalPages", totalPages);
@@ -414,11 +414,11 @@ public class PlaceController {
   public String indexPagination(Map<String, Object> model, 
       @PathVariable Integer pageNumber, HttpServletRequest request) {
 
-    List<Place> items = placeService.searchByKeywords(null, pageNumber, null);
+    List<Place> items = placeService.searchByPublic(pageNumber);
     
     int current = pageNumber;
     int begin = Math.max(1, current - 5);
-    int totalPages = placeService.getTotalPagesByKeywords(null, null);
+    int totalPages = placeService.getTotalPagesByPublic();
     int end = Math.min(begin + 10, totalPages);
 
     model.put("totalPages", totalPages);

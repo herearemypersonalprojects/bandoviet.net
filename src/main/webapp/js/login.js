@@ -64,8 +64,7 @@ $(document).ready(function() {
 		    		// Kiem tra xem dia chi nhap co dung khong (by country)
 					$.get("http://ipinfo.io", function(response) { 
 						if (response.country && response.country != $('#country').val()) {
-							alert('Địa chỉ hoặc thành phố không đúng!');
-							
+		
 							// thong bao cho admin biet truong hop nay
 							$.ajax({url: "/public/trysignup?addressinput=" + $('#address').val() + "&addressfound=" + response.country, success: function(result){
 						        
@@ -73,6 +72,7 @@ $(document).ready(function() {
 							
 							// reset
 							$('#address').val('');
+							$('#address').attr("Địa chỉ hoặc thành phố không đúng. Hãy nhập lại!");
 						}
 						
 					    //$("#ip").html(response.ip);

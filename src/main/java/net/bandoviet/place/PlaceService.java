@@ -91,18 +91,21 @@ public class PlaceService {
    * @return list of places for given search terms.
    */
   public List<Place> searchByKeywords(String email, Integer pageNumber, String keywords) {
-    List<Place> lst = new ArrayList<Place>();
-    if (StringUtils.isEmpty(email)) {
-      
-      if (StringUtils.isEmpty(keywords)) {
-        return placeRepository.search(email, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
-      }
-      lst = placeRepository
-          .searchByKeywords(email, keywords, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
-    } else {
-      lst = placeRepository.searchByContribution(email, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
+ 
+    if (StringUtils.isEmpty(keywords)) {
+      return placeRepository.search(email, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
     }
-    return lst;
+    return placeRepository
+        .searchByKeywords(email, keywords, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);    
+
+  }
+  
+  public List<Place> searchByPublic(Integer pageNumber) {
+    return placeRepository.search(PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
+  }
+  
+  public List<Place> searchByContribution(String email, Integer pageNumber) {
+    return placeRepository.searchByContribution(email, PAGE_SIZE, (pageNumber - 1) * PAGE_SIZE);
   }
   
   public List<Place> searchByKeywords(String email, List<String> types, Integer pageNumber, String keywords) {
@@ -195,6 +198,14 @@ public class PlaceService {
   /**
    * @return total of pages for given search terms.
    */
+  public int getTotalPagesByContribution(String email) {
+      return placeRepository.getTotalPagesByContribution(email, PAGE_SIZE);
+   }
+  
+  public int getTotalPagesByPublic() {
+    return placeRepository.getTotalPagesByPublic(PAGE_SIZE);
+ }
+  
   public int getTotalPagesByKeywords(String email, String keywords) {
     if (StringUtils.isEmpty(email)) {
       if (StringUtils.isEmpty(keywords)) {

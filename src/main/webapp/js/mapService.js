@@ -207,8 +207,8 @@
 			                }
 			                
 			            } else {
-			            	alert("The given address is not found. Please correct it!");
-			                console.log("Geocode was not successful for the following reason: " + status);
+			            	//alert("The given address is not found. Please correct it!");
+			                //console.log("Geocode was not successful for the following reason: " + status);
 			            }
 			        });
 			  }
@@ -244,8 +244,8 @@
 			                	infoWnd.open(map, marker);
 			                }
 			            } else {
-			            	alert("The given address is not found. Please correct it!");
-			                console.log("Geocode was not successful for the following reason: " + status);
+			            	//alert("The given address is not found. Please correct it!");
+			                //console.log("Geocode was not successful for the following reason: " + status);
 			            }
 			        });
 			    } else {

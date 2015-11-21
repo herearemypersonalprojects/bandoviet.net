@@ -168,7 +168,7 @@ function fillInAddress(z) {
 
 
     if (!place.geometry) {
-        window.alert("Autocomplete's returned place contains no geometry");
+        //window.alert("Autocomplete's returned place contains no geometry");
         return;
     }
 
@@ -412,8 +412,8 @@ function showLocation(address) {
                     infowindow.open(map, marker);
                 }
             } else {
-            	alert("The given address is not found. Please correct it!");
-                console.log("Geocode was not successful for the following reason: " + status);
+            	//alert("The given address is not found. Please correct it!");
+                //console.log("Geocode was not successful for the following reason: " + status);
                 if (address.indexOf(',') > 0) {
                     var add = address.substring(address.indexOf(',') + 1);
                     showLocation(add);
