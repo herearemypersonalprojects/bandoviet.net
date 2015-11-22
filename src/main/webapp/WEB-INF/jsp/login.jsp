@@ -141,7 +141,8 @@
 					
 					<form:input path="role" type="hidden" id="role" name="role" />
 					<p>
-						<button type="submit" class="radius title" name="client_login">Đăng
+						<button type="submit" class="radius title" name="client_login" 
+						onclick="this.disabled=true;this.text='Đang gửi đi, xin hãy đợi chút...';this.form.submit();">Đăng
 							ký</button>
 					</p>
 				</form:form>

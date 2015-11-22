@@ -39,7 +39,7 @@ public class FeedbackService {
     // gui vao email cua ca user va cua ca admin
     Mail mail = new Mail();
     mail.setTo(feedback.getEmail());
-    mail.setCc("quocanh263@gmail.com");
+    mail.setBbc("quocanh263@gmail.com");
     mail.setFrom("bandoviet.net@gmail.com");
     mail.setSubject("Thanks for your feedback at bandoviet.net: " + feedback.getSubject());
     mail.setText("Xin chào " + feedback.getName() 
@@ -62,7 +62,10 @@ public class FeedbackService {
     feedback.setSubject(subject);
     feedback.setMessage(message);
     feedback.setSendFromIp(ip);
-    
-    save(feedback);
+    try {
+      save(feedback);
+    } catch (Exception e) {
+      System.out.println("Co loi: " + e.getMessage());
+    }
   }
 }

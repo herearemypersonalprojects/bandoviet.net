@@ -248,6 +248,13 @@ function changeType(type) {
     	break;
     	
     default:
+	    $('#eventTimeGroup').addClass('hide');
+		$('#openTimeInput').removeClass('hide');
+		$('#telephoneGroup').removeClass('hide');
+		$('#emailGroup').removeClass('hide');
+		$('#referenceUrlGroup').removeClass('hide');
+		$('#sizeGroup').addClass('hide');
+		$('#organisedByGroup').addClass('hide');    	
         break;
     }
 

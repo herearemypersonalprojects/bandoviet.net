@@ -53,7 +53,7 @@ public class TypeService {
     // gui vao email cua ca user va cua ca admin
     Mail mail = new Mail();
     mail.setTo(type.getCreatedByUser());
-    mail.setCc("quocanh263@gmail.com");
+    mail.setBbc("quocanh263@gmail.com");
     mail.setFrom("bandoviet.net@gmail.com");
     mail.setSubject("Thanks for creating a new group at bandoviet.net: " + type.getName());
     mail.setText("Xin chào  " + user.getFullname() + ","

@@ -18,13 +18,13 @@
 			       <div class="control-group">
 			            <label class="control-label" for="name">Tên của bạn/Your Name</label>
 			            <div class="controls">
-			                <input <sec:authorize access="isAuthenticated()"> value="<sec:authentication property="principal.fullname" />" </sec:authorize> type="text" name="name" id="name" placeholder="Your name">
+			                <input <sec:authorize access="isAuthenticated()"> value="<sec:authentication property="principal.fullname" />" </sec:authorize> type="text" name="name" id="name" placeholder="Your name" required>
 			            </div>
 			        </div>
 			        <div class="control-group">
 			            <label class="control-label" for="email">Địa chỉ thư điện tử/Your Email Address</label>
 			            <div class="controls">
-			                <input <sec:authorize access="isAuthenticated()">value="<sec:authentication property="principal.username" />" </sec:authorize> type="text" name="email" id="email" placeholder="Your email address">
+			                <input <sec:authorize access="isAuthenticated()">value="<sec:authentication property="principal.username" />" </sec:authorize> type="text" name="email" id="email" placeholder="Your email address" required>
 			            </div>
 			        </div>
 			        <div class="control-group">
@@ -42,7 +42,7 @@
 			        <div class="control-group">
 			            <label class="control-label" for="message">Nội dung/Message</label>
 			            <div class="controls">
-			                <textarea name="message" id="message" rows="8" class="span5 form-control" placeholder="The message you want to send to us."></textarea>
+			                <textarea name="message" id="message" rows="8" class="span5 form-control" placeholder="The message you want to send to us." required></textarea>
 			            </div>
 			        </div>
 			        <div class="form-actions">

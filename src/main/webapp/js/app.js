@@ -19,6 +19,7 @@ $(document).ready(function() {
 		$("#thanks").html('')
 		$('#form-feedback').modal('show');
 	});
+	/*
     $('form.contact').validate({
         rules: {
             name: {
@@ -42,6 +43,7 @@ $(document).ready(function() {
                 .closest('.form-group').removeClass('error').addClass('success');
         }
     });
+    */
     $('form.contact').submit(function(){
     	if ($('form.contact').valid()) {
             $.ajax({
@@ -50,7 +52,7 @@ $(document).ready(function() {
                 data: $('form.contact').serialize(),
                 success: function(msg){
                 	$('form.contact').hide();
-                	$("#thanks").html(msg) //hide button and show thank you
+                	$("#thanks").html(msg); //hide button and show thank you
                 	$('#thanks').removeClass('hide');
                 	//$('#thanks').delay(5000).fadeOut('slow');
                 	setTimeout(function() {
@@ -59,7 +61,7 @@ $(document).ready(function() {
                     //$("#form-feedback").modal('hide'); //hide popup  
                 },
                 error: function(){
-                    alert("failure");
+                    //alert("failure");
                 }
             });   		
     	}

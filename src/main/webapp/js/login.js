@@ -72,7 +72,7 @@ $(document).ready(function() {
 							
 							// reset
 							$('#address').val('');
-							$('#address').attr("Địa chỉ hoặc thành phố không đúng. Hãy nhập lại!");
+							$('#address').attr("placeholder", "Địa chỉ hoặc thành phố không đúng. Hãy nhập lại!");
 						}
 						
 					    //$("#ip").html(response.ip);
@@ -107,7 +107,7 @@ $(document).ready(function() {
            
         } else {
         	document.getElementById('address').value = "";
-        	alert("Địa chỉ không tìm thấy. Hãy nhập lại!");
+        	$('#address').attr("placeholder", "Địa chỉ hoặc thành phố không đúng. Hãy nhập lại!");
         }		
 	}
 	

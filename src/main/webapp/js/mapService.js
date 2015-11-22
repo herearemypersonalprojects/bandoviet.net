@@ -207,6 +207,7 @@
 			                }
 			                
 			            } else {
+			            	$('#locationSearch').attr("placeholder", "Địa chỉ hoặc thành phố không đúng. Hãy nhập lại!");
 			            	//alert("The given address is not found. Please correct it!");
 			                //console.log("Geocode was not successful for the following reason: " + status);
 			            }

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
+import net.bandoviet.ipinfo.IpInfoService;
+
 /**
  * Get feedback from users (Feedback, Suggestion, Question, Other).
  *
@@ -33,7 +35,7 @@ public class FeedbackController {
                          HttpServletRequest request) {
     System.out.println(name + ":" + email + ":" + subject + ":" + message);
     // save to database
-    feedbackService.save(name, email, subject, message, request.getRemoteAddr());
+    feedbackService.save(name, email, subject, message, IpInfoService.getClientIP(request));
     return "Thank you!";
   }
 }
