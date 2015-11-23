@@ -115,7 +115,7 @@
 					</div>	
 					 --%>
 					<div>
-						<span style="color: #428bca;">${(currentIndex-1)*50 + status.index + 1}. </span>
+						<span style="color: #0d567e; font-weight: 900;">${(currentIndex-1)*10 + status.index + 1}. </span>
 						<strong>
 						 <a style="color:#116c9e;" href="/place/${item.titleWithoutAccents}/${item.id}" target="_blank"> ${item.title}</a>						 
 						</strong>
@@ -125,7 +125,7 @@
 						
 					</div>	
 					
-					<div class="item_content" id="${status.index}" data-lat="${item.latitude}" data-address="${item.address}"  
+					<div class="item_content" id="${status.index}" data-label="${(currentIndex-1)*10 + status.index + 1}" data-lat="${item.latitude}" data-address="${item.address}"  
 					data-id="${item.id}" data-type="${item.placeType}" data-icon="${item.iconPath}"
 						data-lng="${item.longitude}" data-title="${item.title}"	data-img="${item.imagePath}">
 						

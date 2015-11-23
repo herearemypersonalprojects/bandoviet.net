@@ -6,6 +6,7 @@ var infoWnd = new google.maps.InfoWindow({disableAutoPan: false  });
 var infobox;
 var locationSearchAutocomplete;
 var poiList = [];
+var markerList = [];
 var detailZoom = 15;
 var geocoder = new google.maps.Geocoder();
 
@@ -16,21 +17,7 @@ $(document).ready(
 			google.maps.event.addDomListener(window, 'load', initialize);
 
 			function initialize() {
-				// Hien thi cac ket qua tren ban do
-				poiList = [];			
-				$('.item_content').each(function( index, element ) {
-					var item = {
-						"id": 	element.getAttribute("data-id"),
-						"lat": 	element.getAttribute("data-lat"),
-						"lng": element.getAttribute("data-lng"),
-						"title": element.getAttribute("data-title"),
-						"imagePath": element.getAttribute("data-img"),
-						"iconPath": element.getAttribute("data-icon"),
-						"type": element.getAttribute("data-type"),
-						"address": element.getAttribute("data-address")
-					};
-					poiList.push(item);
-				});
+
 				
 				/* position Paris */
 				var latlng = new google.maps.LatLng(48.856614, 2.3522219000000177);
@@ -82,6 +69,28 @@ $(document).ready(
 					});
 				});
 				
+				displayMarkers();
+				  
+			};
+			
+			function displayMarkers() {
+				// Hien thi cac ket qua tren ban do
+				poiList = [];			
+				$('.item_content').each(function( index, element ) {
+					var item = {
+						"id": 	element.getAttribute("data-id"),
+						"label": element.getAttribute("data-label"),
+						"lat": 	element.getAttribute("data-lat"),
+						"lng": element.getAttribute("data-lng"),
+						"title": element.getAttribute("data-title"),
+						"imagePath": element.getAttribute("data-img"),
+						"iconPath": element.getAttribute("data-icon"),
+						"type": element.getAttribute("data-type"),
+						"address": element.getAttribute("data-address")
+					}; 
+					poiList.push(item);
+				});	
+				
 				//Mapping markers on the map
 				  var bounds = new google.maps.LatLngBounds();
 				  var station, i, latlng;
@@ -91,13 +100,45 @@ $(document).ready(
 				    station = poiList[i];
 				    latlng = new google.maps.LatLng(station.lat, station.lng);
 				    bounds.extend(latlng);
+				    
+				    /*
 				    var m = createMarker(map, latlng, station.title, idx);
 				    
 				    //Creates a sidebar button for the marker
 				    createMarkerButton(m, idx);
+				    */
+				      var infoBubble=new InfoBubble(
+			                {
+			                    map: map,
+			                    content: getTitle(station.title.substring(0,10)),
+			                    position: latlng,
+			                    shadowStyle: 0,
+			                    padding: 0,
+			                    backgroundColor: '#FF5A5F',
+			                    borderRadius: 4,
+			                    arrowSize: 7,
+			                    borderWidth: 1,
+			                    borderColor: '#ccc',
+			                    disableAutoPan: true,
+			                    hideCloseButton: true,
+			                    arrowPosition: 50,
+			                    backgroundClassName: 'infoBubbleBackground',
+			                    arrowStyle: 0,
+			                    baseZIndex_: 100
+			                }
+			            );
+
+				       infoBubble.open();
+				 
+				       markerList.push(infoBubble);
+				    
 				    idx = idx + 1;
 			
 				  }
+				  markerList[1].setZIndex(105);
+				  alert(markerList[1].getZIndex());
+				  markerList[1].setBackgroundColor('#116c9e');
+				  markerList[1].setContent(getTitle('le quoc anh le quoc'));
 				  
 				  // display the user's given location
 				  if ($('#locationSearch').val()) {
@@ -138,10 +179,13 @@ $(document).ready(
 					  $('#0').trigger('click');
 					  //showLocationLatLng(poiList[0].lat, poiList[0].lng);
 				  }			 
-				  
-				  
+				  				
+			};
+			
+			function getTitle(title) {
+				return '<center style="color: #fff;">' + title + '</center>';
 			}
-			;
+			
 			/* end google maps -----------------------------------------------------*/
 			
 			/* map controller */

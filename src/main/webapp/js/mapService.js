@@ -9,7 +9,8 @@
 				var item = document.getElementById(idx);
 				  //Trigger a click event to marker when the button is clicked.
 				  google.maps.event.addDomListener(place, "click", function(){ //mouseover
-					  
+
+					       
 					  createInfoBox(item, m);
 					  /*
 					    infoWnd.setContent(
@@ -46,13 +47,37 @@
 				var item = document.getElementById(idx);
 				var place = document.getElementById("item"+idx);
 				  //Creates a marker
-				var iconImage = "/img/flags/vietnammarker.png"; 
-				  var m = new google.maps.Marker({
+				var label = poiList[idx].label % 100;
+				var iconImage = "/img/markers/number_" + label + ".png"; 
+				 
+				var m = new google.maps.Marker({
 					    position : latlng,
 					    map : map,
 					    title : title,
 					    icon: iconImage,
 					  });
+				/*  
+		        infoBubble = new InfoBubble({
+		            maxWidth: 30,
+		            map: map,
+		            position: latlng,
+		          });
+		        infoBubble.setShadowStyle(0);
+		        infoBubble.setPadding(10);
+		        infoBubble.setBorderRadius(10);
+		        infoBubble.setBorderWidth(1);
+		        infoBubble.setBorderColor('#ccc');
+		        infoBubble.setBackgroundColor('#FF5A5F');
+		        infoBubble.setMaxWidth(45);
+		        infoBubble.setMaxHeight(15);		        
+		        infoBubble.setMinWidth(45);
+		        infoBubble.setMinHeight(15);
+		        infoBubble.setArrowSize(7);
+		        infoBubble.setArrowPosition('50%');
+		        infoBubble.setArrowStyle(0);
+		        infoBubble.hideCloseButton();
+		        */
+
 				/*
 				  if ((poiList[idx].type == 'INDIVIDUAL' ||  poiList[idx].type == 'FRIENDSMAP')&&  poiList[idx].iconPath) {
 					var icon = {
@@ -102,14 +127,14 @@
 			}
 			
 			function createInfoBox(item, marker) {
-				
+
 				 infoWnd.setContent(
 				    		'<span><b>' + $(item).data('title') + '</b></span>' + 
 				    		'<br>'+
 				    		'<span>'+ $(item).data('address') + '</span>');
 				 infoWnd.open(map, marker);
-				 /*   
-				  
+				   
+				 /* 
 	            var infoboxContent = document.createElement("div");
 	            var infoboxOptions = {
 	                content: infoboxContent,

@@ -202,6 +202,7 @@
     <script src="/js/cookie.js" type="text/javascript"></script> 
     
     <script src="/js/lang.js" type="text/javascript"></script>
+    <script src="/js/infobubble.js" type="text/javascript"></script>
     <script src="/js/mapService.js"></script>
 	<script src="/js/scripts.js"></script>
 	<%--<script	src="/libs/infobox.js"></script> --%>
