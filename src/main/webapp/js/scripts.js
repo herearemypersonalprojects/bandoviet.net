@@ -7,15 +7,19 @@ var infobox;
 var locationSearchAutocomplete;
 var poiList = [];
 var markerList = [];
+var previousMarker = 0;
 var detailZoom = 15;
 var geocoder = new google.maps.Geocoder();
 
 
 $(document).ready(
 		function() {
+			
+
 			/* google maps -----------------------------------------------------*/
 			google.maps.event.addDomListener(window, 'load', initialize);
 
+			  
 			function initialize() {
 
 				
@@ -124,7 +128,9 @@ $(document).ready(
 			                    arrowPosition: 50,
 			                    backgroundClassName: 'infoBubbleBackground',
 			                    arrowStyle: 0,
-			                    baseZIndex_: 100
+			                    baseZIndex_: 100,
+			                    disableAnimation: false,
+			                    idx: idx
 			                }
 			            );
 
@@ -135,10 +141,6 @@ $(document).ready(
 				    idx = idx + 1;
 			
 				  }
-				  markerList[1].setZIndex(105);
-				  alert(markerList[1].getZIndex());
-				  markerList[1].setBackgroundColor('#116c9e');
-				  markerList[1].setContent(getTitle('le quoc anh le quoc'));
 				  
 				  // display the user's given location
 				  if ($('#locationSearch').val()) {
@@ -182,9 +184,7 @@ $(document).ready(
 				  				
 			};
 			
-			function getTitle(title) {
-				return '<center style="color: #fff;">' + title + '</center>';
-			}
+
 			
 			/* end google maps -----------------------------------------------------*/
 			
@@ -194,3 +194,6 @@ $(document).ready(
 	
 		});
 
+function getTitle(title) {
+	return '<center style="color: #fff;">' + title + '</center>';
+}

@@ -170,7 +170,8 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
                      @Param("pageOffset") Integer pageOffset);
   
   @Query(value = "SELECT * "
-      + "FROM place "
+      + "FROM place p join type t on p.place_type = t.code "
+      + "WHERE t.security_level = 3 and nhom != 'PERSONAL' "
       + "order by updated_date desc "
       + "LIMIT :pageLimit OFFSET :pageOffset", 
       nativeQuery = true)
@@ -256,7 +257,8 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
       @Param("pageLimit") Integer pageLimit);
   
   @Query(value = "SELECT ceil(count(*)/:pageLimit) "
-      + "FROM place", nativeQuery = true)
+      + "FROM place p join type t on p.place_type = t.code "
+      + "WHERE t.security_level = 3 and t.nhom != 'PERSONAL' ", nativeQuery = true)
   int getTotalPagesByPublic(@Param("pageLimit") Integer pageLimit);
   
   @Query(value = "SELECT ceil(count(*)/:pageLimit) "

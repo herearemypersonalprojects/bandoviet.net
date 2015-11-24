@@ -1,14 +1,15 @@
 package net.bandoviet.feedback;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.sql.Date;
-
 import net.bandoviet.ipinfo.IpInfo;
 import net.bandoviet.ipinfo.IpInfoService;
 import net.bandoviet.mail.Mail;
 import net.bandoviet.mail.MailService;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.sql.Date;
 
 /**
  * Services for feedback's messages.
@@ -27,7 +28,7 @@ public class FeedbackService {
    * @param feedback from the user.
    */
   public void save(Feedback feedback) {
-    IpInfo ipInfo = IpInfoService.getIpInfo(feedback.getSendFromIp());
+    IpInfo ipInfo = IpInfoService.getIpInfoMaxMind(feedback.getSendFromIp());
     feedback.setCity(ipInfo.getCity());
     feedback.setCountry(ipInfo.getCountry_code());
     feedback.setLatitude(ipInfo.getLatitude());

@@ -38,6 +38,7 @@ function InfoBubble(opt_options) {
   this.activeTab_ = null;
   this.baseZIndex_ = opt_options.baseZIndex_;
   this.isOpen_ = false;
+  this.idx = opt_options.idx;
 
   var options = opt_options || {};
 
@@ -186,9 +187,11 @@ InfoBubble.prototype.buildDom_ = function() {
   bubble.style['position'] = 'absolute';
   bubble.style['zIndex'] = this.baseZIndex_;
 
+  
   var tabsContainer = this.tabsContainer_ = document.createElement('DIV');
   tabsContainer.style['position'] = 'relative';
 
+  
   // Close button
   var close = this.close_ = document.createElement('IMG');
   close.style['position'] = 'absolute';
@@ -204,11 +207,81 @@ InfoBubble.prototype.buildDom_ = function() {
     that.close();
   });
 
+  google.maps.event.addDomListener(bubble, 'mouseover', function() {
+	  var idx = that.getIdx();
+	  window.location.href ="#item" + idx;   
+	  
+	  for (i in markerList) {
+		  markerList[i].setZIndex(100);
+		  markerList[i].setBackgroundColor('#FF5A5F');
+		  markerList[i].setContent(getTitle(poiList[i].title.substring(0,10)));
+	  }
+	  that.setZIndex(105);
+	  that.setBackgroundColor('#116c9e');
+	  that.setContent(getTitle(poiList[idx].title));
+  });
+  google.maps.event.addDomListener(bubble, 'click', function() {
+	  var idx = that.getIdx();
+	  window.location.href ="#item" + idx;   
+	  
+	  for (i in markerList) {
+		  markerList[i].setZIndex(100);
+		  markerList[i].setBackgroundColor('#FF5A5F');
+		  markerList[i].setContent(getTitle(poiList[i].title.substring(0,10)));
+	  }
+	  that.setZIndex(105);
+	  that.setBackgroundColor('#116c9e');
+	  that.setContent(getTitle(poiList[idx].title));
+	  
+	  /*
+      var infoboxContent = document.createElement("div");
+      var infoboxOptions = {
+    	  position: that.getPosition(),
+          content: infoboxContent,
+          disableAutoPan: false,
+          pixelOffset: new google.maps.Size(-18, -42),
+          zIndex: null,
+          alignBottom: true,
+          boxClass: "infobox",
+          enableEventPropagation: true,
+          closeBoxMargin: "0px 0px -30px 0px",
+          closeBoxURL: "/img/close.png",
+          infoBoxClearance: new google.maps.Size(1, 1)
+      };
+      
+      that.setZIndex(105);
+      var boxText = document.createElement("div");
+		boxText.style.cssText = "border: 1px solid black; margin-top: 8px; background: yellow; padding: 5px;";
+		boxText.innerHTML = "City Hall, Sechelt<br>British Columbia<br>Canada";
+		var myOptions = {
+			 content: boxText
+			,disableAutoPan: false
+			,maxWidth: 0
+			,pixelOffset: new google.maps.Size(-140, 0)
+			,zIndex: that.getZIndex()
+			,closeBoxMargin: "10px 2px 2px 2px"
+			,closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif"
+			,infoBoxClearance: new google.maps.Size(1, 1)
+			,isHidden: false
+			,pane: "floatPane"
+			,enableEventPropagation: false
+			,position: that.getPosition()
+		};
+      
+   
+      if (infobox != null) infobox.close();
+      infobox = new InfoBox(myOptions);
+      infobox.open(that.get('map'));
+      infobox.setOptions({ boxClass:'fade-in-marker'});			
+      */  
+  });
+
+  
   // Content area
   var contentContainer = this.contentContainer_ = document.createElement('DIV');
   contentContainer.style['overflowX'] = 'auto';
   contentContainer.style['overflowY'] = 'auto';
-  contentContainer.style['cursor'] = 'default';
+  contentContainer.style['cursor'] = 'pointer';
   contentContainer.style['clear'] = 'both';
   contentContainer.style['position'] = 'relative';
 
@@ -431,6 +504,18 @@ InfoBubble.prototype['setZIndex'] = InfoBubble.prototype.setZIndex;
  */
 InfoBubble.prototype.getZIndex = function() {
   return parseInt(this.get('zIndex'), 10) || this.baseZIndex_;
+};
+
+/**
+ * item's index
+ */
+InfoBubble.prototype.setIdx = function(idx) {
+	  this.set('idx', idx);
+	};
+	InfoBubble.prototype['setIdx'] = InfoBubble.prototype.setIdx;
+
+InfoBubble.prototype.getIdx = function() {
+  return parseInt(this.get('idx'), 0) || this.idx;
 };
 
 

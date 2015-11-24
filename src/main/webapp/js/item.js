@@ -23,7 +23,31 @@ $(document).ready(function() {
 		$('.item').trigger('click'); 
 	}
 	
+	$('.item_content').on('click', function() {
+		var item = $(this);
+		var idx = item.attr('id');
+		item.trigger('mouseover');
+		
+	  if (map.getZoom() < detailZoom) {
+		  map.setZoom(detailZoom);
+	  }
+	  map.setCenter(new google.maps.LatLng(poiList[idx].lat, poiList[idx].lng));
+	});
 	
+	$('.item_content').on('mouseover', function() {
+		  for (i in markerList) {
+			  markerList[i].setZIndex(100);
+			  markerList[i].setBackgroundColor('#FF5A5F');
+			  markerList[i].setContent(getTitle(poiList[i].title.substring(0,10)));
+		  }
+		if (infoWnd != null) infoWnd.close();  
+		var idx = $(this).attr('id');
+		markerList[idx].setZIndex(105);
+		markerList[idx].setBackgroundColor('#116c9e');
+		markerList[idx].setContent(getTitle(poiList[idx].title));
+		
+		//map.setCenter(new google.maps.LatLng(poiList[idx].lat, poiList[idx].lng));
+	});	
 	/*
 	
 	$('.item').on('click', function() {

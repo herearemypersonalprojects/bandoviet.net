@@ -59,7 +59,7 @@
 	            <li><a href="/create">Thêm địa điểm...</a></li>
 	            <li id="createtype"><a onClick="javascript:$('#form-createtype').modal('show');" href="#">Tạo nhóm bản đồ mới...</a></li>
 	            <li role="separator" class="divider"></li>
-	            <li><a href="/contribution/1">Đóng góp của bạn cho bản đồ Việt</a></li>
+	            <li><a href="/contribution/1">Các địa điểm bạn đã thêm vào</a></li>
 
 	           <!-- 
 	            <li><a href="/contribution">Các địa điểm đã thêm hoặc tham gia chỉnh sửa</a></li>
