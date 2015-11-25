@@ -31,6 +31,18 @@
 					</div>
 				</div>
 				<div class="form-group">
+					<form:label path="subtitle" class="col-sm-3 control-label">
+						Nhóm từ khóa
+					</form:label>
+					<div class="col-sm-9">
+						
+						<form:input class="form-control" id="subtitle" name="subtitle" 
+						placeholder="Các từ khóa giúp tìm ra địa điểm này: chuyên môn, lĩnh vực, chủ đề" path="subtitle" title="Các từ khóa giúp tìm ra địa điểm này"/>						
+						<form:errors path="subtitle" cssClass="error"/>
+					</div>
+				</div>				
+				
+				<div class="form-group">
 					<form:label path="address" class="col-sm-3 control-label">
 						<spring:message	code="home.new.address" />
 					</form:label>

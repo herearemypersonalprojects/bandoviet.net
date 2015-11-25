@@ -306,4 +306,36 @@
 			        }
 			    }
 			} // [START getCity]
+			
+			// START GETADDRESS WITH DRAGGED MARKER
+			function getAddress() {
+			    try {
+			        var lat = map.getCenter().lat();
+			        var lng = map.getCenter().lng();
+			        var latlng = new google.maps.LatLng(lat, lng);
+			        geocoder.geocode({'latLng': latlng}, function (results2, status) {
+			            if (status == google.maps.GeocoderStatus.OK) {
+			                if (results2 != null && results2[0] != null) {
+			                    //getCity(results2);
+
+			                    addressReturn = results2[0].formatted_address;
+			                    
+			                    searchByKeywords($('#keywords').val(), lat, lng, $('#countrySearch').val(), addressReturn, $('#categories').val());
+			                   
+			                   
+			                }
+			            } else {
+			                console.log("Geocoder failed due to: " + status);
+			            }
+			        });
+			        map.setCenter(point);
+			        if (typeof (makerDrag) != 'undefined') {
+			            isMakerDrag = makerDrag;
+			            // TODO: update address for #address
+
+			        }
+			    } catch (ex) {
+			        console.log(ex);
+			    }
+			} // END GETADDRESS
 			/* end map service to display results */	

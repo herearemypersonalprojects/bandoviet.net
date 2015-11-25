@@ -62,6 +62,10 @@ $(document).ready(
 				google.maps.event.addListener(map, 'idle', function() {
 					   //Do something when the user has stopped zooming/panning
 				});
+				
+				google.maps.event.addListener(map, 'dragend', function(){
+					getAddress();
+				});
 	
 			    locationSearchAutocomplete = new google.maps.places.Autocomplete(document.getElementById('locationSearch'));
 			    locationSearchAutocomplete.bindTo('bounds', map);
