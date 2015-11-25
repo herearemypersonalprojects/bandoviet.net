@@ -1,0 +1,2 @@
+update place set subtitle = 'nha hang, quan an, hang an, restaurant, pho' where place_type = 'RESTAURANT';
+update place set subtitle = 'dai su quan' where title like '%embassy%' and place_type = 'ADMINISTRATION';

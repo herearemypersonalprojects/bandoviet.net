@@ -82,7 +82,7 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
       + "MATCH(information) AGAINST(:keywords) AS rel2 "
       + "FROM place p join type t on p.place_type = t.code "
       + "WHERE (t.security_level = 3 or p.created_by_user like :email) and "
-      + "MATCH(title, information) AGAINST(:keywords)  "
+      + "MATCH(p.subtitle, p.title, information) AGAINST(:keywords)  "
       + "ORDER BY (rel1*1000)+(rel2) desc",
       nativeQuery = true)
   List<Place> findByKeywords(@Param("email") String email, @Param("keywords") String keywords);
@@ -123,7 +123,7 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
       //+ "MATCH(information) AGAINST(:keywords) AS rel2 "
       + "FROM place p join type t on p.place_type = t.code "
       + "WHERE (t.security_level = 3 or p.created_by_user like :email) and "
-      + "MATCH(p.title) AGAINST(:keywords) "
+      + "MATCH(p.subtitle, p.title) AGAINST(:keywords) "
       //+ "ORDER BY (rel1*1000)+(rel2) desc "
       + "LIMIT :pageLimit OFFSET :pageOffset", 
       nativeQuery = true)
@@ -139,7 +139,7 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
       + "FROM place p join type t on p.place_type = t.code "
       + "WHERE (t.security_level = 3 or p.created_by_user like :email) and "
       + "place_type in :types and "
-      + "MATCH(p.title) AGAINST(:keywords) "
+      + "MATCH(p.subtitle, p.title) AGAINST(:keywords) "
       //+ "ORDER BY (rel1*1000)+(rel2) desc "
       + "LIMIT :pageLimit OFFSET :pageOffset", 
       nativeQuery = true)
@@ -193,14 +193,14 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
   @Query(value = "SELECT ceil(count(*)/:pageLimit) "
       + "FROM place p join type t on p.place_type = t.code "
       + "WHERE (t.security_level = 3 or p.created_by_user like :email) and "
-      + "MATCH(title) AGAINST(:keywords)",
+      + "MATCH(p.subtitle, p.title) AGAINST(:keywords)",
       nativeQuery = true)
   int getTotalPagesByKeywords(@Param("email") String email, @Param("keywords") String keywords, 
       @Param("pageLimit") Integer pageLimit);
  
   @Query(value = "SELECT ceil(count(*)/:pageLimit) "
       + "FROM place "
-      + "WHERE MATCH(title) AGAINST(:keywords)",
+      + "WHERE MATCH(p.subtitle, p.title) AGAINST(:keywords)",
       nativeQuery = true)
   int getTotalPagesByKeywords(@Param("keywords") String keywords, 
       @Param("pageLimit") Integer pageLimit);
@@ -209,7 +209,7 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
       + "FROM place p join type t on p.place_type = t.code "
       + "WHERE place_type in :types and "
       + "(t.security_level = 3 or p.created_by_user like :email) and "
-      + "MATCH(title) AGAINST(:keywords)",
+      + "MATCH(p.subtitle, p.title) AGAINST(:keywords)",
       nativeQuery = true)
   int getTotalPagesByKeywords(@Param("email") String email,
                               @Param("types") List<String> types,
@@ -219,7 +219,17 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
   @Query(value = "SELECT ceil(count(*)/:pageLimit) "
       + "FROM place p join type t on p.place_type = t.code "
       + "WHERE (t.security_level = 3 or p.created_by_user like :email) and "
-      + "MATCH(title) AGAINST(:keywords) and "
+      + "MATCH(p.subtitle, p.title) AGAINST(:keywords)  ",
+      nativeQuery = true)
+  int getTotalPagesByKeywordsLocation(
+      @Param("email") String email,
+      @Param("keywords") String keywords,      
+      @Param("pageLimit") Integer pageLimit);
+  
+  @Query(value = "SELECT ceil(count(*)/:pageLimit) "
+      + "FROM place p join type t on p.place_type = t.code "
+      + "WHERE (t.security_level = 3 or p.created_by_user like :email) and "
+      + "MATCH(p.subtitle, p.title) AGAINST(:keywords) and "
       + "( 3959 * acos( cos( radians(:latitude ) ) * cos( radians( latitude ) ) "
       + "* cos( radians( longitude ) - radians(:longitude ) ) + "
       + "sin( radians(:latitude ) ) * sin( radians( latitude ) ) ) ) < :distance",
@@ -236,7 +246,7 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
       + "FROM place p join type t on p.place_type = t.code "
       + "WHERE place_type in :types  and "
       + "(t.security_level = 3 or p.created_by_user like :email) and "
-      + "MATCH(title) AGAINST(:keywords) and "
+      + "MATCH(p.subtitle, p.title) AGAINST(:keywords) and "
       + "( 3959 * acos( cos( radians(:latitude ) ) * cos( radians( latitude ) ) "
       + "* cos( radians( longitude ) - radians(:longitude ) ) + "
       + "sin( radians(:latitude ) ) * sin( radians( latitude ) ) ) ) < :distance",
@@ -293,7 +303,7 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
       + "FROM place p join type t on p.place_type = t.code "
       + "WHERE t.security_level = 3 "
       + "city=:city and "
-      + "MATCH(title, information) AGAINST(:keywords) "
+      + "MATCH(p.subtitle, p.title) AGAINST(:keywords) "
       + "order by p.updated_date desc",
       nativeQuery = true)
   List<Place> findByKeywordsAndCity(@Param("keywords") String keywords, @Param("city") String city);
@@ -345,7 +355,7 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
 //      + "MBRContains(envelope(linestring("
 //      + "point((:longitude+(:max_in_km /111)), (:latitude+(:max_in_km /111))), "
 //      + "point((:longitude-(:max_in_km /111)), (:latitude-(:max_in_km /111))))), geom) AND "
-      + "MATCH(p.title) AGAINST(:keywords) "
+      + "MATCH(p.subtitle, p.title) AGAINST(:keywords) "
       + "HAVING distance < :distance "
       + "ORDER BY distance*(10-rel1) asc "
       //+ "ORDER BY (rel1*1000)+(rel2) desc "
@@ -365,7 +375,7 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
       + "MATCH(title) AGAINST(:keywords) AS rel1 "
       + "FROM place p join type t on p.place_type = t.code "
       + "WHERE (t.security_level = 3 or p.created_by_user like :email) and "
-      + "MATCH(p.title) AGAINST(:keywords) "
+      + "MATCH(p.subtitle, p.title) AGAINST(:keywords) "
       + "ORDER BY (10-rel1) asc "
       + "LIMIT :pageLimit OFFSET :pageOffset ",
       nativeQuery = true)
@@ -387,7 +397,7 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
 //      + "MBRContains(envelope(linestring("
 //      + "point((:longitude+(:max_in_km /111)), (:latitude+(:max_in_km /111))), "
 //      + "point((:longitude-(:max_in_km /111)), (:latitude-(:max_in_km /111))))), geom) AND "
-      + "MATCH(p.title) AGAINST(:keywords) "
+      + "MATCH(p.subtitle, p.title) AGAINST(:keywords) "
       + "HAVING distance < :distance "
       + "ORDER BY distance*(10-rel1) asc "
       //+ "ORDER BY (rel1*1000)+(rel2) desc "

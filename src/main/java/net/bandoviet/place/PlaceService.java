@@ -231,10 +231,15 @@ public class PlaceService {
    */
   public int getTotalPagesByKeywordsLocation(String email, String keywords, 
       Double lat, Double lng, String country) {
+    
     if (StringUtils.isEmpty(keywords)) {
       return placeRepository.getTotalPagesLocation(email, PAGE_SIZE);
     }
-    return placeRepository.getTotalPagesByKeywordsLocation(email, keywords, lat, lng, PAGE_SIZE, DISTANCE);
+    int total = placeRepository.getTotalPagesByKeywordsLocation(email, keywords, lat, lng, PAGE_SIZE, DISTANCE);
+    if (total == 0) {
+      total = placeRepository.getTotalPagesByKeywordsLocation(email, keywords, PAGE_SIZE);
+    }
+    return total;
     /* vi du nay de lan sau biet ma su dung
     List<Object[]> results = 
         placeRepository.getTotalPagesByKeywordsLocation(keywords, lat, lng, PAGE_SIZE, country, DISTANCE);
