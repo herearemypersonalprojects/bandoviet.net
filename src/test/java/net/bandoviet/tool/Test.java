@@ -2,6 +2,7 @@ package net.bandoviet.tool;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.UUID;
 
 class Holder {
   public int held;
@@ -30,6 +31,7 @@ class Sub extends Base {
 public class Test {
 
   public static void main(String args[]) {
-    int v = 1/0;
+    String id = UUID.randomUUID().toString();
+    System.out.println(id);
   }
 }

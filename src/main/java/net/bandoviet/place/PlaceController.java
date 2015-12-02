@@ -27,6 +27,8 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import net.bandoviet.type.Type;
+import net.bandoviet.type.TypeService;
 import net.bandoviet.user.CurrentUser;
 import net.bandoviet.user.User;
 import net.bandoviet.user.UserService;
@@ -53,6 +55,9 @@ public class PlaceController {
  
   @Autowired 
   private UserService userService;
+  
+  @Autowired
+  private TypeService typeService;
    
   @Autowired
   public PlaceController(final PlaceService placeService) {
@@ -81,11 +86,21 @@ public class PlaceController {
       CurrentUser currentUser = (CurrentUser) authentication.getPrincipal();
       Optional<User> user = userService.getUserByEmail(currentUser.getUsername());
       if (user.isPresent()) {
-        return "redirect:" + PLACES_KEYWORDS_PATH + "/ /" + user.get().getLatitude() + "/" 
+        StringBuffer categories = new StringBuffer(); 
+        
+        List<Type> lstTypes = typeService.findAll();
+        for (Type type : lstTypes) {
+          if (type.getNhom().equalsIgnoreCase("PUBLIC")) {
+            categories.append(type.getCode() + "aaa");
+          }
+        }
+        
+        return "redirect:" + "/search/" + categories.toString() + "/" + user.get().getLatitude() + "/" 
                  + user.get().getLongitude() + "/" + user.get().getCountry() + "/"
                  + user.get().getAddress() + "/1";
       } 
     } 
+   
     return "redirect:/login";
     
   }

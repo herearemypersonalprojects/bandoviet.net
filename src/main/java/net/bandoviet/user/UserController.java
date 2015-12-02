@@ -113,7 +113,7 @@ public class UserController {
   // only user himself can access
   @PreAuthorize("@userService.canAccessUser(principal, #id)")
   @RequestMapping("/user/{id}")
-  public ModelAndView getUserPage(@PathVariable Long id) {
+  public ModelAndView getUserPage(@PathVariable String id) {
     return new ModelAndView("index", "user", userService.getUserById(id)
         .orElseThrow(() -> new NoSuchElementException(String.format("User=%s not found", id))));
   }
@@ -130,13 +130,13 @@ public class UserController {
    * Kich hoat tai khoan theo duong link gui den tu mail.
    */
   @RequestMapping("/active/{id}")
-  public String activeUser(@PathVariable Long id, HttpServletRequest request) {
+  public String activeUser(@PathVariable String id, HttpServletRequest request) {
     try {
       Optional<User> user = userService.getUserById(id);
       if (user.isPresent()) {
         user = userService.enable(user.get());
-        //authenticateUserAndSetSession(user.get(), request); => nguy hiem vi co the bi hack de vao tk nguoi khac
-        //return "redirect:/index";
+        authenticateUserAndSetSession(user.get(), request); 
+        return "redirect:/index";
       }
     } catch (Exception e) {
       LOGGER.error("Co loi active user: " + id + " : " + e.getMessage());

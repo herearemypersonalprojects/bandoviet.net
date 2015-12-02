@@ -62,6 +62,8 @@ public class PlaceSaveService {
       String filename = "place" + String.valueOf(System.currentTimeMillis());
       String imagePath = FileService.saveFile(image, 
           updatedPlace.getId(), filename);
+      // street view image
+      /*
       if (StringUtils.isBlank(imagePath)) {
         if (StringUtils.isNotBlank(place.getImagePath()) 
             && place.getImagePath().indexOf("http") >= 0) {
@@ -69,6 +71,7 @@ public class PlaceSaveService {
               updatedPlace.getId(), filename); 
         } 
       }
+      */
       if (StringUtils.isNotBlank(imagePath)) {
         updatedPlace.setImagePath(imagePath);
         repository.save(updatedPlace);       

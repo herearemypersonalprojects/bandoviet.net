@@ -342,9 +342,8 @@ public class PlaceService {
     }
     
     place.setTitleWithoutAccents(AccentRemover.toUrlFriendly(place.getTitle()));
-    place.setInformation(place.getInformation().trim());
+    place.setInformation(place.getInformation());
     Place updatedPlace = placeRepository.save(place);
-    
     try {      
       String imagePath = FileService.saveFile(image, updatedPlace.getId(), "place");
       if (StringUtils.isBlank(imagePath)) {
@@ -352,11 +351,15 @@ public class PlaceService {
             && place.getImagePath().indexOf("http") >= 0) {
           imagePath = FileService.saveImage(place.getImagePath(),
               updatedPlace.getId(), "place"); 
-        } else if (StringUtils.isBlank(place.getImagePath())) {
+        } 
+        // street view image
+        /*
+        else if (StringUtils.isBlank(place.getImagePath())) {
           imagePath = FileService.saveImageFromGoogleStreetView(
               updatedPlace.getLatitude(), place.getLongitude(),  
               updatedPlace.getId(), "place");        
         }
+        */
       }
       
       if (StringUtils.isNotBlank(imagePath)) {

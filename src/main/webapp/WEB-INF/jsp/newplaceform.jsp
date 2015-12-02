@@ -26,7 +26,7 @@
 					<div class="col-sm-9">
 						<spring:message code="home.new.name.suggest" var="suggest"/>
 						<form:input class="form-control" id="title" name="title" 
-						placeholder="${suggest}" path="title" title="${suggest}"/>						
+						placeholder="${suggest}" path="title" title="${suggest}" required="required"/>						
 						<form:errors path="title" cssClass="error"/>
 					</div>
 				</div>
@@ -49,7 +49,7 @@
 					<div class="col-sm-9">
 						<spring:message code="home.new.address.suggest" var="suggest"/>
 						<form:input class="form-control" id="address" name="address"	
-						placeholder="${suggest}" path="address" title="${suggest}"/>
+						placeholder="${suggest}" path="address" title="${suggest}" required="required"/>
 						<form:errors path="address" />	
 					</div>
 					<form:input path="streetNumber" type="hidden" id="street_number" name="streetNumber" /> 
@@ -95,7 +95,7 @@
 							code="home.new.type" /></label>
 					<div class="col-sm-9">
 	
-                		<form:select path="placeType" class="form-control" id="placeType" name="placeType">
+                		<form:select path="placeType" class="form-control" id="placeType" name="placeType" required="required">
                 			<form:option value="" ><spring:message code="home.new.type.suggest"/></form:option>
                 		        <sec:authorize access="isAuthenticated()"> 
        								<a:authentication property="principal" var="principal" />
@@ -135,8 +135,8 @@
 						</div>
 					</div>
 				</div>
-
 				<div id="contentGroup" class="form-group hide">
+				
 					<label for="information" class="col-sm-3 control-label"><spring:message
 							code="home.new.content" /></label>
 					<div class="col-sm-9">

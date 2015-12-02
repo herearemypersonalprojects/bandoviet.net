@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.UUID;
 
 import net.bandoviet.mail.Mail;
 import net.bandoviet.mail.MailService;
@@ -36,7 +37,7 @@ public class UserService {
             && (currentUser.getRole() == Role.ADMIN || currentUser.getId().equals(userId));
   }
   
-  public Optional<User> getUserById(long id) {
+  public Optional<User> getUserById(String id) {
     return Optional.ofNullable(userRepository.findOne(id));
   }
 
@@ -58,6 +59,9 @@ public class UserService {
    */
   public User create(UserCreateForm form, String ip) {
     User user = new User();
+    
+    user.setId(UUID.randomUUID().toString());
+    
     user.setFullname(form.getFullname());
     user.setAddress(form.getAddress());
     user.setKeywords(form.getKeywords());

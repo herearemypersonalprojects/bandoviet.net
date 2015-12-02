@@ -32,9 +32,8 @@ public class User {
   * information you don't want to appear in access logs, so we'll stick to using id whenever we can.
   */
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", nullable = false, updatable = false)
-  private Long id;
+  private String id;
   
   @Column(name = "enabled", nullable = false)
   private boolean enabled;
@@ -187,11 +186,11 @@ public class User {
     this.enabled = enabled;
   }
 
-  public Long getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(String id) {
     this.id = id;
   }
 

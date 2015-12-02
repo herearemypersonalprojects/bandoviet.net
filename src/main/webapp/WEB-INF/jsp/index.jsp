@@ -2,10 +2,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
+<meta name="keywords" content="Ban do nguoi Viet Nam tren the gioi, Viet kieu, the map of Vietnamese people in the world" />
+<meta name="coder" content="Lê Quốc Anh - https://scholar.google.fr/citations?user=aVd45REAAAAJ&hl=en" />
 <title><spring:message code="application.title"/></title>
 <meta name="generator" content="Bootply" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">	

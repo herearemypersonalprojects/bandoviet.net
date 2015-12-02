@@ -16,6 +16,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import net.bandoviet.crawl.TrangVangCrawler;
 import net.bandoviet.crawl.YelpCrawler;
 import net.bandoviet.linkedin.LinkedInService;
 import net.bandoviet.tool.AmbassadeCrawler;
@@ -52,6 +53,8 @@ public class HomeController {
   
   @Autowired YelpCrawler crawYelp;
   
+  @Autowired TrangVangCrawler trangVangCrawler;
+  
   /**
    * Homepage
    * @param model communication between view and controller.
@@ -64,6 +67,12 @@ public class HomeController {
     } else {
       return "redirect:/index";
     }    
+  }
+  
+  @RequestMapping("/trangVangCrawler")
+  @ResponseBody public String trangVangCrawler() {
+    trangVangCrawler.run();
+    return "ok";
   }
   
   @RequestMapping("/linkedin")

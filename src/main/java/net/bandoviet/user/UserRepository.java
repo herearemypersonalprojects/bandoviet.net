@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, String> {
   
   /* Only one non-default method findOneByEmail is added here. 
   * Notice that I want it to return a User wrapped in JDK8 Optional, 
