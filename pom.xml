@@ -25,6 +25,15 @@
 		<m2eclipse.wtp.contextRoot>/</m2eclipse.wtp.contextRoot>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+	
+	    <developers>
+	        <developer>
+	            <id>lequocanh-bandoviet.net</id>
+	            <name>Le Quoc Anh</name>
+	            <email>ing.dev.java@gmail.com</email>
+	            <organization>BanDoViet.Net</organization>
+	        </developer>
+	    </developers>  	
 
 	<dependencies>
 		<dependency>
