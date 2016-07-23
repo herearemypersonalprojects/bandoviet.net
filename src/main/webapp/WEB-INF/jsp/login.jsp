@@ -13,7 +13,7 @@
 <link rel="stylesheet"	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script src="http://maps.googleapis.com/maps/api/js?extension=.js&output=embed&amp;language=en&amp;v=3.exp&libraries=places"></script>
+<script src="http://maps.googleapis.com/maps/api/js?extension=.js&output=embed&amp;language=en&amp;v=3.exp&libraries=places&key=AIzaSyCJbKbcTqdaVh5oJVTOBTHPaBDViLurLxM"></script>
 
 <script	src="/js/login.js"></script>
 
