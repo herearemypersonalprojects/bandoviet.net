@@ -1,5 +1,5 @@
-var latitude = 48.856614;
-var longitude = 2.3522219000000177;
+var latitude = 10.8230989;
+var longitude = 106.6296638;
 var paris = new google.maps.LatLng(latitude, longitude);
 var zoomLevel = 13;
 var zoomMax = 17;
