@@ -32,7 +32,6 @@ $(document).ready(function() {
 
 	$('#placeType').change(function() {
 		changeType($(this).val());
-		showLocation($('#address').val());
 	});
 	//
     $('#address').blur(function () { 
