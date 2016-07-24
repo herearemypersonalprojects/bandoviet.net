@@ -17,7 +17,7 @@
 
 <script	src="/js/login.js"></script>
 
-<title>Bản đồ Việt</title>
+<title>Dữ liệu mở</title>
 <link rel="stylesheet" href="/css/login.css" type="text/css" />
 
 <link rel="icon" type="image/png" href="/img/map.png">
@@ -29,7 +29,7 @@
 	<div id="facebook-Bar">
 		<div id="facebook-Frame">
 			<div id="logo">
-				<a href="http://bandoviet.net">Bandoviet.net</a>
+				<a href="http://opendata.gov.vn">OpenData.gov.vn</a>
 			</div>
 
 
@@ -84,10 +84,10 @@
 	<!-- header ends here -->
 
 	<div class="loginbox radius">
-		<h2 style="color: #141823; text-align: center;">Bản đồ Việt trên thế giới</h2>
+		<h2 style="color: #141823; text-align: center;">Cổng thông tin dữ liệu mở</h2>
 		<div class="loginboxinner radius">
 			<div class="loginheader">
-				<h4 class="title">Khám phá giá trị Việt xung quanh bạn.</h4>
+				<h4 class="title">Đăng ký tham gia</h4>
 			</div>
 			<!--loginheader-->
 
@@ -121,7 +121,7 @@
 					</p>
 					<p>
 						<form:input type="password" path="password" id="password" name="password"
-							placeholder="Mật khẩu truy cập bandoviet.net" class="radius" />
+							placeholder="Mật khẩu truy cập opendata.vn" class="radius" />
 						<br>
 						<form:errors path="password" cssClass="error" />
 					</p>
@@ -197,7 +197,7 @@
 	
 <p style="font-size:12px; ">
   <center>
-    <a style = "visibility:hidden;" href="http://bandoviet.net/public/1">Phát triển bởi bandoviet.net</a>
+    <a style = "visibility:hidden;" href="http://opendata.gov.vn/public/1">Phát triển bởi opendata.gov.vn</a>
   </center>
 </p>
 

@@ -8,6 +8,9 @@ $(document).ready(function() {
         selector: "#information"
     });
     */
+
+	$("#placeType").val("COMPANY");
+
 	$("#information").summernote({
 	    lang: 'vi-VN' // default: 'en-US'
 	  });
@@ -25,7 +28,8 @@ $(document).ready(function() {
 	      }
 		});
 	
-	changeType($(this).val()); 
+	changeType($(this).val());
+
 	$('#placeType').change(function() {
 		changeType($(this).val()); 
 	});

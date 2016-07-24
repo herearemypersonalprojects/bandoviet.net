@@ -23,6 +23,7 @@
 			<li class="language" lang="fr"><a href="#">Français</a></li>
 			<li class="language" lang="vn"><a href="#">Tiếng Việt</a></li>
 			 --%>
+			<%--
 			 <li class="dropdown">
 	          <a href="javascript: onclick();" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><font size="3">Bản đồ nhóm</font> <span class="caret"></span></a>
 	          <ul class="dropdown-menu">
@@ -38,14 +39,16 @@
 	            <li id="createtype"><a href="#">Tạo nhóm bản đồ mới...</a></li>
 	          </ul>
 	        </li>
-	        
+	        --%>
 	         <sec:authorize access="isAuthenticated()"> 
 	         <a:authentication property="principal" var="principal" />
 			 <li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 	          <sec:authentication property="principal.fullname" /> <span class="caret"></span></a>
 	          <ul class="dropdown-menu">
+				  <%--
 	            <li class="selectedType_group" id="PERSONAL"><a href="#"><span class="selectTypes_group lbl"> Bản đồ cá nhân</span></a></li>
+	            --%>
 	            <%--/places/category/PERSONAL/1 --%>
 				<c:forEach items="${types }" var="type" varStatus="recipeCounter">
 				 <c:if test="${type.nhom == 'GROUP' && type.securityLevel < 3 && type.createdByUser == principal.username}">
@@ -54,20 +57,28 @@
 						<a href="#"><span class="selectTypes_group lbl"> ${type.name }</span></a>
 					</li>
 				 </c:if>	
-				</c:forEach>	            
-	            <li role="separator" class="divider"></li>
-	            <li><a href="/create">Thêm địa điểm...</a></li>
+				</c:forEach>
+					  <li><a href="/create">Thêm địa điểm...</a></li>
+
+				  <%--
+	             <li role="separator" class="divider"></li>
+
+
 	            <li id="createtype"><a onClick="javascript:$('#form-createtype').modal('show');" href="#">Tạo nhóm bản đồ mới...</a></li>
-	            <li role="separator" class="divider"></li>
+
+				<li role="separator" class="divider"></li>
 	            <li><a href="/contribution/1">Các địa điểm bạn đã thêm vào</a></li>
+				--%>
 
 	           <!-- 
 	            <li><a href="/contribution">Các địa điểm đã thêm hoặc tham gia chỉnh sửa</a></li>
 	            <li role="separator" class="divider"></li>
 	            <li><a href="/verify">Thẩm định địa điểm mới thêm bởi người khác</a></li>
 	             -->
+				  <%--
 	            <li role="separator" class="divider"></li>
 	            <li id="feedback"><a href="#">Gửi ý tưởng, đánh giá, nhận xét</a></li>
+	            --%>
 	            <li role="separator" class="divider"></li>
 	            <li><a href="javascript:$('#logoutbutton').trigger('click')">Ngắt kết nối (logout)</a></li>
 	          </ul>
@@ -82,35 +93,8 @@
 		<form class="navbar-form">
 			<div class="form-group" style="display: inline;">
 				<div class="input-group">
-					
-						<div class="input-group-btn">
-							<%-- <button id="selectCategory" tabindex="-1" class="btn btn-default" type="button"></button> --%>
-							<button  tabindex="-1" data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
-							Lọc thông tin
-							
-							 <span class="caret"></span>
-							<%--<span class="glyphicon glyphicon-chevron-down"></span> --%>
-							</button>
-							<ul role="menu" class="dropdown-menu">
-								<%-- 
-								<li><a href="#">
-									<input type="checkbox"><span class="lbl"> Chọn tất cả</span>
-								</a></li>
-								<li class="divider"></li>
-								--%>
-								<c:forEach items="${types }" var="type" varStatus="recipeCounter">
-								 <c:if test="${type.nhom == 'PUBLIC' && type.securityLevel == 3}">
-									<li class="selectedType" >
-										<a href="#"><input class="filtreInput"  id="${type.code}" value="${type.code}" type="checkbox"><span class="selectTypes lbl"> ${type.name }</span></a>
-									</li>
-								 </c:if>	
-								</c:forEach>	
-								<%-- 
-								<li class="divider"></li>
-								<li><a href="#"><input type="checkbox"><span class="lbl"> Không chọn loại nào</span></a></li>
-								--%>
-							</ul>
-						</div>
+
+
 					    <input type="hidden" id="categories" value="${categories }">
 					
 					<%--

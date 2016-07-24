@@ -90,7 +90,8 @@
 					</div>						
 				</div>	
 				<%--</c:if> --%>
-				<div class="form-group">
+
+				<div class="form-group" hidden >
 					<label for="title" class="col-sm-3 control-label"><spring:message
 							code="home.new.type" /></label>
 					<div class="col-sm-9">

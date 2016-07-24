@@ -17,7 +17,7 @@ import java.util.List;
 public interface PlaceRepository extends JpaRepository<Place, Long> {
   
   @Query(value = "SELECT * FROM place p join type t on p.place_type = t.code "
-      + "WHERE p.country <> 'VN' and p.reference_url like '%linkedin%' and t.security_level = 3 "
+      + "WHERE p.country like 'VN' and p.reference_url like '%linkedin%' and t.security_level = 3 "
       + "LIMIT :randNum", nativeQuery = true)
   List<Place> findRandom(@Param("randNum") int randNum);
 
