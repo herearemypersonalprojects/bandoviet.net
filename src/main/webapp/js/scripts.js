@@ -1,5 +1,5 @@
 /* Global variables */
-var currentAddress = "Paris, France";
+var currentAddress = "Ho Chi Minh, Vietnam";
 var marker = new google.maps.Marker();
 var map;
 var infoWnd = new google.maps.InfoWindow({disableAutoPan: false  });
@@ -24,7 +24,7 @@ $(document).ready(
 
 				
 				/* position Paris */
-				var latlng = new google.maps.LatLng(48.856614, 2.3522219000000177);
+				var latlng = new google.maps.LatLng(10.8230989, 106.6296638);
 
 				var mapOptions = {
 					center : latlng,

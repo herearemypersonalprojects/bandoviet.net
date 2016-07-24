@@ -31,7 +31,8 @@ $(document).ready(function() {
 	changeType($(this).val());
 
 	$('#placeType').change(function() {
-		changeType($(this).val()); 
+		changeType($(this).val());
+		showLocation($('#address').val());
 	});
 	//
     $('#address').blur(function () { 
