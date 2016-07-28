@@ -42,7 +42,7 @@ public class DoanhNghiepCrawler {
    * Start.
    */
   public void run() {
-    for (int i = 1; i < 500; i++) {
+    for (int i = 250; i < 700; i++) {
       String url = "http://hochiminh.vietnamnay.com/doanh-nghiep/trang-" + String.valueOf(i) + ".html?sort=4";
       linksInProgress.add(url);
     }
