@@ -501,7 +501,7 @@ public class LinkedInCrawler {
         place.setAddress(address);
         place.setLatitude(Double.valueOf(latitude));
         place.setLongitude(Double.valueOf(longitude));
-        place.setCountry(country);
+        place.setCountry("Vietnam");
 
       }
 

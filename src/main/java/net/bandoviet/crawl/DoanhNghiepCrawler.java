@@ -6,6 +6,7 @@ import com.google.code.geocoder.model.*;
 import net.bandoviet.country.CountryService;
 import net.bandoviet.place.Place;
 import net.bandoviet.place.PlaceService;
+import net.bandoviet.tool.LinkedInCrawler;
 import net.bandoviet.tool.MathTool;
 import net.bandoviet.tool.StringTools;
 import org.apache.commons.lang.StringUtils;
@@ -30,6 +31,8 @@ public class DoanhNghiepCrawler {
   PlaceService placeService;
   @Autowired
   CountryService countryService;
+  @Autowired
+  LinkedInCrawler tool;
 
   List<String> linksInProgress = new ArrayList<String>();
   List<String> linksAlready = new ArrayList<String>();
@@ -105,7 +108,7 @@ public class DoanhNghiepCrawler {
     place.setLongitude(0.0);
     place.setPlaceType("COMPANY");
 
-    place.setImagePath("http://hochiminh.vietnamnay.com/" + item.select("img").attr("src"));
+    place.setImagePath(item.select("img").attr("src"));
 
     place.setTitle(item.getElementsByClass("enterprise-name").text());
 
@@ -128,9 +131,8 @@ public class DoanhNghiepCrawler {
       }
     }
 
-
-
-    if (StringUtils.isNotEmpty(place.getImagePath()) && place.getLatitude() > 0 && place.getLongitude() > 0 ) {
+    if (StringUtils.isNotEmpty(place.getImagePath()) && tool.getAddressFromGoogleMap(place, place.getAddress()) ) {
+      place.setImagePath("http://hochiminh.vietnamnay.com/" + place.getImagePath());
       return place;
     } else {
       return null;
