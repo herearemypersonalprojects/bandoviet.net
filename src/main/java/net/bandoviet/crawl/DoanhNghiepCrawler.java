@@ -131,7 +131,10 @@ public class DoanhNghiepCrawler {
       }
     }
 
-    if (StringUtils.isNotEmpty(place.getImagePath()) && tool.getAddressFromGoogleMap(place, place.getAddress()) ) {
+    if (StringUtils.isNotEmpty(place.getImagePath()) &&
+            !place.getImagePath().contains("logo_coming_soon") &&
+            tool.getAddressFromGoogleMap(place, place.getAddress()) &&
+            !place.getAddress().contains("USA")) {
       place.setImagePath("http://hochiminh.vietnamnay.com/" + place.getImagePath());
       return place;
     } else {
