@@ -4,6 +4,7 @@
 
 package net.bandoviet.home;
 
+import net.bandoviet.crawl.DoanhNghiepCrawler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -54,6 +55,9 @@ public class HomeController {
   @Autowired YelpCrawler crawYelp;
   
   @Autowired TrangVangCrawler trangVangCrawler;
+
+  @Autowired
+  DoanhNghiepCrawler doanhNghiepCrawler;
   
   /**
    * Homepage
@@ -68,7 +72,13 @@ public class HomeController {
       return "redirect:/index";
     }    
   }
-  
+
+  @RequestMapping("/doanhNghiepCrawler")
+  @ResponseBody public String doanhNghiepCrawler() {
+    doanhNghiepCrawler.run();
+    return "ok";
+  }
+
   @RequestMapping("/trangVangCrawler")
   @ResponseBody public String trangVangCrawler() {
     trangVangCrawler.run();
