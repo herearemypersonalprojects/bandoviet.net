@@ -42,7 +42,7 @@ public class DoanhNghiepCrawler {
    * Start.
    */
   public void run() {
-    for (int i = 250; i < 700; i++) {
+    for (int i = 250; i < 850; i++) {
       String url = "http://hochiminh.vietnamnay.com/doanh-nghiep/trang-" + String.valueOf(i) + ".html?sort=4";
       linksInProgress.add(url);
     }
@@ -132,10 +132,12 @@ public class DoanhNghiepCrawler {
     }
 
     if (StringUtils.isNotEmpty(place.getImagePath()) &&
-            !place.getImagePath().contains("logo_coming_soon") &&
             tool.getAddressFromGoogleMap(place, place.getAddress()) &&
             !place.getAddress().contains("USA")) {
       place.setImagePath("http://hochiminh.vietnamnay.com/" + place.getImagePath());
+      if (place.getImagePath().contains("logo_coming_soon")) {
+        place.setInformation("logo_coming_soon");
+      }
       return place;
     } else {
       return null;
