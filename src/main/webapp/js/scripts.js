@@ -109,12 +109,12 @@ $(document).ready(
 				    latlng = new google.maps.LatLng(station.lat, station.lng);
 				    bounds.extend(latlng);
 				    
-				    /*
+
 				    var m = createMarker(map, latlng, station.title, idx);
 				    
 				    //Creates a sidebar button for the marker
 				    createMarkerButton(m, idx);
-				    */
+				    /*
 				      var infoBubble=new InfoBubble(
 			                {
 			                    map: map,
@@ -141,7 +141,7 @@ $(document).ready(
 				       infoBubble.open();
 				 
 				       markerList.push(infoBubble);
-				    
+				    */
 				    idx = idx + 1;
 			
 				  }
