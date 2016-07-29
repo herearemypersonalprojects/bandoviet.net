@@ -41,7 +41,7 @@ public class PlaceService {
   
   @Autowired private PlaceSaveService placeSaveService;
 
-  private static final int PAGE_SIZE = 50;
+  private static final int PAGE_SIZE = 30;
   
   private static final double DISTANCE = 50; // km
   
