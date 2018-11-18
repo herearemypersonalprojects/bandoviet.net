@@ -60,8 +60,7 @@ public class UserService {
   public User create(UserCreateForm form, String ip) {
     User user = new User();
     
-    //user.setId(UUID. .randomUUID().toString());
-    //user.setId(Math.random()*10);
+    user.setId(UUID.randomUUID().toString());
     
     user.setFullname(form.getFullname());
     user.setAddress(form.getAddress());

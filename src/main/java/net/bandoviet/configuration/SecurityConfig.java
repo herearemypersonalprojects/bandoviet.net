@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     http.authorizeRequests().antMatchers("/img/**", "/fonts/**", "/libs/**").permitAll();
     http.authorizeRequests()
               //.antMatchers("/", "/index", "/place/**", "/public/**").permitAll()
-              .antMatchers("/public/**", "/place/**", "/user/create", "/doanhNghiepCrawler/**",
+              .antMatchers("/public/**", "/place/**", "/user/create", "/trangVangCrawler/**",
                   "/active/**", "/create", "/update", "/feedback/**", "/crawYelp/**").permitAll()
               .antMatchers("/users/**").hasAuthority("SUPERADMIN")
               .anyRequest().fullyAuthenticated()

@@ -76,7 +76,7 @@ $(document).ready(function() {
 		window.location.href = params;
 	}
 	// locate the user to search
-	$.getJSON('http://ipinfo.io', function(response) {
+	$.get("http://ipinfo.io", function(response) {
 		if (response.city) currentAddress = response.city;
 		if (response.region) currentAddress = currentAddress + " " + response.region;
 		if (response.country) currentAddress = currentAddress + " " + response.country;

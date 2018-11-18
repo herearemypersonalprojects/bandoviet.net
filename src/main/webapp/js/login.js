@@ -60,7 +60,6 @@ $(document).ready(function() {
 	        } else {
 		        geocoder.geocode({'address': address}, function (results, status) {
 		        	getLocation(results, status) ;
-					/*
 		        	
 		    		// Kiem tra xem dia chi nhap co dung khong (by country)
 					$.get("http://ipinfo.io", function(response) { 
@@ -87,7 +86,6 @@ $(document).ready(function() {
 						//$('#myLocationAlertcountry').html(response.country);
 						//alert.modal('show');
 					}, "jsonp");
-					        	*/
 		        });        	
 	        }
 

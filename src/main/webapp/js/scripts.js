@@ -1,5 +1,5 @@
 /* Global variables */
-var currentAddress = "Ho Chi Minh, Vietnam";
+var currentAddress = "Paris, France";
 var marker = new google.maps.Marker();
 var map;
 var infoWnd = new google.maps.InfoWindow({disableAutoPan: false  });
@@ -24,7 +24,7 @@ $(document).ready(
 
 				
 				/* position Paris */
-				var latlng = new google.maps.LatLng(10.8230989, 106.6296638);
+				var latlng = new google.maps.LatLng(48.856614, 2.3522219000000177);
 
 				var mapOptions = {
 					center : latlng,
@@ -109,12 +109,12 @@ $(document).ready(
 				    latlng = new google.maps.LatLng(station.lat, station.lng);
 				    bounds.extend(latlng);
 				    
-
+				    /*
 				    var m = createMarker(map, latlng, station.title, idx);
 				    
 				    //Creates a sidebar button for the marker
 				    createMarkerButton(m, idx);
-				    /*
+				    */
 				      var infoBubble=new InfoBubble(
 			                {
 			                    map: map,
@@ -141,7 +141,7 @@ $(document).ready(
 				       infoBubble.open();
 				 
 				       markerList.push(infoBubble);
-				    */
+
 				    idx = idx + 1;
 			
 				  }

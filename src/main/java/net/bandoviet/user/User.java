@@ -33,7 +33,6 @@ public class User {
   */
   @Id
   @Column(name = "id", nullable = false, updatable = false)
-  @GeneratedValue(strategy = GenerationType.AUTO)
   private String id;
   
   @Column(name = "enabled", nullable = false)

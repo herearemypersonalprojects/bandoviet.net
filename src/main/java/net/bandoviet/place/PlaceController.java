@@ -95,7 +95,9 @@ public class PlaceController {
           }
         }
         
-        return "redirect:" + "/search/COMPANY/1";
+        return "redirect:" + "/search/" + categories.toString() + "/" + user.get().getLatitude() + "/"
+                 + user.get().getLongitude() + "/" + user.get().getCountry() + "/"
+                 + user.get().getAddress() + "/1";
       } 
     } 
    
