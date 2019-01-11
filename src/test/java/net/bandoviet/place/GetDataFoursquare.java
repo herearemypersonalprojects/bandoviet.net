@@ -55,7 +55,7 @@ public class GetDataFoursquare {
     
 
     final String baseUrl = "http://nominatim.openstreetmap.org/";
-    final String email = "quocanh263@gmail.com";
+    final String email = "xxx@gmail.com";
     JsonNominatimClient nominatimClient = new JsonNominatimClient(baseUrl, httpClient, email);
     
     Address add = nominatimClient.getAddress(1.64891269513038, 48.1166561643464);
